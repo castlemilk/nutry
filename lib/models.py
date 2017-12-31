@@ -26,8 +26,51 @@ class Record(object):
                 self.names['alias'] = self.names['name']
             elif self.names.get('long'):
                 self.names['alias'] = self.names['long']
-        #
-        #     raise NoAliasAvailable(self)
+                #
+                #     raise NoAliasAvailable(self)
+
+    def get_best_name(self):
+        """
+        Attempt to determine the best name to use out of the random and inconsistent alias's applied to the
+        dataset by a qualified dietitian
+        :return:
+        """
+        if self.names.get('alias'):
+            return self.names['alias']
+        elif self.names.get('alias1') \
+                and self.names.get('alias2') \
+                and self.names.get('alias3'):
+            return self.names['alias1']
+        elif self.names.get('alias 1') \
+                and self.names.get('alias 2') \
+                and self.names.get('alias 3'):
+            return self.names['alias 1']
+        elif self.names.get('alias 1') \
+                and self.names.get('alias2') \
+                and self.names.get('alias3'):
+            return self.names['alias 1']
+        elif self.names.get('alias1') \
+                and self.names.get('alias2') \
+                and self.names.get('alias 3'):
+            return self.names['alias1']
+        elif self.names.get('alias1') \
+                and self.names.get('alias2') \
+                and self.names.get('alias 3'):
+            return self.names['alias1']
+        elif self.names.get('alias 1') \
+                and self.names.get('alias 2') \
+                and self.names.get('alias3'):
+            return self.names['alias 1']
+        elif self.names.get('alias1') \
+                and self.names.get('alias 2') \
+                and self.names.get('alias3'):
+            return self.names['alias1']
+
+    def get_indexable_document(self):
+
+        return {
+            'name': self.get_best_name()
+        }
 
     def __repr__(self):
         return self.item
