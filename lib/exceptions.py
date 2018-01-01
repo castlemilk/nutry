@@ -54,8 +54,8 @@ class UnableToLoadProperties(Exception):
 class FailedToCreateIndex(Exception):
     """Unable to load properties file"""
 
-    def __init__(self, reponse):
-        self.message = "response {}".format(reponse)
+    def __init__(self, response):
+        self.message = "response :{}, text: {}, json: {}".format(response, response.text, '')
 
     def __str__(self):
         return self.message
@@ -63,11 +63,38 @@ class FailedToCreateIndex(Exception):
     def __repr__(self):
         return self.message
 
+
 class FailedToDeleteIndex(Exception):
     """Unable to Delete index"""
 
-    def __init__(self, reponse):
-        self.message = "response {}".format(reponse)
+    def __init__(self, response):
+        self.message = "response {}".format(response)
+
+    def __str__(self):
+        return self.message
+
+    def __repr__(self):
+        return self.message
+
+
+class FailedToGetIndex(Exception):
+    """Unable to Get index"""
+
+    def __init__(self, response):
+        self.message = "failed to get index - response: {}, json: {}".format(response, response.json())
+
+    def __str__(self):
+        return self.message
+
+    def __repr__(self):
+        return self.message
+
+
+class FailedToIndexRecord(Exception):
+    """Unable to Delete index"""
+
+    def __init__(self, response, record):
+        self.message = "response: {}, raw: {}, record: {}".format(response, response.text, record.get_indexable_document())
 
     def __str__(self):
         return self.message

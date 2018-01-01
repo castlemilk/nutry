@@ -1,6 +1,7 @@
 from lib import utils
 from lib import mongo
 from lib import elasticsearch
+from lib.exceptions import FailedToGetIndex
 import argparse
 import os
 import imp
@@ -30,13 +31,13 @@ class DBManager(object):
         Index the available data from a given data source (JSON dump, mongodb etc)
         :return:
         """
-        self.elasticsearchClient.get_index()
-        return
+        if not self.elasticsearchClient.get_index():
+            self.elasticsearchClient.create_index()
         if loading_bar:
             for record in tqdm.tqdm(self.mongoClient.parseCollections(),
                                     total=self.mongoClient.total_items,
                                     unit='Records'):
-                pass
+                self.elasticsearchClient.add_record(record)
         else:
             for record in self.mongoClient.parseCollections():
                 pass
@@ -61,6 +62,8 @@ class DBManager(object):
         Reset a given index, will be done in a re-index event
         :return:
         """
+        self.elasticsearchClient.recreate_index()
+
 
 
 def main():

@@ -1,5 +1,6 @@
 from .utils import load_mapping, load_index_properties
-from .exceptions import UnableToLoadMapping, UnableToLoadProperties, FailedToCreateIndex, FailedToDeleteIndex
+from .exceptions import UnableToLoadMapping, UnableToLoadProperties, FailedToCreateIndex, FailedToDeleteIndex, \
+    FailedToIndexRecord
 import json
 from requests import Request, Session
 from .models import Record
@@ -38,7 +39,7 @@ class ElasticsearchIndex(object):
         except Exception:
             raise UnableToLoadProperties(self.properties_file_path)
 
-    def add_record(self, record):
+    def add_record(self, record, index_name = None):
         """
         Add record to the target elasticsearch index
         :param Record record:
@@ -46,19 +47,26 @@ class ElasticsearchIndex(object):
         """
         if not isinstance(record, Record):
             raise Exception('invalid input during add_record')
+        path = "{url}/{index}/item".format(url=self.url, index=index_name if index_name else self.index_name)
         session = Session()
         if self.xpack:
             session.auth = (self.username, self.password)
         request = Request('POST',
-                          self.url,
-                          data=Record.get_indexable_document())
+                          path,
+                          data=record.get_indexable_document())
+        prepped = session.prepare_request(request)
+        response = session.send(prepped)
+        if response.status_code != 200 and response.status_code != 201:
+            raise FailedToIndexRecord(response, record)
+        else:
+            return True
 
     def delete_index(self, index=None):
         """
         Removes a given elasticsearch index
         :return:
         """
-        path = "{url}/{index}".format(self.url, self.index_name if not index else index)
+        path = "{url}/{index}".format(url=self.url, index=self.index_name if not index else index)
         session = Session()
         if self.xpack:
             session.auth = (self.username, self.password)
@@ -91,9 +99,11 @@ class ElasticsearchIndex(object):
             return False
 
     def recreate_index(self):
+        if self.get_index():
+            self.delete_index()
+        return self.create_index()
 
-
-    def create_index(self, reindex = False):
+    def create_index(self, reindex=False):
         """
         Create the elasticsearch index with the correct configuration/properties for the data we will ingest
         This configured properties such as n-grams, splices and tuples to enable an "elasticsearch" or autocomplete
@@ -118,7 +128,7 @@ class ElasticsearchIndex(object):
         """
         Generate request for creating index with desired properties
         """
-
+        path = "{url}/{index_name}".format(url=self.url, index_name=self.index_name)
         props = lambda x: self.properties[x] if self.properties.get(x) else None
         headers = {'content-type': 'application/json', 'Accept': 'application/json'}
         body = {"settings": {}}
@@ -132,5 +142,5 @@ class ElasticsearchIndex(object):
         if self.mapping:
             body["mappings"] = self.mapping["mappings"]
         body = json.dumps(body)
-        request = Request('PUT', self.url, data=body, headers=headers)
+        request = Request('PUT', path, data=body, headers=headers)
         return request

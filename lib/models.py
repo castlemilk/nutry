@@ -1,5 +1,6 @@
 import pymongo
 from .exceptions import NoAliasAvailable
+import json
 
 
 class Record(object):
@@ -65,12 +66,30 @@ class Record(object):
                 and self.names.get('alias 2') \
                 and self.names.get('alias3'):
             return self.names['alias1']
+    def get_tags(self):
+        if self.names.get('tags'):
+            return self.names['tags']
+        else:
+            return []
+    def get_usage(self):
+        if self.names.get('usage'):
+            return self.names['usage']
+        else:
+            return []
+    def get_allergen(self):
+        if self.names.get('allergen'):
+            return self.names['allergen']
+        else:
+            return []
 
     def get_indexable_document(self):
 
-        return {
-            'name': self.get_best_name()
-        }
+        return json.dumps({
+            'name': self.get_best_name(),
+            'tags': self.get_tags(),
+            'usage': self.get_usage(),
+            'allergen': self.get_allergen()
+        })
 
     def __repr__(self):
         return self.item
