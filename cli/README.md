@@ -10,8 +10,12 @@ the following:
   enriched data sets.
   
   
-## Requirement
+## Requirements
 * Python 3.6
+### data consumption format
+* MongoDB/JSON dumps/CSV
+### data storage
+* Elasticsearch
 
 
 ## Getting started
