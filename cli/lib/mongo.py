@@ -42,7 +42,6 @@ class MongoDB(object):
 
         return self.databases
 
-
     def parseCollections(self):
         """
         Parse collections available in the discovered databases
@@ -53,12 +52,12 @@ class MongoDB(object):
             for available_collection in db.list_collection_names():
                 collection = db.get_collection(available_collection)
                 for item in collection.find({}):
-                    yield Record(item)
+                    yield Record(item, available_db['name'])
 
 
 
-        # for db in self.databases:
-        #     mongodb = self.client.get_database(db)
-        #     for collection in mongodb.list_collections():
-        #         coll = mongodb.get_collection(collection['name'])
-        #         print(coll.count())
+                    # for db in self.databases:
+                    #     mongodb = self.client.get_database(db)
+                    #     for collection in mongodb.list_collections():
+                    #         coll = mongodb.get_collection(collection['name'])
+                    #         print(coll.count())

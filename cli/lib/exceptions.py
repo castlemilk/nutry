@@ -94,7 +94,21 @@ class FailedToIndexRecord(Exception):
     """Unable to Delete index"""
 
     def __init__(self, response, record):
-        self.message = "response: {}, raw: {}, record: {}".format(response, response.text, record.get_indexable_document())
+        self.message = "response: {}, raw: {}, record: {}".format(response, response.text,
+                                                                  record.get_indexable_document())
+
+    def __str__(self):
+        return self.message
+
+    def __repr__(self):
+        return self.message
+
+
+class NoRecordIDAvailable(Exception):
+    """Unable to Delete index"""
+
+    def __init__(self, record):
+        self.message = "record: {}".format(record.get_indexable_document())
 
     def __str__(self):
         return self.message
