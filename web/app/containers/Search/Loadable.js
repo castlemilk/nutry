@@ -1,6 +1,9 @@
 /**
- * Asynchronously loads the component for HomePage
+ *
+ * Asynchronously loads the component for SearchB
+ *
  */
+
 import Loadable from 'react-loadable';
 
 export default Loadable({
