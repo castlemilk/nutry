@@ -19,8 +19,6 @@ import { makeSelectSearch, makeSelectSearchString } from './selectors';
 import { changeSearchString } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import Wrapper from './Wrapper';
-
 
 export class Search extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleClick(event) {
@@ -42,7 +40,6 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 }
 
 Search.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   searchString: PropTypes.string.isRequired,
   onChangeSearchString: PropTypes.func,
 };
