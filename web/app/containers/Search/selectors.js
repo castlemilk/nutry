@@ -22,10 +22,15 @@ const makeSelectSearchString = () => createSelector(
   selectSearchDomain,
   (searchState) => searchState.get('searchString')
 );
+const makeSelectSearchResults = () => createSelector(
+  selectSearchDomain,
+  (searchState) => searchState.get('results')
+);
 
 export default makeSelectSearch;
 export {
   selectSearchDomain,
   makeSelectSearchString,
+  makeSelectSearchResults,
   makeSelectSearch,
 };

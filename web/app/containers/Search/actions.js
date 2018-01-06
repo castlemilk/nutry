@@ -23,9 +23,15 @@ export function changeSearchString(searchString) {
   };
 }
 export function searchComplete(results) {
+  if (results) {
+    return {
+      type: SEARCH_COMPLETE,
+      results,
+    };
+  }
   return {
     type: SEARCH_COMPLETE,
-    results,
+    results: [],
   };
 }
 export function searchFailure(error) {

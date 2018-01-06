@@ -15,7 +15,8 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import SearchBar from 'components/SearchBar';
-import { makeSelectSearch, makeSelectSearchString } from './selectors';
+import ResultsList from 'components/ResultsList';
+import { makeSelectSearch, makeSelectSearchString, makeSelectSearchResults } from './selectors';
 import { changeSearchString } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -31,9 +32,12 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       value: this.props.searchString,
       onChange: this.props.onChangeSearchString,
     };
+    const results = this.props.searchResults.items ?
+      <ResultsList results={this.props.searchResults.items} /> : null;
     return (
       <div>
         <SearchBar {...searchBarProps} />
+        {results}
       </div>
     );
   }
@@ -41,12 +45,14 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 
 Search.propTypes = {
   searchString: PropTypes.string.isRequired,
+  searchResults: PropTypes.object.isRequired,
   onChangeSearchString: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   search: makeSelectSearch(),
   searchString: makeSelectSearchString(),
+  searchResults: makeSelectSearchResults(),
 });
 
 function mapDispatchToProps(dispatch) {
