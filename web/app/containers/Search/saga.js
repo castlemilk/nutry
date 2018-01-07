@@ -1,3 +1,4 @@
+import { delay } from 'redux-saga';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { search } from 'services/elasticsearch/elasticsearch';
 import { CHANGE_SEARCH } from './constants';
@@ -15,11 +16,10 @@ export function* getResults() {
   // Fetch results from elasticsearch from the given search searchString
   const searchString = yield select(makeSelectSearchString());
   try {
+    yield delay(500);
     const results = yield call(search, searchString);
-    console.log(results);
     yield put(searchComplete(results));
   } catch (err) {
-    console.log(err);
     yield put(searchFailure(err));
   }
 }

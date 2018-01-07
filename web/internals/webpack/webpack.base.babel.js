@@ -21,6 +21,13 @@ module.exports = (options) => ({
     noParse: /moment\.js/,
     rules: [
       {
+        test: /react-icons\/(.)*(.js)$/,
+        loader: "babel-loader",
+        query: {
+          presets: ["es2015", "react"],
+        },
+      },
+      {
         test: /\.js$/, // Transform all .js files required somewhere with Babel
         loader: "babel-loader",
         exclude: /node_modules/,

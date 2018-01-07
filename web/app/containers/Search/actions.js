@@ -9,6 +9,7 @@ import {
   CHANGE_SEARCH,
   SEARCH_COMPLETE,
   SEARCH_FAILURE,
+  SEARCH_LOADING,
 } from './constants';
 
 export function defaultAction() {
@@ -32,6 +33,11 @@ export function searchComplete(results) {
   return {
     type: SEARCH_COMPLETE,
     results: [],
+  };
+}
+export function searchLoading() {
+  return {
+    type: SEARCH_LOADING,
   };
 }
 export function searchFailure(error) {

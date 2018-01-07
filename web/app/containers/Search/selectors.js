@@ -26,11 +26,16 @@ const makeSelectSearchResults = () => createSelector(
   selectSearchDomain,
   (searchState) => searchState.get('results')
 );
+const makeSelectSearchLoading = () => createSelector(
+  selectSearchDomain,
+  (searchState) => searchState.get('loading')
+);
 
 export default makeSelectSearch;
 export {
   selectSearchDomain,
   makeSelectSearchString,
   makeSelectSearchResults,
+  makeSelectSearchLoading,
   makeSelectSearch,
 };

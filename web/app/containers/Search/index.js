@@ -18,8 +18,9 @@ import injectReducer from 'utils/injectReducer';
 import SearchBar from 'components/SearchBar';
 import SearchHeader from 'components/SearchHeader';
 import ResultsList from 'components/ResultsList';
+import Footer from 'components/Footer';
 
-import { makeSelectSearch, makeSelectSearchString, makeSelectSearchResults } from './selectors';
+import { makeSelectSearch, makeSelectSearchString, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
 import { changeSearchString } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -73,6 +74,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
         <div className="tabs" >
           {tabs}
         </div>
+        <Footer />
       </SearchWrapper>
     );
   }
@@ -86,6 +88,7 @@ Search.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   search: makeSelectSearch(),
+  loading: makeSelectSearchLoading(),
   searchString: makeSelectSearchString(),
   searchResults: makeSelectSearchResults(),
 });
