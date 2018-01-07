@@ -18,7 +18,21 @@ module.exports = (options) => ({
     publicPath: "/",
   }, options.output), // Merge with env dependent settings
   module: {
+    noParse: /moment\.js/,
     rules: [
+      {
+        test: /\.js$/, // Transform all .js files required somewhere with Babel
+        loader: "babel-loader",
+        exclude: /node_modules/,
+        query: {
+          plugins: [
+            ["import", {
+              libraryName: "antd",
+              style: "css",
+            }],
+          ],
+        },
+      },
       {
         test: /\.jsx?$/, // Transform all .js/.jsx files required somewhere with Babel
         exclude: /node_modules/,
@@ -120,6 +134,9 @@ module.exports = (options) => ({
       ".jsx",
       ".react.js",
     ],
+    alias: {
+      moment$: "moment/moment.js",
+    },
     mainFields: [
       "browser",
       "jsnext:main",

@@ -6,8 +6,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Input from './Input';
-import Wrapper from './Wrapper';
+import SearchBarWrapper from './SearchBarWrapper';
 // import styled from 'styled-components';
 
 // import { FormattedMessage } from 'react-intl';
@@ -28,23 +27,24 @@ SearchBar.propTypes = {
 
 function SearchBar(props) {
   return (
-    <Wrapper>
-      <Input
-        className="search-input"
-        type="text"
-        role="combobox"
-        aria-autocomplete="both"
-        maxLength={props.maxLength}
-        placeholder={props.placeholder}
-        onFocus={props.onFocus}
-        onBlur={props.onBlur}
-        value={props.value}
-        onChange={props.onChange}
-        onKeyUp={props.onKeyUp}
-        onKeyDown={props.onKeyDown}
-        onClick={props.onClick}
-      />
-    </Wrapper>
+    <SearchBarWrapper>
+      <div className="search-box-wrapper">
+        <input
+          className="search-input"
+          type="text"
+          aria-autocomplete="both"
+          maxLength={props.maxLength}
+          placeholder={props.placeholder}
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
+          value={props.value}
+          onChange={props.onChange}
+          onKeyUp={props.onKeyUp}
+          onKeyDown={props.onKeyDown}
+          onClick={props.onClick}
+        />
+      </div>
+    </SearchBarWrapper>
   );
 }
 
