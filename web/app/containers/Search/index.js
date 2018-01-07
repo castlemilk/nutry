@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Tabs, Icon } from 'antd';
+import { Tabs, Icon, Spin } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -19,6 +19,7 @@ import SearchBar from 'components/SearchBar';
 import SearchHeader from 'components/SearchHeader';
 import ResultsList from 'components/ResultsList';
 import Footer from 'components/Footer';
+import NoResultsFound from 'components/NoResultsFound';
 
 import { makeSelectSearch, makeSelectSearchString, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
 import { changeSearchString } from './actions';
@@ -26,13 +27,21 @@ import reducer from './reducer';
 import saga from './saga';
 import SearchWrapper from './SearchWrapper';
 
+
 export class Search extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleClick(event) {
     return event;
   }
   render() {
-    const results = this.props.searchResults.items ?
-      <ResultsList results={this.props.searchResults.items} /> : null;
+    const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
+    const noResultsFound = this.props.searchResults.items.length === 0 && this.props.searchString.length > 0 && !this.props.loading;
+    const results = noResultsFound ? <NoResultsFound /> : <ResultsList results={this.props.searchResults.items} />;
+    const resultsView = this.props.loading ?
+    (<div className="loading-spinner">
+      <Spin indicator={loadingSpinner} />
+    </div>) : results;
+    console.log(this.props.searchResults);
+    console.log(this.props.searchString.length);
     const TabPane = Tabs.TabPane;
     const tabs = (
       <Tabs
@@ -40,7 +49,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
         defaultActiveKLey="1"
       >
         <TabPane tab={<span><Icon type="home" />All</span>} key="1">
-          {results}
+          {resultsView}
         </TabPane>
         <TabPane tab={<span><Icon type="file" />Nutrients</span>} key="2">
         </TabPane>
@@ -83,6 +92,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
 Search.propTypes = {
   searchString: PropTypes.string.isRequired,
   searchResults: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
   onChangeSearchString: PropTypes.func,
 };
 

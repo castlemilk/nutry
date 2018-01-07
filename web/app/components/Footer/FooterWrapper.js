@@ -9,7 +9,7 @@ const FooterWrapper = styled.div`
     padding-top: 86px;
     padding-right: 24px;
     padding-bottom: 40px;
-    padding-left: 15%;
+    padding-left: 10%;
     margin: auto;
     max-width: 1200px;
     width:100%
@@ -26,6 +26,7 @@ const FooterWrapper = styled.div`
     position: relative;
     margin-top: 2em;
     margin-bottom: 2em;
+    margin-left: 10%;
   }
   .side-col .line-right {
     position: relative;

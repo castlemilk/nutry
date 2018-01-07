@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SearchResultCard from 'components/SearchResultCard';
+import NoResultsFound from 'components/NoResultsFound';
 // import styled from 'styled-components';
 
 // import { FormattedMessage } from 'react-intl';
@@ -22,7 +23,7 @@ function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow
       usage,
     };
     return <SearchResultCard {...searchResultCardProps} key={ID} />;
-  }) : null;
+  }) : <NoResultsFound />;
   return (
     <div>
       {resultsView}

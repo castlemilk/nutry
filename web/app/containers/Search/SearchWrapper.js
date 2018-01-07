@@ -7,6 +7,9 @@ const SearchWrapper = styled.div`
   .tab-bar .ant-tabs-nav-container {
     margin-left: 160px;
   }
+  .loading-spinner {
+    margin-left: 50%;
+  }
 `;
 
 export default SearchWrapper;
