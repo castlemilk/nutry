@@ -21,8 +21,8 @@ function Footer() {
     <FooterWrapper>
       <footer className="footer">
         <div className="footer-wrap" >
-          <Row className="links">
-            <Col md={8} sm={24} xs={24}>
+          <Row className="links" type="flex" justify="center">
+            <Col xs={24} sm={24} md={4} lg={4} xl={4} gutter={48}>
               <div className="footer-center">
                 <h2>Nutry</h2>
                 <div>
@@ -39,7 +39,7 @@ function Footer() {
                 </div>
               </div>
             </Col>
-            <Col md={8} sm={24} xs={24}>
+            <Col xs={24} sm={24} md={4} lg={4} xl={4} gutter={48}>
               <div className="footer-center">
                 <h2>Community</h2>
                 <div>
@@ -47,7 +47,7 @@ function Footer() {
                 </div>
               </div>
             </Col>
-            <Col md={8} sm={24} xs={24}>
+            <Col xs={24} sm={24} md={4} lg={4} xl={4} gutter={48}>
               <div className="footer-center">
                 <h2>Other</h2>
                 <div>
@@ -59,11 +59,11 @@ function Footer() {
               </div>
             </Col>
           </Row>
-          <Row className="media-row">
-            <Col className="side-col" md={9} sm={9} xs={9}>
+          <Row className="media-row" type="flex" justify="center">
+            <Col className="side-col" xl={10} lg={8} md={8} sm={8} xs={6}>
               <div className="line-left"></div>
             </Col>
-            <Col className="media-center-column" md={6} sm={6} xs={6}>
+            <Col className="media-center-column" xl={4} lg={8} md={8} sm={8} xs={12}>
               <div className="social-media-box">
                 <FaInstagram style={{ fontSize: 40, color: '#7F3FBF' }} />
                 <FaLinkedinSquare style={{ fontSize: 40, color: '#7F3FBF' }} />
@@ -71,7 +71,7 @@ function Footer() {
                 <FaFacebookOfficial style={{ fontSize: 40, color: '#7F3FBF' }} />
               </div>
             </Col>
-            <Col className="side-col" md={9} sm={9} xs={9}>
+            <Col className="side-col" xl={10} lg={8} md={8} sm={8} xs={6}>
               <div className="line-right"></div>
             </Col>
           </Row>

@@ -1,6 +1,7 @@
 from lib import utils
 from lib import mongo
 from lib import elasticsearch
+from lib import ssh
 from lib.exceptions import FailedToGetIndex
 import argparse
 import os
@@ -23,8 +24,18 @@ class DBManager(object):
     def __init__(self, config, mode="DRY"):
         self.mode = mode
         self.config = config
+
+        print(self.config['mongodb'])
+        if self.config['mongodb'].get('ssh'):
+            if self.config['mongodb']['ssh'].get('proxy'):
+                if self.config['mongodb']['ssh']['proxy']:
+                    self.proxy = True
+                    self.ssh = ssh.SSHTunnelManager(self.config['mongodb']['ssh'])
+                    self.ssh.connect()
+                    self.ssh.forward()
         self.mongoClient = mongo.MongoDB(self.config['mongodb'])
         self.elasticsearchClient = elasticsearch.ElasticsearchIndex(self.config['elasticsearch'])
+
 
     def index_data(self):
         """
@@ -41,6 +52,8 @@ class DBManager(object):
         else:
             for record in self.mongoClient.parseCollections():
                 pass
+        if self.proxy:
+            self.ssh.stop_tunnel()
 
     def reindex_data(self):
         """
@@ -78,6 +91,8 @@ def main():
                         help='index available data')
     parser.add_argument('-ri', '--reindex', dest='ri', action='store_true',
                         help='re-index available data and re-configure index. WARNING: WILL DELETE EXISTING INDEX')
+    parser.add_argument('-rt', '--remote-tunnel', dest='rt', action='store_true',
+                        help='fetch data from a remote mongodb instance via a SSH tunnel')
 
     args = vars(parser.parse_args())
     if 'PWD' in args['config']:

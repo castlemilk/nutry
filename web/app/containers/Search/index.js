@@ -34,12 +34,13 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
   }
   render() {
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
-    const noResultsFound = this.props.searchResults.items.length === 0 && this.props.searchString.length > 0 && !this.props.loading;
-    const results = noResultsFound ? <NoResultsFound /> : <ResultsList results={this.props.searchResults.items} />;
-    const resultsView = this.props.loading ?
+    const items = this.props.searchResults.items ? this.props.searchResults.items : [];
+    const noResultsFound = items === 0 && this.props.searchString.length > 0 && !this.props.loading;
+    const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList results={items} />;
+    const nutrientResultsView = this.props.loading ?
     (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
-    </div>) : results;
+    </div>) : nutrientResults;
     console.log(this.props.searchResults);
     console.log(this.props.searchString.length);
     const TabPane = Tabs.TabPane;
@@ -49,9 +50,10 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
         defaultActiveKLey="1"
       >
         <TabPane tab={<span><Icon type="home" />All</span>} key="1">
-          {resultsView}
+          {nutrientResultsView}
         </TabPane>
         <TabPane tab={<span><Icon type="file" />Nutrients</span>} key="2">
+          {nutrientResultsView}
         </TabPane>
         <TabPane tab={<span><Icon type="bars" />Profiler</span>} key="4">
         </TabPane>
