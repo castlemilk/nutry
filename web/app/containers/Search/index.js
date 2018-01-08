@@ -20,6 +20,7 @@ import SearchHeader from 'components/SearchHeader';
 import ResultsList from 'components/ResultsList';
 import Footer from 'components/Footer';
 import NoResultsFound from 'components/NoResultsFound';
+import Profiler from 'containers/Profiler';
 
 import { makeSelectSearch, makeSelectSearchString, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
 import { changeSearchString } from './actions';
@@ -56,6 +57,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
           {nutrientResultsView}
         </TabPane>
         <TabPane tab={<span><Icon type="bars" />Profiler</span>} key="4">
+          <Profiler />
         </TabPane>
         <TabPane tab={<span><Icon type="api" />Recipes</span>} key="3">
         </TabPane>
