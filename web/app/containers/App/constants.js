@@ -10,3 +10,13 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+/*
+ *
+ * LandingPage constants
+ *
+ */
+const prefix = (name) => `app/App/${name}`;
+export const DEFAULT_ACTION = prefix('DEFAULT_ACTION');
+export const LOGIN_FAILURE = prefix('LOGIN_FAILURE');
+export const LOGIN_SUCCESS = prefix('LOGIN_SUCCESS');
+export const LOGIN_CLICKED = prefix('LOGIN_CLICKED');

@@ -4,6 +4,14 @@ const SearchHeaderWrapper = styled.div`
   background-color: rgba(211, 211, 211, 0.3);
   position: relative;
   width: 100%;
+  .sign-in-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ant-btn ant-btn-primary {
+    backhround: rgba(211, 211, 211, 0.3);
+  }
   .header {
     height:auto;
     padding:1%;
@@ -23,10 +31,10 @@ const SearchHeaderWrapper = styled.div`
   .search-box {
     float:left;
     width: 100%;
-    display: block;
-    padding-top: 15px;
     z-index: 103;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 

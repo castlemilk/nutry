@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Tabs, Icon, Spin } from 'antd';
+import { Tabs, Icon, Spin, Button, Avatar } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -21,6 +21,8 @@ import ResultsList from 'components/ResultsList';
 import Footer from 'components/Footer';
 import NoResultsFound from 'components/NoResultsFound';
 import Profiler from 'containers/Profiler';
+import { makeSelectLoggedIn } from 'containers/App/selectors';
+import { login } from 'containers/App/actions';
 
 import { makeSelectSearch, makeSelectSearchString, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
 import { changeSearchString } from './actions';
@@ -36,7 +38,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
   render() {
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = this.props.searchResults.items ? this.props.searchResults.items : [];
-    const noResultsFound = items === 0 && this.props.searchString.length > 0 && !this.props.loading;
+    const noResultsFound = items.length === 0 && this.props.searchString.length > 0 && !this.props.loading;
     const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList results={items} />;
     const nutrientResultsView = this.props.loading ?
     (<div className="loading-spinner">
@@ -71,7 +73,10 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       value: this.props.searchString,
       onChange: this.props.onChangeSearchString,
     };
-
+    const user = 'D';
+    const avatarStyle = {
+      backgroundColor: '#7F3FBF',
+      position: 'absolute' };
     const helmet = (
       <Helmet>
         <title>Search</title>
@@ -82,8 +87,15 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
         {helmet}
         <SearchHeader>
           <SearchBar {...searchBarProps} />
-
+          <div className="sign-in-wrapper">
+            { this.props.loggedIn ?
+              <Avatar style={avatarStyle} size="default" >
+                {user}
+              </Avatar>
+              : <Button type="primary" onClick={this.props.onLogin} >Sign In</Button> }
+          </div>
         </SearchHeader>
+
         <div className="tabs" >
           {tabs}
         </div>
@@ -98,6 +110,8 @@ Search.propTypes = {
   searchResults: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
   onChangeSearchString: PropTypes.func,
+  loggedIn: PropTypes.bool,
+  onLogin: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -105,12 +119,14 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectSearchLoading(),
   searchString: makeSelectSearchString(),
   searchResults: makeSelectSearchResults(),
+  loggedIn: makeSelectLoggedIn(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onChangeSearchString: (evt) => dispatch(changeSearchString(evt.target.value)),
+    onLogin: () => dispatch(login()),
   };
 }
 

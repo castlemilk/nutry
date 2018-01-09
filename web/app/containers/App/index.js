@@ -13,17 +13,32 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { compose } from 'redux';
 import Search from 'containers/Search/Loadable';
+import LandingPage from 'containers/LandingPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import reducer from './reducer';
+import saga from './sagas';
 
-export default function App() {
-  return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={Search} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </div>
-  );
+export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  render() {
+    return (
+      <div>
+        <Switch>
+          <Route exact path="/" component={Search} />
+          <Route exact path="/overview" component={LandingPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </div>
+    );
+  }
 }
+const withReducer = injectReducer({ key: 'global', reducer });
+const withSaga = injectSaga({ key: 'global', saga });
+
+export default compose(
+  withReducer,
+  withSaga,
+)(App);

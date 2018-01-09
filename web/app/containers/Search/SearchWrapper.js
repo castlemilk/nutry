@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const SearchWrapper = styled.div`
+  width: 100%;
   .tab-bar .ant-tabs-bar {
     background-color: rgba(211, 211, 211, 0.3);
   }
@@ -10,6 +11,7 @@ const SearchWrapper = styled.div`
   .loading-spinner {
     margin-left: 50%;
   }
+
 `;
 
 export default SearchWrapper;

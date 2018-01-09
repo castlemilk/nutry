@@ -8,44 +8,76 @@ import { defineMessages } from 'react-intl';
 const scope = 'app.components.Footer';
 
 export default defineMessages({
+  // Company
   about: {
     id: `${scope}.about`,
-    defaultMessage: 'ABOUT US',
+    defaultMessage: 'About',
   },
+  blog: {
+    id: `${scope}.blog`,
+    defaultMessage: 'Blog',
+  },
+  press: {
+    id: `${scope}.press`,
+    defaultMessage: 'Press',
+  },
+  customers: {
+    id: `${scope}.customers`,
+    defaultMessage: 'Customers',
+  },
+  // Resources
   contact: {
     id: `${scope}.contact`,
-    defaultMessage: 'CONTACT US',
+    defaultMessage: 'Contact',
   },
-  services: {
-    id: `${scope}.services`,
-    defaultMessage: 'SERVICES',
+  support: {
+    id: `${scope}.support`,
+    defaultMessage: 'Support',
   },
-  products: {
-    id: `${scope}.products`,
-    defaultMessage: 'PRODUCTS',
+  privacyAndTerms: {
+    id: `${scope}.privacyAndTerms`,
+    defaultMessage: 'Privacy & Terms',
   },
-  community: {
-    id: `${scope}.community`,
-    defaultMessage: 'Community',
+  // Products
+  search: {
+    id: `${scope}.search`,
+    defaultMessage: 'Search',
   },
-  discussion: {
-    id: `${scope}.discussion`,
-    defaultMessage: 'DISCUSSION',
-  },
-  overview: {
-    id: `${scope}.overview`,
-    defaultMessage: 'MVP',
+  dietetics: {
+    id: `${scope}.dietetics`,
+    defaultMessage: 'Dietetics',
   },
   mobile: {
     id: `${scope}.mobile`,
-    defaultMessage: 'NUTRY MOBILE',
+    defaultMessage: 'Nutry Mobile',
   },
   web: {
     id: `${scope}.web`,
-    defaultMessage: 'NUTRY WEB',
+    defaultMessage: 'Nutry Web',
   },
   enterprise: {
     id: `${scope}.dicussion`,
-    defaultMessage: 'NUTRY ENTERPRISE',
+    defaultMessage: 'Nutry Enterprise',
+  },
+  // Developers
+  developers: {
+    id: `${scope}.developers`,
+    defaultMessage: 'Developers',
+  },
+  discussion: {
+    id: `${scope}.discussion`,
+    defaultMessage: 'Discussiom',
+  },
+  api_ref: {
+    id: `${scope}.api_ref`,
+    defaultMessage: 'API Reference',
+  },
+  api_status: {
+    id: `${scope}.api_status`,
+    defaultMessage: 'API Status',
+  },
+  documentation: {
+    id: `${scope}.documentation`,
+    defaultMessage: 'Documentation',
   },
 });

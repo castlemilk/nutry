@@ -24,9 +24,9 @@ function Footer() {
           <Row className="links" type="flex" justify="center">
             <Col xs={24} sm={24} md={4} lg={4} xl={4} gutter={48}>
               <div className="footer-center">
-                <h2>Nutry</h2>
+                <h2>Products</h2>
                 <div>
-                  <FormattedMessage {...messages.overview} />
+                  <FormattedMessage {...messages.search} />
                 </div>
                 <div>
                   <FormattedMessage {...messages.mobile} />
@@ -41,20 +41,38 @@ function Footer() {
             </Col>
             <Col xs={24} sm={24} md={4} lg={4} xl={4} gutter={48}>
               <div className="footer-center">
-                <h2>Community</h2>
+                <h2>Developers</h2>
                 <div>
                   <FormattedMessage {...messages.discussion} />
+                </div>
+                <div>
+                  <FormattedMessage {...messages.api_ref} />
+                </div>
+                <div>
+                  <FormattedMessage {...messages.api_status} />
+                </div>
+                <div>
+                  <FormattedMessage {...messages.documentation} />
                 </div>
               </div>
             </Col>
             <Col xs={24} sm={24} md={4} lg={4} xl={4} gutter={48}>
               <div className="footer-center">
-                <h2>Other</h2>
+                <h2>Company</h2>
                 <div>
                   <FormattedMessage {...messages.about} />
                 </div>
                 <div>
-                  <FormattedMessage {...messages.contact} />
+                  <FormattedMessage {...messages.blog} />
+                </div>
+                <div>
+                  <FormattedMessage {...messages.press} />
+                </div>
+                <div>
+                  <FormattedMessage {...messages.customers} />
+                </div>
+                <div>
+                  <FormattedMessage {...messages.privacyAndTerms} />
                 </div>
               </div>
             </Col>
