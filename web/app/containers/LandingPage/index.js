@@ -15,9 +15,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Footer from 'components/Footer';
 import makeSelectLandingPage from './selectors';
+
 import Header from './Header';
 import Banner from './Banner';
+import Page1 from './Page1';
 import reducer from './reducer';
 import saga from './saga';
 // import messages from './messages';
@@ -51,6 +54,8 @@ export class LandingPage extends React.Component { // eslint-disable-line react/
         </Helmet>
         <Header {...childProps} />
         <Banner {...childProps} />
+        <Page1 {...childProps} />
+        <Footer />
       </div>
     );
   }

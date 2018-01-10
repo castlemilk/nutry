@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="146px" height="146px" viewBox="0 0 146 146" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>recipeLogo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="recipeLogo" transform="translate(1.000000, 1.000000)">
+            <circle id="Oval-5" stroke="#979797" fill="#FFFFFF" cx="72" cy="72" r="72"></circle>
+            <g transform="translate(32.470588, 22.117647)" stroke="#B775F2" stroke-linecap="round" stroke-width="7">
+                <path d="M31.2974822,52.5583391 C38.6463004,37.4322349 25.278873,25.1454378 15.0611425,25.9167944 C4.84341201,26.6881511 -5.23819868,39.1099875 0.959351783,52.7058824" id="Oval-4" transform="translate(16.235294, 39.294118) rotate(261.000000) translate(-16.235294, -39.294118) "></path>
+                <path d="M58.1415384,32 C64.3390403,14.6416119 51.5187881,5.17647059 41.1041183,5.17647059 C30.6894484,5.17647059 25.481748,13.1086437 25.9063869,15.3804621" id="Oval-4" transform="translate(42.823529, 18.588235) rotate(-20.000000) translate(-42.823529, -18.588235) "></path>
+                <path d="M64.1937798,55.8426699 C69.5506134,58.6558673 79.5294118,51.6844779 79.5294118,41.5587001 C79.5294118,31.4329223 70.4745952,23.7163355 62.1176471,25.7341332" id="Oval-4"></path>
+                <polyline id="Path-5" stroke-linejoin="round" points="20.2352941 57.2548235 20.2352941 89.3430058 41.8764003 89.3430058 50.7421108 100.235294 50.7421108 89.3430058 64.4705882 89.3430058 64.4705882 56.4705882"></polyline>
+                <path d="M38.5882353,61.1764706 L55.0588235,61.1764706" id="Path-6"></path>
+                <path d="M30.5882353,70.1176471 L54.5882353,70.1176471" id="Path-7"></path>
+                <path d="M29.6470588,80 L53.6470588,80" id="Path-8"></path>
+            </g>
+        </g>
+    </g>
+</svg>

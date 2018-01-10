@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="146px" height="146px" viewBox="0 0 146 146" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>wikiLogo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="wikiLogo" transform="translate(1.000000, 1.000000)">
+            <circle id="Oval-5" stroke="#979797" fill="#FFFFFF" cx="72" cy="72" r="72"></circle>
+            <g id="Group" transform="translate(36.000000, 40.000000)" stroke="#B775F2">
+                <polygon id="Path-9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="0 55 43 55 43 43 0 43"></polygon>
+                <polyline id="Path-10" stroke-width="3" fill="#B775F2" stroke-linecap="round" stroke-linejoin="round" points="0 43 27.3729172 2 71 2 42.766393 43"></polyline>
+                <polyline id="Path-11" stroke-width="2" points="43.7451172 55.1103516 72 15.0302734 72 0.766601562"></polyline>
+                <path d="M4,51.5 L35,51.5" id="Path-13" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M4,47.5 L35,47.5" id="Path-13" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polygon id="Path-12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="8 51 17 51 17 63 12.5 59.7407002 8 63"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

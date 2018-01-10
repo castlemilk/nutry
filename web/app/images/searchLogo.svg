@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="146px" height="146px" viewBox="0 0 146 146" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>searchLogo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="searchLogo" transform="translate(1.000000, 1.000000)">
+            <circle id="Oval-5" stroke="#979797" fill="#FFFFFF" cx="72" cy="72" r="72"></circle>
+            <g transform="translate(37.176471, 33.411765)" stroke="#B775F2" stroke-linecap="round" stroke-width="6">
+                <ellipse id="Oval" cx="28.4705882" cy="29.1764706" rx="17.6470588" ry="17.4117647"></ellipse>
+                <path d="M69.6470588,50.4786812 L56.1137874,36.6735823 C56.1570975,36.4661984 56.1900139,36.3100931 56.2125366,36.2052662 C60.9711925,14.0571611 44.4074666,0 28.6078096,0 C12.8081526,0 0,12.7731292 0,28.5295826 C0,44.286036 12.8222036,61.5896602 35.9114217,56.1550121 C37.112948,55.8722016 44.4165601,63.0362172 57.8222581,77.6470588" id="Oval-2"></path>
+                <path d="M49.4117647,55.0588235 L69.6470588,75.2941176" id="Path-2"></path>
+                <path d="M51.2941176,45.6470588 L67.2941176,61.6470588" id="Path-3"></path>
+            </g>
+        </g>
+    </g>
+</svg>
