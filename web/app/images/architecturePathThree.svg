@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="305px" height="191px" viewBox="0 0 305 191" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>architecturePathThree</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Architecture" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="architecturePathThree" transform="translate(2.000000, 2.000000)" stroke="#4A4A4A" stroke-width="4">
+            <polyline id="Path-28" points="0.765625 20.1425781 26.6660156 0.638671875 188.078125 55.7070312"></polyline>
+            <path d="M187.988281,56.0078125 L134.138672,93.0039062" id="Path-29"></path>
+            <polyline id="Path-30" points="187.662109 55.5585938 299.341797 161.638672 269.994141 179.863281"></polyline>
+            <polygon id="Path-31" fill="#4A4A4A" points="270.308594 170.730469 288.891602 181.49707 270.308594 186.015625"></polygon>
+            <polygon id="Path-31" fill="#4A4A4A" points="127 86 145.583008 96.7666016 127 101.285156"></polygon>
+            <polygon id="Path-31" fill="#4A4A4A" points="0 8 18.5830078 18.7666016 0 23.2851562"></polygon>
+        </g>
+    </g>
+</svg>

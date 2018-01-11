@@ -61,6 +61,26 @@ module.exports = (options) => ({
         test: /\.css$/,
         include: /node_modules/,
         use: ["style-loader", "css-loader"],
+          // {
+          //   loader: "css-loader",
+          //   options: {
+          //     modules: true,
+          //   },
+          // }],
+      },
+      {
+        test: /\.less$/,
+        include: /node_modules/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+            },
+          },
+          "less-loader",
+        ],
       },
       {
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,

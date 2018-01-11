@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="172px" height="109px" viewBox="0 0 172 109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>architectureGUI</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-33.3%" y="-33.3%" width="166.7%" height="166.7%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowOffsetOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Architecture" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="architectureGUI" transform="translate(85.911879, 54.492835) rotate(1.000000) translate(-85.911879, -54.492835) translate(-0.088121, 1.492835)">
+            <polygon id="Path-37" stroke="#979797" fill="#FFFFFF" opacity="0.528645833" points="0 46.1091453 68.6146818 -5.68434189e-14 172 58.8683189 101.430829 106"></polygon>
+            <polygon id="Path-38" stroke="#979797" fill="#5B7B99" points="68.7636406 0 172 59.4342584 166.204978 63 63 4.36100106"></polygon>
+            <circle id="Oval" stroke="#FF4E50" fill="#FF4E50" cx="68.5" cy="3.5" r="1.5"></circle>
+            <circle id="Oval" stroke="#FFBB00" fill="#FFBB00" cx="73.5" cy="6.5" r="1.5"></circle>
+            <circle id="Oval" stroke="#00D11B" fill="#00D11B" cx="79.5" cy="9.5" r="1.5"></circle>
+            <path d="M62.8304213,4 C75.3578868,11.2710261 81.3835687,14.7491261 80.9074669,14.4342998 C80.4313652,14.1194736 82.2857537,13.2852149 86.4706323,11.9315238 L103.337972,21.3744602 C103.59074,25.0102817 103.264282,26.6362328 102.358598,26.2523134 C101.452914,25.868394 122.666714,38.0514086 166,62.8013572 L156.789191,69 L54,9.72979642 L62.8304213,4 Z" id="Path-39" stroke="#D7D7D6" fill="#D7D7D6"></path>
+            <polygon id="Path-40" stroke="#000000" points="86.8437563 13 84 14.8680006 87.5284536 17 90 15"></polygon>
+            <polyline id="Path-41" stroke="#000000" points="86.3862069 14 86.9356943 14.5006085 86 14.5006085 86.4678472 16 86.9356943 16 88 15.4770791"></polyline>
+            <polyline id="Path-42" stroke="#000000" points="87.1849467 15 85 15.3307888 87.1849467 16 88 15.3307888"></polyline>
+            <path d="M102,22.5 L100,22.5" id="Path-43" stroke="#979797"></path>
+            <path d="M100.5,22 L100.5,24" id="Path-44" stroke="#979797"></path>
+            <g id="BACK" transform="translate(61.000000, 8.000000)" stroke="#585858">
+                <path d="M0.196289063,0.51965332 L2.93945312,2.39465332" id="Path-45"></path>
+                <polyline id="Path-46" points="2.81282552 0.194824219 0.215169271 0.194824219 0.215169271 2.70556641"></polyline>
+            </g>
+            <g id="FORWARD" filter="url(#filter-1)" transform="translate(67.500000, 11.500000) scale(-1, -1) translate(-67.500000, -11.500000) translate(66.000000, 10.000000)" stroke="#ABA9A9">
+                <path d="M0.196289062,0.51965332 L2.93945313,2.39465332" id="Path-45"></path>
+                <polyline id="Path-46" points="2.81282552 0.194824219 0.215169271 0.194824219 0.215169271 2.70556641"></polyline>
+            </g>
+            <path d="M75,15.5318287 C74.3994834,15.8439429 73.8994834,16 73.5,16 C73.1005166,16 72.6996157,15.8439429 72.2972973,15.5318287 C72.0990991,15.2112743 72,14.8637756 72,14.4893328 C72,14.11489 72.0990991,13.818505 72.2972973,13.6001778 C72.6996157,13.2000593 73.1005166,13 73.5,13 C73.8994834,13 74.3339003,13.2000593 74.8032508,13.6001778" id="Path-47" stroke="#595959"></path>
+            <polygon id="Path-48" stroke="#595959" fill="#6B6B6B" points="73 15 75 13 75 15"></polygon>
+            <polygon id="Path-49" stroke="#979797" fill="#FFFFFF" points="79.5294882 16 75 19.2261186 149.147328 61 154 57.4602225"></polygon>
+            <path d="M157,60 L162,63" id="Path-50" stroke="#979797" stroke-width="4"></path>
+            <path d="M155,61 L160,64" id="Path-50" stroke="#979797" stroke-width="4"></path>
+            <path d="M153,63 L158,66" id="Path-50" stroke="#979797" stroke-width="4"></path>
+            <polygon id="Path-61" stroke="#979797" points="62.282873 41 59 42.9059056 87.0021706 60 90 58.2344488"></polygon>
+            <g id="searchLogo" transform="translate(90.000000, 59.000000)">
+                <circle id="Oval-5" stroke="#979797" fill="#FFFFFF" cx="9.5" cy="9.5" r="9.5"></circle>
+                <g transform="translate(5.000000, 5.000000)" stroke="#B775F2" stroke-linecap="round">
+                    <ellipse id="Oval" cx="3.67905405" cy="3.75757576" rx="2.28040541" ry="2.24242424"></ellipse>
+                    <path d="M9,6.50104227 L7.25119043,4.72311287 C7.2567871,4.69640434 7.26104065,4.67629987 7.2639511,4.66279944 C7.87887875,1.81039196 5.73846486,0 3.69678621,0 C1.65510756,0 0,1.64502422 0,3.67426443 C0,5.70350464 1.65692327,7.93200169 4.64058068,7.23208489 C4.79584547,7.19566233 5.73963994,8.1183007 7.47196409,10" id="Oval-2"></path>
+                    <path d="M6.38513514,7.09090909 L9,9.6969697" id="Path-2"></path>
+                    <path d="M6.62837838,5.87878788 L8.69594595,7.93939394" id="Path-3"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

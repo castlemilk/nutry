@@ -18,6 +18,13 @@ import 'sanitize.css/sanitize.css';
 /* eslint-enable import/no-unresolved, import/extensions */
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
+import 'codemirror/mode/xml/xml';
+import 'codemirror/mode/javascript/javascript';
+// import 'react-runkit/dist/react-runkit.min.js';
+// import 'react-runkit/dist/react-runkit.js';
+// import 'react-runkit/dist/react-runkit-embed.js';
 
 
 // Import root app

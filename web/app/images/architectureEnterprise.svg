@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="113px" height="102px" viewBox="0 0 113 102" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>architectureEnterprise</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Architecture" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="architectureEnterprise" transform="translate(1.000000, 1.000000)">
+            <polygon id="Path-10" stroke="#979797" points="0 52.0876469 35.7012696 27 111 74.5599628 75.0181536 100"></polygon>
+            <polygon id="Path-10" stroke="#979797" fill="#FFFFFF" points="0 25.0876469 35.7012696 0 111 47.5599628 75.0181536 73"></polygon>
+            <polygon id="Path-11" stroke="#979797" fill="#FDFDFD" points="0 25 0 52.3059848 75.4027168 100 111 74.512046 111 46.8879455 75.4027168 72.7571081"></polygon>
+            <polygon id="Path-12" stroke="#979797" fill="#4A4A4A" points="43 34.4067571 52.876691 27 72 38.952647 60.5712038 47 57.5 45.0452248 65.6364764 38.952647 52.876691 31.2596435 46.6366059 36.113062"></polygon>
+            <path d="M47,61 L40,72" id="Path-13" stroke="#D0021B" stroke-width="4"></path>
+            <path d="M38,62 L50,70" id="Path-14" stroke="#D0021B" stroke-width="4"></path>
+        </g>
+    </g>
+</svg>

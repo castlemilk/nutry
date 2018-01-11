@@ -21,8 +21,11 @@ import makeSelectLandingPage from './selectors';
 import Header from './Header';
 import Banner from './Banner';
 import Page1 from './Page1';
+import Page2 from './Page2';
+import Page3 from './Page3';
 import reducer from './reducer';
 import saga from './saga';
+import LandingPageWrapper from './LandingPageWrapper';
 // import messages from './messages';
 // let isMobile = false;
 // enquireScreen((b) => {
@@ -47,7 +50,7 @@ export class LandingPage extends React.Component { // eslint-disable-line react/
     const { isMobile } = this.state;
     const childProps = { ...this.props, isMobile };
     return (
-      <div>
+      <LandingPageWrapper>
         <Helmet>
           <title>Overview</title>
           <meta name="description" content="Nutry - Overview" />
@@ -55,8 +58,10 @@ export class LandingPage extends React.Component { // eslint-disable-line react/
         <Header {...childProps} />
         <Banner {...childProps} />
         <Page1 {...childProps} />
+        <Page2 {...childProps} />
+        <Page3 {...childProps} />
         <Footer />
-      </div>
+      </LandingPageWrapper>
     );
   }
 }

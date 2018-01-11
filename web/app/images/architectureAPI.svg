@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="177px" height="129px" viewBox="0 0 177 129" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>architectureAPI</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0.458984375 64.9160156 87.8359375 119.769531 168.554688 60.4921875 82.3574219 6.828125"></polygon>
+        <filter x="-4.5%" y="-4.9%" width="108.9%" height="113.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <polygon id="path-3" points="0.458984375 64.9160156 87.8359375 119.769531 168.554688 60.4921875 82.3574219 6.828125"></polygon>
+        <filter x="-4.5%" y="-4.9%" width="108.9%" height="113.3%" filterUnits="objectBoundingBox" id="filter-4">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Architecture" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="architectureAPI" transform="translate(4.000000, 3.000000)">
+            <g id="Path-9">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use stroke="#979797" stroke-width="1" fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="Group-2">
+                <g id="Path-9">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use stroke="#979797" stroke-width="1" fill="#D8D8D8" fill-rule="evenodd" xlink:href="#path-3"></use>
+                </g>
+                <g id="API" transform="translate(36.000000, 0.000000)" stroke="#979797" stroke-width="4">
+                    <polygon id="Path-6" fill="#FFFFFF" points="1.20212956 44.7137932 0 16.4783119 19.8644725 2 40.9445446 15.2778725 42 43.200591 22.1534876 58"></polygon>
+                    <polyline id="Path-7" points="32.7612805 50 32 36.1461257 42 29"></polyline>
+                    <polygon id="Path-6" fill="#FFFFFF" transform="translate(71.000000, 28.000000) scale(-1, -1) translate(-71.000000, -28.000000) " points="51.2021296 42.7137932 50 14.4783119 69.8644725 0 90.9445446 13.2778725 92 41.200591 72.1534876 56"></polygon>
+                    <polyline id="Path-5" points="51 29 61 35.2743033 61 48"></polyline>
+                    <polygon id="Path-6" fill="#FFFFFF" transform="translate(48.000000, 78.000000) scale(-1, -1) translate(-48.000000, -78.000000) " points="28.2021296 92.7137932 27 64.4783119 46.8644725 50 67.9445446 63.2778725 69 91.200591 49.1534876 106"></polygon>
+                    <polyline id="Path-8" points="37 57.7150111 47.3269759 64 57 57"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
