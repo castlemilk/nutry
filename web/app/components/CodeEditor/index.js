@@ -15,7 +15,7 @@ import Embed from 'react-runkit';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import CodeEditorWrapper from './CodeEditorWrapper';
-
+// TODO: Override runkit css to provide more UI friendly styling
 class CodeEditor extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
