@@ -18,6 +18,9 @@ import ProfilerElementWrapper from './ProfilerElementWrapper';
 const NUTRIENTS = [
   { value: 'carbohydrates', label: 'Carbohydrates', className: 'elements-carbohydrates'},
   { value: 'fat', label: 'Fat', className: 'elements-fat'},
+  { value: 'protein', label: 'Protein', className: 'elements-protein'},
+  { value: 'water', label: 'Water', className: 'elements-water'},
+  { value: 'vitamin-c', label: 'Vitamin C', className: 'elements-vitamin-c'},
 ]
 
 export class ProfilerElement extends React.Component { // eslint-disable-line react/prefer-stateless-function

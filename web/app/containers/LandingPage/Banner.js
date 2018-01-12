@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import TweenOne from 'rc-tween-one';
 import ScrollParallax from 'rc-scroll-anim/lib/ScrollParallax';
 import QueueAnim from 'rc-queue-anim';
+import NutryAnimationOne from 'components/NutryAnimationOne';
 import BannerWrapper from './BannerWrapper';
 import messages from './messages';
 const loop = {
@@ -35,6 +36,7 @@ export default class Banner extends React.PureComponent { // eslint-disable-line
                 </g>
               </TweenOne>
             </svg>
+
             <ScrollParallax location="banner" className="banner-bg" animation={{ playScale: [1, 1.5], rotate: 0 }} />
           </div>
           <QueueAnim className={'banner-page'} type="alpha" delay={150}>
@@ -57,7 +59,11 @@ export default class Banner extends React.PureComponent { // eslint-disable-line
                   <FormattedMessage {...messages.enterprise} />
                 </Link>
               </div>
+
             </QueueAnim>
+            <div className="img-wrapper" key="image" >
+              <NutryAnimationOne />
+            </div>
           </QueueAnim>
         </div>
       </BannerWrapper>

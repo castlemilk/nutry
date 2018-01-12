@@ -60,7 +60,7 @@ export default class ExpandableListView extends Component {
               >
                 {
                   ({ h }) => (
-                    <div key={k}>
+                    <div className="expandable-listview-wrapper" key={k}>
                       <ListHeader
                         header={header}
                         headerIndex={index}
@@ -71,7 +71,7 @@ export default class ExpandableListView extends Component {
                       <div
                         style={{
                           display: 'block',
-                          overflow: 'hidden',
+                          overflow: 'visible',
                           width: '100%',
                           maxHeight: Number(`${h}`),
                         }}

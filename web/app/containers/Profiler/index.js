@@ -72,7 +72,7 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
       headerName: 'elements',
       isOpened: true,
       isReactComponent: true,
-      height: 300,
+      height: 900,
       items: elementComponents.concat(initialList),
     }];
     console.log(sampleDataAdvanced);

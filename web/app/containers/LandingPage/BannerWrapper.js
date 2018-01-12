@@ -4,6 +4,13 @@ const BannerWrapper = styled.div`
   background: white;
   width: 100%;
   height: 567px;
+  .img-wrapper {
+    width: 46%;
+    max-width: 482px;
+    position: absolute;
+    right: 0;
+    bottom: 100px;
+  }
   .banner-wrapper {
     overflow: initial;
     position: relative;

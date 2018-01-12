@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const ProfilerElementWrapper = styled.div`
+  z-index: 1;
+  overflow: visible;
   .profiler-element-wrapper {
     position: relative;
     display: inline-block;
