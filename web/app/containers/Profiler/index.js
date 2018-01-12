@@ -11,46 +11,83 @@ import { connect } from 'react-redux';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Col, Row } from 'antd';
 
 import ExpandableListView from 'components/ExpandableListView';
+import ProfilerAddElement from 'components/ProfilerAddElement';
+import ProfilerElement from 'components/ProfilerElement';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectProfiler from './selectors';
+import { makeSelectAllElements, makeSelectElement } from './selectors';
+import { addProfilerElement, deleteProfilerElement, updateProfilerElement } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import ProfilerWrapper from './ProfilerWrapper';
 // import messages from './messages';
 
 
 export class Profiler extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props)
+
+    this.handleAddClick = this.handleAddClick.bind(this);
+  }
+  handleAddClick() {
+    console.log('add clicked!')
+    this.props.onAddElement()
+  }
+  handleNutrientChange(value, id) {
+    console.log(`element:id:${id}`)
+    console.log(`element:value:${value}`)
+    this.props.onUpdateElement(id, 'nutrient', value)
+  }
+  handleSliderChange(value, id) {
+    console.log(`element:id:${id}`)
+    console.log(`element:value:${value}`)
+    this.props.onUpdateElement(id, 'scale', value)
+  }
+  handleElementRemove(id) {
+    console.log(`element:id:${id}`)
+    this.props.onDeleteElement(id)
+  }
   render() {
-    const sampleData = [{
+    const addElementProps = {
+      key: 'add-element',
+    }
+    const initialList = [
+      <ProfilerAddElement key='add-element' onClick={() => this.handleAddClick()} />,
+    ]
+    const elementComponents = this.props.elements.map((element) => {
+      const elementProps = Object.assign(element, {
+        onNutrientChange: (id, nutrient) => this.handleNutrientChange(id, nutrient),
+        onScaleChange: (id, scale) => this.handleSliderChange(id, scale),
+        onElementRemove: (id) => this.handleElementRemove(id)
+      })
+      console.log(elementProps)
+      return <ProfilerElement key={element.id} {...elementProps} />
+    })
+    console.log('elements: ')
+    console.log(this.props.elements);
+    const sampleDataAdvanced = [{
       headerName: 'elements',
       isOpened: true,
-      isReactComponent: false,
+      isReactComponent: true,
       height: 300,
-      items: [{
-        title: 'items1',
-      }, {
-        title: 'items2',
-      }, {
-        title: 'items3',
-      }, {
-        title: 'items4',
-      }, {
-        title: 'items5',
-      }, {
-        title: 'items6',
-      }],
+      items: elementComponents.concat(initialList),
     }];
-    console.log(sampleData);
+    console.log(sampleDataAdvanced);
     return (
-      <div>
-        <ExpandableListView
-          data={sampleData}
-          headerAttName="headerName"
-          itemsAttName="items"
-        />
-      </div>
+      <ProfilerWrapper>
+      <Row>
+        <Col xs={24} md={24}>
+          <ExpandableListView
+            data={sampleDataAdvanced}
+            headerAttName="headerName"
+            itemsAttName="items"
+          />
+        </Col>
+        </Row>
+      </ProfilerWrapper>
     );
   }
 }
@@ -60,12 +97,17 @@ Profiler.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  profiler: makeSelectProfiler(),
+  elements: makeSelectAllElements(),
+
+
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onAddElement: () => dispatch(addProfilerElement()),
+    onUpdateElement: (id, key, value) => dispatch(updateProfilerElement(id, key, value)),
+    onDeleteElement: (id) => dispatch(deleteProfilerElement(id)),
   };
 }
 

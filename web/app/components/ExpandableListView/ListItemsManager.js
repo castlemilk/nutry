@@ -11,7 +11,7 @@ function ListItemsManager(props) {
       <BodyGroup>
         {
             [...items].map((item) => (
-              <ListItem key={item.title} isReactComponent={isReactComponent}>
+              <ListItem key={isReactComponent ? item.key : item.title} isReactComponent={isReactComponent}>
                 {item}
               </ListItem>
             ))

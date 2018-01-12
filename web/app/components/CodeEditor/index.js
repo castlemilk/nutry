@@ -6,7 +6,6 @@
 
 import React from 'react';
 import Embed from 'react-runkit';
-// import RunKit from 'react-runkit-embed/RunKit';
 
 
 // import PropTypes from 'prop-types';

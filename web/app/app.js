@@ -22,6 +22,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
+import 'react-select/dist/react-select.css';
 // import 'react-runkit/dist/react-runkit.min.js';
 // import 'react-runkit/dist/react-runkit.js';
 // import 'react-runkit/dist/react-runkit-embed.js';

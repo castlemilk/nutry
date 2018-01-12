@@ -50,7 +50,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     const tabs = (
       <Tabs
         className="tab-bar"
-        defaultActiveKLey="1"
+        defaultActiveKLey="3"
       >
         <TabPane tab={<span><Icon type="home" />All</span>} key="1">
           {nutrientResultsView}
@@ -58,10 +58,10 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
         <TabPane tab={<span><Icon type="file" />Nutrients</span>} key="2">
           {nutrientResultsView}
         </TabPane>
-        <TabPane tab={<span><Icon type="bars" />Profiler</span>} key="4">
+        <TabPane tab={<span><Icon type="bars" />Profiler</span>} key="3">
           <Profiler />
         </TabPane>
-        <TabPane tab={<span><Icon type="api" />Recipes</span>} key="3">
+        <TabPane tab={<span><Icon type="api" />Recipes</span>} key="4">
         </TabPane>
         <TabPane tab={<span><Icon type="book" />Wiki</span>} key="5">
         </TabPane>
