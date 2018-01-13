@@ -73,7 +73,7 @@ function NutryAnimationOne() {
       </div>
       </div>
       <Anime easing="linear"
-         duration={ (Math.floor(Math.random() * 20)) * 2000}
+         duration={ (Math.floor(Math.random() * 20)) * 300}
          direction="normal"
          loop={true}
          delay={(el, index) => index * 240}
