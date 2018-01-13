@@ -71,7 +71,7 @@ export default class ExpandableListView extends Component {
                       <div
                         style={{
                           display: 'block',
-                          overflow: 'visible',
+                          overflow: 'hidden',
                           width: '100%',
                           maxHeight: Number(`${h}`),
                         }}

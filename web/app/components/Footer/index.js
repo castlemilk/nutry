@@ -60,7 +60,9 @@ function Footer() {
               <div className="footer-center">
                 <h2>Company</h2>
                 <div>
-                  <FormattedMessage {...messages.about} />
+                  <a href="/overview" >
+                    <FormattedMessage {...messages.about} />
+                  </a>
                 </div>
                 <div>
                   <FormattedMessage {...messages.blog} />

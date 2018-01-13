@@ -115,3 +115,16 @@ class NoRecordIDAvailable(Exception):
 
     def __repr__(self):
         return self.message
+
+
+class NormalisationKeyNotFound(Exception):
+    """Unable to fetch required key for normalisation"""
+
+    def __init__(self, key):
+        self.message = "missing key: {}".format(key)
+
+    def __str__(self):
+        return self.message
+
+    def __repr__(self):
+        return self.message

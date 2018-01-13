@@ -28,7 +28,7 @@ export function search(searchString) {
   /*
     Submit request to eleasticsearch for the given searchString and return results
      */
-  const path = `${elasticsearchConfig.index}/_search`;
+  const path = `${elasticsearchConfig.indexNames}/names/_search`;
   const session = axios.create({
     baseURL: elasticsearchConfig.hostname,
     auth: elasticsearchConfig.authentication,

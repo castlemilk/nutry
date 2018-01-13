@@ -1,5 +1,6 @@
 from pymongo import MongoClient
-from .models import Record
+from .models import Name
+from .models import Nutrients
 from .exceptions import NoDatabasesFound
 
 
@@ -42,17 +43,25 @@ class MongoDB(object):
 
         return self.databases
 
-    def parseCollections(self):
+    def parseCollections(self, type = None):
         """
         Parse collections available in the discovered databases
         :return:
         """
-        for available_db in self.databases:
-            db = self.client.get_database(available_db['name'])
-            for available_collection in db.list_collection_names():
-                collection = db.get_collection(available_collection)
-                for item in collection.find({}):
-                    yield Record(item, available_db['name'])
+        if type == 'names':
+            for available_db in self.databases:
+                db = self.client.get_database(available_db['name'])
+                for available_collection in db.list_collection_names():
+                    collection = db.get_collection(available_collection)
+                    for item in collection.find({}):
+                        yield Name(item, available_db['name'])
+        elif type == 'nutrients':
+            for available_db in self.databases:
+                db = self.client.get_database(available_db['name'])
+                for available_collection in db.list_collection_names():
+                    collection = db.get_collection(available_collection)
+                    for item in collection.find({}):
+                        yield Nutrients(item, available_db['name'])
 
 
 
