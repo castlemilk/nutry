@@ -26,6 +26,8 @@ export default class ExpandableListView extends Component {
     const newData = Object.assign({}, this.props.data);
     newData[headerIndex].isOpened = !newData[headerIndex].isOpened;
     this.setState(newData);
+    console.log('changing state:')
+    console.log(newData)
   }
 
   render() {
@@ -51,6 +53,7 @@ export default class ExpandableListView extends Component {
             // const headerRef = makeHeaderRef();
             const itemRef = makeItemRef();
             // console.log("ExpandableListView:items:", items);
+            const overflow = isOpened ? 'visible' : 'hidden'
             return (
 
               <Motion
@@ -71,7 +74,7 @@ export default class ExpandableListView extends Component {
                       <div
                         style={{
                           display: 'block',
-                          overflow: this.state.data[0].isOpened ? 'visible' : 'hidden',
+                          overflow,
                           width: '100%',
                           maxHeight: Number(`${h}`),
                         }}

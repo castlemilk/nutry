@@ -26,7 +26,7 @@ export function searchQuery(searchString) {
 export function profilerSearchQuery(searchString) {
   return {
     bool: {
-      must: [{
+      should: [{
         match_phrase_prefix: {
           name: {
             query: searchString,
@@ -55,5 +55,26 @@ export function profilerFunctionQuery(field, factor) {
               factor,
               missing: 1
           }
+  }
+}
+
+/**
+ * [matchField description]
+ *   {
+ *     "size":1,
+ *     "query":{
+ *      "match": {
+ *         "SN": "02049"
+ *      }
+ *    }
+ *  }
+ * @param  {[type]} SN [serialNumber]
+ * @return {[type]}    [query body]
+ */
+export function matchField(SN) {
+  return {
+    match: {
+      SN,
+    }
   }
 }

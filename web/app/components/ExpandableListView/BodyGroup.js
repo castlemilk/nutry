@@ -6,7 +6,6 @@ const BodyGroup = styled.div`
   height: auto;
   width: 100%;
   text-align: center;
-  overflow: visible;
 `;
 
 export default BodyGroup;

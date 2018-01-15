@@ -82,3 +82,19 @@ export function profiler(searchString, elements) {
     .then(checkStatus)
     .then(parseResults);
 }
+
+export function getDocument(SN) {
+  const path = `${elasticsearchConfig.indexNutrients}/nutrients/_search`;
+  const session = axios.create({
+    baseURL: elasticsearchConfig.hostname,
+    auth: elasticsearchConfig.authentication,
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const body = {
+    size: 1,
+    query: matchField(SN)
+  };
+  return session.post(path, body)
+    .then(checkStatus)
+    .then(parseResults);
+}

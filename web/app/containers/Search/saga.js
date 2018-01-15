@@ -1,7 +1,7 @@
 import { delay } from 'redux-saga';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { search, profiler } from 'services/elasticsearch/elasticsearch';
-import { CHANGE_SEARCH } from './constants';
+import { CHANGE_SEARCH, REFRESH_SEARCH } from './constants';
 import { searchComplete, searchFailure } from './actions';
 import { makeSelectAllElements } from 'containers/Profiler/selectors';
 import { makeSelectSearchString, makeSelectSearchType } from './selectors';
@@ -45,5 +45,5 @@ export default function* searchData() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(CHANGE_SEARCH, getResults);
+  yield takeLatest([CHANGE_SEARCH, REFRESH_SEARCH], getResults);
 }

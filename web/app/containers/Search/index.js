@@ -11,21 +11,31 @@ import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Tabs, Icon, Spin, Button, Avatar } from 'antd';
+import { Tabs, Icon, Spin, Button, Avatar, Row, Col } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import SearchBar from 'components/SearchBar';
 import SearchHeader from 'components/SearchHeader';
 import ResultsList from 'components/ResultsList';
+import ProfileTitle from 'components/ProfileTitle';
 import Footer from 'components/Footer';
 import NoResultsFound from 'components/NoResultsFound';
 import Profiler from 'containers/Profiler';
+import FoodProfile from 'containers/FoodProfile';
 import { makeSelectLoggedIn } from 'containers/App/selectors';
 import { login } from 'containers/App/actions';
 
-import { makeSelectSearch, makeSelectSearchString, makeSelectSearchType, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
-import { changeSearchString, changeSearchType } from './actions';
+import { makeSelectSearch,
+  makeSelectSearchString,
+  makeSelectSearchType,
+  makeSelectSearchResults,
+  makeSelectSearchLoading,
+  makeSelectProfileSelected } from './selectors';
+import { changeSearchString,
+      changeSearchType,
+      profileSelected,
+      searchRefresh } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import SearchWrapper from './SearchWrapper';
@@ -60,6 +70,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
   handleTabChange(event) {
     console.log(event)
     this.props.onSearchTypeChange(event)
+    this.props.onSearchRefresh()
   }
   handleSearchStringChange(event) {
     const { searchType } = this.props;
@@ -68,17 +79,26 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
     // }
     this.props.onChangeSearchString(event)
   }
+  handleProfileSelected(profileInfo) {
+    console.log(profileInfo)
+    console.log(`profileSelected:serialNumber:${profileInfo.ID}`)
+    this.props.onProfileSelected(profileInfo)
+  }
+  handleBackButton() {
+    this.props.onProfileSelected(null)
+  }
   render() {
+    const { profileInfo, loading, searchString, searchResults } = this.props
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
-    const items = this.props.searchResults.items ? this.props.searchResults.items : [];
-    const noResultsFound = items.length === 0 && this.props.searchString.length > 0 && !this.props.loading;
-    const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList results={items} />;
-    const nutrientResultsView = this.props.loading ?
+    const items = searchResults.items ? searchResults.items : [];
+    const noResultsFound = items.length === 0 && searchString.length > 0 && !loading;
+    const nutrientResults = noResultsFound ?
+    <NoResultsFound /> :
+    <ResultsList onProfileSelected={(profileInfo) => this.handleProfileSelected(profileInfo)} results={items} />;
+    const nutrientResultsView = loading ?
     (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
     </div>) : nutrientResults;
-    console.log(this.props.searchResults);
-    console.log(this.props.searchString.length);
     const TabPane = Tabs.TabPane;
     const tabs = (
       <Tabs
@@ -106,6 +126,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       placeholder: 'Search for food',
       value: this.props.searchString,
       onChange: (event) => this.handleSearchStringChange(event),
+      profileInfo,
     };
     const user = 'D';
     const avatarStyle = {
@@ -116,23 +137,47 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
         <title>Search</title>
         <meta name="description" content="Nutry - Search" />
       </Helmet>);
+    const searchView = (
+      <div className="tabs" >
+        {tabs}
+      </div>
+    )
+    const profileView = (
+      <div className="profileView">
+        <FoodProfile />
+      </div>
+    )
+    const mainView = profileInfo ? profileView : searchView
+    const backButton = (
+        <Button type="primary" onClick={() => this.handleBackButton()} >Back</Button>
+      )
+    const backButtonView = (
+      <div className="back-button" >
+        { profileInfo ? backButton : null }
+      </div>
+    )
+    const loginView = (
+      <div className="sign-in-wrapper">
+        { this.props.loggedIn ?
+          <Avatar style={avatarStyle} size="default" >
+            {user}
+          </Avatar>
+          : <Button type="primary" onClick={this.props.onLogin} >Sign In</Button> }
+      </div>
+    )
+    const searchBarView = profileInfo ?
+      null  :
+      <SearchBar {...searchBarProps} />
+    const searchHeaderProps = {
+      loginView,
+      searchBarView,
+      backButtonView,
+    }
     return (
       <SearchWrapper>
         {helmet}
-        <SearchHeader>
-          <SearchBar {...searchBarProps} />
-          <div className="sign-in-wrapper">
-            { this.props.loggedIn ?
-              <Avatar style={avatarStyle} size="default" >
-                {user}
-              </Avatar>
-              : <Button type="primary" onClick={this.props.onLogin} >Sign In</Button> }
-          </div>
-        </SearchHeader>
-
-        <div className="tabs" >
-          {tabs}
-        </div>
+        <SearchHeader {...searchHeaderProps} />
+        {mainView}
         <Footer />
       </SearchWrapper>
     );
@@ -155,6 +200,7 @@ const mapStateToProps = createStructuredSelector({
   searchString: makeSelectSearchString(),
   searchResults: makeSelectSearchResults(),
   loggedIn: makeSelectLoggedIn(),
+  profileInfo: makeSelectProfileSelected(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -162,7 +208,9 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     onChangeSearchString: (evt) => dispatch(changeSearchString(evt.target.value)),
     onSearchTypeChange: (evt) => dispatch(changeSearchType(evt)),
+    onSearchRefresh: () => dispatch(searchRefresh()),
     onLogin: () => dispatch(login()),
+    onProfileSelected: (profileInfo) => dispatch(profileSelected(profileInfo)),
   };
 }
 

@@ -22,7 +22,7 @@ function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow
       group,
       usage,
     };
-    return <SearchResultCard {...searchResultCardProps} key={SN} />;
+    return <SearchResultCard {...searchResultCardProps} key={SN} onClick={() => props.onProfileSelected(searchResultCardProps)}/>;
   }) : <NoResultsFound />;
   return (
     <div>
@@ -33,6 +33,7 @@ function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow
 
 ResultsList.propTypes = {
   results: PropTypes.array.isRequired,
+  onProfileSelected: PropTypes.func.isRequired,
 
 };
 

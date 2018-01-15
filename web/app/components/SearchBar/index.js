@@ -7,6 +7,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import SearchBarWrapper from './SearchBarWrapper';
+import { Button } from 'antd'
 // import styled from 'styled-components';
 
 // import { FormattedMessage } from 'react-intl';
@@ -22,28 +23,32 @@ SearchBar.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   maxLength: PropTypes.number,
-
+  profileSelected: PropTypes.string,
+  onBackButton: PropTypes.func,
 };
 
 function SearchBar(props) {
-  return (
-    <SearchBarWrapper>
-      <div className="search-box-wrapper">
-        <input
-          className="search-input"
-          type="text"
-          aria-autocomplete="both"
-          maxLength={props.maxLength}
-          placeholder={props.placeholder}
-          onFocus={props.onFocus}
-          onBlur={props.onBlur}
-          value={props.value}
-          onChange={props.onChange}
-          onKeyUp={props.onKeyUp}
-          onKeyDown={props.onKeyDown}
-          onClick={props.onClick}
-        />
-      </div>
+  const searchView = (
+    <div className="search-box-wrapper">
+      <input
+        className="search-input"
+        type="text"
+        aria-autocomplete="both"
+        maxLength={props.maxLength}
+        placeholder={props.placeholder}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
+        value={props.value}
+        onChange={props.onChange}
+        onKeyUp={props.onKeyUp}
+        onKeyDown={props.onKeyDown}
+        onClick={props.onClick}
+      />
+    </div>
+
+  )
+  return (<SearchBarWrapper>
+    {searchView}
     </SearchBarWrapper>
   );
 }

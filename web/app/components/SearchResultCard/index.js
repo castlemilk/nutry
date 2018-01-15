@@ -18,7 +18,7 @@ function SearchResultCard(props) {
   const usageView = props.usage ? <div className="usage" ><b>Example Usage:</b>&nbsp;&nbsp;{props.usage.join(', ')}</div> : null;
   return (
     <Wrapper>
-      <div className="card">
+      <div className="card" onClick={props.onClick}>
         {nameView}
         <div className="separator"></div>
         {groupView}
@@ -33,6 +33,7 @@ SearchResultCard.propTypes = {
   group: PropTypes.string.isRequired,
   usage: PropTypes.array,
   SN: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default SearchResultCard;

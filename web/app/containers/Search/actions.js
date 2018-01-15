@@ -7,10 +7,12 @@
 import {
   DEFAULT_ACTION,
   SEARCH_TYPE_CHANGED,
+  REFRESH_SEARCH,
   CHANGE_SEARCH,
   SEARCH_COMPLETE,
   SEARCH_FAILURE,
   SEARCH_LOADING,
+  PROFILE_SELECTED,
 } from './constants';
 
 export function defaultAction() {
@@ -23,6 +25,11 @@ export function changeSearchString(searchString) {
     type: CHANGE_SEARCH,
     searchString,
   };
+}
+export function searchRefresh() {
+  return {
+    type: REFRESH_SEARCH,
+  }
 }
 export function searchComplete(results) {
   if (results) {
@@ -51,5 +58,11 @@ export function changeSearchType(searchType) {
   return {
     type: SEARCH_TYPE_CHANGED,
     searchType,
+  }
+}
+export function profileSelected(profileInfo) {
+  return {
+    type: PROFILE_SELECTED,
+    profileInfo,
   }
 }

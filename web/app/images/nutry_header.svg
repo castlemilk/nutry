@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="179px" height="82px" viewBox="0 0 179 82" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>nutry_header</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M6.24210859,11.3124245 C19.8108691,23.2420198 23.5303556,33.4646987 17.4005682,41.980461 C11.2707807,50.4962234 5.6883286,62.4090441 0.653211806,77.7189234 L2.188881,77.7189234 C16.7528804,64.2722507 24.8883365,52.3594299 26.5952494,41.980461 C28.3021622,31.6014921 21.517782,21.3788133 6.24210859,11.3124245 Z" id="path-1"></path>
+        <filter x="-26.7%" y="-7.5%" width="153.4%" height="121.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M25.5967882,2.41862022 C39.1655487,14.3482156 42.8850352,24.5708944 36.7552478,33.0866568 C30.6254603,41.6024191 25.0430082,53.5152399 20.0078914,68.8251191 L21.5435606,68.8251191 C36.10756,55.3784465 44.2430161,43.4656257 45.949929,33.0866568 C47.6568419,22.7076879 40.8724616,12.485009 25.5967882,2.41862022 Z" id="path-3"></path>
+        <filter x="-26.7%" y="-7.5%" width="153.4%" height="121.1%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M45.7413773,2.31559684 C59.3101378,14.2451922 63.0296243,24.4678711 56.8998368,32.9836334 C50.7700494,41.4993957 45.1875973,53.4122165 40.1524805,68.7220958 L41.6881497,68.7220958 C56.252149,55.2754231 64.3876052,43.3626023 66.094518,32.9836334 C67.8014309,22.6046645 61.0170507,12.3819856 45.7413773,2.31559684 Z" id="path-5"></path>
+        <filter x="-26.7%" y="-7.5%" width="153.4%" height="121.1%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Icons-&amp;-Logos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="nutry_header" transform="translate(3.000000, -2.000000)">
+            <g id="Logo">
+                <g id="Path">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#B775F2" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="Path" transform="translate(33.107581, 35.621870) rotate(-33.000000) translate(-33.107581, -35.621870) ">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use fill="#B775F2" fill-rule="evenodd" xlink:href="#path-3"></use>
+                </g>
+                <g id="Path" transform="translate(53.252170, 35.518846) rotate(-6.000000) translate(-53.252170, -35.518846) ">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                    <use fill="#B775F2" fill-rule="evenodd" xlink:href="#path-5"></use>
+                </g>
+            </g>
+            <text id="utry" font-family="Helvetica" font-size="64" font-weight="normal" fill="#9013FE">
+                <tspan x="70.15625" y="69">utry</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

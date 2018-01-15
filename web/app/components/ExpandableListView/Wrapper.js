@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  position: relative;
-  overflow: visible;
   .expandable-listview-wrapper {
     position: relative;
-    overflow: visible;
   }
 
   height: auto;

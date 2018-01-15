@@ -34,6 +34,10 @@ const makeSelectSearchType = () => createSelector(
   selectSearchDomain,
   (searchState) => searchState.get('searchType')
 );
+const makeSelectProfileSelected = () => createSelector(
+  selectSearchDomain,
+  (searchState) => searchState.get('profileSelected')
+);
 
 export default makeSelectSearch;
 export {
@@ -43,4 +47,5 @@ export {
   makeSelectSearchLoading,
   makeSelectSearchType,
   makeSelectSearch,
+  makeSelectProfileSelected,
 };

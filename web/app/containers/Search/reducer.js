@@ -8,7 +8,9 @@ import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION,
   CHANGE_SEARCH,
+  REFRESH_SEARCH,
   SEARCH_COMPLETE,
+  PROFILE_SELECTED,
   SEARCH_TYPE_CHANGED,
 } from './constants';
 
@@ -17,6 +19,7 @@ const initialState = fromJS({
   loading: false,
   results: [],
   searchType: 'all',
+  profileSelected: null,
 });
 
 function searchReducer(state = initialState, action) {
@@ -27,6 +30,8 @@ function searchReducer(state = initialState, action) {
       return state
         .set('searchString', action.searchString)
         .set('loading', true);
+    case REFRESH_SEARCH:
+      return state;
     case SEARCH_COMPLETE:
       return state
         .set('results', action.results)
@@ -34,6 +39,9 @@ function searchReducer(state = initialState, action) {
     case SEARCH_TYPE_CHANGED:
       return state
         .set('searchType', action.searchType);
+    case PROFILE_SELECTED:
+      return state
+        .set('profileSelected', action.profileInfo);
     default:
       return state;
   }

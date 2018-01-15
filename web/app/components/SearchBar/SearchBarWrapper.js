@@ -2,13 +2,9 @@ import styled from 'styled-components';
 
 const SearchBarWrapper = styled.div`
   @media only screen and (min-width:280px) and (max-width:420px){
-    margin-right:30px;
-    margin-left:10px;
     width: 100%;
   }
   @media only screen and (min-width:421px) {
-    margin-right:90px;
-    margin-left:30px;
     width: 100%;
   }
 
