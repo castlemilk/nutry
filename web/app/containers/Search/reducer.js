@@ -9,12 +9,14 @@ import {
   DEFAULT_ACTION,
   CHANGE_SEARCH,
   SEARCH_COMPLETE,
+  SEARCH_TYPE_CHANGED,
 } from './constants';
 
 const initialState = fromJS({
   searchString: '',
   loading: false,
   results: [],
+  searchType: 'all',
 });
 
 function searchReducer(state = initialState, action) {
@@ -29,6 +31,9 @@ function searchReducer(state = initialState, action) {
       return state
         .set('results', action.results)
         .set('loading', false);
+    case SEARCH_TYPE_CHANGED:
+      return state
+        .set('searchType', action.searchType);
     default:
       return state;
   }

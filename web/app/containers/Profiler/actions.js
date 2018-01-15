@@ -6,6 +6,9 @@
 
 import {
   DEFAULT_ACTION,
+  CHANGE_PROFILER_SEARCH,
+  SEARCH_COMPLETE,
+  SEARCH_FAILURE,
   ADD_PROFILER_ELEMENT,
   DELETE_PROFILER_ELEMENT,
   UPDATE_PROFILER_ELEMENT,
@@ -14,6 +17,35 @@ import {
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
+  };
+}
+
+export function changeSearch() {
+  return {
+    type: CHANGE_PROFILER_SEARCH,
+  }
+}
+export function searchComplete(results) {
+  if (results) {
+    return {
+      type: SEARCH_COMPLETE,
+      results,
+    };
+  }
+  return {
+    type: SEARCH_COMPLETE,
+    results: [],
+  };
+}
+export function searchLoading() {
+  return {
+    type: SEARCH_LOADING,
+  };
+}
+export function searchFailure(error) {
+  return {
+    type: SEARCH_FAILURE,
+    error,
   };
 }
 export function addProfilerElement() {

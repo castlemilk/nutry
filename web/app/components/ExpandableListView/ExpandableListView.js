@@ -71,7 +71,7 @@ export default class ExpandableListView extends Component {
                       <div
                         style={{
                           display: 'block',
-                          overflow: 'hidden',
+                          overflow: this.state.data[0].isOpened ? 'visible' : 'hidden',
                           width: '100%',
                           maxHeight: Number(`${h}`),
                         }}

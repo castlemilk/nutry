@@ -24,16 +24,49 @@ import Profiler from 'containers/Profiler';
 import { makeSelectLoggedIn } from 'containers/App/selectors';
 import { login } from 'containers/App/actions';
 
-import { makeSelectSearch, makeSelectSearchString, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
-import { changeSearchString } from './actions';
+import { makeSelectSearch, makeSelectSearchString, makeSelectSearchType, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
+import { changeSearchString, changeSearchType } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import SearchWrapper from './SearchWrapper';
 
+const tabData = [
+  {
+    name: 'All',
+    key: 'all',
+  },
+  {
+    name: 'Nutrients',
+    key: 'nutrients',
+  },
+  {
+    name: 'Profiler',
+    key: 'profiler',
+  },
+  {
+    name: 'Recipes',
+    key: 'recipes',
+  },
+  {
+    name: 'Wiki',
+    key: 'recipes',
+  },
 
+]
 export class Search extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   handleClick(event) {
     return event;
+  }
+  handleTabChange(event) {
+    console.log(event)
+    this.props.onSearchTypeChange(event)
+  }
+  handleSearchStringChange(event) {
+    const { searchType } = this.props;
+    // if (searchType === 'all' || searchType === 'nutrients') {
+    //   this.props.onChangeSearchString(event)
+    // }
+    this.props.onChangeSearchString(event)
   }
   render() {
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
@@ -51,19 +84,20 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       <Tabs
         className="tab-bar"
         defaultActiveKLey="3"
+        onChange={(e) => this.handleTabChange(e)}
       >
-        <TabPane tab={<span><Icon type="home" />All</span>} key="1">
+        <TabPane tab={<span><Icon type="home" />All</span>} key="all">
           {nutrientResultsView}
         </TabPane>
-        <TabPane tab={<span><Icon type="file" />Nutrients</span>} key="2">
+        <TabPane tab={<span><Icon type="file" />Nutrients</span>} key="nutrients">
           {nutrientResultsView}
         </TabPane>
-        <TabPane tab={<span><Icon type="bars" />Profiler</span>} key="3">
+        <TabPane tab={<span><Icon type="bars" />Profiler</span>} key="profiler">
           <Profiler />
         </TabPane>
-        <TabPane tab={<span><Icon type="api" />Recipes</span>} key="4">
+        <TabPane tab={<span><Icon type="api" />Recipes</span>} key="recipes">
         </TabPane>
-        <TabPane tab={<span><Icon type="book" />Wiki</span>} key="5">
+        <TabPane tab={<span><Icon type="book" />Wiki</span>} key="wiki">
         </TabPane>
       </Tabs>
     );
@@ -71,7 +105,7 @@ export class Search extends React.PureComponent { // eslint-disable-line react/p
       onClick: this.handleClick(),
       placeholder: 'Search for food',
       value: this.props.searchString,
-      onChange: this.props.onChangeSearchString,
+      onChange: (event) => this.handleSearchStringChange(event),
     };
     const user = 'D';
     const avatarStyle = {
@@ -116,6 +150,7 @@ Search.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   search: makeSelectSearch(),
+  searchType: makeSelectSearchType(),
   loading: makeSelectSearchLoading(),
   searchString: makeSelectSearchString(),
   searchResults: makeSelectSearchResults(),
@@ -126,6 +161,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onChangeSearchString: (evt) => dispatch(changeSearchString(evt.target.value)),
+    onSearchTypeChange: (evt) => dispatch(changeSearchType(evt)),
     onLogin: () => dispatch(login()),
   };
 }

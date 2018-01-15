@@ -30,6 +30,10 @@ const makeSelectSearchLoading = () => createSelector(
   selectSearchDomain,
   (searchState) => searchState.get('loading')
 );
+const makeSelectSearchType = () => createSelector(
+  selectSearchDomain,
+  (searchState) => searchState.get('searchType')
+);
 
 export default makeSelectSearch;
 export {
@@ -37,5 +41,6 @@ export {
   makeSelectSearchString,
   makeSelectSearchResults,
   makeSelectSearchLoading,
+  makeSelectSearchType,
   makeSelectSearch,
 };

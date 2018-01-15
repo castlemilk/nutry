@@ -21,8 +21,6 @@ const makeSelectProfiler = () => createSelector(
 const makeSelectAllElements = () => createSelector(
   selectProfilerDomain,
   (substate) => {
-    console.log('makeSelectAllElements():')
-    console.log(substate.get('elements'))
     const elements = substate.get('elements')
     if (elements.size > 0 ) {
       const [...elements] = substate.get('elements').entries()
@@ -32,9 +30,15 @@ const makeSelectAllElements = () => createSelector(
     } else {
       return []
     }
-
-
   }
+);
+const makeSelectSearchResults = () => createSelector(
+  selectProfilerDomain,
+  (searchState) => searchState.get('results')
+);
+const makeSelectSearchLoading = () => createSelector(
+  selectProfilerDomain,
+  (searchState) => searchState.get('loading')
 );
 const makeSelectElement = (id) => createSelector(
   selectProfilerDomain,
@@ -44,6 +48,8 @@ const makeSelectElement = (id) => createSelector(
 export default makeSelectProfiler;
 export {
   selectProfilerDomain,
+  makeSelectSearchResults,
+  makeSelectSearchLoading,
   makeSelectAllElements,
   makeSelectElement,
 };

@@ -8,12 +8,17 @@ import { fromJS, Map } from 'immutable';
 import uuidv4 from 'uuid/v4';
 import {
   DEFAULT_ACTION,
+  CHANGE_PROFILER_SEARCH,
+  SEARCH_COMPLETE,
+  SEARCH_FAILURE,
   ADD_PROFILER_ELEMENT,
   DELETE_PROFILER_ELEMENT,
   UPDATE_PROFILER_ELEMENT,
 } from './constants';
 
 const initialState = fromJS({
+  loading: false,
+  results: [],
   elements: {},
 });
 
@@ -21,17 +26,23 @@ function profilerReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
+    case CHANGE_PROFILER_SEARCH:
+      return state
+        .set('loading', true);
+    case SEARCH_COMPLETE:
+      return state
+        .set('results', action.results)
+        .set('loading', false);
     case ADD_PROFILER_ELEMENT:
       const id = uuidv4();
       const default_element_body = Map({
-        nutrient: 'carbohydrates',
-        scale: 0.5,
+        nutrient: { value: 'CHOCDF', label: 'Carbohydrates', className: 'elements-carbohydrates' },
+        scale: 50,
       })
       return state.setIn(['elements', id], default_element_body)
     case DELETE_PROFILER_ELEMENT:
       return state.deleteIn(['elements', action.id]);
     case UPDATE_PROFILER_ELEMENT:
-      console.log(action)
       return state.setIn(['elements', action.id, action.key], action.value)
     default:
       return state;

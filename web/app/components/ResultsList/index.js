@@ -15,14 +15,14 @@ import NoResultsFound from 'components/NoResultsFound';
 
 function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow": ["_source"] }]*/
   const resultsView = props.results ? props.results.map((result) => {
-    const { name, ID, usage, group } = result._source;
+    const { name, SN, usage, group } = result._source;
     const searchResultCardProps = {
-      ID,
+      SN,
       name,
       group,
       usage,
     };
-    return <SearchResultCard {...searchResultCardProps} key={ID} />;
+    return <SearchResultCard {...searchResultCardProps} key={SN} />;
   }) : <NoResultsFound />;
   return (
     <div>

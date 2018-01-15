@@ -6,6 +6,7 @@
 
 import {
   DEFAULT_ACTION,
+  SEARCH_TYPE_CHANGED,
   CHANGE_SEARCH,
   SEARCH_COMPLETE,
   SEARCH_FAILURE,
@@ -45,4 +46,10 @@ export function searchFailure(error) {
     type: SEARCH_FAILURE,
     error,
   };
+}
+export function changeSearchType(searchType) {
+  return {
+    type: SEARCH_TYPE_CHANGED,
+    searchType,
+  }
 }

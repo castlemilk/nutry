@@ -32,7 +32,7 @@ SearchResultCard.propTypes = {
   name: PropTypes.string.isRequired,
   group: PropTypes.string.isRequired,
   usage: PropTypes.array,
-  ID: PropTypes.string.isRequired,
+  SN: PropTypes.string.isRequired,
 };
 
 export default SearchResultCard;

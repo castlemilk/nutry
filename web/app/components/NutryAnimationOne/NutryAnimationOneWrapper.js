@@ -21,6 +21,7 @@ const NutryAnimationOneWrapper = styled.div`
     position: absolute;
     z-index: 1;
     bottom: 50px;
+    left: 20px;
   }
 `;
 

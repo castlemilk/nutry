@@ -14,13 +14,21 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import ProfilerElementWrapper from './ProfilerElementWrapper';
 
-
+/**
+ * NUTRIENTS - Array of nutrients values usable in the profiler.
+ * the value should correspond to a valid field in the nutritional database
+ * TODO: move this data to somewhere more appropriate as its kinda a global makeSelectSearchString
+ * @type {Array}
+ *
+ */
 const NUTRIENTS = [
-  { value: 'carbohydrates', label: 'Carbohydrates', className: 'elements-carbohydrates'},
-  { value: 'fat', label: 'Fat', className: 'elements-fat'},
-  { value: 'protein', label: 'Protein', className: 'elements-protein'},
-  { value: 'water', label: 'Water', className: 'elements-water'},
-  { value: 'vitamin-c', label: 'Vitamin C', className: 'elements-vitamin-c'},
+  { value: 'CHOCDF', label: 'Carbohydrates', className: 'elements-carbohydrates'},
+  { value: 'FAT', label: 'Fat', className: 'elements-fat'},
+  { value: 'PROCNT', label: 'Protein', className: 'elements-protein'},
+  { value: 'WATER', label: 'Water', className: 'elements-water'},
+  { value: 'VITC', label: 'Vitamin C', className: 'elements-vitamin-c'},
+  { value: 'SUGAR', label: 'Sugar', className: 'elements-sugar'},
+  { value: 'NA', adjustment_factor: 0.1, label: 'Salt (Sodium)', className: 'elements-salt'},
 ]
 
 export class ProfilerElement extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -40,14 +48,14 @@ export class ProfilerElement extends React.Component { // eslint-disable-line re
 	}
 
   render() {
-  console.log(`profilerElement:${this.props.nutrient}`)
+  // console.log(`profilerElement:${this.props.nutrient}`)
   const { nutrient, scale, id } = this.props;
   const body = {
     nutrient,
     scale
   }
-  console.log(`profilerElement:body`)
-  console.log(body)
+  // console.log(`profilerElement:body`)
+  // console.log(body)
   return (
     <ProfilerElementWrapper>
         <div className="profiler-element-wrapper">
