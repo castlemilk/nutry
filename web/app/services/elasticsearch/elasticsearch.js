@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { elasticsearchConfig } from 'config';
-import { searchQuery, profilerFunctionQuery, profilerSearchQuery } from './queries';
+import { searchQuery, profilerFunctionQuery, profilerSearchQuery, matchField } from './queries';
 
 
 function parseResults(response) {
@@ -59,25 +59,25 @@ export function profiler(searchString, elements) {
     auth: elasticsearchConfig.authentication,
     headers: { 'Content-Type': 'application/json' },
   });
-  let query = profilerSearchQuery(searchString)
+  const query = profilerSearchQuery(searchString);
   const functions = elements.map((element) => {
-    const scaled_value = element.nutrient.adjustment_factor ?
+    const scaledValue = element.nutrient.adjustment_factor ?
     ((element.scale - 50) * element.nutrient.adjustment_factor) / 100 :
-    ((element.scale - 50) / 100)
-    return profilerFunctionQuery(element.nutrient.value, scaled_value);
-  })
+    ((element.scale - 50) / 100);
+    return profilerFunctionQuery(element.nutrient.value, scaledValue);
+  });
 
   const body = {
     size: 20,
     query: {
       function_score: {
         query,
-        functions
-      }
-    }
+        functions,
+      },
+    },
   };
-  console.log('profiler:query:')
-  console.log(body)
+  console.log('profiler:query:');
+  console.log(body);
   return session.post(path, body)
     .then(checkStatus)
     .then(parseResults);
@@ -92,8 +92,10 @@ export function getDocument(SN) {
   });
   const body = {
     size: 1,
-    query: matchField(SN)
+    query: matchField(SN),
   };
+  console.log('getDocument:body');
+  console.log(body);
   return session.post(path, body)
     .then(checkStatus)
     .then(parseResults);

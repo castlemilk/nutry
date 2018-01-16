@@ -13,7 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Col, Row, Icon, Spin } from 'antd';
 
-import ExpandableListView from 'components/ExpandableListView';
+import ProfilerExpandableList from 'components/ProfilerExpandableList';
 import ProfilerAddElement from 'components/ProfilerAddElement';
 import ProfilerElement from 'components/ProfilerElement';
 import ResultsList from 'components/ResultsList';
@@ -31,43 +31,43 @@ import ProfilerWrapper from './ProfilerWrapper';
 
 export class Profiler extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
-    super(props)
+    super(props);
 
     this.handleAddClick = this.handleAddClick.bind(this);
   }
   handleAddClick() {
-    console.log('add clicked!')
-    this.props.onAddElement()
+    console.log('add clicked!');
+    this.props.onAddElement();
   }
   handleNutrientChange(value, id) {
     // console.log(`element:id:${id}`)
     // console.log(`element:value:${value}`)
-    this.props.onUpdateElement(id, 'nutrient', value)
-    this.props.onChangeSearch()
+    this.props.onUpdateElement(id, 'nutrient', value);
+    this.props.onChangeSearch();
   }
   handleSliderChange(value, id) {
     // console.log(`element:id:${id}`)
     // console.log(`element:value:${value}`)
-    this.props.onUpdateElement(id, 'scale', value)
-    this.props.onChangeSearch()
+    this.props.onUpdateElement(id, 'scale', value);
+    this.props.onChangeSearch();
   }
   handleElementRemove(id) {
     // console.log(`element:id:${id}`)
-    this.props.onDeleteElement(id)
+    this.props.onDeleteElement(id);
   }
   handleSearchStringChange(event) {
     const { searchType } = this.props;
     if (searchType === 'all' || searchType === 'nutrients') {
-      this.props.onChangeSearchString(event)
+      this.props.onChangeSearchString(event);
     }
   }
   render() {
-    console.log('results:')
-    console.log(this.props.searchResults)
+    console.log('results:');
+    console.log(this.props.searchResults);
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = this.props.searchResults.items ? this.props.searchResults.items : [];
-    console.log('items:')
-    console.log(items)
+    console.log('items:');
+    console.log(items);
     const noResultsFound = items.length === 0 && this.props.searchString.length > 0 && !this.props.loading;
     const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList results={items} />;
     const nutrientResultsView = this.props.loading ?
@@ -76,21 +76,21 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
     </div>) : nutrientResults;
     const addElementProps = {
       key: 'add-element',
-    }
+    };
     const initialList = [
-      <ProfilerAddElement key='add-element' onClick={() => this.handleAddClick()} />,
-    ]
+      <ProfilerAddElement key="add-element" onClick={() => this.handleAddClick()} />,
+    ];
     const elementComponents = this.props.elements.map((element) => {
       const elementProps = Object.assign(element, {
         onNutrientChange: (id, nutrient) => this.handleNutrientChange(id, nutrient),
         onScaleChange: (id, scale) => this.handleSliderChange(id, scale),
-        onElementRemove: (id) => this.handleElementRemove(id)
-      })
+        onElementRemove: (id) => this.handleElementRemove(id),
+      });
       // console.log(elementProps)
       return (
-          <ProfilerElement key={element.id} {...elementProps} />
-      )
-    })
+        <ProfilerElement key={element.id} {...elementProps} />
+      );
+    });
     // console.log('elements: ')
     // console.log(this.props.elements);
     const sampleDataAdvanced = [{
@@ -103,14 +103,14 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
     // console.log(sampleDataAdvanced);
     return (
       <ProfilerWrapper>
-      <Row>
-        <Col xs={24} md={24}>
-          <ExpandableListView
-            data={sampleDataAdvanced}
-            headerAttName="headerName"
-            itemsAttName="items"
-          />
-        </Col>
+        <Row>
+          <Col xs={24} md={24}>
+            <ProfilerExpandableList
+              data={sampleDataAdvanced}
+              headerAttName="headerName"
+              itemsAttName="items"
+            />
+          </Col>
         </Row>
         <Row>
           {nutrientResultsView}

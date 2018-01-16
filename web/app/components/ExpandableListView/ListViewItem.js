@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const ListViewItem = styled.div`
-  margin-top: 10px;
-  color: blue;
+  color: black;
+  display:table;
+  width: 100%;
 `;
 
 export default ListViewItem;

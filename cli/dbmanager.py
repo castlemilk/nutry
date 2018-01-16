@@ -95,6 +95,7 @@ class DBManager(object):
                                     total=self.mongoClient.total_items,
                                     unit='Nutrients'):
                 self.elasticsearchClient.add_record(record, index_name=index_name, type='nutrients')
+
         else:
             for record in self.mongoClient.parseCollections():
                 pass

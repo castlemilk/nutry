@@ -71,10 +71,10 @@ export function profilerFunctionQuery(field, factor) {
  * @param  {[type]} SN [serialNumber]
  * @return {[type]}    [query body]
  */
-export function matchField(SN) {
+export function matchField(serialNumber) {
   return {
     match: {
-      SN,
+      SN: serialNumber,
     }
   }
 }

@@ -13,12 +13,13 @@ import PropTypes from 'prop-types';
 import Wrapper from './Wrapper';
 
 function SearchResultCard(props) {
-  const nameView = <div className="name" >{props.name}</div>;
-  const groupView = <div className="group" ><b>Food Group:</b>&nbsp;&nbsp;{props.group}</div>;
-  const usageView = props.usage ? <div className="usage" ><b>Example Usage:</b>&nbsp;&nbsp;{props.usage.join(', ')}</div> : null;
+  const { profileInfo } = props;
+  const nameView = <div className="name" >{profileInfo.name}</div>;
+  const groupView = <div className="group" ><b>Food Group:</b>&nbsp;&nbsp;{profileInfo.group}</div>;
+  const usageView = profileInfo.usage ? <div className="usage" ><b>Example Usage:</b>&nbsp;&nbsp;{profileInfo.usage.join(', ')}</div> : null;
   return (
     <Wrapper>
-      <div className="card" onClick={props.onClick}>
+      <div role="presentation" className="card" onClick={props.onClick}>
         {nameView}
         <div className="separator"></div>
         {groupView}
@@ -29,10 +30,7 @@ function SearchResultCard(props) {
 }
 
 SearchResultCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  group: PropTypes.string.isRequired,
-  usage: PropTypes.array,
-  SN: PropTypes.string.isRequired,
+  profileInfo: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 

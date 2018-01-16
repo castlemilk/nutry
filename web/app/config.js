@@ -7,3 +7,6 @@ export const elasticsearchConfig = {
     password: 'changeme',
   },
 };
+export const firebaseConfig = {
+  endpoint: `${process.env.FIREBASE_ENDPOINT}/${process.env.FIREBASE_DB_VERSION}`,
+};

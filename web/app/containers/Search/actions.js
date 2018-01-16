@@ -29,7 +29,7 @@ export function changeSearchString(searchString) {
 export function searchRefresh() {
   return {
     type: REFRESH_SEARCH,
-  }
+  };
 }
 export function searchComplete(results) {
   if (results) {
@@ -58,11 +58,11 @@ export function changeSearchType(searchType) {
   return {
     type: SEARCH_TYPE_CHANGED,
     searchType,
-  }
+  };
 }
 export function profileSelected(profileInfo) {
   return {
     type: PROFILE_SELECTED,
     profileInfo,
-  }
+  };
 }

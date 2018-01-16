@@ -150,6 +150,8 @@ module.exports = (options) => ({
         ELASTICSEARCH_PROXY_HOST: JSON.stringify(process.env.ELASTICSEARCH_PROXY_HOST || "localhost"),
         ELASTICSEARCH_PROXY_PORT: JSON.stringify(process.env.ELASTICSEARCH_PROXY_PORT || "9200"),
         ELASTICSEARCH_PROXY_PREFIX: JSON.stringify(process.env.ELASTICSEARCH_PROXY_PREFIX || ""),
+        FIREBASE_ENDPOINT: JSON.stringify(process.env.FIREBASE_ENDPOINT || "https://nutritiondb-3314c.firebaseio.com"),
+        FIREBASE_DB_VERSION: JSON.stringify(process.env.FIREBASE_DB_VERSION || "v3"),
       },
     }),
     new webpack.NamedModulesPlugin(),

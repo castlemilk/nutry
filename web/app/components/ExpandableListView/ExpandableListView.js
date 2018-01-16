@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import ListHeader from './ListHeader';
 import ListItemsManager from './ListItemsManager';
+import TableHeader from 'components/TableHeader';
 
 import Wrapper from './Wrapper';
 // import Ul from './Ul';
 // import TableHeader from 'components/TableHeader';
 
-export default class ExpandableListView extends Component {
+export default class ProfilerExpandableList extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     headerAttName: PropTypes.string.isRequired,
@@ -26,8 +27,8 @@ export default class ExpandableListView extends Component {
     const newData = Object.assign({}, this.props.data);
     newData[headerIndex].isOpened = !newData[headerIndex].isOpened;
     this.setState(newData);
-    console.log('changing state:')
-    console.log(newData)
+    console.log('changing state:');
+    console.log(newData);
   }
 
   render() {
@@ -53,7 +54,7 @@ export default class ExpandableListView extends Component {
             // const headerRef = makeHeaderRef();
             const itemRef = makeItemRef();
             // console.log("ExpandableListView:items:", items);
-            const overflow = isOpened ? 'visible' : 'hidden'
+            const overflow = isOpened ? 'visible' : 'hidden';
             return (
 
               <Motion

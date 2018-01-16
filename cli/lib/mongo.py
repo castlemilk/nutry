@@ -1,6 +1,5 @@
 from pymongo import MongoClient
-from .models import Name
-from .models import Nutrients
+from .models import Name, Nutrients, Profile
 from .exceptions import NoDatabasesFound
 
 
@@ -62,6 +61,14 @@ class MongoDB(object):
                     collection = db.get_collection(available_collection)
                     for item in collection.find({}):
                         yield Nutrients(item, available_db['name'])
+
+        elif type == 'profiles':
+            for available_db in self.databases:
+                db = self.client.get_database(available_db['name'])
+                for available_collection in db.list_collection_names():
+                    collection = db.get_collection(available_collection)
+                    for item in collection.find({}):
+                        yield Profile(item, available_db['name'])
 
 
 

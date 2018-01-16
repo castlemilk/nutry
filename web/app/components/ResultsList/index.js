@@ -14,15 +14,13 @@ import NoResultsFound from 'components/NoResultsFound';
 // import messages from './messages';
 
 function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow": ["_source"] }]*/
+  const { onProfileSelected } = props;
   const resultsView = props.results ? props.results.map((result) => {
-    const { name, SN, usage, group } = result._source;
+    const profileInfo = result._source;
     const searchResultCardProps = {
-      SN,
-      name,
-      group,
-      usage,
+      profileInfo,
     };
-    return <SearchResultCard {...searchResultCardProps} key={SN} onClick={() => props.onProfileSelected(searchResultCardProps)}/>;
+    return <SearchResultCard {...searchResultCardProps} key={profileInfo.SN} onClick={() => onProfileSelected(profileInfo)} />;
   }) : <NoResultsFound />;
   return (
     <div>
@@ -33,7 +31,7 @@ function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow
 
 ResultsList.propTypes = {
   results: PropTypes.array.isRequired,
-  onProfileSelected: PropTypes.func.isRequired,
+  onProfileSelected: PropTypes.func,
 
 };
 

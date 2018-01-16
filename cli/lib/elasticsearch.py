@@ -3,7 +3,7 @@ from .exceptions import UnableToLoadMapping, UnableToLoadProperties, FailedToCre
     FailedToIndexRecord
 import json
 from requests import Request, Session
-from .models import Name, Nutrients
+from .models import Name, Nutrients, Profile
 import os
 
 
@@ -46,7 +46,7 @@ class ElasticsearchIndex(object):
         :param Record record:
         :return:
         """
-        if not isinstance(record, Name) and not isinstance(record, Nutrients):
+        if not isinstance(record, Name) and not isinstance(record, Nutrients) and not isinstance(record, Profile):
             raise Exception('invalid input during add_record')
         path = "{url}/{index}/{type}".format(url=self.url,
                                              index=index_name if index_name else self.index_name,

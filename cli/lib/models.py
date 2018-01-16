@@ -153,15 +153,15 @@ class Name(object):
     def __str__(self):
         return "name: {name}, alias: {alias}, tags: {tags}, usage: {usage}, group: {group}, allergen: {allergen}, " \
                "source: {source}, clinical_pos: {clinical_pos}, clinical_neg: {clinical_neg}".format(
-            name=self.names['name'],
-            alias=self.names['alias'],
-            tags=self.get_tags(),
-            usage=self.get_usage(),
-            group=self.get_group(),
-            allergen=self.get_allergen(),
-            source=self.get_source(),
-            clinical_pos=self.get_clinical_pos(),
-            clinical_neg=self.get_clinical_neg(),
+                name=self.names['name'],
+                alias=self.names['alias'],
+                tags=self.get_tags(),
+                usage=self.get_usage(),
+                group=self.get_group(),
+                allergen=self.get_allergen(),
+                source=self.get_source(),
+                clinical_pos=self.get_clinical_pos(),
+                clinical_neg=self.get_clinical_neg(),
         )
 
 
@@ -192,6 +192,38 @@ class Nutrients(object):
     def __str__(self):
         return "NUTRIENTS: name: {name}, nutrients: {nutrients}".format(
             name=self.names['name'],
+            nutrients=self.nutrients
+        )
+
+    def get_indexable_document(self):
+        self.nutrients.update(json.loads(self.name.get_indexable_document()))
+        return json.dumps(self.nutrients
+                          )
+
+
+class Profile(object):
+    """
+       Model which represents the data structure within the mongoDB collection. Used for serialisation/deserialisation
+       of data and any enrichment or parsing requirements when carrying out the indexing into elasticsearch. Specifically
+       targets the structure of the nutrients of a given item within the data set.
+       """
+
+    def __init__(self, item, source):
+        self.item = item
+        self.name = Name(item, source)
+        self.group = item['group']
+        self.meta = item['meta']
+        self.id = item['ID']
+        self.nutrients = {
+            'nutrients': dict(map(lambda x: (normalise_nutrient_name(x[0]), x[1]), item['nutrients'].items()))
+        }
+
+    def __repr__(self):
+        return self.item
+
+    def __str__(self):
+        return "NUTRIENTS: name: {name}, nutrients: {nutrients}".format(
+            name=self.name.get_best_name(),
             nutrients=self.nutrients
         )
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const ListViewHeader = styled.div`
   color: white;
   height: 20px;
-  background: #b778ef;
+  background: #3774a9;
   .headerText {
     margin-left: 5px;
   }

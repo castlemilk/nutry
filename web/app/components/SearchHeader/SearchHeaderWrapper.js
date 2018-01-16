@@ -10,7 +10,8 @@ const SearchHeaderWrapper = styled.div`
     width: 180px;
     padding-left: 30px;
     padding-right: 30px;
-    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 16px;
   }
   .ant-btn-primary {
     width: 100%;
@@ -25,6 +26,7 @@ const SearchHeaderWrapper = styled.div`
   }
   .back-button .button {
     width: 100%;
+
   }
   .sign-in-wrapper {
     margin-left: 30px;
