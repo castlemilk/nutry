@@ -4,7 +4,7 @@ const NutrientDisplayWrapper = styled.div`
   margin-top: 40px;
   background: white;
   width: 100%;
-  height: 750px;
+  height: 840px;
   padding-bottom: 20px;
   .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab  {
     width: 300px;
@@ -24,7 +24,7 @@ const NutrientDisplayWrapper = styled.div`
     margin-top: 10px;
   }
   .detailed-card-wrapper {
-    height: 650px;
+    height: 720px;
     background: white;
     overflow: scroll;
   }

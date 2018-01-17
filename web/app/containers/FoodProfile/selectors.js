@@ -34,11 +34,26 @@ const makeSelectSource = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('source')
 );
+const makeSelectTabSelected = () => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.get('tabSelected')
+);
+const makeSelectPortion = () => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.get('portion')
+);
+const makeSelectNutrientSelected = () => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.get('nutrientSelected')
+);
 
 export default makeSelectFoodProfile;
 export {
   selectFoodProfileDomain,
   makeSelectProfileLoading,
+  makeSelectTabSelected,
+  makeSelectNutrientSelected,
+  makeSelectPortion,
   makeSelectProfile,
   makeSelectSource,
   makeSelectSerialNumber,

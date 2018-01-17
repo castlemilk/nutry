@@ -37,6 +37,11 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
     this.setState({
       index: value,
     });
+    const keys = {
+      0: 'summary',
+      1: 'detailed',
+    };
+    this.props.onTabChange(keys[value]);
   };
   handlePortionChange = (event, index, value) => {
     console.log('FoodProfile:portionselected:handleChange:value', value);
@@ -138,6 +143,7 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
 NutrientDisplay.propTypes = {
   profileBody: PropTypes.object.isRequired,
   portion: PropTypes.string,
+  onTabChange: PropTypes.func,
 };
 
 export default NutrientDisplay;

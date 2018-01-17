@@ -9,7 +9,24 @@ import {
 } from 'containers/FoodProfile/constants';
 
 
-function getNutrient(prefix, nutrients, portion = false) {
+export function getNutrient(prefix, nutrients, portion = false) {
+  const nutrient = nutrients[prefix];
+  if (nutrient) {
+    return new Nutrient(
+      nutrient.name || prefixToName(prefix),
+      nutrient.units || prefixToUnit(prefix),
+      getScaledValue(nutrient.value, portion) || '~',
+      getRDI(prefix)
+    );
+  }
+  return new Nutrient(
+    prefixToName(prefix),
+    prefixToUnit(prefix),
+    '~',
+    getRDI(prefix)
+  );
+}
+export function getNormalisedNutrient(prefix, nutrients, portion = false) {
   const nutrient = nutrients[prefix];
   // this.name = nutrient.name || prefixToName(prefix);
   // this.units = nutrient.units || prefixToUnit(prefix);
@@ -18,6 +35,7 @@ function getNutrient(prefix, nutrients, portion = false) {
     prefixToName(prefix),
     prefixToUnit(prefix),
     '~'
+
   );
   // console.log("getNutient:prefix:", prefix)
   // console.log("getNutient:nutrients:", nutrients)
@@ -37,10 +55,11 @@ function getNutrient(prefix, nutrients, portion = false) {
     '~'
   );
 }
-function Nutrient(name, units, value) {
+function Nutrient(name, units, value, rdi = null) {
   this.name = name;
   this.units = units;
   this.value = value;
+  this.rdi = rdi;
 }
 function Portion(name, amount, value) {
   this.unit = name;
@@ -48,7 +67,7 @@ function Portion(name, amount, value) {
   this.g = value;
 }
 
-function getEnergyKJ(nutrients, portion = false) {
+export function getEnergyKJ(nutrients, portion = false) {
   /**
    * There can be variation in the prefix used to denote energy. Function used
    * to abstract complexity away and ensure a result is returned.
@@ -64,7 +83,7 @@ function getEnergyKJ(nutrients, portion = false) {
   }
   return null;
 }
-function getEnergyKCAL(nutrients, portion = false) {
+export function getEnergyKCAL(nutrients, portion = false) {
   /**
    * There can be variation in the prefix used to denote energy. Function used
    * to abstract complexity away and ensure a result is returned.
@@ -86,20 +105,22 @@ function getEnergyKCAL(nutrients, portion = false) {
   }
   return null;
 }
-function getCarbohydrates(nutrients, portion = false) {
+export function getCarbohydrates(nutrients, portion = false) {
   // get availalble carbohydrates by difference.
   if (nutrients.CHOCDF) {
     const nutrient = getScaledNutrient(nutrients.CHOCDF, portion);
     nutrient.name = 'Carbohydrates Total';
+    nutrient.rdi = getRDI('CHOCDF');
     return nutrient;
   } else if (nutrients.AVAILCHOCNS) {
     const nutrient = getScaledNutrient(nutrients.AVAILCHOCNS, portion);
     nutrient.name = 'Carbohydrates Total';
+    nutrient.rdi = getRDI('CHOCDF');
     return nutrient;
   }
 }
 
-function getOmega3(nutrients, portion) {
+export function getOmega3(nutrients, portion) {
   let omega3Total = 0;
   if (nutrients.F20D5) {
     omega3Total += nutrients.F20D5.value;
@@ -139,7 +160,9 @@ export function getSummaryNutrients(nutrients, portion = false) {
   ];
   return summaryTable;
 }
-
+export function getRDI(prefix) {
+  return RDImapping[prefix];
+}
 export function getDetailedNutrients(nutrients, portion = false) {
   /**
    * This data structure is used by the ExpandableListView component and expects
@@ -368,7 +391,15 @@ function isFloat(n) {
 function isNumeric(n) {
   return !_.isNaN(n) && _.isFinite(n);
 }
-
+const RDImapping = {
+  WATER: 3400,
+  SUGAR: 112,
+  CHOCDF: 310,
+  PROCNT: 64,
+  FIBTG: 30,
+  NA: 960,
+  FAT: 50,
+};
 function prefixToName(prefix) {
   /**
    * Convert nutrient prefix to full name from a standard hash/dictionary table

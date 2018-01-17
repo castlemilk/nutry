@@ -12,20 +12,26 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row, Col, Icon, Spin } from 'antd';
-
+import { getPieDataSummary, getPieDataDetailed } from 'lib/nutrientAnalytics';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientDisplay from 'components/NutrientDisplay';
 import ProfileTitle from 'components/ProfileTitle';
+import FoodProfileToolBar from 'components/FoodProfileToolBar';
+import NutrientProfilePieChart from 'components/NutrientProfilePieChart';
 import Spices from 'images/spices.svg';
-import { loadProfile } from './actions';
-import { makeSelectProfile, makeSelectProfileLoading } from './selectors';
+import { loadProfile, tabChanged, portionChanged } from './actions';
+import { makeSelectProfile,
+  makeSelectProfileLoading,
+  makeSelectTabSelected,
+  makeSelectPortion } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 // import messages from './messages';
 import FoodProfileWrapper from './FoodProfileWrapper';
 
 export class FoodProfile extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
   componentWillMount() {
     const { SN, source } = this.props.profileHeader;
     console.log('foodProfile:profileHeader:');
@@ -39,7 +45,8 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       height: '100%',
       backgroundImage: `url(${Spices})`,
     };
-    const { loading, profileHeader, profileBody } = this.props;
+    const { loading, profileHeader, profileBody, tabSelected, portion } = this.props;
+    const { onTabChange } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const loadingView = (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
@@ -50,6 +57,14 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
     const nutrientDisplayProps = {
       loading,
       profileBody,
+      onTabChange,
+    };
+    const pieData = tabSelected === 'summary' ?
+      getPieDataSummary(portion, profileBody.nutrients) :
+      getPieDataDetailed(portion, profileBody.nutrients);
+
+    const analyticsProps = {
+      pieData,
     };
 
     return (
@@ -59,22 +74,35 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             <title>FoodProfile</title>
             <meta name="description" content="Description of FoodProfile" />
           </Helmet>
-          <Row>
-            <Col xs={3} sm={3} md={3} lg={2}>
+          <Row gutter={{ xs: 0, sm: 0, md: 0, lg: 24, xl: 48 }}>
+            <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
-            <Col xs={18} sm={18} md={18} lg={10} >
+            <Col xs={20} sm={20} md={20} lg={22} >
               { loading ? loadingView : <ProfileTitle {...profileTitleProps} />}
             </Col>
-            <Col xs={3} sm={3} md={3} lg={10}>
+            <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
           </Row>
           <Row>
-            <Col xs={3} sm={3} md={3} lg={2}>
+            <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
-            <Col xs={18} sm={18} md={18} lg={10} >
+            <Col xs={20} sm={20} md={20} lg={22} >
+              <FoodProfileToolBar />
+            </Col>
+            <Col xs={2} sm={2} md={2} lg={1}>
+            </Col>
+          </Row>
+          <Row gutter={{ xs: 0, sm: 0, md: 0, lg: 24, xl: 48 }}>
+            <Col xs={3} sm={3} md={3} lg={1}>
+            </Col>
+            <Col xs={18} sm={18} md={18} lg={11} >
               <NutrientDisplay {...nutrientDisplayProps} />
             </Col>
-            <Col xs={3} sm={3} md={3} lg={10}>
+            <Col xs={18} sm={18} md={18} lg={11}>
+              {pieData ? <NutrientProfilePieChart {...analyticsProps} /> : null }
+              {pieData ? <NutrientProfilePieChart {...analyticsProps} /> : null }
+            </Col>
+            <Col xs={3} sm={3} md={3} lg={1}>
             </Col>
           </Row>
         </div>
@@ -89,17 +117,23 @@ FoodProfile.propTypes = {
   profileHeader: PropTypes.object.isRequired,
   profileBody: PropTypes.object,
   onLoadProfile: PropTypes.func,
+  onTabChange: PropTypes.func,
+  tabSelected: PropTypes.string,
+  portion: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectProfileLoading(),
   profileBody: makeSelectProfile(),
+  tabSelected: makeSelectTabSelected(),
+  portion: makeSelectPortion(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onLoadProfile: (serialNumber, source) => dispatch(loadProfile(serialNumber, source)),
+    onTabChange: (tab) => dispatch(tabChanged(tab)),
   };
 }
 

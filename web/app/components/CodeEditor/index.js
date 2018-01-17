@@ -11,7 +11,7 @@ import Embed from 'react-runkit';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import CodeEditorWrapper from './CodeEditorWrapper';
 // TODO: Override runkit css to provide more UI friendly styling
