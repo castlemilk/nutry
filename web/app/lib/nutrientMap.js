@@ -62,6 +62,7 @@ function getEnergyKJ(nutrients, portion = false) {
     nutrient.name = 'Energy';
     return nutrient;
   }
+  return null;
 }
 function getEnergyKCAL(nutrients, portion = false) {
   /**
@@ -83,6 +84,7 @@ function getEnergyKCAL(nutrients, portion = false) {
     var energyKCAL = _.round(nutrients.ENERC * KJtoKCAL, 1);
     return getScaledNutrient(new Nutrient('Energy (KCAL)', 'kcal', energyKCAL), portion);
   }
+  return null;
 }
 function getCarbohydrates(nutrients, portion = false) {
   // get availalble carbohydrates by difference.
@@ -304,7 +306,7 @@ export function defaultPortions(profilePortions = null) {
 
 function getScaledValue(value, portion = false) {
   if (!portion) {
-    return value;
+    return truncateTo(value, 2);
   } else if (value) {
     return truncateTo(value * scale(portion), 2);
   }

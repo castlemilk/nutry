@@ -4,7 +4,7 @@ const SearchHeaderWrapper = styled.div`
   background-color: rgba(211, 211, 211, 0.3);
   position: relative;
   width: 100%;
-  min-width: 1100px;
+  min-width: 380px;
   .back-button {
     height: auto;
     width: 180px;
@@ -55,6 +55,7 @@ const SearchHeaderWrapper = styled.div`
     text-align: center;
   }
   .logo-image {
+    min-width: 50px;
     max-height: 52px;
     max-width: 80%;
     margin-left:2%;

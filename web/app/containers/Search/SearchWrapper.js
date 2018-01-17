@@ -11,8 +11,10 @@ const SearchWrapper = styled.div`
   .tab-bar .ant-tabs-bar {
     background-color: rgba(211, 211, 211, 0.3);
   }
-  .tab-bar .ant-tabs-nav-container {
-    margin-left: 160px;
+  @media only screen and (min-width:700px) {
+    .tab-bar .ant-tabs-nav-container {
+      margin-left: 160px;
+    }
   }
   .loading-spinner {
     margin-left: 50%;

@@ -19,24 +19,24 @@ function SearchHeader(props) {
     <SearchHeaderWrapper>
       <Row>
         <div className="header">
-          <Col span={2}  >
+          <Col xs={5} sm={4} md={3} lg={2} >
             <div className="logo-wrapper" >
-            <img className="logo-image" src={LogoImg} alt="Nutry" />
+              <img className="logo-image" src={LogoImg} alt="Nutry" />
             </div>
           </Col>
-          <Col span={20}  >
+          <Col xs={12} sm={16} md={18} lg={20} >
             <div className="search-box">
               {props.searchBarView}
             </div>
           </Col>
-          <Col span={2}  >
-              {props.loginView}
+          <Col xs={7} sm={4} md={3} lg={2} >
+            {props.loginView}
           </Col>
         </div>
       </Row>
       <Row>
         <Col span={2}>
-            {props.backButtonView}
+          {props.backButtonView}
         </Col>
       </Row>
     </SearchHeaderWrapper>
@@ -48,6 +48,7 @@ SearchHeader.propTypes = {
   searchBarView: PropTypes.object,
   toolBarView: PropTypes.object,
   backButtonView: PropTypes.object,
+  loginView: PropTypes.object,
 };
 
 export default SearchHeader;

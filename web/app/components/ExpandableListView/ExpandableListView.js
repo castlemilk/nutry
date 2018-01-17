@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import ListHeader from './ListHeader';
 import ListItemsManager from './ListItemsManager';
-import TableHeader from 'components/TableHeader';
+// import TableHeader from 'components/TableHeader';
 
 import Wrapper from './Wrapper';
 // import Ul from './Ul';
@@ -38,7 +38,7 @@ export default class ProfilerExpandableList extends Component {
     let refi = 0;
     // const makeHeaderRef = () => `ListHeader-${refi}`;
 
-    const makeItemRef = () => `ListItem-${refi}`;
+    // const makeItemRef = () => `ListItem-${refi}`;
     return (
 
       <Wrapper >
@@ -52,7 +52,7 @@ export default class ProfilerExpandableList extends Component {
             refi += 1;
             const motionIndex = `motion-key${index}`;
             // const headerRef = makeHeaderRef();
-            const itemRef = makeItemRef();
+            // const itemRef = makeItemRef();
             // console.log("ExpandableListView:items:", items);
             const overflow = isOpened ? 'visible' : 'hidden';
             return (

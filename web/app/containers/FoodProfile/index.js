@@ -60,13 +60,21 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             <meta name="description" content="Description of FoodProfile" />
           </Helmet>
           <Row>
-            <Col span={12} offset={2} >
+            <Col xs={3} sm={3} md={3} lg={2}>
+            </Col>
+            <Col xs={18} sm={18} md={18} lg={10} >
               { loading ? loadingView : <ProfileTitle {...profileTitleProps} />}
+            </Col>
+            <Col xs={3} sm={3} md={3} lg={10}>
             </Col>
           </Row>
           <Row>
-            <Col span={12} offset={2} >
+            <Col xs={3} sm={3} md={3} lg={2}>
+            </Col>
+            <Col xs={18} sm={18} md={18} lg={10} >
               <NutrientDisplay {...nutrientDisplayProps} />
+            </Col>
+            <Col xs={3} sm={3} md={3} lg={10}>
             </Col>
           </Row>
         </div>

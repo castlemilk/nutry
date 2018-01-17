@@ -7,7 +7,7 @@ const RowName = styled.div`
   font-size: 2.0vmin;
   font-family: 'Bitter', serif;
   border-bottom: 1px solid #a79595;
-  .childName {
+  .child-row-name {
     margin-left: 15px;
   }
 `;

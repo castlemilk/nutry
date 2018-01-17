@@ -8,7 +8,7 @@ const RowName = styled.div`
   ${''/* font-family: 'Droid Serif', serif; */}
   font-family: 'Bitter', serif;
   border-bottom: 1px solid #a79595;
-  .parentName {
+  .parent-row-name {
     margin-left: 5px;
   }
 `;

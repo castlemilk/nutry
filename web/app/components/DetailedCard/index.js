@@ -20,6 +20,7 @@ import NutrientChildRow from 'components/NutrientChildRow';
 import NutrientHeaderRow from 'components/NutrientHeaderRow';
 import NutrientParentNoNameRow from 'components/NutrientParentNoNameRow';
 import ExpandableListView from 'components/ExpandableListView';
+import Wrapper from './Wrapper';
 // import messages from './messages';
 
 class DetailedCard extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -33,7 +34,7 @@ class DetailedCard extends React.Component { // eslint-disable-line react/prefer
       componentGroup.headerName = group.headerName;
       componentGroup.isOpened = true;
       componentGroup.isReactComponent = true;
-      componentGroup.height = (group.items.length * 60) + 50;
+      componentGroup.height = (group.items.length * 60) + 70;
       const items = [];
       group.items.map((row) => {
         switch (row.type) {
@@ -55,12 +56,13 @@ class DetailedCard extends React.Component { // eslint-disable-line react/prefer
       // console.log("ExpandableListView:
     });
     return (
-
-      <ExpandableListView
-        data={this.filledNutrientTable}
-        headerAttName="headerName"
-        itemsAttName="items"
-      />
+      <Wrapper>
+        <ExpandableListView
+          data={this.filledNutrientTable}
+          headerAttName="headerName"
+          itemsAttName="items"
+        />
+      </Wrapper>
     );
   }
 }
