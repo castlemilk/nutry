@@ -5,8 +5,8 @@ const NutrientProfilePieChartWrapper = styled.div`
   height: 370px;
   width: 670px;
   margin-left:auto;
-   margin-right:auto;
-   display:block;
+  margin-right:auto;
+  display:block;
   background: white;
   text-align: center;
   border-style: solid;

@@ -16,10 +16,10 @@ import { getPieDataSummary, getPieDataDetailed } from 'lib/nutrientAnalytics';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientDisplay from 'components/NutrientDisplay';
-import ProfileTitle from 'components/ProfileTitle';
+import FoodProfileTitle from 'components/FoodProfileTitle';
 import FoodProfileToolBar from 'components/FoodProfileToolBar';
 import NutrientProfilePieChart from 'components/NutrientProfilePieChart';
-import Spices from 'images/spices.svg';
+// import Spices from 'images/spices.svg';
 import { loadProfile, tabChanged, portionChanged, ageGroupChanged } from './actions';
 import { makeSelectProfile,
   makeSelectProfileLoading,
@@ -96,7 +96,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
             <Col xs={20} sm={20} md={20} lg={22} >
-              { loading ? loadingView : <ProfileTitle {...profileTitleProps} />}
+              { loading ? loadingView : <FoodProfileTitle {...profileTitleProps} />}
             </Col>
             <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
@@ -110,17 +110,17 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
           </Row>
-          <Row gutter={{ xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }}>
-            <Col xs={3} sm={3} md={3} lg={2}>
+          <Row gutter={{ xs: 48, sm: 48, md: 48, lg: 48, xl: 48 }}>
+            <Col xs={3} sm={3} md={2} lg={2}>
             </Col>
-            <Col xs={18} sm={18} md={18} lg={10} >
+            <Col xs={18} sm={18} md={10} lg={10} >
               <NutrientDisplay {...nutrientDisplayProps} />
             </Col>
-            <Col xs={18} sm={18} md={18} lg={10}>
+            <Col xs={18} sm={18} md={10} lg={10}>
               {pieData ? <NutrientProfilePieChart {...analyticsProps} /> : null }
               {pieData ? <NutrientProfilePieChart {...analyticsProps} /> : null }
             </Col>
-            <Col xs={3} sm={3} md={3} lg={2}>
+            <Col xs={3} sm={3} md={2} lg={2}>
             </Col>
           </Row>
         </div>
