@@ -10,12 +10,12 @@ import PropTypes from 'prop-types';
 
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
-import ProfileTitleWrapper from './ProfileTitleWrapper';
+import FoodProfileTitleWrapper from './ProfileTitleWrapper';
 
-function ProfileTitle(props) {
+function FoodProfileTitle(props) {
   const { profileHeader } = props;
   return (
-    <ProfileTitleWrapper>
+    <FoodProfileTitleWrapper>
       <div className="profile-title">
         <h1 className="profile-title-name" >{profileHeader.name}</h1>
         <h2 className="profile-title-group" >{profileHeader.group}</h2>
@@ -24,12 +24,12 @@ function ProfileTitle(props) {
           <h3 className="profile-title-usage-values">{profileHeader.usage.join(', ')}</h3>
         </div>
       </div>
-    </ProfileTitleWrapper>
+    </FoodProfileTitleWrapper>
   );
 }
 
-ProfileTitle.propTypes = {
+FoodProfileTitle.propTypes = {
   profileHeader: PropTypes.object.isRequired,
 };
 
-export default ProfileTitle;
+export default FoodProfileTitle;

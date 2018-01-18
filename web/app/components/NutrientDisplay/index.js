@@ -59,7 +59,7 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
   };
   render() {
     const { index } = this.state;
-    const { profileBody, portion } = this.props;
+    const { profileBody, portionSelected } = this.props;
     const muiTheme = getMuiTheme({
       tabs: {
         backgroundColor: '#3774a9',
@@ -75,8 +75,8 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
       <Spin indicator={loadingSpinner} />
     </div>);
     const nutrients = profileBody ? profileBody.nutrients : null;
-    const summaryTable = nutrients ? getSummaryNutrients(nutrients, portion) : null;
-    const detailedTable = nutrients ? getDetailedNutrients(nutrients, portion) : null;
+    const summaryTable = nutrients ? getSummaryNutrients(nutrients, portionSelected.g) : null;
+    const detailedTable = nutrients ? getDetailedNutrients(nutrients, portionSelected.g) : null;
     // const TabPane = Tabs.TabPane;
     const tabs = (profileBody ?
       (<MuiThemeProvider muiTheme={muiTheme}>
@@ -142,7 +142,7 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
 
 NutrientDisplay.propTypes = {
   profileBody: PropTypes.object.isRequired,
-  portion: PropTypes.string,
+  portionSelected: PropTypes.string,
   onTabChange: PropTypes.func,
 };
 

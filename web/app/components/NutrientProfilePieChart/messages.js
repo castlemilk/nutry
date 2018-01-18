@@ -12,4 +12,8 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the NutrientProfilePieChart component !',
   },
+  chartTitle: {
+    id: `${scope}.chartTitle`,
+    defaultMessage: 'Percentage Composition',
+  },
 });

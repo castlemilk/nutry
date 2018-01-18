@@ -14,6 +14,7 @@ export const GET_PROFILE_FAILURE = prefix('GET_PROFILE_FAILURE');
 export const TAB_CHANGED = prefix('TAB_CHANGED');
 export const PORTION_CHANGED = prefix('PORTION_CHANGED');
 export const NUTRIENT_SELECTED = prefix('NUTRIENT_SELECTED');
+export const AGE_GROUP_CHANGED = prefix('AGE_GROUP_CHANGED');
 
 export const HEADER = 'HEADER';
 export const PARENT_ROW = 'PARENTR_ROW';

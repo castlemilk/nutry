@@ -4,8 +4,14 @@ const NutrientDisplayWrapper = styled.div`
   margin-top: 40px;
   background: white;
   width: 100%;
-  height: 840px;
+  height: auto;
   padding-bottom: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  -webkit-box-shadow:  6px 6px 12px -6px rgba(0,0,0,0.44);
+  -moz-box-shadow:  6px 6px 12px -6px rgba(0,0,0,0.44);
+  box-shadow: 10px 10px 16px -10px rgba(0, 0, 0,0.44);
   .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab  {
     width: 300px;
     align-text: center;

@@ -21,15 +21,12 @@ const makeSelectProfiler = () => createSelector(
 const makeSelectAllElements = () => createSelector(
   selectProfilerDomain,
   (substate) => {
-    const elements = substate.get('elements')
-    if (elements.size > 0 ) {
-      const [...elements] = substate.get('elements').entries()
-      return elements.map((value) => {
-        return Object.assign({ id: value[0]}, value[1].toJS())
-      })
-    } else {
-      return []
+    const elements = substate.get('elements');
+    if (elements.size > 0) {
+      const [...entries] = substate.get('elements').entries();
+      return entries.map((value) => Object.assign({ id: value[0] }, value[1].toJS()));
     }
+    return [];
   }
 );
 const makeSelectSearchResults = () => createSelector(

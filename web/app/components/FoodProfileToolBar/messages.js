@@ -8,8 +8,12 @@ import { defineMessages } from 'react-intl';
 const scope = 'app.components.FoodProfileToolBar';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the FoodProfileToolBar component !',
+  ageGroup: {
+    id: `${scope}.agegroup`,
+    defaultMessage: 'Age Group: ',
+  },
+  portion: {
+    id: `${scope}.portion`,
+    defaultMessage: 'Portion: ',
   },
 });

@@ -63,6 +63,9 @@ function Nutrient(name, units, value, rdi = null) {
 }
 function Portion(name, amount, value) {
   this.unit = name;
+  this.value = value;
+  this.className = name ? `${name.replace(/\ |\_|\,|\-|/g, '')}` : 'portion-class';
+  this.label = name;
   this.amt = amount;
   this.g = value;
 }
@@ -320,7 +323,11 @@ export function defaultPortions(profilePortions = null) {
           portion.g
         ));
       } else {
-        portions.push(portion);
+        portions.push(new Portion(
+          portion.name,
+          portion.unit,
+          portion.g
+        ));
       }
     }
   }

@@ -9,6 +9,7 @@ import {
   GET_PROFILE,
   TAB_CHANGED,
   PORTION_CHANGED,
+  AGE_GROUP_CHANGED,
   NUTRIENT_SELECTED,
   GET_PROFILE_FAILURE,
   GET_PROFILE_SUCCESS,
@@ -50,9 +51,15 @@ export function nutrientSelected(nutrient) {
     nutrient,
   };
 }
-export function portionChanged(portion) {
+export function portionChanged(portionSelected) {
   return {
     type: PORTION_CHANGED,
-    portion,
+    portionSelected,
+  };
+}
+export function ageGroupChanged(ageGroup) {
+  return {
+    type: AGE_GROUP_CHANGED,
+    ageGroup,
   };
 }

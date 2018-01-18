@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ProfileTitleWrapper = styled.div`
+const FoodProfileTitleWrapper = styled.div`
   margin-top: 30px;
   .profile-title {
     padding: 20px;
@@ -29,4 +29,4 @@ const ProfileTitleWrapper = styled.div`
   }
 `;
 
-export default ProfileTitleWrapper;
+export default FoodProfileTitleWrapper;

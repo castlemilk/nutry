@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const FoodProfileWrapper = styled.div`
-  width: 100%;
+  min-width: 800px;
   height: 1100px;
+  background: gray;
 `;
 
 export default FoodProfileWrapper;
