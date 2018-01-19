@@ -3,22 +3,11 @@
 * DetailedCard
 *
 */
-import {
-  HEADER,
-  PARENT_NONAME_ROW,
-  PARENT_ROW,
-  CHILD_ROW,
-
-} from 'containers/FoodProfile/constants';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 // import { FormattedMessage } from 'react-intl';
-
-import NutrientParentRow from 'components/NutrientParentRow';
-import NutrientChildRow from 'components/NutrientChildRow';
-import NutrientHeaderRow from 'components/NutrientHeaderRow';
-import NutrientParentNoNameRow from 'components/NutrientParentNoNameRow';
+import NutrientRow from 'components/NutrientRow';
 import ExpandableListView from 'components/ExpandableListView';
 import Wrapper from './Wrapper';
 // import messages from './messages';
@@ -28,37 +17,28 @@ class DetailedCard extends React.Component { // eslint-disable-line react/prefer
 
   render() {
     console.log('DetailedCard:nutrientTabe:', this.props.detailedTable);
-    this.filledNutrientTable = [];
-    this.props.detailedTable.map((group) => {
-      const componentGroup = {};
-      componentGroup.headerName = group.headerName;
-      componentGroup.isOpened = true;
-      componentGroup.isReactComponent = true;
-      componentGroup.height = (group.items.length * 60) + 70;
-      const items = [];
-      group.items.map((row) => {
-        switch (row.type) {
-          case PARENT_ROW:
-            return items.push((<NutrientParentRow nutrient={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-          case PARENT_NONAME_ROW:
-            return items.push((<NutrientParentNoNameRow nutrient={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-          case CHILD_ROW:
-            return items.push((<NutrientChildRow nutrient={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-          case HEADER:
-            return items.push((<NutrientHeaderRow data={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-          default:
-            return items.push((<NutrientChildRow nutrient={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-        }
-      });
-      componentGroup.items = items;
-      this.filledNutrientTable.push(componentGroup);
-      return componentGroup;
-      // console.log("ExpandableListView:
+    const { detailedTable } = this.props;
+    const filledNutrientTable = detailedTable.map((group) => {
+      const { headerName } = group;
+      return {
+        headerName,
+        isOpened: true,
+        isReactComponent: true,
+        height: (group.items.length * 60) + 70,
+        items: group.items.map((row) => {
+          const { type, nutrient } = row;
+          const rowProps = {
+            type,
+            nutrient,
+          };
+          return <NutrientRow {...rowProps} key={`detailed-${nutrient.name}`} />;
+        }),
+      };
     });
     return (
       <Wrapper>
         <ExpandableListView
-          data={this.filledNutrientTable}
+          data={filledNutrientTable}
           headerAttName="headerName"
           itemsAttName="items"
         />

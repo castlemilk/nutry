@@ -25,7 +25,6 @@ class SummaryCard extends React.Component { // eslint-disable-line react/prefer-
    * all nutrients.
    */
   render() {
-    console.log(this);
     const { summaryTable, onNutrientHover, onNutrientSelected } = this.props;
     const rows = summaryTable ? summaryTable.map((row) => {
       const { type, nutrient } = row;

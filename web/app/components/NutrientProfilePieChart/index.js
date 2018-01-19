@@ -77,22 +77,27 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
       activeIndex: this.props.pieData && !this.props.loading ? getIndexLargestValue(this.props.pieData) : 0,
     };
   }
+  componentWillMount() {
+    if (!this.props.loading) {
+      this.onFinishedLoading();
+    }
+  }
 
   onPieEnter(data, index) {
     this.setState({
       activeIndex: index,
     });
   }
-  // onFinishedLoading() {
-  //   this.setState({
-  //     activeIndex: getIndexLargestValue(this.props.pieData),
-  //   });
-  // }
+  onFinishedLoading() {
+    if (this.state.activeIndex !== getIndexLargestValue(this.props.pieData)) {
+      this.setState({
+        activeIndex: getIndexLargestValue(this.props.pieData),
+      });
+    }
+  }
+
   render() {
     const { pieData, loading } = this.props;
-    // if (!loading && pieData) {
-    //   this.onFinishedLoading();
-    // }
     const pieDataColored = loading ? null : pieData.map((value, index) => {
       const section = value;
       section.fill = COLORS[index % COLORS.length];
@@ -108,7 +113,7 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
           { loading ? loadingPie : (
             <PieChart width={600} height={300}>
               <Pie
-                activeIndex={getIndexLargestValue(this.props.pieData)}
+                activeIndex={this.state.activeIndex}
                 activeShape={renderActiveShape}
                 data={pieDataColored}
                 dataKey="value"

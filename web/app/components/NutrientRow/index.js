@@ -12,7 +12,7 @@ import {
   PARENT_NONAME_ROW,
   PARENT_ROW,
   CHILD_ROW,
-
+  CHILD2_ROW,
 } from './constants';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
@@ -28,9 +28,18 @@ export default function NutrientRow(props) {
   const { name, units } = props.nutrient;
   const { onNutrientHover, onNutrientSelected, type } = props;
   const childRow = type === CHILD_ROW;
+  const child2Row = type === CHILD2_ROW;
   const parentRow = type === PARENT_ROW;
   const parentNoNameRow = type === PARENT_NONAME_ROW;
   const headerRow = type === HEADER;
+  let indent = 0;
+  if (childRow) {
+    indent = 15;
+  } else if (child2Row) {
+    indent = 20;
+  } else if (parentRow) {
+    indent = 5;
+  }
   const value = props.nutrient.value ?
      props.nutrient.value :
      (<span style={{ color: 'red' }}>
@@ -44,7 +53,7 @@ export default function NutrientRow(props) {
     font-family: 'Bitter', serif;
     border-bottom: 1px solid #a79595;
     .row-name-text {
-      margin-left: ${(parentRow || headerRow) ? 5 : 15}px;
+      margin-left: ${indent}px;
     }
   `;
   const RowUnits = styled.div`
@@ -202,9 +211,9 @@ export default function NutrientRow(props) {
     //     </Row>
     //   );
   return (<Row>
-    {(parentRow || headerRow || childRow) ? <RowName><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" ></span></RowName> }
-    {(childRow || parentRow || parentNoNameRow) ? <RowUnits>{units}</RowUnits> : null }
-    {(childRow || parentRow || parentNoNameRow) ? <RowValue>{value}</RowValue> : null }
+    {(parentRow || child2Row || headerRow || childRow) ? <RowName><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" ></span></RowName> }
+    {(childRow || child2Row || parentRow || parentNoNameRow) ? <RowUnits>{units}</RowUnits> : null }
+    {(childRow || child2Row || parentRow || parentNoNameRow) ? <RowValue>{value}</RowValue> : null }
   </Row>
   );
 }
