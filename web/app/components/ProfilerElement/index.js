@@ -91,7 +91,7 @@ export class ProfilerElement extends React.Component { // eslint-disable-line re
 ProfilerElement.propTypes = {
   id: PropTypes.string.isRequired,
   scale: PropTypes.number.isRequired,
-  nutrient: PropTypes.string,
+  nutrient: PropTypes.object,
   onNutrientChange: PropTypes.func.isRequired,
   onScaleChange: PropTypes.func,
   onElementRemove: PropTypes.func,

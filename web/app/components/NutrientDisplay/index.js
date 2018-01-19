@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-import { Spin, Icon } from 'antd';
+import { Row, Col } from 'antd';
 // import { cyan500, blue900 } from 'material-ui/styles/colors';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import SummaryCard from 'components/SummaryCard';
 import DetailedCard from 'components/DetailedCard';
 import TableHeader from 'components/TableHeader';
+import LoadingContent from 'components/LoadingContent';
 import { getSummaryNutrients, getDetailedNutrients } from 'lib/nutrientMap';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
@@ -44,9 +45,6 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
     this.props.onTabChange(keys[value]);
   };
   handlePortionChange = (event, index, value) => {
-    console.log('FoodProfile:portionselected:handleChange:value', value);
-    console.log('FoodProfile:portionselected:handleChange:value_g', this.portions[value].g);
-    console.log('FoodProfile:portionselected:handleChange:index', index);
     this.setState({
       portion: this.portions[value].g,
       portion_index: index,
@@ -59,7 +57,11 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
   };
   render() {
     const { index } = this.state;
-    const { profileBody, portionSelected } = this.props;
+    const { profileBody, portionSelected, loading } = this.props;
+    const {
+      onNutrientHover,
+      onNutrientSelected,
+    } = this.props;
     const muiTheme = getMuiTheme({
       tabs: {
         backgroundColor: '#3774a9',
@@ -68,18 +70,196 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
     const inkBarStyle = {
       backgroundColor: 'gray',
     };
-    console.log('nutrientDisplay:profileBody:');
-    console.log(profileBody);
-    const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
-    const loadingView = (<div className="loading-spinner">
-      <Spin indicator={loadingSpinner} />
-    </div>);
-    const nutrients = profileBody ? profileBody.nutrients : null;
-    const summaryTable = nutrients ? getSummaryNutrients(nutrients, portionSelected.g) : null;
-    const detailedTable = nutrients ? getDetailedNutrients(nutrients, portionSelected.g) : null;
-    // const TabPane = Tabs.TabPane;
-    const tabs = (profileBody ?
-      (<MuiThemeProvider muiTheme={muiTheme}>
+    // const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
+    // const loadingView = (<div className="loading-spinner">
+    //   <Spin indicator={loadingSpinner} />
+    // </div>);
+    const nutrients = loading ? null : profileBody.nutrients;
+    const summaryTable = loading ? null : getSummaryNutrients(nutrients, portionSelected.g);
+    const detailedTable = loading ? null : getDetailedNutrients(nutrients, portionSelected.g);
+    const summaryTableProps = {
+      summaryTable,
+      onNutrientSelected,
+      onNutrientHover,
+    };
+    const detailedTableProps = {
+      detailedTable,
+      onNutrientSelected,
+      onNutrientHover,
+    };
+    const loadingView = (
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div>
+          <Tabs inkBarStyle={inkBarStyle} value={index} onChange={this.handleChangeTabs}>
+            <Tab icon={<LoadingContent width={100} height={30} speed={1.5} />} value={0} />
+            <Tab icon={<LoadingContent width={100} height={30} speed={1.5} />} value={1} />
+          </Tabs>
+          <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
+            <div>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+
+            </div>
+            <div>
+              <Row gutter={0}>
+                <Col span={14} >
+                  <LoadingContent width={200} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={50} height={30} speed={1.5} />
+                </Col>
+                <Col span={4}>
+                  <LoadingContent width={100} height={30} speed={1.5} />
+                </Col>
+              </Row>
+            </div>
+          </SwipeableViews>
+        </div>
+      </MuiThemeProvider>
+    );
+    const nutrientView = (
+      <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Tabs inkBarStyle={inkBarStyle} value={index} onChange={this.handleChangeTabs}>
             <Tab label="Summary" value={0} />
@@ -91,7 +271,7 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
                 <TableHeader />
               </div>
               <div className="summary-card-wrapper">
-                { summaryTable ? <SummaryCard nutrientTable={summaryTable} /> : null }
+                { summaryTable ? <SummaryCard {...summaryTableProps} /> : null }
               </div>
             </div>
             <div>
@@ -99,39 +279,13 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
                 <TableHeader />
               </div>
               <div className="detailed-card-wrapper">
-                { detailedTable ? <DetailedCard nutrientTable={detailedTable} /> : null }
+                { detailedTable ? <DetailedCard {...detailedTableProps} /> : null }
               </div>
             </div>
           </SwipeableViews>
         </div>
-      </MuiThemeProvider>) : loadingView
-      );
-    // const tabs = (profileBody ?
-    //   (<Tabs
-    //     type="card"
-    //     className="nutrient-tabs"
-    //     defaultActiveKLey="1"
-    //     onChange={(e) => this.handleTabChange(e)}
-    //   >
-    //     <TabPane tab={<span>Summary</span>} key="summary">
-    //       <div className="summary-table-header-wrapper">
-    //         <TableHeader />
-    //       </div>
-    //       <div className="summary-card-wrapper">
-    //         { summaryTable ? <SummaryCard nutrientTable={summaryTable} /> : null }
-    //       </div>
-    //     </TabPane>
-    //     <TabPane tab={<span>Detailed</span>} key="detailed">
-    //       <div className="detailed-table-header-wrapper">
-    //         <TableHeader />
-    //       </div>
-    //       <div className="detailed-card-wrapper">
-    //         { detailedTable ? <DetailedCard nutrientTable={detailedTable} /> : null }
-    //       </div>
-    //     </TabPane>
-    //   </Tabs>) : loadingView
-    // );
-    const displayView = profileBody ? tabs : loadingView;
+      </MuiThemeProvider>);
+    const displayView = loading ? loadingView : nutrientView;
     return (
       <NutrientDisplayWrapper>
         {displayView}
@@ -142,8 +296,11 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
 
 NutrientDisplay.propTypes = {
   profileBody: PropTypes.object.isRequired,
-  portionSelected: PropTypes.string,
+  portionSelected: PropTypes.object,
   onTabChange: PropTypes.func,
+  onNutrientHover: PropTypes.func,
+  onNutrientSelected: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 export default NutrientDisplay;

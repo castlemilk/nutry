@@ -6,10 +6,12 @@
 
 import React from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
+import { Spin, Icon } from 'antd';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 import { FormattedMessage } from 'react-intl';
+import LoadingContent from 'components/LoadingContent';
 import messages from './messages';
 import NutrientProfilePieChartWrapper from './NutrientProfilePieChartWrapper';
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#a94442', '#c566ac'];
@@ -59,64 +61,65 @@ const renderActiveShape = (props) => { /* eslint react/prop-types: 0 */
     </g>
   );
 };
+/**
+ * Return the index with the largest value. This index will then be used
+ * to set as the default section selected in the recharts graphic on render.
+ * @param  {Array} data list of nutrients
+ * @return {Number} index with highest value.
+ */
 function getIndexLargestValue(data) {
-  // return data.reduce((a, b, index) => a[0].value < b.value ? [b, index] : a, [Number.MIN_VALUE, -1]);
-  // return data.reduce((a, b, index) => {
-  //   console.log(`index:${index}`);
-  //   console.log(a);
-  //   console.log(b);
-  //
-  //   return b.value > a[0] ? [b.value, index] : a;
-  // }, [-1, -1]);
-  return data.reduce((a, b, index) => b.value > a[0] ? [b.value, index] : a, [-1, -1]);
-  // return data.indexOf(Math.max(...data.value));
+  return data.reduce((a, b, index) => b.value > a[0] ? [b.value, index] : a, [-1, -1])[1];
 }
 class NutrientProfilePieChart extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      activeIndex: getIndexLargestValue(this.props.pieData)[1],
+      activeIndex: this.props.pieData && !this.props.loading ? getIndexLargestValue(this.props.pieData) : 0,
     };
   }
 
   onPieEnter(data, index) {
-    console.log('onPieEnter');
     this.setState({
       activeIndex: index,
     });
   }
+  // onFinishedLoading() {
+  //   this.setState({
+  //     activeIndex: getIndexLargestValue(this.props.pieData),
+  //   });
+  // }
   render() {
-    console.log(` activeIndex: ${this.state.activeIndex}`);
-    console.log();
-    const { pieData } = this.props;
-    console.log(` activeIndex: ${this.state.activeIndex}`);
-    console.log(pieData);
-    console.log(getIndexLargestValue(this.props.pieData));
-    const pieDataColored = pieData.map((value, index) => {
+    const { pieData, loading } = this.props;
+    // if (!loading && pieData) {
+    //   this.onFinishedLoading();
+    // }
+    const pieDataColored = loading ? null : pieData.map((value, index) => {
       const section = value;
       section.fill = COLORS[index % COLORS.length];
       return value;
     });
+    const loadingPie = <Spin style={{ marginTop: '100px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     return (
       <NutrientProfilePieChartWrapper>
         <div className="pie-chart-title" >
-          <FormattedMessage {...messages.chartTitle} />
+          { loading ? <LoadingContent width={300} height={30} speed={1.5} /> : <FormattedMessage {...messages.chartTitle} /> }
         </div>
         <div className="pie-chart-wrapper" >
-          <PieChart width={600} height={300}>
-            <Pie
-              activeIndex={this.state.activeIndex}
-              activeShape={renderActiveShape}
-              data={pieDataColored}
-              dataKey="value"
-              cx={260}
-              cy={150}
-              baseValue={100}
-              innerRadius={60}
-              outerRadius={80}
-              onMouseEnter={(d, i) => this.onPieEnter(d, i)}
-            />
-          </PieChart>
+          { loading ? loadingPie : (
+            <PieChart width={600} height={300}>
+              <Pie
+                activeIndex={getIndexLargestValue(this.props.pieData)}
+                activeShape={renderActiveShape}
+                data={pieDataColored}
+                dataKey="value"
+                cx={270}
+                cy={150}
+                baseValue={100}
+                innerRadius={60}
+                outerRadius={80}
+                onMouseEnter={(d, i) => this.onPieEnter(d, i)}
+              />
+            </PieChart>)}
         </div>
       </NutrientProfilePieChartWrapper>
     );
@@ -124,7 +127,8 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
 }
 
 NutrientProfilePieChart.propTypes = {
-  pieData: PropTypes.array.isRequired,
+  pieData: PropTypes.array,
+  loading: PropTypes.bool,
 };
 
 export default NutrientProfilePieChart;

@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import Select from 'react-select';
 import { FormattedMessage } from 'react-intl';
+import LoadingContent from 'components/LoadingContent';
 import messages from './messages';
 import FoodProfileToolBarWrapper from './FoodProfileToolBarWrapper';
 const AGES = [
@@ -37,55 +38,72 @@ const AGES = [
 ];
 
 function FoodProfileToolBar(props) {
-  const { ageGroup, portionSelected, portions } = props;
+  const { ageGroupSelected, portionSelected, portions, loading } = props;
   const { onAgeGroupChanged, onPortionChanged } = props;
-  console.log('FoodProfileToolBar:ageGroup:');
-  console.log(ageGroup);
+  console.log('FoodProfileToolBar:ageGroupSelected:');
+  console.log(ageGroupSelected);
   return (
     <FoodProfileToolBarWrapper>
-      <div className="age-group-description" >
-        <FormattedMessage {...messages.ageGroup} />
-      </div>
-      <div className="age-group-wrapper" >
-        <Select
-          id="foodprofile-toolbar-select-agegroup"
-          onBlurResetsInput={false}
-          onSelectResetsInput={false}
-          autoFocus
-          options={AGES}
-          clearable
-          name="foodprofile-toolbar-select-agegroup"
-          value={ageGroup}
-          onChange={(a) => onAgeGroupChanged(a)}
-          searchable
-        />
-      </div>
-      <div className="portion-description" >
-        <FormattedMessage {...messages.portion} />
-      </div>
-      <div className="portion-wrapper" >
-        <Select
-          id="foodprofile-toolbar-select-portion"
-          onBlurResetsInput={false}
-          onSelectResetsInput={false}
-          autoFocus
-          options={portions}
-          name="foodprofile-toolbar-select-portion"
-          value={portionSelected}
-          onChange={(p) => onPortionChanged(p)}
-          searchable
-        />
-      </div>
+      {
+        loading ? <LoadingContent width={150} height={30} speed={1.5} /> :
+        <div className="age-group-description" >
+          <FormattedMessage {...messages.ageGroup} />
+        </div>
+      }
+      {
+        loading ? <LoadingContent width={200} height={30} speed={1.5} /> : (
+          <div className="age-group-wrapper" >
+            <Select
+              id="foodprofile-toolbar-select-agegroup"
+              onBlurResetsInput={false}
+              onSelectResetsInput={false}
+              autoFocus
+              clearable={false}
+              options={AGES}
+              name="foodprofile-toolbar-select-agegroup"
+              value={ageGroupSelected}
+              onChange={(a) => onAgeGroupChanged(a)}
+              searchable
+            />
+          </div>)
+      }
+      {
+        loading ? <LoadingContent width={150} height={30} speed={1.5} /> :
+        <div className="portion-description" >
+          <FormattedMessage {...messages.portion} />
+        </div>
+      }
+      {loading ? <LoadingContent width={200} height={30} speed={1.5} /> : (
+        <div className="portion-wrapper" >
+          <Select
+            id="foodprofile-toolbar-select-portion"
+            onBlurResetsInput={false}
+            onSelectResetsInput={false}
+            autoFocus
+            clearable={false}
+            options={portions}
+            name="foodprofile-toolbar-select-portion"
+            value={portionSelected}
+            onChange={(p) => onPortionChanged(p)}
+            searchable
+          />
+        </div>)
+    }
     </FoodProfileToolBarWrapper>
   );
 }
 
 FoodProfileToolBar.propTypes = {
-  ageGroup: PropTypes.object,
-  portions: PropTypes.array,
+  ageGroupSelected: PropTypes.object,
+  portions: PropTypes.oneOfType([
+    PropTypes.instanceOf(Array),
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   portionSelected: PropTypes.object,
   onAgeGroupChanged: PropTypes.func.isRequired,
   onPortionChanged: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 
 };
 

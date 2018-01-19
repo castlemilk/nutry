@@ -5,8 +5,8 @@ export function searchQuery(searchString) {
         match_phrase_prefix: {
           name: {
             query: searchString,
-            max_expansions: 50,
-            slop: 50,
+            max_expansions: 10,
+            slop: 10,
           },
         },
       },
@@ -26,6 +26,7 @@ export function searchQuery(searchString) {
 export function profilerSearchQuery(searchString) {
   return {
     bool: {
+      boost: 0.001,
       should: [{
         match_phrase_prefix: {
           name: {
@@ -50,12 +51,36 @@ export function profilerSearchQuery(searchString) {
 }
 export function profilerFunctionQuery(field, factor) {
   return {
-          field_value_factor: {
-              field,
-              factor,
-              missing: 1
-          }
-  }
+    field_value_factor: {
+      field,
+      factor,
+      missing: 1,
+    },
+  };
+}
+export function profilerDecayFunctionQuery(field, scale, decay) {
+  const gaussPayload = {
+    gauss: {},
+  };
+  gaussPayload.gauss[field] = {
+    origin: scale,
+    scale: 200,
+  };
+  const linearPayload = {
+    linear: {},
+  };
+  linearPayload.linear[field] = {
+    origin: scale,
+    scale: 100,
+  };
+  const expPayload = {
+    exp: {},
+  };
+  expPayload.exp[field] = {
+    origin: scale,
+    scale: 50,
+  };
+  return gaussPayload;
 }
 
 /**
@@ -75,6 +100,6 @@ export function matchField(serialNumber) {
   return {
     match: {
       SN: serialNumber,
-    }
-  }
+    },
+  };
 }

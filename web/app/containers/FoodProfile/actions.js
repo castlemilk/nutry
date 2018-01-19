@@ -6,6 +6,7 @@
 
 import {
   DEFAULT_ACTION,
+  ON_BACK,
   GET_PROFILE,
   TAB_CHANGED,
   PORTION_CHANGED,
@@ -57,9 +58,14 @@ export function portionChanged(portionSelected) {
     portionSelected,
   };
 }
-export function ageGroupChanged(ageGroup) {
+
+export function onBack() {
   return {
-    type: AGE_GROUP_CHANGED,
-    ageGroup,
+    type: ON_BACK,
+  };
+}
+export function clearFoodProfile() {
+  return {
+    type: ON_BACK,
   };
 }

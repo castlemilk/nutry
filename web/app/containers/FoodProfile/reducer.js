@@ -1,12 +1,13 @@
-/*
+/**
  *
  * FoodProfile reducer
  *
  */
-import { fromJS } from 'immutable';
+import { fromJS, List, Map } from 'immutable';
 import { defaultPortions } from 'lib/nutrientMap';
 import {
   DEFAULT_ACTION,
+  ON_BACK,
   GET_PROFILE,
   TAB_CHANGED,
   AGE_GROUP_CHANGED,
@@ -24,26 +25,28 @@ const initialState = fromJS({
   error: false,
   source: null,
   tabSelected: 'summary',
-  nutrientSelected: null,
-  portionSelected: false,
-  portionsAvailable: {},
-  ageGroupSelected: {},
+  nutrientSelected: {},
+  portionSelected: Map({}),
+  portionsAvailable: List([]),
+  ageGroupSelected: Map({}),
 });
 
 function foodProfileReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
+    case ON_BACK:
+      return initialState;
     case GET_PROFILE:
       return state
         .set('serialNumber', action.serialNumber)
-        .set('source', action.source)
-        .set('ageGroup', { value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' });
+        .set('source', action.source);
     case GET_PROFILE_SUCCESS:
       return state
         .set('profileBody', action.profileBody)
         .set('portionsAvailable', defaultPortions(action.profileBody.portions))
         .set('portionSelected', defaultPortions(action.profileBody.portions)[0])
+        .set('ageGroupSelected', { value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' })
         .set('loading', false)
         .set('error', false);
     case GET_PROFILE_FAILURE:
@@ -51,7 +54,7 @@ function foodProfileReducer(state = initialState, action) {
         .set('error', true);
     case AGE_GROUP_CHANGED:
       return state
-        .set('ageGroupSelected', action.ageGroup);
+        .set('ageGroupSelected', action.ageGroupSelected);
     case PORTION_CHANGED:
       return state
         .set('portionSelected', action.portionSelected);

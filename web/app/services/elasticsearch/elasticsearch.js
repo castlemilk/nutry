@@ -1,7 +1,11 @@
 
 import axios from 'axios';
 import { elasticsearchConfig } from 'config';
-import { searchQuery, profilerFunctionQuery, profilerSearchQuery, matchField } from './queries';
+import { searchQuery,
+  // profilerFunctionQuery,
+  profilerSearchQuery,
+  profilerDecayFunctionQuery,
+  matchField } from './queries';
 
 
 function parseResults(response) {
@@ -60,12 +64,13 @@ export function profiler(searchString, elements) {
     headers: { 'Content-Type': 'application/json' },
   });
   const query = profilerSearchQuery(searchString);
-  const functions = elements.map((element) => {
-    const scaledValue = element.nutrient.adjustment_factor ?
-    ((element.scale - 50) * element.nutrient.adjustment_factor) / 100 :
-    ((element.scale - 50) / 100);
-    return profilerFunctionQuery(element.nutrient.value, scaledValue);
-  });
+  // const functions = elements.map((element) => {
+  // const scaledValue = element.nutrient.adjustment_factor ?
+  //   ((element.scale - 50) * element.nutrient.adjustment_factor) / 100 :
+  //   ((element.scale - 50) / 100);
+  //   return profilerFunctionQuery(element.nutrient.value, scaledValue);
+  // });
+  const functions = elements.map((element) => profilerDecayFunctionQuery(element.nutrient.value, element.scale, 0.5));
 
   const body = {
     size: 20,
@@ -73,11 +78,11 @@ export function profiler(searchString, elements) {
       function_score: {
         query,
         functions,
+        score_mode: 'multiply',
+        boost_mode: 'sum',
       },
     },
   };
-  console.log('profiler:query:');
-  console.log(body);
   return session.post(path, body)
     .then(checkStatus)
     .then(parseResults);
@@ -94,8 +99,6 @@ export function getDocument(SN) {
     size: 1,
     query: matchField(SN),
   };
-  console.log('getDocument:body');
-  console.log(body);
   return session.post(path, body)
     .then(checkStatus)
     .then(parseResults);

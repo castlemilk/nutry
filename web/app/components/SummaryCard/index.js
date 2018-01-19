@@ -3,22 +3,11 @@
 * SummaryCard
 *
 */
-import {
-  HEADER,
-  PARENT_NONAME_ROW,
-  PARENT_ROW,
-  CHILD_ROW,
-
-} from 'containers/FoodProfile/constants';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 // import { FormattedMessage } from 'react-intl';
-import NutrientParentRow from 'components/NutrientParentRow';
-import NutrientChildRow from 'components/NutrientChildRow';
-import NutrientHeaderRow from 'components/NutrientHeaderRow';
-import NutrientParentNoNameRow from 'components/NutrientParentNoNameRow';
-import TableHeader from 'components/TableHeader';
+import NutrientRow from 'components/NutrientRow';
 // import messages from './messages';
 import Wrapper from './Wrapper';
 import Table from './Table';
@@ -36,22 +25,31 @@ class SummaryCard extends React.Component { // eslint-disable-line react/prefer-
    * all nutrients.
    */
   render() {
-    const rows = [];
-    this.props.nutrientTable.map((row) => {
+    console.log(this);
+    const { summaryTable, onNutrientHover, onNutrientSelected } = this.props;
+    const rows = summaryTable ? summaryTable.map((row) => {
+      const { type, nutrient } = row;
+      const rowProps = {
+        type,
+        nutrient,
+      };
+      return <NutrientRow {...rowProps} key={`summary-${nutrient.name}`} />;
+    }) : null;
+    // nutrientTable.map((row) => {
       // console.log(row)
-      switch (row.type) {
-        case PARENT_ROW:
-          return rows.push(<NutrientParentRow nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
-        case PARENT_NONAME_ROW:
-          return rows.push(<NutrientParentNoNameRow nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
-        case CHILD_ROW:
-          return rows.push(<NutrientChildRow nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
-        case HEADER:
-          return rows.push(<NutrientHeaderRow data={row.nutrient} key={`summary-${row.nutrient.name}`} />);
-        default:
-          return null;
-      }
-    });
+    //   switch (row.type) {
+    //     case PARENT_ROW:
+    //       return rows.push(<NutrientParentRow onSelect={onNutrientSelected} nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
+    //     case PARENT_NONAME_ROW:
+    //       return rows.push(<NutrientParentNoNameRow nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
+    //     case CHILD_ROW:
+    //       return rows.push(<NutrientChildRow nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
+    //     case HEADER:
+    //       return rows.push(<NutrientHeaderRow data={row.nutrient} key={`summary-${row.nutrient.name}`} />);
+    //     default:
+    //       return null;
+    //   }
+    // });
     // console.log("rows:", rows);
 
     return (
@@ -66,6 +64,8 @@ class SummaryCard extends React.Component { // eslint-disable-line react/prefer-
   }
 }
 SummaryCard.propTypes = {
-  nutrientTable: PropTypes.array.isRequired,
+  summaryTable: PropTypes.array.isRequired,
+  onNutrientHover: PropTypes.func,
+  onNutrientSelected: PropTypes.func,
 };
 export default SummaryCard;

@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { goBack } from 'react-router-redux';
+// import { goBack } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -25,6 +25,7 @@ import Profiler from 'containers/Profiler';
 import FoodProfile from 'containers/FoodProfile';
 import { makeSelectLoggedIn } from 'containers/App/selectors';
 import { login } from 'containers/App/actions';
+import { clearFoodProfile } from 'containers/FoodProfile/actions';
 
 import { makeSelectSearch,
   makeSelectSearchString,
@@ -64,16 +65,6 @@ import SearchWrapper from './SearchWrapper';
 //
 // ];
 export class Search extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentDidMount() {
-    window.onpopstate = (e) => this.onBackButtonEvent(e);
-    console.log(window);
-  }
-  onBackButtonEvent(e) {
-    e.preventDefault();
-    alert('back-button pressed');
-    this.handleBackButton();
-    goBack();
-  }
   handleClick(event) {
     return event;
   }
@@ -87,12 +78,11 @@ export class Search extends React.Component { // eslint-disable-line react/prefe
     this.props.onChangeSearchString(event);
   }
   handleProfileSelected(profileInfo) {
-    console.log(profileInfo);
-    console.log(`profileSelected:serialNumber:${profileInfo.SN}`);
     this.props.onProfileSelected(profileInfo);
   }
   handleBackButton() {
     this.props.onProfileSelected(null);
+    this.props.onClearFoodProfile();
   }
 
   render() {
@@ -107,11 +97,15 @@ export class Search extends React.Component { // eslint-disable-line react/prefe
     (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
     </div>) : nutrientResults;
+    const profilerProps = {
+      onProfileSelected: (profileData) => this.handleProfileSelected(profileData),
+    };
     const TabPane = Tabs.TabPane;
     const tabs = (
       <Tabs
         className="tab-bar"
-        defaultActiveKLey="3"
+        defaultActiveKey="all"
+        activeKey={this.props.searchType}
         onChange={(e) => this.handleTabChange(e)}
       >
         <TabPane tab={<span><Icon type="home" />All</span>} key="all">
@@ -121,7 +115,7 @@ export class Search extends React.Component { // eslint-disable-line react/prefe
           {nutrientResultsView}
         </TabPane>
         <TabPane tab={<span><Icon type="bars" />Profiler</span>} key="profiler">
-          <Profiler />
+          <Profiler {...profilerProps} />
         </TabPane>
         <TabPane tab={<span><Icon type="api" />Recipes</span>} key="recipes">
         </TabPane>
@@ -158,8 +152,6 @@ export class Search extends React.Component { // eslint-disable-line react/prefe
         <FoodProfile {...foodProfileProps} />
       </div>
     );
-    console.log('search:profileInfo:');
-    console.log(foodProfileProps);
     const mainView = profileInfo ? profileView : searchView;
     const backButton = (
       <Button type="primary" onClick={() => this.handleBackButton()} >Back</Button>
@@ -208,6 +200,8 @@ Search.propTypes = {
   onSearchTypeChange: PropTypes.func,
   onProfileSelected: PropTypes.func,
   profileInfo: PropTypes.object,
+  searchType: PropTypes.string,
+  onClearFoodProfile: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -228,6 +222,7 @@ function mapDispatchToProps(dispatch) {
     onSearchRefresh: () => dispatch(searchRefresh()),
     onLogin: () => dispatch(login()),
     onProfileSelected: (profileInfo) => dispatch(profileSelected(profileInfo)),
+    onClearFoodProfile: () => dispatch(clearFoodProfile()),
   };
 }
 

@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Row, Col, Icon, Spin } from 'antd';
+import { Row, Col } from 'antd';
 import { getPieDataSummary, getPieDataDetailed } from 'lib/nutrientAnalytics';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -20,10 +20,16 @@ import FoodProfileTitle from 'components/FoodProfileTitle';
 import FoodProfileToolBar from 'components/FoodProfileToolBar';
 import NutrientProfilePieChart from 'components/NutrientProfilePieChart';
 // import Spices from 'images/spices.svg';
-import { loadProfile, tabChanged, portionChanged, ageGroupChanged } from './actions';
+import {
+  loadProfile,
+  tabChanged,
+  portionChanged,
+  ageGroupChanged,
+  nutrientSelected } from './actions';
 import { makeSelectProfile,
   makeSelectProfileLoading,
   makeSelectTabSelected,
+  makeSelectNutrientSelected,
   makeSelectAgeGroup,
   makeSelectPortion,
   makeSelectPortions,
@@ -53,13 +59,19 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       tabSelected,
       portions,
       portionSelected,
-      ageGroup } = this.props;
-    const { onTabChange, onPortionChanged, onAgeGroupChanged } = this.props;
-    const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
-    const loadingView = (<div className="loading-spinner">
-      <Spin indicator={loadingSpinner} />
-    </div>);
+      ageGroupSelected } = this.props;
+    const { onTabChange,
+      onPortionChanged,
+      onAgeGroupChanged,
+      onNutrientHover,
+      onNutrientSelected,
+     } = this.props;
+    // const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
+    // const loadingView = (<div className="loading-spinner">
+    //   <Spin indicator={loadingSpinner} />
+    // </div>);
     const profileTitleProps = {
+      loading,
       profileHeader,
     };
     const nutrientDisplayProps = {
@@ -67,20 +79,22 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       portionSelected,
       profileBody,
       onTabChange,
+      onNutrientHover,
+      onNutrientSelected,
     };
-    console.log('profileBody:');
-    console.log(profileBody);
     const pieData = tabSelected === 'summary' ?
       getPieDataSummary(portionSelected.g, profileBody.nutrients) :
       getPieDataDetailed(portionSelected.g, profileBody.nutrients);
 
     const analyticsProps = {
+      loading,
       pieData,
     };
     const foodProfileToolbarProps = {
+      loading,
       portions,
       portionSelected,
-      ageGroup,
+      ageGroupSelected,
       onAgeGroupChanged,
       onPortionChanged,
     };
@@ -96,7 +110,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
             <Col xs={20} sm={20} md={20} lg={22} >
-              { loading ? loadingView : <FoodProfileTitle {...profileTitleProps} />}
+              <FoodProfileTitle {...profileTitleProps} />
             </Col>
             <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
@@ -117,8 +131,8 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
               <NutrientDisplay {...nutrientDisplayProps} />
             </Col>
             <Col xs={18} sm={18} md={10} lg={10}>
-              {pieData ? <NutrientProfilePieChart {...analyticsProps} /> : null }
-              {pieData ? <NutrientProfilePieChart {...analyticsProps} /> : null }
+              <NutrientProfilePieChart {...analyticsProps} />
+              <NutrientProfilePieChart {...analyticsProps} />
             </Col>
             <Col xs={3} sm={3} md={2} lg={2}>
             </Col>
@@ -137,11 +151,22 @@ FoodProfile.propTypes = {
   onLoadProfile: PropTypes.func,
   onTabChange: PropTypes.func,
   tabSelected: PropTypes.string,
-  portions: PropTypes.object,
+  portions: PropTypes.oneOfType([
+    PropTypes.instanceOf(Array),
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   portionSelected: PropTypes.object,
+  onNutrientHover: PropTypes.func,
+  onNutrientSelected: PropTypes.func,
+  selectedNutrient: PropTypes.oneOfType([
+    PropTypes.instanceOf(Array),
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   onAgeGroupChanged: PropTypes.func,
   onPortionChanged: PropTypes.func,
-  ageGroup: PropTypes.object,
+  ageGroupSelected: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -149,8 +174,9 @@ const mapStateToProps = createStructuredSelector({
   profileBody: makeSelectProfile(),
   tabSelected: makeSelectTabSelected(),
   portions: makeSelectPortions(),
+  nutrientSelected: makeSelectNutrientSelected(),
   portionSelected: makeSelectPortion(),
-  ageGroup: makeSelectAgeGroup(),
+  ageGroupSelected: makeSelectAgeGroup(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -160,6 +186,8 @@ function mapDispatchToProps(dispatch) {
     onTabChange: (tab) => dispatch(tabChanged(tab)),
     onPortionChanged: (portion) => dispatch(portionChanged(portion)),
     onAgeGroupChanged: (ageGroup) => dispatch(ageGroupChanged(ageGroup)),
+    onNutrientHover: (nutrient) => dispatch(nutrientSelected(nutrient)),
+    onNutrientSelected: (nutrient) => dispatch(nutrientSelected(nutrient)),
   };
 }
 

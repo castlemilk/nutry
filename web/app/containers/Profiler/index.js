@@ -21,7 +21,7 @@ import NoResultsFound from 'components/NoResultsFound';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectSearchString } from 'containers/Search/selectors';
-import { makeSelectAllElements, makeSelectElement, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
+import { makeSelectAllElements, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
 import { addProfilerElement, deleteProfilerElement, updateProfilerElement, changeSearch } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -54,6 +54,7 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
   handleElementRemove(id) {
     // console.log(`element:id:${id}`)
     this.props.onDeleteElement(id);
+    this.props.onChangeSearch();
   }
   handleSearchStringChange(event) {
     const { searchType } = this.props;
@@ -62,21 +63,20 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
     }
   }
   render() {
-    console.log('results:');
-    console.log(this.props.searchResults);
+    // console.log('results:');
+    // console.log(this.props.searchResults);
+    const { searchResults, searchString, loading } = this.props;
+    const { onProfileSelected } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
-    const items = this.props.searchResults.items ? this.props.searchResults.items : [];
-    console.log('items:');
-    console.log(items);
-    const noResultsFound = items.length === 0 && this.props.searchString.length > 0 && !this.props.loading;
-    const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList results={items} />;
-    const nutrientResultsView = this.props.loading ?
+    const items = searchResults.items ? searchResults.items : [];
+    // console.log('items:');
+    // console.log(items);
+    const noResultsFound = items.length === 0 && searchString.length > 0 && !loading;
+    const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList onProfileSelected={(profileData) => onProfileSelected(profileData)} results={items} />;
+    const nutrientResultsView = loading ?
     (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
     </div>) : nutrientResults;
-    const addElementProps = {
-      key: 'add-element',
-    };
     const initialList = [
       <ProfilerAddElement key="add-element" onClick={() => this.handleAddClick()} />,
     ];
@@ -121,7 +121,17 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
 }
 
 Profiler.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onProfileSelected: PropTypes.func.isRequired,
+  elements: PropTypes.array,
+  searchResults: PropTypes.array,
+  searchString: PropTypes.string,
+  loading: PropTypes.bool,
+  onChangeSearch: PropTypes.func,
+  onUpdateElement: PropTypes.func,
+  onChangeSearchString: PropTypes.func,
+  onAddElement: PropTypes.func,
+  onDeleteElement: PropTypes.func,
+  searchType: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({

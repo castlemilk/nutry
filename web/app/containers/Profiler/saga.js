@@ -19,15 +19,15 @@ export function* getResults() {
   const searchString = yield select(makeSelectSearchString());
 
   try {
-    console.log('getResults:searchString:')
-    console.log(searchString)
+    console.log('getResults:searchString:');
+    console.log(searchString);
     const elements = yield select(makeSelectAllElements());
     const results = yield call(profiler, searchString, elements);
-    console.log('getResults:results')
-    console.log(results)
+    console.log('getResults:results');
+    console.log(results ? results.items : []);
     yield put(searchComplete(results));
   } catch (err) {
-    console.log(err)
+    console.log(err);
     yield put(searchFailure(err));
   }
 }
@@ -41,5 +41,5 @@ export default function* searcProfilerData() {
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
   yield takeLatest([CHANGE_SEARCH, CHANGE_PROFILER_SEARCH], getResults);
-  //yield takeLatest(CHANGE_PROFILER_SEARCH, getResults);
+  // yield takeLatest(CHANGE_PROFILER_SEARCH, getResults);
 }

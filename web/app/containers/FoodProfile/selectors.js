@@ -52,7 +52,7 @@ const makeSelectNutrientSelected = () => createSelector(
 );
 const makeSelectAgeGroup = () => createSelector(
   selectFoodProfileDomain,
-  (substate) => substate.get('ageGroup')
+  (substate) => substate.get('ageGroupSelected')
 );
 
 export default makeSelectFoodProfile;

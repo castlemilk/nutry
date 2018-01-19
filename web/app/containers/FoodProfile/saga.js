@@ -11,7 +11,6 @@ export function* defaultSaga() {
 }
 
 export function* getProfile() { /* eslint no-underscore-dangle: ["error", { "allow": ["_source"] }]*/
-  delay(100);
   const serialNumber = yield select(makeSelectSerialNumber());
   const source = yield select(makeSelectSource());
   try {

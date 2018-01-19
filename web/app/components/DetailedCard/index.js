@@ -27,9 +27,9 @@ class DetailedCard extends React.Component { // eslint-disable-line react/prefer
 
 
   render() {
-    console.log('DetailedCard:nutrientTabe:', this.props.nutrientTable);
+    console.log('DetailedCard:nutrientTabe:', this.props.detailedTable);
     this.filledNutrientTable = [];
-    this.props.nutrientTable.map((group) => {
+    this.props.detailedTable.map((group) => {
       const componentGroup = {};
       componentGroup.headerName = group.headerName;
       componentGroup.isOpened = true;
@@ -68,7 +68,9 @@ class DetailedCard extends React.Component { // eslint-disable-line react/prefer
 }
 
 DetailedCard.propTypes = {
-  nutrientTable: PropTypes.array.isRequired,
+  detailedTable: PropTypes.array.isRequired,
+  onNutrientHover: PropTypes.func,
+  onNutrientSelected: PropTypes.func,
 };
 
 export default DetailedCard;
