@@ -33,17 +33,17 @@ function profilerReducer(state = initialState, action) {
       return state
         .set('results', action.results)
         .set('loading', false);
-    case ADD_PROFILER_ELEMENT:
+    case ADD_PROFILER_ELEMENT: {
       const id = uuidv4();
-      const default_element_body = Map({
+      return state.setIn(['elements', id], Map({
         nutrient: { value: 'CHOCDF', label: 'Carbohydrates', className: 'elements-carbohydrates' },
         scale: 50,
-      })
-      return state.setIn(['elements', id], default_element_body)
+      }));
+    }
     case DELETE_PROFILER_ELEMENT:
       return state.deleteIn(['elements', action.id]);
     case UPDATE_PROFILER_ELEMENT:
-      return state.setIn(['elements', action.id, action.key], action.value)
+      return state.setIn(['elements', action.id, action.key], action.value);
     default:
       return state;
   }

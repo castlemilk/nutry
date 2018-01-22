@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const BodyGroup = styled.div`
-  display:table-row-group;
+  display: block;
 `;
 
 export default BodyGroup;

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 const RowUnits = styled.div`
-  display:table-cell;
+  display: inline-block;
   overflow: hidden;
   text-align: center;
+  width:15%;
   font-family: 'Bitter', serif;
-  border-bottom: 1px solid #a79595;
 `;
 
 export default RowUnits;

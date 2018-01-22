@@ -35,6 +35,9 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
 
     this.handleAddClick = this.handleAddClick.bind(this);
   }
+  componentDidMount() {
+    this.props.onChangeSearch();
+  }
   handleAddClick() {
     console.log('add clicked!');
     this.props.onAddElement();
@@ -62,10 +65,20 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
       this.props.onChangeSearchString(event);
     }
   }
+  handleTabChange() {
+    const { searchType } = this.props;
+    console.log('handleTabChange');
+    console.log(searchType);
+    if (searchType === 'profiler') {
+      this.props.onChangeSearch();
+    }
+  }
   render() {
     // console.log('results:');
     // console.log(this.props.searchResults);
     const { searchResults, searchString, loading } = this.props;
+    console.log('foodProfile:searchResults:');
+    console.log(searchResults);
     const { onProfileSelected } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = searchResults.items ? searchResults.items : [];

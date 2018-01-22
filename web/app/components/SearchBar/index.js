@@ -7,7 +7,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import SearchBarWrapper from './SearchBarWrapper';
-import { Button } from 'antd'
+// import { Button } from 'antd';
 // import styled from 'styled-components';
 
 // import { FormattedMessage } from 'react-intl';
@@ -23,8 +23,8 @@ SearchBar.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   maxLength: PropTypes.number,
-  profileSelected: PropTypes.string,
-  onBackButton: PropTypes.func,
+  // profileSelected: PropTypes.string,
+  // onBackButton: PropTypes.func,
 };
 
 function SearchBar(props) {
@@ -46,10 +46,10 @@ function SearchBar(props) {
       />
     </div>
 
-  )
+  );
   return (<SearchBarWrapper>
     {searchView}
-    </SearchBarWrapper>
+  </SearchBarWrapper>
   );
 }
 

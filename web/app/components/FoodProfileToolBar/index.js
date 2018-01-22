@@ -40,8 +40,6 @@ const AGES = [
 function FoodProfileToolBar(props) {
   const { ageGroupSelected, portionSelected, portions, loading } = props;
   const { onAgeGroupChanged, onPortionChanged } = props;
-  console.log('FoodProfileToolBar:ageGroupSelected:');
-  console.log(ageGroupSelected);
   return (
     <FoodProfileToolBarWrapper>
       {
@@ -60,6 +58,7 @@ function FoodProfileToolBar(props) {
               autoFocus
               clearable={false}
               options={AGES}
+              autosize={false}
               name="foodprofile-toolbar-select-agegroup"
               value={ageGroupSelected}
               onChange={(a) => onAgeGroupChanged(a)}
@@ -82,6 +81,7 @@ function FoodProfileToolBar(props) {
             autoFocus
             clearable={false}
             options={portions}
+            autosize={false}
             name="foodprofile-toolbar-select-portion"
             value={portionSelected}
             onChange={(p) => onPortionChanged(p)}

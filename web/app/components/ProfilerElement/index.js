@@ -6,12 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Slider, Row, Col } from 'antd';
+import { Slider } from 'antd';
 import Select from 'react-select';
 // import styled from 'styled-components';
 import ProfilerDeleteElement from 'components/ProfilerDeleteElement';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+// import { FormattedMessage } from 'react-intl';
+// import messages from './messages';
 import ProfilerElementWrapper from './ProfilerElementWrapper';
 
 /**

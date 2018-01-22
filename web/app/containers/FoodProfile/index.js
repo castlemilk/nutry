@@ -59,17 +59,16 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       tabSelected,
       portions,
       portionSelected,
+      nutrientFocused,
       ageGroupSelected } = this.props;
+    console.log('profileBody:');
+    console.log(profileBody);
     const { onTabChange,
       onPortionChanged,
       onAgeGroupChanged,
       onNutrientHover,
       onNutrientSelected,
      } = this.props;
-    // const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
-    // const loadingView = (<div className="loading-spinner">
-    //   <Spin indicator={loadingSpinner} />
-    // </div>);
     const profileTitleProps = {
       loading,
       profileHeader,
@@ -87,6 +86,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       getPieDataDetailed(portionSelected.g, profileBody.nutrients);
 
     const analyticsProps = {
+      nutrientFocused,
       loading,
       pieData,
     };
@@ -132,7 +132,6 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             </Col>
             <Col xs={18} sm={18} md={10} lg={10}>
               <NutrientProfilePieChart {...analyticsProps} />
-              <NutrientProfilePieChart {...analyticsProps} />
             </Col>
             <Col xs={3} sm={3} md={2} lg={2}>
             </Col>
@@ -151,19 +150,19 @@ FoodProfile.propTypes = {
   onLoadProfile: PropTypes.func,
   onTabChange: PropTypes.func,
   tabSelected: PropTypes.string,
-  portions: PropTypes.oneOfType([
-    PropTypes.instanceOf(Array),
-    PropTypes.array,
-    PropTypes.object,
-  ]),
+  // portions: PropTypes.oneOfType([
+  //   PropTypes.instanceOf(Array),
+  //   PropTypes.array,
+  //   PropTypes.object,
+  // ]),
   portionSelected: PropTypes.object,
   onNutrientHover: PropTypes.func,
   onNutrientSelected: PropTypes.func,
-  selectedNutrient: PropTypes.oneOfType([
-    PropTypes.instanceOf(Array),
-    PropTypes.array,
-    PropTypes.object,
-  ]),
+  // nutrientFocused: PropTypes.oneOfType([
+  //   PropTypes.instanceOf(Array),
+  //   PropTypes.array,
+  //   PropTypes.object,
+  // ]),
   onAgeGroupChanged: PropTypes.func,
   onPortionChanged: PropTypes.func,
   ageGroupSelected: PropTypes.object,
@@ -174,7 +173,7 @@ const mapStateToProps = createStructuredSelector({
   profileBody: makeSelectProfile(),
   tabSelected: makeSelectTabSelected(),
   portions: makeSelectPortions(),
-  nutrientSelected: makeSelectNutrientSelected(),
+  nutrientFocused: makeSelectNutrientSelected(),
   portionSelected: makeSelectPortion(),
   ageGroupSelected: makeSelectAgeGroup(),
 });

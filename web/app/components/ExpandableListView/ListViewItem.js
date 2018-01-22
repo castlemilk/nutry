@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const ListViewItem = styled.div`
+  display: inline-block;
   color: black;
-  display:table;
   width: 100%;
 `;
 

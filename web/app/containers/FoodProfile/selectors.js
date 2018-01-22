@@ -30,6 +30,14 @@ const makeSelectProfile = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('profileBody')
 );
+const makeSelectNutrients = () => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.get('nutrients')
+);
+const makeSelectNutrient = (prefix) => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.getIn(['nutrients', prefix])
+);
 const makeSelectSource = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('source')
@@ -60,6 +68,8 @@ export {
   selectFoodProfileDomain,
   makeSelectProfileLoading,
   makeSelectTabSelected,
+  makeSelectNutrients,
+  makeSelectNutrient,
   makeSelectNutrientSelected,
   makeSelectPortion,
   makeSelectPortions,

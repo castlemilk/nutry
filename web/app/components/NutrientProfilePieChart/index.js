@@ -70,6 +70,24 @@ const renderActiveShape = (props) => { /* eslint react/prop-types: 0 */
 function getIndexLargestValue(data) {
   return data.reduce((a, b, index) => b.value > a[0] ? [b.value, index] : a, [-1, -1])[1];
 }
+/**
+ * Determine the index corresponding to the specified nutrient. This will be
+ * used to update the pie chart selected section to the hovered/select nutrient
+ * @param  {Object} nutrient [description]
+ * @param  {Array} pieData  [description]
+ * @return {[type]}          [description]
+ */
+function nutrientToIndex(nutrient, pieData) {
+  const index = pieData.findIndex((x) => x.prefix === nutrient.prefix);
+  console.log(index);
+  if (index === -1) {
+    return null;
+  }
+  if (pieData[index].value === '~') {
+    return null;
+  }
+  return index;
+}
 class NutrientProfilePieChart extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -82,6 +100,18 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
       this.onFinishedLoading();
     }
   }
+  componentWillReceiveProps(nextProps) {
+  // You don't have to do this check first, but it can help prevent an unneeded render
+    const selectedIndex = nextProps.pieData ? nutrientToIndex(nextProps.nutrientFocused, nextProps.pieData) : null;
+    if (selectedIndex === null || selectedIndex === -1) {
+      return null;
+    }
+    if (selectedIndex !== this.state.activeIndex) {
+      return this.setState({ activeIndex: selectedIndex });
+    }
+    return null;
+  }
+
 
   onPieEnter(data, index) {
     this.setState({
@@ -97,7 +127,11 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
   }
 
   render() {
-    const { pieData, loading } = this.props;
+    const { pieData, loading, nutrientFocused } = this.props;
+    console.log('nutrientFocused:');
+    console.log(nutrientFocused);
+    console.log('pieData:');
+    console.log(pieData);
     const pieDataColored = loading ? null : pieData.map((value, index) => {
       const section = value;
       section.fill = COLORS[index % COLORS.length];
@@ -132,6 +166,7 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
 }
 
 NutrientProfilePieChart.propTypes = {
+  nutrientFocused: PropTypes.object,
   pieData: PropTypes.array,
   loading: PropTypes.bool,
 };

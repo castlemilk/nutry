@@ -34,7 +34,6 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
     this.portions = null;
   }
   handleChangeTabs = (value) => {
-    console.log('FoodProfile:tabchanged', value);
     this.setState({
       index: value,
     });

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const RowUnits = styled.div`
-  display:table-cell;
+  display: inline-block;
   width:30%;
   text-align: center;
   font-family: 'Bitter', serif;

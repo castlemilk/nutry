@@ -13,6 +13,7 @@ export function getNutrient(prefix, nutrients, portion = false) {
   const nutrient = nutrients[prefix];
   if (nutrient) {
     return new Nutrient(
+      prefix,
       nutrient.name || prefixToName(prefix),
       nutrient.units || prefixToUnit(prefix),
       getScaledValue(nutrient.value, portion) || '~',
@@ -20,6 +21,7 @@ export function getNutrient(prefix, nutrients, portion = false) {
     );
   }
   return new Nutrient(
+    prefix,
     prefixToName(prefix),
     prefixToUnit(prefix),
     '~',
@@ -32,6 +34,7 @@ export function getNormalisedNutrient(prefix, nutrients, portion = false) {
   // this.units = nutrient.units || prefixToUnit(prefix);
   // this.value = getScaledValue(nutrient.value, portion) || '~';
   const nut = new Nutrient(
+    prefix,
     prefixToName(prefix),
     prefixToUnit(prefix),
     '~'
@@ -44,18 +47,21 @@ export function getNormalisedNutrient(prefix, nutrients, portion = false) {
   // console.log("getNutrient:returning:this:", nut)
   if (nutrient) {
     return new Nutrient(
+      prefix,
       nutrient.name || prefixToName(prefix),
       nutrient.units || prefixToUnit(prefix),
       getScaledValue(nutrient.value, portion) || '~'
     );
   }
   return new Nutrient(
+    prefix,
     prefixToName(prefix),
     prefixToUnit(prefix),
     '~'
   );
 }
-function Nutrient(name, units, value, rdi = null) {
+function Nutrient(prefix, name, units, value, rdi = null) {
+  this.prefix = prefix;
   this.name = name;
   this.units = units;
   this.value = value;
@@ -76,11 +82,13 @@ export function getEnergyKJ(nutrients, portion = false) {
    * to abstract complexity away and ensure a result is returned.
    */
   if (nutrients.ENERC) {
-    var nutrient = getScaledNutrient(nutrients.ENERC, portion);
+    var nutrient = getScaledNutrient('ENERC', nutrients.ENERC, portion);
+    nutrient.prefix = 'ENERC';
     nutrient.name = 'Energy';
     return nutrient;
   } else if (nutrients.ENERC1) {
-    var nutrient = getScaledNutrient(nutrients.ENERC1, portion);
+    var nutrient = getScaledNutrient('ENERC1', nutrients.ENERC1, portion);
+    nutrient.prefix = 'ENERC1';
     nutrient.name = 'Energy';
     return nutrient;
   }
@@ -93,30 +101,33 @@ export function getEnergyKCAL(nutrients, portion = false) {
    */
   const KJtoKCAL = 0.239006;
   if (nutrients.ENERC_KCAL) {
-    const nutrient = getScaledNutrient(nutrients.ENERC_KCAL, portion);
+    const nutrient = getScaledNutrient('ENERC_KCAL', nutrients.ENERC_KCAL, portion);
+    nutrient.prefix = 'ENERC_KCAL';
     nutrient.name = 'Energy (KCAL)';
     return nutrient;
   } else if (nutrients.ENERC_KJ) {
     var energyKCAL = _.round(nutrients.ENERC_KJ.value * KJtoKCAL, 1);
-    return getScaledNutrient(new Nutrient('Energy (KCAL)', 'kcal', energyKCAL), portion);
+    return getScaledNutrient('ENERC_KJ', new Nutrient('ENERC_KJ', 'Energy (KCAL)', 'kcal', energyKCAL), portion);
   } else if (nutrients.ENERC1) {
     var energyKCAL = _.round(nutrients.ENERC1.value * KJtoKCAL, 1);
-    return getScaledNutrient(new Nutrient('Energy (KCAL)', 'kcal', energyKCAL), portion);
+    return getScaledNutrient('ENERC1', new Nutrient('ENERC1', 'Energy (KCAL)', 'kcal', energyKCAL), portion);
   } else if (nutrients.ENERC) {
     var energyKCAL = _.round(nutrients.ENERC * KJtoKCAL, 1);
-    return getScaledNutrient(new Nutrient('Energy (KCAL)', 'kcal', energyKCAL), portion);
+    return getScaledNutrient('ENERC', new Nutrient('ENERC', 'Energy (KCAL)', 'kcal', energyKCAL), portion);
   }
   return null;
 }
 export function getCarbohydrates(nutrients, portion = false) {
   // get availalble carbohydrates by difference.
   if (nutrients.CHOCDF) {
-    const nutrient = getScaledNutrient(nutrients.CHOCDF, portion);
+    const nutrient = getScaledNutrient('CHOCDF', nutrients.CHOCDF, portion);
+    nutrient.prefix = 'CHOCDF';
     nutrient.name = 'Carbohydrates Total';
     nutrient.rdi = getRDI('CHOCDF');
     return nutrient;
   } else if (nutrients.AVAILCHOCNS) {
-    const nutrient = getScaledNutrient(nutrients.AVAILCHOCNS, portion);
+    const nutrient = getScaledNutrient('AVAILCHOCNS', nutrients.AVAILCHOCNS, portion);
+    nutrient.prefix = 'AVAILCHOCNS';
     nutrient.name = 'Carbohydrates Total';
     nutrient.rdi = getRDI('CHOCDF');
     return nutrient;
@@ -135,6 +146,7 @@ export function getOmega3(nutrients, portion) {
     omega3Total += nutrients.F18D3CN3.value;
   }
   return new Nutrient(
+    'LCW3TOTAL',
     'Total Omega-3 Fatty Acid',
     'mg',
     omega3Total * scale(portion)
@@ -343,16 +355,17 @@ function getScaledValue(value, portion = false) {
 
   return '~';
 }
-function getScaledNutrient(nutrient, portion = false) {
+function getScaledNutrient(prefix, nutrient, portion = false) {
   /**
    * Will attempt to discover the formatting of the scaling factor and
    * convert the current value accordingly
    */
   // TODO: fix this, returning nutrient isnt compaitible with the getNutrient method
   if (!portion) {
-    return new Nutrient(nutrient.name, nutrient.units, nutrient.value);
+    return new Nutrient(prefix, nutrient.name, nutrient.units, nutrient.value);
   }
   return new Nutrient(
+    prefix,
     nutrient.name,
     nutrient.units,
     truncateTo(nutrient.value * scale(portion), 1)

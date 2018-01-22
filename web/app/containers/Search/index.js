@@ -86,7 +86,7 @@ export class Search extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { profileInfo, loading, searchString, searchResults } = this.props;
+    const { profileInfo, loading, searchString, searchResults, searchType } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = searchResults.items ? searchResults.items : [];
     const noResultsFound = items.length === 0 && searchString.length > 0 && !loading;
@@ -99,6 +99,7 @@ export class Search extends React.Component { // eslint-disable-line react/prefe
     </div>) : nutrientResults;
     const profilerProps = {
       onProfileSelected: (profileData) => this.handleProfileSelected(profileData),
+      searchType,
     };
     const TabPane = Tabs.TabPane;
     const tabs = (

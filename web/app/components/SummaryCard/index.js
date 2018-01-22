@@ -29,27 +29,13 @@ class SummaryCard extends React.Component { // eslint-disable-line react/prefer-
     const rows = summaryTable ? summaryTable.map((row) => {
       const { type, nutrient } = row;
       const rowProps = {
+        onNutrientHover,
+        onNutrientSelected,
         type,
         nutrient,
       };
       return <NutrientRow {...rowProps} key={`summary-${nutrient.name}`} />;
     }) : null;
-    // nutrientTable.map((row) => {
-      // console.log(row)
-    //   switch (row.type) {
-    //     case PARENT_ROW:
-    //       return rows.push(<NutrientParentRow onSelect={onNutrientSelected} nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
-    //     case PARENT_NONAME_ROW:
-    //       return rows.push(<NutrientParentNoNameRow nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
-    //     case CHILD_ROW:
-    //       return rows.push(<NutrientChildRow nutrient={row.nutrient} key={`summary-${row.nutrient.name}`} />);
-    //     case HEADER:
-    //       return rows.push(<NutrientHeaderRow data={row.nutrient} key={`summary-${row.nutrient.name}`} />);
-    //     default:
-    //       return null;
-    //   }
-    // });
-    // console.log("rows:", rows);
 
     return (
       <Wrapper>

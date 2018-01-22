@@ -9,6 +9,7 @@ import {
   CHANGE_PROFILER_SEARCH,
   SEARCH_COMPLETE,
   SEARCH_FAILURE,
+  SEARCH_LOADING,
   ADD_PROFILER_ELEMENT,
   DELETE_PROFILER_ELEMENT,
   UPDATE_PROFILER_ELEMENT,
@@ -23,7 +24,7 @@ export function defaultAction() {
 export function changeSearch() {
   return {
     type: CHANGE_PROFILER_SEARCH,
-  }
+  };
 }
 export function searchComplete(results) {
   if (results) {
@@ -51,13 +52,13 @@ export function searchFailure(error) {
 export function addProfilerElement() {
   return {
     type: ADD_PROFILER_ELEMENT,
-  }
+  };
 }
 export function deleteProfilerElement(id) {
   return {
     type: DELETE_PROFILER_ELEMENT,
     id,
-  }
+  };
 }
 export function updateProfilerElement(id, key, value) {
   return {
@@ -65,5 +66,5 @@ export function updateProfilerElement(id, key, value) {
     id,
     key,
     value,
-  }
+  };
 }

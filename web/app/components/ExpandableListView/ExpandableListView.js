@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 import ListHeader from './ListHeader';
 import ListItemsManager from './ListItemsManager';
-// import TableHeader from 'components/TableHeader';
+import Section from './Section';
 
 import Wrapper from './Wrapper';
-// import Ul from './Ul';
-// import TableHeader from 'components/TableHeader';
 
 export default class ProfilerExpandableList extends Component {
   static propTypes = {
@@ -27,15 +25,12 @@ export default class ProfilerExpandableList extends Component {
     const newData = Object.assign({}, this.props.data);
     newData[headerIndex].isOpened = !newData[headerIndex].isOpened;
     this.setState(newData);
-    console.log('changing state:');
-    console.log(newData);
   }
 
   render() {
     // const { data } = this.props
     const { headerAttName, itemsAttName } = this.props;
     const { data } = this.props;
-    let refi = 0;
     // const makeHeaderRef = () => `ListHeader-${refi}`;
 
     // const makeItemRef = () => `ListItem-${refi}`;
@@ -49,7 +44,6 @@ export default class ProfilerExpandableList extends Component {
             const { isReactComponent } = data[k];
             const { isOpened } = data[k];
             const { height } = data[k];
-            refi += 1;
             const motionIndex = `motion-key${index}`;
             // const headerRef = makeHeaderRef();
             // const itemRef = makeItemRef();
@@ -64,15 +58,15 @@ export default class ProfilerExpandableList extends Component {
               >
                 {
                   ({ h }) => (
-                    <div className="expandable-listview-wrapper" key={k}>
+                    <Section k={k} >
                       <ListHeader
                         header={header}
                         headerIndex={index}
-                        className="expandable-listview_listHeader"
                         isOpened={isOpened}
                         handleToggle={() => this.handleToggle(index)}
                       />
                       <div
+                        className="Section__Content"
                         style={{
                           display: 'block',
                           overflow,
@@ -86,7 +80,7 @@ export default class ProfilerExpandableList extends Component {
                           className="expandable-listview_listItems"
                         />
                       </div>
-                    </div>
+                    </Section>
                   )
                 }
               </Motion>

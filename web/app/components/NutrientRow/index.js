@@ -26,196 +26,72 @@ export default function NutrientRow(props) {
    * will be depicted as children through indentations
    */
   const { name, units } = props.nutrient;
-  const { onNutrientHover, onNutrientSelected, type } = props;
+  const { onNutrientHover, onNutrientSelected, type, viewType, nutrient } = props;
   const childRow = type === CHILD_ROW;
   const child2Row = type === CHILD2_ROW;
   const parentRow = type === PARENT_ROW;
   const parentNoNameRow = type === PARENT_NONAME_ROW;
   const headerRow = type === HEADER;
-  let indent = 0;
+  const hasName = (parentRow || child2Row || headerRow || childRow);
+  const hasUnits = (childRow || child2Row || parentRow || parentNoNameRow);
+  const hasValue = (childRow || child2Row || parentRow || parentNoNameRow);
+  let indent = 5;
+  let fontSize = 2;
   if (childRow) {
     indent = 15;
   } else if (child2Row) {
     indent = 20;
   } else if (parentRow) {
     indent = 5;
+    fontSize = 2.5;
+  } else if (headerRow) {
+    fontSize = 2.5;
   }
   const value = props.nutrient.value ?
      props.nutrient.value :
      (<span style={{ color: 'red' }}>
        {'~'}
      </span>);
+  const Row = styled.div`
+       display: block;
+       border-bottom: 1px solid #a79595;
+   `;
   const RowName = styled.div`
-    display:table-cell;
+    display:inline-block;
     overflow: hidden;
     width:60%;
-    font-size: ${(parentRow || headerRow) ? 2.5 : 2}vmin;
+    font-size: ${fontSize}}vmin;
     font-family: 'Bitter', serif;
-    border-bottom: 1px solid #a79595;
-    .row-name-text {
+    .row-name-${type}-text {
       margin-left: ${indent}px;
     }
   `;
   const RowUnits = styled.div`
-    display:table-cell;
+    display:inline-block;
     overflow: hidden;
+    width:15%;
     text-align: center;
     font-family: 'Droid Serif', serif;
-    border-bottom: 1px solid #a79595;
   `;
   const RowValue = styled.div`
-    display:table-cell;
+    display:inline-block;
     overflow: hidden;
     width:25%;
     text-align: center;
     font-family: 'Bitter', serif;
-    border-bottom: 1px solid #a79595;
   `;
-  const Row = styled.div`
-      display:table-row;
-      width: 100%;
-  `;
-    // case PARENT_NONAME_ROW:
-    //   const RowName = styled.div`
-    //     display:table-cell;
-    //     width:60%;
-    //     font-size: 2.5vmin;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const RowUnits = styled.div`
-    //     display:table-cell;
-    //     text-align: center;
-    //     font-family: 'Droid Serif', serif;
-    //     border-bottom: 1px solid #a79595;
-    //
-    //   `;
-    //   const RowValue = styled.div`
-    //     display:table-cell;
-    //     width:25%;
-    //     text-align: center;
-    //     font-family: 'Droid Serif', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const Row = styled.div`
-    //       display:table-row;
-    //   `;
-    //   const rowView = (
-    //     <Row>
-    //       <RowName> </RowName>
-    //       <RowUnits>{units}</RowUnits>
-    //       <RowValue>{value}</RowValue>
-    //     </Row>
-    //   );
-    // case CHILD_ROW:
-    //   const RowName = styled.div`
-    //     display:table-cell;
-    //     overflow: hidden;
-    //     width:60%;
-    //     font-size: 2.0vmin;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //     .child-row-name {
-    //       margin-left: 15px;
-    //     }
-    //   `;
-    //   const RowUnits = styled.div`
-    //     display:table-cell;
-    //     overflow: hidden;
-    //     text-align: center;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const RowValue = styled.div`
-    //     display:table-cell;
-    //     overflow: hidden;
-    //     width:25%;
-    //     text-align: center;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const Row = styled.div`
-    //     display:table-row;
-    //     width: 100%;
-    //   `;
-    //   const rowView = (
-    //     <Row>
-    //       <RowName><span className="row-name-text">{name}</span></RowName>
-    //       <RowUnits>{units}</RowUnits>
-    //       <RowValue>{value}</RowValue>
-    //     </Row>
-    //   );
-    // case HEADER:
-    //   const RowName = styled.div`
-    //     display:table-cell;
-    //     width:60%;
-    //     font-size: 4.5vmin;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const RowUnits = styled.div`
-    //     width:30%;
-    //     text-align: center;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const RowValue = styled.div`
-    //     display:table-cell;
-    //     width:25%;
-    //     text-align: center;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const Row = styled.div`
-    //     display:table-row;
-    //   `;
-    //   const rowView = (<Row>
-    //     <RowName className="header-row-name">{props.data.name}</RowName>;
-    //   </Row>);
-    // default:
-    //   const RowName = styled.div`
-    //     display:table-cell;
-    //     overflow: hidden;
-    //     width:60%;
-    //     font-size: 2.0vmin;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //     .child-row-name {
-    //       margin-left: 15px;
-    //     }
-    //   `;
-    //   const RowUnits = styled.div`
-    //     display:table-cell;
-    //     overflow: hidden;
-    //     text-align: center;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const RowValue = styled.div`
-    //     display:table-cell;
-    //     overflow: hidden;
-    //     width:25%;
-    //     text-align: center;
-    //     font-family: 'Bitter', serif;
-    //     border-bottom: 1px solid #a79595;
-    //   `;
-    //   const Row = styled.div`
-    //     display:table-row;
-    //     width: 100%;
-    //   `;
-    //   const rowView = (
-    //     <Row>
-    //       <RowName><span className="child-row-name">{name}</span></RowName>
-    //       <RowUnits>{units}</RowUnits>
-    //       <RowValue>{value}</RowValue>
-    //     </Row>
-    //   );
-  return (<Row>
-    {(parentRow || child2Row || headerRow || childRow) ? <RowName><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" ></span></RowName> }
-    {(childRow || child2Row || parentRow || parentNoNameRow) ? <RowUnits>{units}</RowUnits> : null }
-    {(childRow || child2Row || parentRow || parentNoNameRow) ? <RowValue>{value}</RowValue> : null }
+  return (<Row className={`Section__${viewType}__Row`} onMouseEnter={() => onNutrientHover(nutrient)} onClick={() => onNutrientSelected(nutrient)}>
+    {hasName ? <RowName className={`Section__${viewType}__RowName`} ><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" > </span></RowName> }
+    {hasUnits ? <RowUnits className={`Section__${viewType}__RowUnits`} >{units}</RowUnits> : null }
+    {hasValue ? <RowValue className={`Section__${viewType}__RowValue`} >{value}</RowValue> : null }
   </Row>
   );
+  // return (<Row >
+  //   { hasName ? <RowName ><span className={`row-name-${type}-text`} >{name}</span></RowName> : <RowName><span className={`row-name-${type}-text`} > </span></RowName> }
+  //   { hasUnits ? <RowUnits >{units}</RowUnits> : null }
+  //   { hasValue ? <RowValue >{value}</RowValue> : null }
+  // </Row>
+  // );
 }
 //
 NutrientRow.propTypes = {
@@ -223,4 +99,5 @@ NutrientRow.propTypes = {
   onNutrientHover: PropTypes.func,
   onNutrientSelected: PropTypes.func,
   type: PropTypes.string,
+  viewType: PropTypes.string,
 };

@@ -26,14 +26,14 @@ export default class ListHeader extends Component {
 
     if (this.state.isOpened) {
       return (
-        <ListViewHeader className="header" onClick={() => this.handleClick(headerIndex)}>
+        <ListViewHeader className="Section__ListViewHeaader" onClick={() => this.handleClick(headerIndex)}>
           <span className="headerIcon"><FaMinus /></span>
           <span className="headerText">{header}</span>
         </ListViewHeader>
       );
     }
     return (
-      <ListViewHeader className="header" onClick={() => this.handleClick(headerIndex)}>
+      <ListViewHeader className="Section__ListViewHeaader" onClick={() => this.handleClick(headerIndex)}>
         <span className="headerIcon"><FaPlus /></span>
         <span className="headerText">{header}</span>
       </ListViewHeader>

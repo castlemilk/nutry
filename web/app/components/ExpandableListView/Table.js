@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Table = styled.div`
-  display: table;
+  display: inline-block;
   width: 100%;
 `;
 

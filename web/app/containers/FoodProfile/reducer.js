@@ -24,6 +24,7 @@ const initialState = fromJS({
   profileBody: {},
   error: false,
   source: null,
+  nutrients: Map({}),
   tabSelected: 'summary',
   nutrientSelected: {},
   portionSelected: Map({}),
@@ -44,6 +45,7 @@ function foodProfileReducer(state = initialState, action) {
     case GET_PROFILE_SUCCESS:
       return state
         .set('profileBody', action.profileBody)
+        .set('nutrients', action.profileBody.nutrients)
         .set('portionsAvailable', defaultPortions(action.profileBody.portions))
         .set('portionSelected', defaultPortions(action.profileBody.portions)[0])
         .set('ageGroupSelected', { value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' })

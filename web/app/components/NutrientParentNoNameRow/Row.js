@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Row = styled.div`
-  display:table-row;
+  display: block;
 `;
 
 export default Row;

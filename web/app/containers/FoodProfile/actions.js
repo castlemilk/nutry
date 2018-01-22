@@ -58,6 +58,12 @@ export function portionChanged(portionSelected) {
     portionSelected,
   };
 }
+export function ageGroupChanged(ageGroupSelected) {
+  return {
+    type: AGE_GROUP_CHANGED,
+    ageGroupSelected,
+  };
+}
 
 export function onBack() {
   return {
