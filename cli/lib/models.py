@@ -227,6 +227,9 @@ class Profile(object):
             nutrients=self.nutrients
         )
 
+    def get_id(self):
+        return self.id
+
     def get_indexable_document(self):
         self.nutrients.update(json.loads(self.name.get_indexable_document()))
         return json.dumps(self.nutrients

@@ -128,3 +128,28 @@ class NormalisationKeyNotFound(Exception):
 
     def __repr__(self):
         return self.message
+
+
+class MissingBaseURL(Exception):
+    """Unable to fetch required key for normalisation"""
+
+    def __init__(self):
+        self.message = "Missing base url from config file. ensure this is specified"
+
+    def __str__(self):
+        return self.message
+
+    def __repr__(self):
+        return self.message
+
+class InvalidDocumentType(Exception):
+    """Unable to fetch required key for normalisation"""
+
+    def __init__(self, type):
+        self.message = "Invalid Document type: {}".format(type)
+
+    def __str__(self):
+        return self.message
+
+    def __repr__(self):
+        return self.message

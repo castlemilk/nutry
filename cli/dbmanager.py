@@ -2,6 +2,7 @@ from lib import utils
 from lib import mongo
 from lib import elasticsearch
 from lib import ssh
+from lib import firebase
 from lib.exceptions import FailedToGetIndex
 import argparse
 import os
@@ -38,6 +39,12 @@ class DBManager(object):
         self.mongoClient = mongo.MongoDB(self.config['mongodb'])
         self.elasticsearchClient = elasticsearch.ElasticsearchIndex(self.config['elasticsearch'])
         self.index_prefix = self.config['elasticsearch']['index']
+        self.firebase = None
+    def upload_foodprofiles(self):
+        self.firebase = firebase.Firebase(self.config['firebase'])
+        total_items = self.mongoClient.total_items
+        documents = self.mongoClient.parseCollections('profiles')
+        self.firebase.fast_upload(total_items, documents)
 
     def display_information(self):
         """
@@ -144,6 +151,8 @@ def main():
     parser.add_argument('-rip', '--reindex-nutrients', dest='rip', action='store_true',
                         help='re-index available nutrients in data and re-configure index. WARNING: WILL DELETE EXISTING '
                              'INDEX')
+    parser.add_argument('-up', '--upload-profiles', dest='up', action='store_true',
+                        help='upload normalised food profiles into firebase')
     parser.add_argument('-rt', '--remote-tunnel', dest='rt', action='store_true', default=False,
                         help='fetch data from a remote mongodb instance via a SSH tunnel')
     parser.add_argument('-d', '--display', dest='display', action='store_true',
@@ -168,6 +177,8 @@ def main():
         manager.reindex_names()
     if args['display']:
         manager.display_information()
+    if args['up']:
+        manager.upload_foodprofiles()
 
 
 if __name__ == "__main__":
