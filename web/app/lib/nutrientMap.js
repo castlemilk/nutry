@@ -152,6 +152,7 @@ export function getOmega3(nutrients, portion) {
     omega3Total * scale(portion)
   );
 }
+export function summaryNutrientIds()
 
 
 export function getSummaryNutrients(nutrients, portion = false) {

@@ -2,6 +2,8 @@ import pymongo
 from .exceptions import NoAliasAvailable, NoRecordIDAvailable, NormalisationKeyNotFound
 import json
 from .normalisation_mapping import mapping
+from .name_mapping import names
+from .units_mapping import units
 
 
 def get_source(source):
@@ -146,7 +148,19 @@ class Name(object):
             'clinical_pos': self.get_clinical_pos(),
             'clinical_neg': self.get_clinical_neg(),
         })
-
+    def get_json(self):
+        return {
+            'SN': self.get_id(),
+            'name': self.get_best_name(),
+            'alias': self.get_alias(),
+            'tags': self.get_tags(),
+            'usage': self.get_usage(),
+            'group': self.get_group(),
+            'allergen': self.get_allergen(),
+            'source': self.get_source(),
+            'clinical_pos': self.get_clinical_pos(),
+            'clinical_neg': self.get_clinical_neg(),
+        }
     def __repr__(self):
         return self.item
 
@@ -199,7 +213,23 @@ class Nutrients(object):
         self.nutrients.update(json.loads(self.name.get_indexable_document()))
         return json.dumps(self.nutrients
                           )
-
+def normalise_nutrient_description(key, info):
+    if names.get(key):
+        name = names[key]
+    else:
+        name = info['name']
+    if units.get(key):
+        unit = units[key]
+    else:
+        unit = info['units']
+    try:
+        return {
+            'name': name,
+            'value': info['value'],
+            'units': unit,
+        }
+    except:
+        raise NormalisationKeyNotFound(key)
 
 class Profile(object):
     """
@@ -215,7 +245,35 @@ class Profile(object):
         self.meta = item['meta']
         self.id = item['ID']
         self.nutrients = {
-            'nutrients': dict(map(lambda x: (normalise_nutrient_name(x[0]), x[1]), item['nutrients'].items()))
+            'nutrients': dict(map(lambda x: (normalise_nutrient_name(x[0]),
+                                             normalise_nutrient_description(normalise_nutrient_name(x[0]), x[1])),
+                                  item['nutrients'].items()))
+        }
+        self.process_energy()
+        self.process_omega3()
+
+
+    def process_energy(self):
+        KJtoKCAL = 0.239006
+        energy_kj = self.nutrients['nutrients']['ENERC'] if self.nutrients['nutrients'].get('ENERC') else None
+        energy_kcal = self.nutrients['nutrients']['ENERC_KCAL'] if self.nutrients['nutrients'].get('ENERC_KCAL') else None
+        if energy_kcal:
+            return
+        elif energy_kj and not energy_kcal:
+            self.nutrients['nutrients']['ENERC_KCAL'] = {
+                'value': round(KJtoKCAL * energy_kj['value'], 2),
+                'name': 'Energy (kcal)',
+                'units': 'kcal'
+            }
+    def process_omega3(self):
+        valid_fats = ['F20D5', 'F22D6', 'F18D3CN3']
+        LCW3TOTAL = sum(filter(None,
+                               [self.nutrients['nutrients'][fat]['value'] if self.nutrients['nutrients'].get(fat)
+                                else None for fat in valid_fats]))
+        self.nutrients['nutrients']['LCW3TOTAL'] = {
+            'value': LCW3TOTAL,
+            'name': 'Total Omega-3 Fatty Acid',
+            'units': 'mg'
         }
 
     def __repr__(self):
@@ -232,5 +290,8 @@ class Profile(object):
 
     def get_indexable_document(self):
         self.nutrients.update(json.loads(self.name.get_indexable_document()))
-        return json.dumps(self.nutrients
-                          )
+        header = self.name.get_json()
+        header.update({
+                'nutrients': self.nutrients['nutrients']
+        })
+        return header

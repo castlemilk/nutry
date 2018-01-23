@@ -15,6 +15,9 @@ import {
   NUTRIENT_SELECTED,
   GET_PROFILE_FAILURE,
   GET_PROFILE_SUCCESS,
+  SUMMARY_IDS,
+  DETAILED_IDS,
+  DETAILED_SECTIONS,
 } from './constants';
 
 
@@ -24,7 +27,12 @@ const initialState = fromJS({
   profileBody: {},
   error: false,
   source: null,
-  nutrients: Map({}),
+  nutrients: {
+    byId: Map({}),
+    bySection: Map(DETAILED_SECTIONS),
+    summaryTableIds: SUMMARY_IDS,
+    detailedTableIds: DETAILED_IDS,
+  },
   tabSelected: 'summary',
   nutrientSelected: {},
   portionSelected: Map({}),

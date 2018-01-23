@@ -26,7 +26,6 @@ class DBManager(object):
         self.mode = mode
         self.config = config
 
-        print(self.config['mongodb'])
         if self.config['mongodb'].get('ssh') and remote:
             if self.config['mongodb']['ssh'].get('proxy'):
                 if self.config['mongodb']['ssh']['proxy']:
@@ -40,6 +39,7 @@ class DBManager(object):
         self.elasticsearchClient = elasticsearch.ElasticsearchIndex(self.config['elasticsearch'])
         self.index_prefix = self.config['elasticsearch']['index']
         self.firebase = None
+
     def upload_foodprofiles(self):
         self.firebase = firebase.Firebase(self.config['firebase'])
         total_items = self.mongoClient.total_items
