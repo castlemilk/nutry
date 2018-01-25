@@ -23,7 +23,63 @@ export const PARENT_ROW = 'PARENTR_ROW';
 export const PARENT_NONAME_ROW = 'PARENT_NONAME_ROW';
 export const CHILD_ROW = 'CHILD_ROW';
 export const CHILD2_ROW = 'CHILD2_ROW';
-export const SUMMARY_IDS = ['ENERC', 'ENER_KCAL', 'SUAGAR', 'FIBTG', 'PROCNT', 'FAT', 'NA', 'K', 'VITC', 'VITD', 'CHOCDF'];
+export const SUMMARY_IDS = [
+  {
+    prefix: 'ENERC',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'ENERC_KCAL',
+    type: PARENT_NONAME_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'CHOCDF',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'SUGAR',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'FIBTG',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'PROCNT',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'FAT',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'NA',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'K',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'VITC',
+    type: PARENT_ROW,
+    selected: false,
+  },
+  {
+    prefix: 'VITD',
+    type: PARENT_ROW,
+    selected: false,
+  },
+];
 export const DETAILED_IDS = [
   // energy
   'ENERC', 'ENERC_KJ',
@@ -39,306 +95,384 @@ export const DETAILED_IDS = [
   // vitamins
   'VITC', 'VITA_IU', 'RETOL', 'VITA_RAE', 'CARTA', 'CARTB', 'CRYPX', 'LYCPN',
   'LUT+ZEA', 'VITD', 'TOCPHA', 'TOCPHB', 'TOCPHD', 'VITK', 'THIA', 'NIA', 'SE',
-  'FOL', 'FOLFD', 'FOLAC', 'FOLDFE', 'VITB6A', 'CHOLN', 'BETN'
-]
-
-
-
-
-
-
+  'FOL', 'FOLFD', 'FOLAC', 'FOLDFE', 'VITB6A', 'CHOLN', 'BETN',
 ];
 export const DETAILED_SECTIONS = {
-  energy: [
-    {
-      id: 'ENERC',
-      type: PARENT_ROW,
-    }, {
-      id: 'ENERC_KJ',
-      type: PARENT_NONAME_ROW,
-    }],
-  fat: [
-    {
-      id: 'FAT',
-      type: PARENT_ROW,
-    }, {
-      id: 'FATSAT',
-      type: CHILD_ROW,
-    }, {
-      id: 'FAMS',
-      type: CHILD_ROW,
-    }, {
-      id: 'FAPU',
-      type: CHILD_ROW,
-    }, {
-      id: 'FATRN',
-      type: CHILD_ROW,
-    }, {
-      id: 'LCW3TOTAL',
-      type: PARENT_ROW,
-    }],
-  carbohydrates: [
-    {
-      id: 'CHOCDF',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'FIBTG',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'SUGAR',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'GLUS',
-      type: CHILD2_ROW,
-    },
-    {
-      id: 'SUCS',
-      type: CHILD2_ROW,
-    },
-    {
-      id: 'MALS',
-      type: CHILD2_ROW,
-    },
-    {
-      id: 'FRUS',
-      type: CHILD2_ROW,
-    },
-    {
-      id: 'LACS',
-      type: CHILD2_ROW,
-    },
-    {
-      id: 'GALS',
-      type: CHILD2_ROW,
-    },
-  ],
-  protein: [
-    {
-      id: 'PROCNT',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'TRP',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'THR',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'ILE',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'LEU',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'LYS',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'MET',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'CYS',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'PHE',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'TYR',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'VAL',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'ARG',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'HISTN',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'ALA',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'ASP',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'GLU',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'PRO',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'SER',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'HYP',
-      type: CHILD_ROW,
-    },
-  ],
-  minerals: [
-    {
-      id: 'CA',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'FE',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'MG',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'P',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'K',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'NA',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'ZN',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'CU',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'MN',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'SE',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'FLD',
-      type: PARENT_ROW,
-    },
-  ],
-  vitamins: [
-    {
-      id: 'VITC',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'VITA_IU',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'VITA_IU',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'RETOL',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'VITA_RAE',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'CARTA',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'CARTB',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'CRYPX',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'LYCPN',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'LUT+ZEA',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'VITD',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'TOCPHA',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'TOCPHB',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'TOCPHD',
-      type: CHILD_ROW,
-    },
-    {
-      id: 'VITK',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'THIA',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'NIA',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'SE',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'FOL',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'FOLFD',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'FOLAC',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'FOLDFE',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'VITB6A',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'CHOLN',
-      type: PARENT_ROW,
-    },
-    {
-      id: 'BETN',
-      type: PARENT_ROW,
-    },
-  ],
+  energy: {
+    headerName: 'Energy',
+    items: [
+      {
+        prefix: 'ENERC',
+        type: PARENT_ROW,
+        selected: false,
+      }, {
+        prefix: 'ENERC_KCAL',
+        type: PARENT_NONAME_ROW,
+        selected: false,
+      }],
+  },
+  fat: {
+    headerName: 'Fat & Fatty Acids',
+    items: [
+      {
+        prefix: 'FAT',
+        type: PARENT_ROW,
+        selected: false,
+      }, {
+        prefix: 'FASAT',
+        type: CHILD_ROW,
+        selected: false,
+      }, {
+        prefix: 'FAMS',
+        type: CHILD_ROW,
+        selected: false,
+      }, {
+        prefix: 'FAPU',
+        type: CHILD_ROW,
+        selected: false,
+      }, {
+        prefix: 'FATRN',
+        type: CHILD_ROW,
+        selected: false,
+      }, {
+        prefix: 'LCW3TOTAL',
+        type: PARENT_ROW,
+        selected: false,
+      }],
+  },
+  carbohydrates: {
+    headerName: 'Carbohydrates',
+    items: [
+      {
+        prefix: 'CHOCDF',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'FIBTG',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'SUGAR',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'GLUS',
+        type: CHILD2_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'SUCS',
+        type: CHILD2_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'MALS',
+        type: CHILD2_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'FRUS',
+        type: CHILD2_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'LACS',
+        type: CHILD2_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'GALS',
+        type: CHILD2_ROW,
+        selected: false,
+      },
+    ],
+  },
+  protein: {
+    headerName: 'Proteins',
+    items: [
+      {
+        prefix: 'PROCNT',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'TRP',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'THR',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'ILE',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'LEU',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'LYS',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'MET',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'CYS',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'PHE',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'TYR',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'VAL',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'ARG',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'HISTN',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'ALA',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'ASP',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'GLU',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'PRO',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'SER',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'HYP',
+        type: CHILD_ROW,
+        selected: false,
+      },
+    ],
+  },
+  minerals: {
+    headerName: 'Minerals',
+    items: [
+      {
+        prefix: 'CA',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'FE',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'MG',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'P',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'K',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'NA',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'ZN',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'CU',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'MN',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'SE',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'FLD',
+        type: PARENT_ROW,
+        selected: false,
+      },
+    ],
+  },
+  vitamins: {
+    headerName: 'Vitamins',
+    items: [
+      {
+        prefix: 'VITC',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'VITA_IU',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'RETOL',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'VITA_RAE',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'CARTA',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'CARTB',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'CRYPX',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'LYCPN',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'LUT+ZEA',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'VITD',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'TOCPHA',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'TOCPHB',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'TOCPHD',
+        type: CHILD_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'VITK',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'THIA',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'NIA',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'SE',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'FOL',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'FOLFD',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'FOLAC',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'FOLDFE',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'VITB6A',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'CHOLN',
+        type: PARENT_ROW,
+        selected: false,
+      },
+      {
+        prefix: 'BETN',
+        type: PARENT_ROW,
+        selected: false,
+      },
+    ],
+  },
 };

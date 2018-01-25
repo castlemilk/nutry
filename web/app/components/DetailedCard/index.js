@@ -5,83 +5,46 @@
 */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  HEADER,
-  PARENT_NONAME_ROW,
-  PARENT_ROW,
-  CHILD_ROW,
-
-} from 'containers/FoodProfile/constants';
-
-// import { FormattedMessage } from 'react-intl';
-import NutrientRow from 'components/NutrientRow';
-import NutrientParentRow from 'components/NutrientParentRow';
-import NutrientChildRow from 'components/NutrientChildRow';
-import NutrientHeaderRow from 'components/NutrientHeaderRow';
-import NutrientParentNoNameRow from 'components/NutrientParentNoNameRow';
+import uuidv4 from 'uuid/v4';
+import NutrientRowView from 'containers/NutrientRowView';
 import ExpandableListView from 'components/ExpandableListView';
 import Wrapper from './Wrapper';
 // import messages from './messages';
 
 class DetailedCard extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
-
+  shouldComponentUpdate(nextProps) {
+    return false;
+  }
   render() {
-    console.log('DetailedCard:nutrientTabe:', this.props.detailedTable);
-    const { detailedTable } = this.props;
-    const { onNutrientHover, onNutrientSelected } = this.props;
-    // this.filledNutrientTable = [];
-    // this.props.detailedTable.map((group) => {
-    //   const componentGroup = {};
-    //   componentGroup.headerName = group.headerName;
-    //   componentGroup.isOpened = true;
-    //   componentGroup.isReactComponent = true;
-    //   componentGroup.height = (group.items.length * 60) + 70;
-    //   const items = [];
-    //   group.items.map((row) => {
-    //     switch (row.type) {
-    //       case PARENT_ROW:
-    //         return items.push((<NutrientParentRow nutrient={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-    //       case PARENT_NONAME_ROW:
-    //         return items.push((<NutrientParentNoNameRow nutrient={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-    //       case CHILD_ROW:
-    //         return items.push((<NutrientChildRow nutrient={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-    //       case HEADER:
-    //         return items.push((<NutrientHeaderRow data={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-    //       default:
-    //         return items.push((<NutrientChildRow nutrient={row.nutrient} key={`detailed-${row.nutrient.name}`} />));
-    //     }
-    //   });
-    //   componentGroup.items = items;
-    //   this.filledNutrientTable.push(componentGroup);
-    //   return componentGroup;
-    //   // console.log("ExpandableListView:
-    // });
+    const { nutrientSections } = this.props;
+    console.log('rendering:DetailedCard');
 
-    const filledNutrientTable = detailedTable.map((group) => {
-      const { headerName } = group;
-      return {
+    // const entries = nutrientSections.mapEntries();
+    const mode = 'detailed';
+    const rows = nutrientSections.reduce((accumulator, { headerName, items }, key) => {
+      return accumulator.concat({
         headerName,
         isOpened: true,
         isReactComponent: true,
-        height: (group.items.length * 60) + 90,
-        items: group.items.map((row) => {
-          const { type, nutrient } = row;
+        height: (items.length * 60) + 90,
+        items: items.map((row) => {
+          const { type, prefix } = row;
+          const id = uuidv4();
           const rowProps = {
-            viewType: 'DetailedCard',
-            onNutrientHover,
-            onNutrientSelected,
+            id,
+            mode,
+            prefix,
             type,
-            nutrient,
           };
-          return <NutrientRow {...rowProps} key={`detailed-${nutrient.name}`} />;
+          return <NutrientRowView {...rowProps} key={id} />;
         }),
-      };
-    });
+      });
+    }, []);
     return (
       <Wrapper>
         <ExpandableListView
-          data={filledNutrientTable}
+          data={rows}
           headerAttName="headerName"
           itemsAttName="items"
         />
@@ -91,9 +54,7 @@ class DetailedCard extends React.Component { // eslint-disable-line react/prefer
 }
 
 DetailedCard.propTypes = {
-  detailedTable: PropTypes.array.isRequired,
-  onNutrientHover: PropTypes.func,
-  onNutrientSelected: PropTypes.func,
+  nutrientSections: PropTypes.object.isRequired,
 };
 
 export default DetailedCard;

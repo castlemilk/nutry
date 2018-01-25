@@ -27,7 +27,7 @@ export function getFoodProfile(source, serialNumber) {
   });
   console.log('FirebaseServiceRest:ID:', serialNumber);
   console.log('FirebaseServiceRest:source:', source);
-  const path = `${source}/${serialNumber}.json`;
+  const path = `profiles/${serialNumber}.json`;
   return session.get(path)
     .then(checkStatus)
     .then(parseResults);

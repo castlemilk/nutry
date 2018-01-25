@@ -26,17 +26,25 @@ const makeSelectProfileLoading = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('loading')
 );
-const makeSelectProfile = () => createSelector(
+// const makeSelectProfile = () => createSelector(
+//   selectFoodProfileDomain,
+//   (substate) => substate.get('profileBody')
+// );
+const makeSelectAllNutrients = () => createSelector(
   selectFoodProfileDomain,
-  (substate) => substate.get('profileBody')
+  (substate) => substate.getIn(['nutrients', 'byId'])
 );
-const makeSelectNutrients = () => createSelector(
+const makeSelectNutrientsBySummaryIds = () => createSelector(
   selectFoodProfileDomain,
-  (substate) => substate.get('nutrients')
+  (substate) => substate.getIn(['nutrients', 'bySummaryIds'])
+);
+const makeSelectNutrientsBySections = () => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.getIn(['nutrients', 'bySections'])
 );
 const makeSelectNutrient = (prefix) => createSelector(
   selectFoodProfileDomain,
-  (substate) => substate.getIn(['nutrients', prefix])
+  (substate) => substate.getIn(['nutrients', 'byId', prefix])
 );
 const makeSelectSource = () => createSelector(
   selectFoodProfileDomain,
@@ -68,13 +76,15 @@ export {
   selectFoodProfileDomain,
   makeSelectProfileLoading,
   makeSelectTabSelected,
-  makeSelectNutrients,
+  makeSelectAllNutrients,
+  makeSelectNutrientsBySummaryIds,
+  makeSelectNutrientsBySections,
   makeSelectNutrient,
   makeSelectNutrientSelected,
   makeSelectPortion,
   makeSelectPortions,
   makeSelectAgeGroup,
-  makeSelectProfile,
+  // makeSelectProfile,
   makeSelectSource,
   makeSelectSerialNumber,
 

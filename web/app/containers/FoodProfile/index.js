@@ -26,9 +26,13 @@ import {
   portionChanged,
   ageGroupChanged,
   nutrientSelected } from './actions';
-import { makeSelectProfile,
+import {
+  // makeSelectProfile,
   makeSelectProfileLoading,
   makeSelectTabSelected,
+  makeSelectNutrient,
+  makeSelectNutrientsBySummaryIds,
+  makeSelectNutrientsBySections,
   makeSelectNutrientSelected,
   makeSelectAgeGroup,
   makeSelectPortion,
@@ -55,19 +59,14 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
     };
     const { loading,
       profileHeader,
-      profileBody,
+      // profileBody,
       tabSelected,
       portions,
       portionSelected,
-      nutrientFocused,
       ageGroupSelected } = this.props;
-    console.log('profileBody:');
-    console.log(profileBody);
     const { onTabChange,
       onPortionChanged,
       onAgeGroupChanged,
-      onNutrientHover,
-      onNutrientSelected,
      } = this.props;
     const profileTitleProps = {
       loading,
@@ -76,20 +75,19 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
     const nutrientDisplayProps = {
       loading,
       portionSelected,
-      profileBody,
       onTabChange,
-      onNutrientHover,
-      onNutrientSelected,
+      // onNutrientHover,
+      // onNutrientSelected,
     };
-    const pieData = tabSelected === 'summary' ?
-      getPieDataSummary(portionSelected.g, profileBody.nutrients) :
-      getPieDataDetailed(portionSelected.g, profileBody.nutrients);
+    // const pieData = tabSelected === 'summary' ?
+    //   getPieDataSummary(portionSelected.g, profileBody.nutrients) :
+    //   getPieDataDetailed(portionSelected.g, profileBody.nutrients);
 
-    const analyticsProps = {
-      nutrientFocused,
-      loading,
-      pieData,
-    };
+    // const analyticsProps = {
+    //   nutrientFocused,
+    //   loading,
+    //   pieData,
+    // };
     const foodProfileToolbarProps = {
       loading,
       portions,
@@ -131,7 +129,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
               <NutrientDisplay {...nutrientDisplayProps} />
             </Col>
             <Col xs={18} sm={18} md={10} lg={10}>
-              <NutrientProfilePieChart {...analyticsProps} />
+              {/* <NutrientProfilePieChart {...analyticsProps} /> */}
             </Col>
             <Col xs={3} sm={3} md={2} lg={2}>
             </Col>
@@ -146,7 +144,7 @@ FoodProfile.propTypes = {
   // dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   profileHeader: PropTypes.object.isRequired,
-  profileBody: PropTypes.object,
+  // profileBody: PropTypes.object,
   onLoadProfile: PropTypes.func,
   onTabChange: PropTypes.func,
   tabSelected: PropTypes.string,
@@ -156,8 +154,8 @@ FoodProfile.propTypes = {
   //   PropTypes.object,
   // ]),
   portionSelected: PropTypes.object,
-  onNutrientHover: PropTypes.func,
-  onNutrientSelected: PropTypes.func,
+  // onNutrientHover: PropTypes.func,
+  // onNutrientSelected: PropTypes.func,
   // nutrientFocused: PropTypes.oneOfType([
   //   PropTypes.instanceOf(Array),
   //   PropTypes.array,
@@ -170,9 +168,11 @@ FoodProfile.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectProfileLoading(),
-  profileBody: makeSelectProfile(),
+  // profileBody: makeSelectProfile(),
   tabSelected: makeSelectTabSelected(),
   portions: makeSelectPortions(),
+  nutrientsBySummaryIds: makeSelectNutrientsBySummaryIds(),
+  nutrientsBySections: makeSelectNutrientsBySections(),
   nutrientFocused: makeSelectNutrientSelected(),
   portionSelected: makeSelectPortion(),
   ageGroupSelected: makeSelectAgeGroup(),

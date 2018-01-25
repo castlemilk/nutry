@@ -11,19 +11,24 @@ import { Row, Col } from 'antd';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
+import { virtualize } from 'react-swipeable-views-utils';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
-import SummaryCard from 'components/SummaryCard';
-import DetailedCard from 'components/DetailedCard';
+import SummaryCardView from 'containers/SummaryCardView';
+import DetailedCardView from 'containers/DetailedCardView';
+// import DetailedCard from 'components/DetailedCard';
 import TableHeader from 'components/TableHeader';
 import LoadingContent from 'components/LoadingContent';
-import { getSummaryNutrients, getDetailedNutrients } from 'lib/nutrientMap';
+// import { getSummaryNutrients, getDetailedNutrients } from 'lib/nutrientMap';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 import NutrientDisplayWrapper from './NutrientDisplayWrapper';
 
 
 class NutrientDisplay extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.state.index !== nextState.index
+  // }
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +61,7 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
   };
   render() {
     const { index } = this.state;
-    const { profileBody, portionSelected, loading } = this.props;
+    const { nutrient, nutrientsBySummaryIds, nutrientsBySections, portionSelected, loading } = this.props;
     const {
       onNutrientHover,
       onNutrientSelected,
@@ -69,23 +74,36 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
     const inkBarStyle = {
       backgroundColor: 'gray',
     };
-    // const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
-    // const loadingView = (<div className="loading-spinner">
-    //   <Spin indicator={loadingSpinner} />
-    // </div>);
-    const nutrients = loading ? null : profileBody.nutrients;
-    const summaryTable = loading ? null : getSummaryNutrients(nutrients, portionSelected.g);
-    const detailedTable = loading ? null : getDetailedNutrients(nutrients, portionSelected.g);
-    const summaryTableProps = {
-      summaryTable,
-      onNutrientSelected,
-      onNutrientHover,
-    };
     const detailedTableProps = {
-      detailedTable,
+      nutrientsBySections,
+      nutrient,
       onNutrientSelected,
       onNutrientHover,
     };
+    const VirtualizeSwipeableViews = virtualize(SwipeableViews);
+    const tabs = [
+      ( <div>
+        <div className="summary-table-header-wrapper">
+          <TableHeader />
+        </div>
+        <div className="summary-card-wrapper">
+        <SummaryCardView />
+      </div>
+    </div>),
+    (<div>
+      <div className="detailed-table-header-wrapper">
+        <TableHeader />
+      </div>
+      <div className="detailed-card-wrapper">
+        <DetailedCardView />
+      </div>
+    </div>)
+    ]
+    const slideRenderer = ({key, index}) => (
+      <div key={key}>
+        {tabs[index]}
+      </div>
+    );
     const loadingView = (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
@@ -261,27 +279,13 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Tabs inkBarStyle={inkBarStyle} value={index} onChange={this.handleChangeTabs}>
-            <Tab label="Summary" value={0} />
-            <Tab label="Detailed" value={1} />
+            <Tab label="Summary" value={0} >
+              {tabs[0]}
+            </Tab>
+            <Tab label="Detailed" value={1} >
+                {tabs[1]}
+            </Tab>
           </Tabs>
-          <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
-            <div>
-              <div className="summary-table-header-wrapper">
-                <TableHeader />
-              </div>
-              <div className="summary-card-wrapper">
-                { summaryTable ? <SummaryCard {...summaryTableProps} /> : null }
-              </div>
-            </div>
-            <div>
-              <div className="detailed-table-header-wrapper">
-                <TableHeader />
-              </div>
-              <div className="detailed-card-wrapper">
-                { detailedTable ? <DetailedCard {...detailedTableProps} /> : null }
-              </div>
-            </div>
-          </SwipeableViews>
         </div>
       </MuiThemeProvider>);
     const displayView = loading ? loadingView : nutrientView;
@@ -294,11 +298,8 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
 }
 
 NutrientDisplay.propTypes = {
-  profileBody: PropTypes.object.isRequired,
   portionSelected: PropTypes.object,
   onTabChange: PropTypes.func,
-  onNutrientHover: PropTypes.func,
-  onNutrientSelected: PropTypes.func,
   loading: PropTypes.bool,
 };
 

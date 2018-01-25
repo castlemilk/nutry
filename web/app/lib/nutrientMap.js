@@ -1,6 +1,6 @@
 import _ from 'lodash';
+import { Map } from 'immutable';
 import {
-  HEADER,
   PARENT_NONAME_ROW,
   PARENT_ROW,
   CHILD_ROW,
@@ -8,7 +8,13 @@ import {
 
 } from 'containers/FoodProfile/constants';
 
-
+export function defaultNutrient(prefix) {
+  return Map({
+    name: prefixToName(prefix),
+    units: prefixToUnit(prefix),
+    value: '~',
+  });
+}
 export function getNutrient(prefix, nutrients, portion = false) {
   const nutrient = nutrients[prefix];
   if (nutrient) {
@@ -152,7 +158,6 @@ export function getOmega3(nutrients, portion) {
     omega3Total * scale(portion)
   );
 }
-export function summaryNutrientIds()
 
 
 export function getSummaryNutrients(nutrients, portion = false) {

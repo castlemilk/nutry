@@ -3,7 +3,7 @@
  * FoodProfile actions
  *
  */
-
+import { defaultPortions } from 'lib/nutrientMap';
 import {
   DEFAULT_ACTION,
   ON_BACK,
@@ -15,6 +15,7 @@ import {
   GET_PROFILE_FAILURE,
   GET_PROFILE_SUCCESS,
 } from './constants';
+
 
 export function defaultAction() {
   return {
@@ -31,7 +32,8 @@ export function loadProfile(serialNumber, source) {
 export function loadProfileSuccess(profileBody) {
   return {
     type: GET_PROFILE_SUCCESS,
-    profileBody,
+    nutrientsById: profileBody.nutrients,
+    portionsAvailable: defaultPortions(profileBody.portions),
   };
 }
 export function loadProfileFailure(error) {
@@ -46,10 +48,11 @@ export function tabChanged(tab) {
     tab,
   };
 }
-export function nutrientSelected(nutrient) {
+export function nutrientSelected(prefix, id) {
   return {
     type: NUTRIENT_SELECTED,
-    nutrient,
+    prefix,
+    id,
   };
 }
 export function portionChanged(portionSelected) {

@@ -5,16 +5,12 @@
 */
 import PropTypes from 'prop-types';
 import React from 'react';
-
+import uuidv4 from 'uuid/v4';
 // import { FormattedMessage } from 'react-intl';
-import NutrientRow from 'components/NutrientRow';
+import NutrientRowView from 'containers/NutrientRowView';
 // import messages from './messages';
 import Wrapper from './Wrapper';
 import Table from './Table';
-// import Thead from './Thead';
-import BodyGroup from './BodyGroup';
-
-
 class SummaryCard extends React.Component { // eslint-disable-line react/prefer-stateless-function
   /**
    * Generic profile is passed to this component and using the nutrient mapping
@@ -25,32 +21,35 @@ class SummaryCard extends React.Component { // eslint-disable-line react/prefer-
    * all nutrients.
    */
   render() {
-    const { summaryTable, onNutrientHover, onNutrientSelected } = this.props;
-    const rows = summaryTable ? summaryTable.map((row) => {
-      const { type, nutrient } = row;
-      const rowProps = {
-        onNutrientHover,
-        onNutrientSelected,
-        type,
-        nutrient,
-      };
-      return <NutrientRow {...rowProps} key={`summary-${nutrient.name}`} />;
-    }) : null;
+    console.log('rendering:SummaryCard')
+    const { nutrientIds } = this.props;
+    const mode = 'summary';
 
+    const rows = nutrientIds.map((nutrient) => {
+      const id = uuidv4()
+      const prefix = nutrient.get('prefix');
+      const type = nutrient.get('type');
+      const rowProps = {
+        id,
+        mode,
+        prefix,
+        type
+      }
+      return (
+        <NutrientRowView {...rowProps} key={id} />
+      )
+    });
     return (
       <Wrapper>
         <Table>
-          <BodyGroup>
-            {rows}
-          </BodyGroup>
+          {rows}
         </Table>
+
       </Wrapper>
     );
   }
 }
 SummaryCard.propTypes = {
-  summaryTable: PropTypes.array.isRequired,
-  onNutrientHover: PropTypes.func,
-  onNutrientSelected: PropTypes.func,
+  nutrientIds: PropTypes.object.isRequired,
 };
 export default SummaryCard;

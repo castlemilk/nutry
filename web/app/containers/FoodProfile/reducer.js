@@ -4,7 +4,7 @@
  *
  */
 import { fromJS, List, Map } from 'immutable';
-import { defaultPortions } from 'lib/nutrientMap';
+
 import {
   DEFAULT_ACTION,
   ON_BACK,
@@ -24,21 +24,27 @@ import {
 const initialState = fromJS({
   loading: true,
   serialNumber: null,
-  profileBody: {},
   error: false,
   source: null,
   nutrients: {
     byId: Map({}),
     bySection: Map(DETAILED_SECTIONS),
-    summaryTableIds: SUMMARY_IDS,
-    detailedTableIds: DETAILED_IDS,
+    bySummaryIds: SUMMARY_IDS,
+    byDetailedIds: DETAILED_IDS,
   },
   tabSelected: 'summary',
-  nutrientSelected: {},
+  idSelected: null,
+  nutrientSelected: null,
   portionSelected: Map({}),
   portionsAvailable: List([]),
   ageGroupSelected: Map({}),
 });
+
+const arrayToObject = (array) =>
+   array.reduce((obj, item) => {
+     obj[item[0]] = Object.assign(item[1], { selected: false });
+     return obj;
+   }, {});
 
 function foodProfileReducer(state = initialState, action) {
   switch (action.type) {
@@ -52,10 +58,9 @@ function foodProfileReducer(state = initialState, action) {
         .set('source', action.source);
     case GET_PROFILE_SUCCESS:
       return state
-        .set('profileBody', action.profileBody)
-        .set('nutrients', action.profileBody.nutrients)
-        .set('portionsAvailable', defaultPortions(action.profileBody.portions))
-        .set('portionSelected', defaultPortions(action.profileBody.portions)[0])
+        .setIn(['nutrients', 'byId'], fromJS(arrayToObject(Object.entries(action.nutrientsById))))
+        .set('portionsAvailable', action.portionsAvailable)
+        .set('portionSelected', action.portionsAvailable[0])
         .set('ageGroupSelected', { value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' })
         .set('loading', false)
         .set('error', false);
@@ -73,7 +78,9 @@ function foodProfileReducer(state = initialState, action) {
         .set('tabSelected', action.tab);
     case NUTRIENT_SELECTED:
       return state
-        .set('nutrientSelected', action.nutrient);
+        // .set('nutrientSelected', action.prefix)
+        .set('idSelected', action.id);
+        // .setIn(['nutrients', 'byId', action.id, 'selected'], !state.getIn(['nutrients', 'byId', action.id, 'selected']));
     default:
       return state;
   }

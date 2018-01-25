@@ -17,87 +17,103 @@ import {
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
-
-export default function NutrientRow(props) {
-  /**
-   * Nutrient Row which is a standard row within a category. Will have zero
-   * indentation.
-   * There are some nutrients which will be children of a parent nutrient and
-   * will be depicted as children through indentations
-   */
-  const { name, units } = props.nutrient;
-  const { onNutrientHover, onNutrientSelected, type, viewType, nutrient } = props;
-  const childRow = type === CHILD_ROW;
-  const child2Row = type === CHILD2_ROW;
-  const parentRow = type === PARENT_ROW;
-  const parentNoNameRow = type === PARENT_NONAME_ROW;
-  const headerRow = type === HEADER;
-  const hasName = (parentRow || child2Row || headerRow || childRow);
-  const hasUnits = (childRow || child2Row || parentRow || parentNoNameRow);
-  const hasValue = (childRow || child2Row || parentRow || parentNoNameRow);
-  let indent = 5;
-  let fontSize = 2;
-  if (childRow) {
-    indent = 15;
-  } else if (child2Row) {
-    indent = 20;
-  } else if (parentRow) {
-    indent = 5;
-    fontSize = 2.5;
-  } else if (headerRow) {
-    fontSize = 2.5;
+export class NutrientRow extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    // console.log(this.props.isSelected)
+    // console.log(nextProps.isSelected)
+    // console.log('----')
+    // console.log(this.props.nutrient.get('value'))
+    // console.log(nextProps.nutrient.get('value'))
+    return nextProps.isSelected !== this.props.isSelected || nextProps.nutrient.get('value') !== this.props.nutrient.get('value')
   }
-  const value = props.nutrient.value ?
-     props.nutrient.value :
-     (<span style={{ color: 'red' }}>
-       {'~'}
-     </span>);
-  const Row = styled.div`
-       display: block;
-       border-bottom: 1px solid #a79595;
-   `;
-  const RowName = styled.div`
-    display:inline-block;
-    overflow: hidden;
-    width:60%;
-    font-size: ${fontSize}}vmin;
-    font-family: 'Bitter', serif;
-    .row-name-${type}-text {
-      margin-left: ${indent}px;
+  render() {
+    /**
+     * Nutrient Row which is a standard row within a category. Will have zero
+     * indentation.
+     * There are some nutrients which will be children of a parent nutrient and
+     * will be depicted as children through indentations
+     */
+
+    const { onHover, onClick, nutrient, id, prefix, type, isSelected, mode } = this.props;
+    // console.log(id)
+    // console.log(prefix)
+    // console.log(mode)
+    // console.log(isSelected)
+    // const selected = nutrient.get('selected');
+    const name = nutrient.get('name');
+    const units = nutrient.get('units');
+    const value = nutrient.get('value') || (<span style={{ color: 'red' }}>{'~'}</span>);
+    const childRow = type === CHILD_ROW;
+    const child2Row = type === CHILD2_ROW;
+    const parentRow = type === PARENT_ROW;
+    const parentNoNameRow = type === PARENT_NONAME_ROW;
+    const headerRow = type === HEADER;
+    const hasName = (parentRow || child2Row || headerRow || childRow);
+    const hasUnits = (childRow || child2Row || parentRow || parentNoNameRow);
+    const hasValue = (childRow || child2Row || parentRow || parentNoNameRow);
+    let indent = 5;
+    let fontSize = 2;
+    if (childRow) {
+      indent = 15;
+    } else if (child2Row) {
+      indent = 20;
+    } else if (parentRow) {
+      indent = 5;
+      fontSize = 2.5;
+    } else if (headerRow) {
+      fontSize = 2.5;
     }
-  `;
-  const RowUnits = styled.div`
-    display:inline-block;
-    overflow: hidden;
-    width:15%;
-    text-align: center;
-    font-family: 'Droid Serif', serif;
-  `;
-  const RowValue = styled.div`
-    display:inline-block;
-    overflow: hidden;
-    width:25%;
-    text-align: center;
-    font-family: 'Bitter', serif;
-  `;
-  return (<Row className={`Section__${viewType}__Row`} onMouseEnter={() => onNutrientHover(nutrient)} onClick={() => onNutrientSelected(nutrient)}>
-    {hasName ? <RowName className={`Section__${viewType}__RowName`} ><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" > </span></RowName> }
-    {hasUnits ? <RowUnits className={`Section__${viewType}__RowUnits`} >{units}</RowUnits> : null }
-    {hasValue ? <RowValue className={`Section__${viewType}__RowValue`} >{value}</RowValue> : null }
-  </Row>
-  );
-  // return (<Row >
-  //   { hasName ? <RowName ><span className={`row-name-${type}-text`} >{name}</span></RowName> : <RowName><span className={`row-name-${type}-text`} > </span></RowName> }
-  //   { hasUnits ? <RowUnits >{units}</RowUnits> : null }
-  //   { hasValue ? <RowValue >{value}</RowValue> : null }
-  // </Row>
-  // );
+    const Row = styled.div`
+         display: block;
+         border-bottom: 1px solid #a79595;
+         background-color: ${isSelected ? 'gray' : 'white'};
+     `;
+    const RowName = styled.div`
+      display:inline-block;
+      overflow: hidden;
+      width:60%;
+      font-size: ${fontSize}}vmin;
+      font-family: 'Bitter', serif;
+      .row-name-${type}-text {
+        margin-left: ${indent}px;
+      }
+    `;
+    const RowUnits = styled.div`
+      display:inline-block;
+      overflow: hidden;
+      width:15%;
+      text-align: center;
+      font-family: 'Droid Serif', serif;
+    `;
+    const RowValue = styled.div`
+      display:inline-block;
+      overflow: hidden;
+      width:25%;
+      text-align: center;
+      font-family: 'Bitter', serif;
+    `;
+    console.log('nutrientRow:rendering');
+    return (<Row className={`Section__${type}__Row__${id}`} onMouseLeave={() => onHover(prefix, id)} onMouseEnter={() => onHover(prefix, id)} onClick={() => onClick(prefix, id)}>
+      {hasName ? <RowName className={`Section__${type}__RowName__${id}`} ><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" > </span></RowName> }
+      {hasUnits ? <RowUnits className={`Section__${type}__RowUnits__${id}`} >{units}</RowUnits> : null }
+      {hasValue ? <RowValue className={`Section__${type}__RowValue__${id}`} >{value}</RowValue> : null }
+    </Row>
+    );
+  }
 }
 //
 NutrientRow.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  mode: PropTypes.string.isRequired,
+  // units: PropTypes.string.isRequired,
+  // name: PropTypes.string.isRequired,
   nutrient: PropTypes.object,
-  onNutrientHover: PropTypes.func,
-  onNutrientSelected: PropTypes.func,
-  type: PropTypes.string,
-  viewType: PropTypes.string,
+  isSelected: PropTypes.bool,
+  // value: PropTypes.number,
+  onHover: PropTypes.func,
+  onClick: PropTypes.func,
 };
+
+
+export default NutrientRow;
