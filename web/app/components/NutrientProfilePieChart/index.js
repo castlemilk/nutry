@@ -79,7 +79,6 @@ function getIndexLargestValue(data) {
  */
 function nutrientToIndex(nutrient, pieData) {
   const index = pieData.findIndex((x) => x.prefix === nutrient.prefix);
-  console.log(index);
   if (index === -1) {
     return null;
   }
@@ -92,7 +91,7 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
   constructor(props) {
     super(props);
     this.state = {
-      activeIndex: this.props.pieData && !this.props.loading ? getIndexLargestValue(this.props.pieData) : 0,
+      activeIndex: this.props.pieData && !this.props.loading && this.props.nutrientSelected ? getIndexLargestValue(this.props.pieData) : 0,
     };
   }
   componentWillMount() {
@@ -102,9 +101,9 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
   }
   componentWillReceiveProps(nextProps) {
   // You don't have to do this check first, but it can help prevent an unneeded render
-    const selectedIndex = nextProps.pieData ? nutrientToIndex(nextProps.nutrientFocused, nextProps.pieData) : null;
+    const selectedIndex = nextProps.pieData && nextProps.nutrientSelected ? nutrientToIndex(nextProps.nutrientSelected, nextProps.pieData) : null;
     if (selectedIndex === null || selectedIndex === -1) {
-      return null;
+      return this.setState({ activeIndex: 0 });
     }
     if (selectedIndex !== this.state.activeIndex) {
       return this.setState({ activeIndex: selectedIndex });
@@ -127,16 +126,16 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
   }
 
   render() {
-    const { pieData, loading, nutrientFocused } = this.props;
-    console.log('nutrientFocused:');
-    console.log(nutrientFocused);
-    console.log('pieData:');
+    const { pieData, loading } = this.props;
     console.log(pieData);
     const pieDataColored = loading ? null : pieData.map((value, index) => {
       const section = value;
       section.fill = COLORS[index % COLORS.length];
       return value;
     });
+    console.log('pieDataColored:');
+    console.log(pieDataColored);
+    console.log(this.state.activeIndex);
     const loadingPie = <Spin style={{ marginTop: '100px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     return (
       <NutrientProfilePieChartWrapper>
@@ -166,7 +165,7 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
 }
 
 NutrientProfilePieChart.propTypes = {
-  nutrientFocused: PropTypes.object,
+  nutrientSelected: PropTypes.object,
   pieData: PropTypes.array,
   loading: PropTypes.bool,
 };

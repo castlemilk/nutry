@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { scaledValue } from 'lib/utils';
 import {
   HEADER,
   PARENT_NONAME_ROW,
@@ -17,14 +18,15 @@ import {
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 
+
 export class NutrientRow extends React.Component {
   shouldComponentUpdate(nextProps) {
     // console.log(this.props.isSelected)
     // console.log(nextProps.isSelected)
-    // console.log('----')
-    // console.log(this.props.nutrient.get('value'))
-    // console.log(nextProps.nutrient.get('value'))
-    return nextProps.isSelected !== this.props.isSelected || nextProps.nutrient.get('value') !== this.props.nutrient.get('value')
+    // console.log('----');
+    // console.log(this.props.nutrient.get('value'));
+    // console.log(nextProps.nutrient.get('value'));
+    return nextProps.isSelected !== this.props.isSelected || nextProps.portion !== this.props.portion;
   }
   render() {
     /**
@@ -34,15 +36,18 @@ export class NutrientRow extends React.Component {
      * will be depicted as children through indentations
      */
 
-    const { onHover, onClick, nutrient, id, prefix, type, isSelected, mode } = this.props;
+    const { onHover, onClick, nutrient, id, prefix, type, isSelected, mode, portion } = this.props;
     // console.log(id)
     // console.log(prefix)
     // console.log(mode)
     // console.log(isSelected)
     // const selected = nutrient.get('selected');
+    // console.log(nutrient);
+    // console.log(portion);
+    // console.log(scaledValue(nutrient.get('value'), portion.g));
     const name = nutrient.get('name');
     const units = nutrient.get('units');
-    const value = nutrient.get('value') || (<span style={{ color: 'red' }}>{'~'}</span>);
+    const value = scaledValue(nutrient.get('value'), portion.g) || (<span style={{ color: 'red' }}>{'~'}</span>);
     const childRow = type === CHILD_ROW;
     const child2Row = type === CHILD2_ROW;
     const parentRow = type === PARENT_ROW;
@@ -109,6 +114,7 @@ NutrientRow.propTypes = {
   // units: PropTypes.string.isRequired,
   // name: PropTypes.string.isRequired,
   nutrient: PropTypes.object,
+  portions: PropTypes.object,
   isSelected: PropTypes.bool,
   // value: PropTypes.number,
   onHover: PropTypes.func,

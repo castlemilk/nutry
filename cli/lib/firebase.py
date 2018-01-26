@@ -15,7 +15,7 @@ class Firebase(object):
         self.base_url = config['base_url'] if config.get('base_url') else None
         self.authentication = config['authentication'] if config.get('authentication') else None
         self.path = config['path'] if config.get('path') else None
-        self.MAXCPU = cpu_count()
+        self.MAXCPU = cpu_count() * 2
         self.client = firebase.FirebaseApplication(self.base_url, authentication=self.authentication)
         self.pool = None
 
@@ -36,7 +36,7 @@ class Firebase(object):
 
     def fast_upload(self, total, documents):
 
-        with Pool(processes=self.MAXCPU * 4) as pool:
+        with Pool(processes=self.MAXCPU) as pool:
             r = list(tqdm(pool.imap(self.upload, documents), total=total))
             return r
 

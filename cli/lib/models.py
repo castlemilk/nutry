@@ -243,6 +243,7 @@ class Profile(object):
         self.name = Name(item, source)
         self.group = item['group']
         self.meta = item['meta']
+        self.portions = item['portions'] if item.get('portions') else None
         self.id = item['ID']
         self.nutrients = {
             'nutrients': dict(map(lambda x: (normalise_nutrient_name(x[0]),
@@ -292,6 +293,7 @@ class Profile(object):
         self.nutrients.update(json.loads(self.name.get_indexable_document()))
         header = self.name.get_json()
         header.update({
-                'nutrients': self.nutrients['nutrients']
+                'nutrients': self.nutrients['nutrients'],
+                'portions': self.portions,
         })
         return header

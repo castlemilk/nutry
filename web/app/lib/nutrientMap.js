@@ -16,13 +16,14 @@ export function defaultNutrient(prefix) {
   });
 }
 export function getNutrient(prefix, nutrients, portion = false) {
-  const nutrient = nutrients[prefix];
+  const nutrient = nutrients.get(prefix);
+  console.log(nutrient);
   if (nutrient) {
     return new Nutrient(
       prefix,
-      nutrient.name || prefixToName(prefix),
-      nutrient.units || prefixToUnit(prefix),
-      getScaledValue(nutrient.value, portion) || '~',
+      nutrient.get('name') || prefixToName(prefix),
+      nutrient.get('units') || prefixToUnit(prefix),
+      getScaledValue(nutrient.get('value'), portion) || '~',
       getRDI(prefix)
     );
   }

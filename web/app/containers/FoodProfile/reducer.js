@@ -72,6 +72,7 @@ function foodProfileReducer(state = initialState, action) {
         .set('ageGroupSelected', action.ageGroupSelected);
     case PORTION_CHANGED:
       return state
+        .set(['nutrients', 'byId'], state.getIn(['nutrients', 'byId']).map((nutrient) => nutrient.set('value', nutrient.get('value') * (action.portionSelected.g / 100))))
         .set('portionSelected', action.portionSelected);
     case TAB_CHANGED:
       return state

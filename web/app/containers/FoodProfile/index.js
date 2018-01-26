@@ -24,13 +24,12 @@ import {
   loadProfile,
   tabChanged,
   portionChanged,
-  ageGroupChanged,
-  nutrientSelected } from './actions';
+  ageGroupChanged } from './actions';
 import {
   // makeSelectProfile,
   makeSelectProfileLoading,
   makeSelectTabSelected,
-  makeSelectNutrient,
+  makeSelectAllNutrients,
   makeSelectNutrientsBySummaryIds,
   makeSelectNutrientsBySections,
   makeSelectNutrientSelected,
@@ -62,7 +61,9 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       // profileBody,
       tabSelected,
       portions,
+      nutrients,
       portionSelected,
+      nutrientSelected,
       ageGroupSelected } = this.props;
     const { onTabChange,
       onPortionChanged,
@@ -79,15 +80,17 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       // onNutrientHover,
       // onNutrientSelected,
     };
-    // const pieData = tabSelected === 'summary' ?
-    //   getPieDataSummary(portionSelected.g, profileBody.nutrients) :
-    //   getPieDataDetailed(portionSelected.g, profileBody.nutrients);
-
-    // const analyticsProps = {
-    //   nutrientFocused,
-    //   loading,
-    //   pieData,
-    // };
+    console.log(nutrients);
+    const pieData = tabSelected === 'summary' ?
+      getPieDataSummary(portionSelected.g, nutrients) :
+      getPieDataDetailed(portionSelected.g, nutrients);
+    console.log(nutrients);
+    console.log(pieData);
+    const analyticsProps = {
+      nutrientSelected,
+      loading,
+      pieData,
+    };
     const foodProfileToolbarProps = {
       loading,
       portions,
@@ -129,7 +132,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
               <NutrientDisplay {...nutrientDisplayProps} />
             </Col>
             <Col xs={18} sm={18} md={10} lg={10}>
-              {/* <NutrientProfilePieChart {...analyticsProps} /> */}
+              <NutrientProfilePieChart {...analyticsProps} />
             </Col>
             <Col xs={3} sm={3} md={2} lg={2}>
             </Col>
@@ -144,6 +147,8 @@ FoodProfile.propTypes = {
   // dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   profileHeader: PropTypes.object.isRequired,
+  nutrients: PropTypes.object,
+  nutrientSelected: PropTypes.string,
   // profileBody: PropTypes.object,
   onLoadProfile: PropTypes.func,
   onTabChange: PropTypes.func,
@@ -171,6 +176,8 @@ const mapStateToProps = createStructuredSelector({
   // profileBody: makeSelectProfile(),
   tabSelected: makeSelectTabSelected(),
   portions: makeSelectPortions(),
+  nutrients: makeSelectAllNutrients(),
+  nutrientSelected: makeSelectNutrientSelected(),
   nutrientsBySummaryIds: makeSelectNutrientsBySummaryIds(),
   nutrientsBySections: makeSelectNutrientsBySections(),
   nutrientFocused: makeSelectNutrientSelected(),

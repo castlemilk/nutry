@@ -19,7 +19,8 @@ export function getPieDataSummary(portion = false, nutrients) {
     return null;
   }
   return [
-    getCarbohydrates(nutrients, portion),
+    getNutrient('CHOCDF', nutrients, portion),
+    // getCarbohydrates(nutrients, portion),
     getNutrient('SUGAR', nutrients, portion),
     getNutrient('FIBTG', nutrients, portion),
     getNutrient('PROCNT', nutrients, portion),
