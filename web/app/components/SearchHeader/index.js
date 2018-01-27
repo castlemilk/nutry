@@ -7,13 +7,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
-// import styled from 'styled-components';
 import LogoImg from 'images/nutry_header.svg';
 import SearchHeaderWrapper from './SearchHeaderWrapper';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
-
 function SearchHeader(props) {
   return (
     <SearchHeaderWrapper>
@@ -46,7 +41,6 @@ function SearchHeader(props) {
 
 SearchHeader.propTypes = {
   searchBarView: PropTypes.object,
-  toolBarView: PropTypes.object,
   backButtonView: PropTypes.object,
   loginView: PropTypes.object,
 };

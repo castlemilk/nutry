@@ -12,21 +12,18 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row, Col } from 'antd';
-import { getPieDataSummary, getPieDataDetailed } from 'lib/nutrientAnalytics';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientDisplay from 'components/NutrientDisplay';
 import FoodProfileTitle from 'components/FoodProfileTitle';
 import FoodProfileToolBar from 'components/FoodProfileToolBar';
 import NutrientProfilePieChart from 'components/NutrientProfilePieChart';
-// import Spices from 'images/spices.svg';
 import {
   loadProfile,
   tabChanged,
   portionChanged,
   ageGroupChanged } from './actions';
 import {
-  // makeSelectProfile,
   makeSelectProfileLoading,
   makeSelectTabSelected,
   makeSelectAllNutrients,
@@ -39,7 +36,6 @@ import {
  } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-// import messages from './messages';
 import FoodProfileWrapper from './FoodProfileWrapper';
 
 export class FoodProfile extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -54,11 +50,9 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       width: '100%',
       height: '100%',
       backgroundColor: '#DBD8D8',
-      // backgroundImage: `url(${Spices})`,
     };
     const { loading,
       profileHeader,
-      // profileBody,
       tabSelected,
       portions,
       nutrients,
@@ -77,19 +71,17 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       loading,
       portionSelected,
       onTabChange,
-      // onNutrientHover,
-      // onNutrientSelected,
     };
-    console.log(nutrients);
-    const pieData = tabSelected === 'summary' ?
-      getPieDataSummary(portionSelected.g, nutrients) :
-      getPieDataDetailed(portionSelected.g, nutrients);
-    console.log(nutrients);
-    console.log(pieData);
+
+
     const analyticsProps = {
-      nutrientSelected,
       loading,
-      pieData,
+      nutrients,
+      nutrientFilter: tabSelected,
+      ageGroupSelected,
+      portionSelected,
+      nutrientSelected,
+
     };
     const foodProfileToolbarProps = {
       loading,
@@ -144,28 +136,15 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
 }
 
 FoodProfile.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   profileHeader: PropTypes.object.isRequired,
   nutrients: PropTypes.object,
   nutrientSelected: PropTypes.string,
-  // profileBody: PropTypes.object,
   onLoadProfile: PropTypes.func,
   onTabChange: PropTypes.func,
   tabSelected: PropTypes.string,
-  // portions: PropTypes.oneOfType([
-  //   PropTypes.instanceOf(Array),
-  //   PropTypes.array,
-  //   PropTypes.object,
-  // ]),
+  portions: PropTypes.object,
   portionSelected: PropTypes.object,
-  // onNutrientHover: PropTypes.func,
-  // onNutrientSelected: PropTypes.func,
-  // nutrientFocused: PropTypes.oneOfType([
-  //   PropTypes.instanceOf(Array),
-  //   PropTypes.array,
-  //   PropTypes.object,
-  // ]),
   onAgeGroupChanged: PropTypes.func,
   onPortionChanged: PropTypes.func,
   ageGroupSelected: PropTypes.object,
@@ -173,7 +152,6 @@ FoodProfile.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectProfileLoading(),
-  // profileBody: makeSelectProfile(),
   tabSelected: makeSelectTabSelected(),
   portions: makeSelectPortions(),
   nutrients: makeSelectAllNutrients(),
@@ -192,8 +170,6 @@ function mapDispatchToProps(dispatch) {
     onTabChange: (tab) => dispatch(tabChanged(tab)),
     onPortionChanged: (portion) => dispatch(portionChanged(portion)),
     onAgeGroupChanged: (ageGroup) => dispatch(ageGroupChanged(ageGroup)),
-    onNutrientHover: (nutrient) => dispatch(nutrientSelected(nutrient)),
-    onNutrientSelected: (nutrient) => dispatch(nutrientSelected(nutrient)),
   };
 }
 

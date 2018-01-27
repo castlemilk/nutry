@@ -55,12 +55,12 @@ function FoodProfileToolBar(props) {
               id="foodprofile-toolbar-select-agegroup"
               onBlurResetsInput={false}
               onSelectResetsInput={false}
-              autoFocus
+              autoFocus={false}
               clearable={false}
               options={AGES}
               autosize={false}
               name="foodprofile-toolbar-select-agegroup"
-              value={ageGroupSelected}
+              value={ageGroupSelected.toJS()}
               onChange={(a) => onAgeGroupChanged(a)}
               searchable
             />
@@ -78,7 +78,7 @@ function FoodProfileToolBar(props) {
             id="foodprofile-toolbar-select-portion"
             onBlurResetsInput={false}
             onSelectResetsInput={false}
-            autoFocus
+            autoFocus={false}
             clearable={false}
             options={portions}
             autosize={false}
@@ -95,11 +95,7 @@ function FoodProfileToolBar(props) {
 
 FoodProfileToolBar.propTypes = {
   ageGroupSelected: PropTypes.object,
-  portions: PropTypes.oneOfType([
-    PropTypes.instanceOf(Array),
-    PropTypes.array,
-    PropTypes.object,
-  ]),
+  portions: PropTypes.object,
   portionSelected: PropTypes.object,
   onAgeGroupChanged: PropTypes.func.isRequired,
   onPortionChanged: PropTypes.func.isRequired,

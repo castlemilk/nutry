@@ -5,9 +5,6 @@
 */
 
 import React from 'react';
-// import { Col } from 'antd';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 
 import architectureAI from 'images/architectureAI.svg';
 import architectureAPI from 'images/architectureAPI.svg';
@@ -71,10 +68,5 @@ function NutryArchitecture(props) {
     </NutryArchitectureWrapper>
   );
 }
-
-// NutryArchitecture.propTypes = {
-//   onHover: PropTypes.func,
-//
-// };
 
 export default NutryArchitecture;

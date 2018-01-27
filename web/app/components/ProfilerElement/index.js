@@ -8,10 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Slider } from 'antd';
 import Select from 'react-select';
-// import styled from 'styled-components';
 import ProfilerDeleteElement from 'components/ProfilerDeleteElement';
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 import ProfilerElementWrapper from './ProfilerElementWrapper';
 
 /**
@@ -43,20 +40,8 @@ export class ProfilerElement extends React.Component { // eslint-disable-line re
 
   };
 
-  clearValue(e) {
-    console.log(e);
-    this.select.setInputValue('');
-  }
-
   render() {
-  // console.log(`profilerElement:${this.props.nutrient}`)
     const { scale, id } = this.props;
-    // const body = {
-    //   nutrient,
-    //   scale,
-    // };
-  // console.log(`profilerElement:body`)
-  // console.log(body)
     return (
       <ProfilerElementWrapper>
         <div className="profiler-element-wrapper">

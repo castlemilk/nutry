@@ -1,12 +1,5 @@
 import _ from 'lodash';
 import { Map } from 'immutable';
-import {
-  PARENT_NONAME_ROW,
-  PARENT_ROW,
-  CHILD_ROW,
-  CHILD2_ROW,
-
-} from 'containers/FoodProfile/constants';
 
 export function defaultNutrient(prefix) {
   return Map({
@@ -15,16 +8,15 @@ export function defaultNutrient(prefix) {
     value: '~',
   });
 }
-export function getNutrient(prefix, nutrients, portion = false) {
+export function getNutrient(prefix, nutrients, portion = false, ageGroup) {
   const nutrient = nutrients.get(prefix);
-  console.log(nutrient);
   if (nutrient) {
     return new Nutrient(
       prefix,
       nutrient.get('name') || prefixToName(prefix),
       nutrient.get('units') || prefixToUnit(prefix),
       getScaledValue(nutrient.get('value'), portion) || '~',
-      getRDI(prefix)
+      getRDI(prefix, ageGroup)
     );
   }
   return new Nutrient(
@@ -32,26 +24,11 @@ export function getNutrient(prefix, nutrients, portion = false) {
     prefixToName(prefix),
     prefixToUnit(prefix),
     '~',
-    getRDI(prefix)
+    getRDI(prefix, ageGroup)
   );
 }
 export function getNormalisedNutrient(prefix, nutrients, portion = false) {
   const nutrient = nutrients[prefix];
-  // this.name = nutrient.name || prefixToName(prefix);
-  // this.units = nutrient.units || prefixToUnit(prefix);
-  // this.value = getScaledValue(nutrient.value, portion) || '~';
-  const nut = new Nutrient(
-    prefix,
-    prefixToName(prefix),
-    prefixToUnit(prefix),
-    '~'
-
-  );
-  // console.log("getNutient:prefix:", prefix)
-  // console.log("getNutient:nutrients:", nutrients)
-  // console.log("getNutient:defaultName:", prefixToName(prefix))
-  // console.log("getNutient:defaultUnit:", prefixToUnit(prefix))
-  // console.log("getNutrient:returning:this:", nut)
   if (nutrient) {
     return new Nutrient(
       prefix,
@@ -77,68 +54,10 @@ function Nutrient(prefix, name, units, value, rdi = null) {
 function Portion(name, amount, value) {
   this.unit = name;
   this.value = value;
-  this.className = name ? `${name.replace(/\ |\_|\,|\-|/g, '')}` : 'portion-class';
+  this.className = name ? `${name.replace(/ |_|,|-|/g, '')}` : 'portion-class';
   this.label = name;
   this.amt = amount;
   this.g = value;
-}
-
-export function getEnergyKJ(nutrients, portion = false) {
-  /**
-   * There can be variation in the prefix used to denote energy. Function used
-   * to abstract complexity away and ensure a result is returned.
-   */
-  if (nutrients.ENERC) {
-    var nutrient = getScaledNutrient('ENERC', nutrients.ENERC, portion);
-    nutrient.prefix = 'ENERC';
-    nutrient.name = 'Energy';
-    return nutrient;
-  } else if (nutrients.ENERC1) {
-    var nutrient = getScaledNutrient('ENERC1', nutrients.ENERC1, portion);
-    nutrient.prefix = 'ENERC1';
-    nutrient.name = 'Energy';
-    return nutrient;
-  }
-  return null;
-}
-export function getEnergyKCAL(nutrients, portion = false) {
-  /**
-   * There can be variation in the prefix used to denote energy. Function used
-   * to abstract complexity away and ensure a result is returned.
-   */
-  const KJtoKCAL = 0.239006;
-  if (nutrients.ENERC_KCAL) {
-    const nutrient = getScaledNutrient('ENERC_KCAL', nutrients.ENERC_KCAL, portion);
-    nutrient.prefix = 'ENERC_KCAL';
-    nutrient.name = 'Energy (KCAL)';
-    return nutrient;
-  } else if (nutrients.ENERC_KJ) {
-    var energyKCAL = _.round(nutrients.ENERC_KJ.value * KJtoKCAL, 1);
-    return getScaledNutrient('ENERC_KJ', new Nutrient('ENERC_KJ', 'Energy (KCAL)', 'kcal', energyKCAL), portion);
-  } else if (nutrients.ENERC1) {
-    var energyKCAL = _.round(nutrients.ENERC1.value * KJtoKCAL, 1);
-    return getScaledNutrient('ENERC1', new Nutrient('ENERC1', 'Energy (KCAL)', 'kcal', energyKCAL), portion);
-  } else if (nutrients.ENERC) {
-    var energyKCAL = _.round(nutrients.ENERC * KJtoKCAL, 1);
-    return getScaledNutrient('ENERC', new Nutrient('ENERC', 'Energy (KCAL)', 'kcal', energyKCAL), portion);
-  }
-  return null;
-}
-export function getCarbohydrates(nutrients, portion = false) {
-  // get availalble carbohydrates by difference.
-  if (nutrients.CHOCDF) {
-    const nutrient = getScaledNutrient('CHOCDF', nutrients.CHOCDF, portion);
-    nutrient.prefix = 'CHOCDF';
-    nutrient.name = 'Carbohydrates Total';
-    nutrient.rdi = getRDI('CHOCDF');
-    return nutrient;
-  } else if (nutrients.AVAILCHOCNS) {
-    const nutrient = getScaledNutrient('AVAILCHOCNS', nutrients.AVAILCHOCNS, portion);
-    nutrient.prefix = 'AVAILCHOCNS';
-    nutrient.name = 'Carbohydrates Total';
-    nutrient.rdi = getRDI('CHOCDF');
-    return nutrient;
-  }
 }
 
 export function getOmega3(nutrients, portion) {
@@ -159,197 +78,275 @@ export function getOmega3(nutrients, portion) {
     omega3Total * scale(portion)
   );
 }
-
-
-export function getSummaryNutrients(nutrients, portion = false) {
-  /**
-   * Takes the entire nutrient array and returns a sub-structure with the
-   * nutrients we want associated with the SummaryCard view
-   */
-  const rowProperty = (type, nutrient, alias) => ({ type, nutrient, alias });
-  const summaryTable = [
-    rowProperty(PARENT_ROW, getEnergyKJ(nutrients, portion)),
-    rowProperty(PARENT_NONAME_ROW, getEnergyKCAL(nutrients, portion)),
-    rowProperty(PARENT_ROW, getCarbohydrates(nutrients, portion)),
-    rowProperty(PARENT_ROW, getNutrient('SUGAR', nutrients, portion)),
-    rowProperty(PARENT_ROW, getNutrient('FIBTG', nutrients, portion)),
-    rowProperty(PARENT_ROW, getNutrient('PROCNT', nutrients, portion)),
-    rowProperty(PARENT_ROW, getNutrient('FAT', nutrients, portion)),
-    rowProperty(PARENT_ROW, getNutrient('NA', nutrients, portion)),
-    rowProperty(PARENT_ROW, getNutrient('K', nutrients, portion)),
-    rowProperty(PARENT_ROW, getNutrient('VITC', nutrients, portion)),
-    rowProperty(PARENT_ROW, getNutrient('VITD', nutrients, portion)),
-  ];
-  return summaryTable;
+export function getRDI(prefix, ageGroup) {
+  return RDImapping[ageGroup.get('value')][prefix];
 }
-export function getRDI(prefix) {
-  return RDImapping[prefix];
-}
-export function getDetailedNutrients(nutrients, portion = false) {
-  /**
-   * This data structure is used by the ExpandableListView component and expects
-   * a strucuture as follows:
-   * const DATA = [
-   * {
-   *  headerName: "Energy",
-   *  isOpened: true,
-   *  isReactComponent: false,
-   *  items: [
-   *  rowProperty(..., ...)
-   *  rowProperty(..., ...)
-   *  ...
-   *  ]
-   *  height: 100
-   *
-   * }
-   * ]
-   *
-   *
-   */
-  console.log('nutrientMap:getDetailedNutrients:portion:', portion);
-
-  console.log('nutrientMap:getDetailedNutrients:Energy:value', getEnergyKJ(nutrients, portion));
-  const rowProperty = (type, nutrient, alias) => ({ type, nutrient, alias });
-  const detailedTable = [
-    {
-      headerName: 'Energy',
-      isOpened: true,
-      isReactComponent: true,
-      items: [
-        rowProperty(PARENT_ROW, getEnergyKJ(nutrients, portion)),
-        rowProperty(PARENT_NONAME_ROW, getEnergyKCAL(nutrients, portion)),
-      ],
-    },
-    {
-      headerName: 'Fats & Fatty Acids',
-      isOpened: true,
-      isReactComponent: true,
-      items: [
-        rowProperty(PARENT_ROW, getNutrient('FAT', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('FATSAT', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('FAMS', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('FAPU', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('FATRN', nutrients, portion)),
-        rowProperty(PARENT_ROW, getOmega3(nutrients, portion)),
-      ],
-    },
-    {
-      headerName: 'Carbohydrates',
-      isOpened: true,
-      isReactComponent: true,
-      items: [
-        rowProperty(PARENT_ROW, getCarbohydrates(nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('FIBTG', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('SUGAR', nutrients, portion)),
-        rowProperty(CHILD2_ROW, getNutrient('GLUS', nutrients, portion)),
-        rowProperty(CHILD2_ROW, getNutrient('SUCS', nutrients, portion)),
-        rowProperty(CHILD2_ROW, getNutrient('MALS', nutrients, portion)),
-        rowProperty(CHILD2_ROW, getNutrient('FRUS', nutrients, portion)),
-        rowProperty(CHILD2_ROW, getNutrient('LACS', nutrients, portion)),
-        rowProperty(CHILD2_ROW, getNutrient('GALS', nutrients, portion)),
-      ],
-    },
-    {
-      headerName: 'Protein',
-      isOpened: true,
-      isReactComponent: true,
-      items: [
-        rowProperty(PARENT_ROW, getNutrient('PROCNT', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('TRP_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('THR_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('ILE_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('LEU_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('LYS_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('MET_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('CYS_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('PHE_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('TYR_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('VAL_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('ARG_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('HISTN_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('ALA_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('ASP_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('GLU_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('PRO_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('SER_G', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('HYP', nutrients, portion)),
-      ],
-    },
-    {
-      headerName: 'Minerals',
-      isOpened: true,
-      isReactComponent: true,
-      items: [
-        rowProperty(PARENT_ROW, getNutrient('CA', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('FE', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('MG', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('P', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('K', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('NA', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('ZN', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('CU', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('MN', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('SE', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('FLD', nutrients, portion)),
-
-      ],
-    },
-    {
-      headerName: 'Vitamins',
-      isOpened: true,
-      isReactComponent: true,
-      items: [
-        rowProperty(PARENT_ROW, getNutrient('VITC', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('VITA_IU', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('RETOL', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('VITA_RAE', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('CARTA', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('CARTB', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('CRYPX', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('LYCPN', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('LUT+ZEA', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('VITD', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('TOCPHA', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('TOCPHB', nutrients, portion)),
-        rowProperty(CHILD_ROW, getNutrient('TOCPHD', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('VITK', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('THIA', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('NIA', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('SE', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('FOL', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('FOLFD', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('FOLAC', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('FOLDFE', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('VITB6A', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('CHOLN', nutrients, portion)),
-        rowProperty(PARENT_ROW, getNutrient('BETN', nutrients, portion)),
-      ],
-    },
-  ];
-  return detailedTable;
-}
+// const RDIEnergyMapping = {
+//   I1: {},
+// };
+const pc = 0.45;
+const ps = 0.1;
+const gctoe = 17;
+const RDImapping = {
+  // Infant (0m-6m)
+  I1: {
+    ENERC: 2200,
+    WATER: 7000,
+    SUGAR: (2200 * pc * ps) / gctoe,
+    CHOCDF: (2200 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Infant (7m-12m)
+  I2: {
+    ENERC: 3100,
+    WATER: 800,
+    SUGAR: (3100 * pc * ps) / gctoe,
+    CHOCDF: (3100 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Children (1-3)
+  C1: {
+    ENERC: 4300,
+    WATER: 1400,
+    SUGAR: (4300 * pc * ps) / gctoe,
+    CHOCDF: (4300 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Children (4-8)
+  C2: {
+    ENERC: 7000,
+    WATER: 1600,
+    SUGAR: (7000 * pc * ps) / gctoe,
+    CHOCDF: (7000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Boys (9-13)
+  B1: {
+    ENERC: 8300,
+    WATER: 2200,
+    SUGAR: (8300 * pc * ps) / gctoe,
+    CHOCDF: (8300 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Boys (14-16)
+  B2: {
+    ENERC: 12000,
+    WATER: 2700,
+    SUGAR: (12000 * pc * ps) / gctoe,
+    CHOCDF: (12000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Girls (9-13)
+  G1: {
+    ENERC: 8500,
+    WATER: 1900,
+    SUGAR: (8500 * pc * ps) / gctoe,
+    CHOCDF: (8500 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Girls (14-16)
+  G2: {
+    ENERC: 11500,
+    WATER: 2200,
+    SUGAR: (11500 * pc * ps) / gctoe,
+    CHOCDF: (11500 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Adult Male (19-30)
+  AM19: {
+    ENERC: 12000,
+    WATER: 3400,
+    SUGAR: (12000 * pc * ps) / gctoe,
+    CHOCDF: (12000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // 'Adult Male (31-50)
+  AM31: {
+    ENERC: 11900,
+    WATER: 3400,
+    SUGAR: (11900 * pc * ps) / gctoe,
+    CHOCDF: (11900 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Adult Male (51-70)
+  AM51: {
+    ENERC: 10900,
+    WATER: 3400,
+    SUGAR: (10900 * pc * ps) / gctoe,
+    CHOCDF: (10900 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Adult Male (71-)
+  AM71: {
+    ENERC: 10000,
+    WATER: 3400,
+    SUGAR: (10000 * pc * ps) / gctoe,
+    CHOCDF: (10000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Adult Female (19-30)
+  AF19: {
+    ENERC: 9600,
+    WATER: 2800,
+    SUGAR: (9600 * pc * ps) / gctoe,
+    CHOCDF: (9600 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Adult Female (31-50)
+  AF31: {
+    ENERC: 9100,
+    WATER: 2800,
+    SUGAR: (9100 * pc * ps) / gctoe,
+    CHOCDF: (9100 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Adult Female (51-70)
+  AF51: {
+    ENERC: 8700,
+    WATER: 2800,
+    SUGAR: (8700 * pc * ps) / gctoe,
+    CHOCDF: (8700 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Adult Female (71-)
+  AF71: {
+    ENERC: 8300,
+    WATER: 2800,
+    SUGAR: (8300 * pc * ps) / gctoe,
+    CHOCDF: (8300 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Pregnant (14-18)
+  P1: {
+    ENERC: 13000,
+    WATER: 2400,
+    SUGAR: (13000 * pc * ps) / gctoe,
+    CHOCDF: (13000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Pregnant (19-31)
+  P2: {
+    ENERC: 12000,
+    WATER: 3100,
+    SUGAR: (12000 * pc * ps) / gctoe,
+    CHOCDF: (12000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Pregnant (31-50)
+  P3: {
+    ENERC: 11500,
+    WATER: 3100,
+    SUGAR: (11500 * pc * ps) / gctoe,
+    CHOCDF: (11500 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Lactation (14-18)
+  L1: {
+    ENERC: 11000,
+    WATER: 2900,
+    SUGAR: (11000 * pc * ps) / gctoe,
+    CHOCDF: (11000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Lactation (19-30)
+  L2: {
+    ENERC: 10500,
+    WATER: 3500,
+    SUGAR: (10500 * pc * ps) / gctoe,
+    CHOCDF: (10500 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+  // Lactation (31-50)
+  L3: {
+    ENERC: 10000,
+    WATER: 3500,
+    SUGAR: (10000 * pc * ps) / gctoe,
+    CHOCDF: (10000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 960,
+    FAT: 50,
+  },
+};
 
 
 export function defaultPortions(profilePortions = null) {
-  const portions = [];
-  portions.push(new Portion('per 100g', 1, 100));
+  let portions = [];
+
   if (profilePortions) {
-    for (const portion of profilePortions) {
-      if (portion.unit.includes('tsp')) {
-        portions.push(new Portion(
-          `${String(portion.amt)} ${portion.unit}`,
-          portion.unit,
-          portion.g
-        ));
-      } else {
-        portions.push(new Portion(
-          portion.name,
-          portion.unit,
-          portion.g
-        ));
-      }
-    }
+    portions = profilePortions.map((portion) => portion.unit.includes('tsp') ?
+      new Portion(`${String(portion.amt)} ${portion.unit}`,
+        portion.unit,
+        portion.g
+      ) :
+      new Portion(portion.name,
+      portion.unit,
+      portion.g));
   }
+  portions.unshift(new Portion('per 100g', 1, 100));
   return portions;
 }
 
@@ -362,22 +359,22 @@ function getScaledValue(value, portion = false) {
 
   return '~';
 }
-function getScaledNutrient(prefix, nutrient, portion = false) {
-  /**
-   * Will attempt to discover the formatting of the scaling factor and
-   * convert the current value accordingly
-   */
-  // TODO: fix this, returning nutrient isnt compaitible with the getNutrient method
-  if (!portion) {
-    return new Nutrient(prefix, nutrient.name, nutrient.units, nutrient.value);
-  }
-  return new Nutrient(
-    prefix,
-    nutrient.name,
-    nutrient.units,
-    truncateTo(nutrient.value * scale(portion), 1)
-  );
-}
+// function getScaledNutrient(prefix, nutrient, portion = false) {
+//   /**
+//    * Will attempt to discover the formatting of the scaling factor and
+//    * convert the current value accordingly
+//    */
+//   // TODO: fix this, returning nutrient isnt compaitible with the getNutrient method
+//   if (!portion) {
+//     return new Nutrient(prefix, nutrient.name, nutrient.units, nutrient.value);
+//   }
+//   return new Nutrient(
+//     prefix,
+//     nutrient.name,
+//     nutrient.units,
+//     truncateTo(nutrient.value * scale(portion), 1)
+//   );
+// }
 
 const truncateTo = (unRouned, nrOfDecimals = 2) => {
   const parts = String(unRouned).split('.');
@@ -387,8 +384,8 @@ const truncateTo = (unRouned, nrOfDecimals = 2) => {
     return unRouned;
   }
 
-  const newDecimals = parts[1].slice(0, nrOfDecimals),
-    newString = `${parts[0]}.${newDecimals}`;
+  const newDecimals = parts[1].slice(0, nrOfDecimals);
+  const newString = `${parts[0]}.${newDecimals}`;
 
   return Number(newString);
 };
@@ -411,6 +408,7 @@ function scale(portion) {
   } else {
     return 1;
   }
+  return 1;
 }
 function isFloat(n) {
   return isNumeric(n) && !_.isInteger(n);
@@ -418,279 +416,271 @@ function isFloat(n) {
 function isNumeric(n) {
   return !_.isNaN(n) && _.isFinite(n);
 }
-const RDImapping = {
-  WATER: 3400,
-  SUGAR: 112,
-  CHOCDF: 310,
-  PROCNT: 64,
-  FIBTG: 30,
-  NA: 960,
-  FAT: 50,
-};
+
 function prefixToName(prefix) {
   /**
    * Convert nutrient prefix to full name from a standard hash/dictionary table
    * stored on the client side??
    * TODO: potentially look at this being hotloaded by REST service
    */
-  const prefixToName = {};
-  prefixToName.ENERC = 'Energy';
-  prefixToName.ENERC1 = 'Energy, including dietary fibre';
-  prefixToName.ENERC1 = 'Energy';
-  prefixToName.ENERC_KCAL = 'Energy';
+  const mapping = {};
+  mapping.ENERC = 'Energy';
+  mapping.ENERC1 = 'Energy, including dietary fibre';
+  mapping.ENERC1 = 'Energy';
+  mapping.ENERC_KCAL = 'Energy';
   // Carbohydrates
-  prefixToName.CHOCDF = 'Carbohydrate, by difference';
-  prefixToName.CHOAVL = 'Available carbohydrate';
-  prefixToName.SUGAR = 'Sugar Total';
-  prefixToName.FIBTG = 'Dietary Fibre';
-  prefixToName.SUCS = 'Sucrose';
-  prefixToName.MALS = 'Maltose';
-  prefixToName.GALS = 'Galactose';
-  prefixToName.FRUS = 'Fructose';
-  prefixToName.GLUS = 'Glucose';
-  prefixToName.LACS = 'Lactose';
-  prefixToName.STARCH = 'Starch';
+  mapping.CHOCDF = 'Carbohydrate, by difference';
+  mapping.CHOAVL = 'Available carbohydrate';
+  mapping.SUGAR = 'Sugar Total';
+  mapping.FIBTG = 'Dietary Fibre';
+  mapping.SUCS = 'Sucrose';
+  mapping.MALS = 'Maltose';
+  mapping.GALS = 'Galactose';
+  mapping.FRUS = 'Fructose';
+  mapping.GLUS = 'Glucose';
+  mapping.LACS = 'Lactose';
+  mapping.STARCH = 'Starch';
   // common
-  prefixToName.DEXTN = 'Dextrin';
-  prefixToName.GYRL = 'Glycerol';
-  prefixToName.GLYC = 'Glycogen';
-  prefixToName.INULN = 'Inulin';
-  prefixToName.MANTL = 'Mannitol';
-  prefixToName.MALTDEX = 'Maltodextrin';
-  prefixToName.OLSAC = 'Oligosaccharides';
-  prefixToName.RAFS = 'Raffinose';
-  prefixToName.STAS = 'Stachyose';
-  prefixToName.SORTL = 'Sorbitol';
+  mapping.DEXTN = 'Dextrin';
+  mapping.GYRL = 'Glycerol';
+  mapping.GLYC = 'Glycogen';
+  mapping.INULN = 'Inulin';
+  mapping.MANTL = 'Mannitol';
+  mapping.MALTDEX = 'Maltodextrin';
+  mapping.OLSAC = 'Oligosaccharides';
+  mapping.RAFS = 'Raffinose';
+  mapping.STAS = 'Stachyose';
+  mapping.SORTL = 'Sorbitol';
 
 
   // Protiens & amino acids
-  prefixToName.PROCNT = 'Protein';
-  prefixToName.TRP = 'Tryptophan';
-  prefixToName.TYR = 'Tyrosine';
-  prefixToName.THR = 'Threonine';
-  prefixToName.SER = 'Serine';
-  prefixToName.ALA = 'Alanine';
-  prefixToName.ARG = 'Arginine';
-  prefixToName.ASP = 'Aspartic acid';
-  prefixToName.CYS = 'Cystine';
-  prefixToName.HIS = 'Histidine';
-  prefixToName.HISTN = 'Histidine';
-  prefixToName.ILE = 'Isoleucine';
-  prefixToName.HYP = 'Hyroxyprofile';
-  prefixToName.PRO = 'Proline';
-  prefixToName.GLU = 'Glutamic acid';
-  prefixToName.GLY = 'Glycine';
-  prefixToName.PHE = 'Phenylalanine';
-  prefixToName.MET = 'Methionine';
-  prefixToName.LYS = 'Lysine';
-  prefixToName.LEU = 'Leucine';
-  prefixToName.VAL = 'Valine';
-  prefixToName.TRP_G = 'Tryptophan';
-  prefixToName.TYR_G = 'Tyrosine';
-  prefixToName.THR_G = 'Threonine';
-  prefixToName.SER_G = 'Serine';
-  prefixToName.ALA_G = 'Alanine';
-  prefixToName.ARG_G = 'Arginine';
-  prefixToName.ASP_G = 'Aspartic acid';
-  prefixToName.CYS_G = 'Cystine';
-  prefixToName.HIS_G = 'Histidine';
-  prefixToName.HISTN_G = 'Histidine';
-  prefixToName.ILE_G = 'Isoleucine';
-  prefixToName.HYP_G = 'Hyroxyprofile';
-  prefixToName.PRO_G = 'Proline';
-  prefixToName.GLU_G = 'Glutamic acid';
-  prefixToName.GLY_G = 'Glycine';
-  prefixToName.PHE_G = 'Phenylalanine';
-  prefixToName.MET_G = 'Methionine';
-  prefixToName.LYS_G = 'Lysine';
-  prefixToName.LEU_G = 'Leucine';
-  prefixToName.VAL_G = 'Valine';
+  mapping.PROCNT = 'Protein';
+  mapping.TRP = 'Tryptophan';
+  mapping.TYR = 'Tyrosine';
+  mapping.THR = 'Threonine';
+  mapping.SER = 'Serine';
+  mapping.ALA = 'Alanine';
+  mapping.ARG = 'Arginine';
+  mapping.ASP = 'Aspartic acid';
+  mapping.CYS = 'Cystine';
+  mapping.HIS = 'Histidine';
+  mapping.HISTN = 'Histidine';
+  mapping.ILE = 'Isoleucine';
+  mapping.HYP = 'Hyroxyprofile';
+  mapping.PRO = 'Proline';
+  mapping.GLU = 'Glutamic acid';
+  mapping.GLY = 'Glycine';
+  mapping.PHE = 'Phenylalanine';
+  mapping.MET = 'Methionine';
+  mapping.LYS = 'Lysine';
+  mapping.LEU = 'Leucine';
+  mapping.VAL = 'Valine';
+  mapping.TRP_G = 'Tryptophan';
+  mapping.TYR_G = 'Tyrosine';
+  mapping.THR_G = 'Threonine';
+  mapping.SER_G = 'Serine';
+  mapping.ALA_G = 'Alanine';
+  mapping.ARG_G = 'Arginine';
+  mapping.ASP_G = 'Aspartic acid';
+  mapping.CYS_G = 'Cystine';
+  mapping.HIS_G = 'Histidine';
+  mapping.HISTN_G = 'Histidine';
+  mapping.ILE_G = 'Isoleucine';
+  mapping.HYP_G = 'Hyroxyprofile';
+  mapping.PRO_G = 'Proline';
+  mapping.GLU_G = 'Glutamic acid';
+  mapping.GLY_G = 'Glycine';
+  mapping.PHE_G = 'Phenylalanine';
+  mapping.MET_G = 'Methionine';
+  mapping.LYS_G = 'Lysine';
+  mapping.LEU_G = 'Leucine';
+  mapping.VAL_G = 'Valine';
   // Fats & fatty acids
-  prefixToName.FAT = 'Total lipid (fat)';
-  prefixToName.FAMS = 'Fatty acids, total monounsaturated';
-  prefixToName.FAPU = 'Fatty acids, total polyunsaturated';
-  prefixToName.FASAT = 'Fatty acids, total saturated';
-  prefixToName.FATSAT = 'Fatty acids, total saturated';
-  prefixToName.FATRN = 'Fatty acids, total trans';
-  prefixToName.F4D0 = '4:0';
-  prefixToName.F6D0 = '6:0';
-  prefixToName.F8D0 = '8:0';
-  prefixToName.F10D0 = '10:0';
-  prefixToName.F10D1 = '10:1';
-  prefixToName.F12D0 = '12:0';
-  prefixToName.F13D0 = '13:0';
-  prefixToName.F14D0 = '14:0';
-  prefixToName.F14D1 = '14:1';
-  prefixToName.F15D0 = '15:0';
-  prefixToName.F15D1 = '15:1';
-  prefixToName.F16D0 = '16:0';
-  prefixToName.F16D1 = '16:1 undifferentiated';
-  prefixToName.F16D1T = '16:0T'; // trans
-  prefixToName.F16D1T = '16:0C'; // cis
-  prefixToName.F17D0 = '17:0';
-  prefixToName.F17D1 = '17:1';
-  prefixToName.F18D0 = '18:0';
-  prefixToName.F18D1C = '18:1 C';
-  prefixToName.F18D1TN7 = '18:1 T7';
-  prefixToName.F18D1 = '18:1 undifferentiated';
-  prefixToName.F18D2 = '18:2 undifferentiated';
-  prefixToName.F18D2CN6 = '18:2 c n-6';
-  prefixToName.F18D2TT = '18:2 TT';
-  prefixToName.F18D2I = '18:2 I';
-  prefixToName.F18D2N6 = '18:2 n-6';
-  prefixToName.F18D3 = '18:3 undifferentiated';
-  prefixToName.F18D3T = '18:3 T';
-  prefixToName.F18D3I = '18:3 I';
-  prefixToName.F18D3N6 = '18:3 n-6';
-  prefixToName.F18D3N3F = '18:3 n-3'; // per unit
-  prefixToName.F18D3N3 = '18:3 n-3'; // per %
-  prefixToName.F18D4 = '18:4';
-  prefixToName.F18D4N3 = '18:4 n-3';
-  prefixToName.F19D0 = '19:0';
-  prefixToName.F20D0 = '20:0';
-  prefixToName.F20D1 = '20:1';
-  prefixToName.F20D1N11F = '20:1 n-11';
-  prefixToName.F20D2N6 = '20:2 n-6 c,c';
-  prefixToName.F20D3N3 = '20:2 n-3';
-  prefixToName.F20D3 = '20:3 undifferentiated';
-  prefixToName.F20D4 = '20:4 undifferentiated';
-  prefixToName.F20D4N6 = '20:4 n-6';
-  prefixToName.F20D5 = '20:5 n-3 (EPA)';
-  prefixToName.F21D0 = '21:0';
-  prefixToName.F22D0 = '22:0';
-  prefixToName.F22D1 = '22:1 undifferentiated';
-  prefixToName.F22D1C = '22:1 c';
-  prefixToName.F22D1T = '22:1 t';
-  prefixToName.F22D3 = '20:2 n-3';
-  prefixToName.F22D5N3 = '22:5 n-3 (DPA)';
-  prefixToName.F22D6 = '22:6';
-  prefixToName.F22D6N3 = '22:6 n-3 (DHA)';
-  prefixToName.F23D0 = '23:0';
-  prefixToName.F24D0 = '24:0';
-  prefixToName.F24D1 = '24:1';
-  prefixToName.F24D1C = '24:1 c';
-  prefixToName.LCW3TOTAL = 'Total Omega 3 Fatty Acid';
-  prefixToName.FAUNDIFF = 'Undifferentiated fatty acids';
+  mapping.FAT = 'Total lipid (fat)';
+  mapping.FAMS = 'Fatty acids, total monounsaturated';
+  mapping.FAPU = 'Fatty acids, total polyunsaturated';
+  mapping.FASAT = 'Fatty acids, total saturated';
+  mapping.FATSAT = 'Fatty acids, total saturated';
+  mapping.FATRN = 'Fatty acids, total trans';
+  mapping.F4D0 = '4:0';
+  mapping.F6D0 = '6:0';
+  mapping.F8D0 = '8:0';
+  mapping.F10D0 = '10:0';
+  mapping.F10D1 = '10:1';
+  mapping.F12D0 = '12:0';
+  mapping.F13D0 = '13:0';
+  mapping.F14D0 = '14:0';
+  mapping.F14D1 = '14:1';
+  mapping.F15D0 = '15:0';
+  mapping.F15D1 = '15:1';
+  mapping.F16D0 = '16:0';
+  mapping.F16D1 = '16:1 undifferentiated';
+  mapping.F16D1T = '16:0T'; // trans
+  mapping.F16D1T = '16:0C'; // cis
+  mapping.F17D0 = '17:0';
+  mapping.F17D1 = '17:1';
+  mapping.F18D0 = '18:0';
+  mapping.F18D1C = '18:1 C';
+  mapping.F18D1TN7 = '18:1 T7';
+  mapping.F18D1 = '18:1 undifferentiated';
+  mapping.F18D2 = '18:2 undifferentiated';
+  mapping.F18D2CN6 = '18:2 c n-6';
+  mapping.F18D2TT = '18:2 TT';
+  mapping.F18D2I = '18:2 I';
+  mapping.F18D2N6 = '18:2 n-6';
+  mapping.F18D3 = '18:3 undifferentiated';
+  mapping.F18D3T = '18:3 T';
+  mapping.F18D3I = '18:3 I';
+  mapping.F18D3N6 = '18:3 n-6';
+  mapping.F18D3N3F = '18:3 n-3'; // per unit
+  mapping.F18D3N3 = '18:3 n-3'; // per %
+  mapping.F18D4 = '18:4';
+  mapping.F18D4N3 = '18:4 n-3';
+  mapping.F19D0 = '19:0';
+  mapping.F20D0 = '20:0';
+  mapping.F20D1 = '20:1';
+  mapping.F20D1N11F = '20:1 n-11';
+  mapping.F20D2N6 = '20:2 n-6 c,c';
+  mapping.F20D3N3 = '20:2 n-3';
+  mapping.F20D3 = '20:3 undifferentiated';
+  mapping.F20D4 = '20:4 undifferentiated';
+  mapping.F20D4N6 = '20:4 n-6';
+  mapping.F20D5 = '20:5 n-3 (EPA)';
+  mapping.F21D0 = '21:0';
+  mapping.F22D0 = '22:0';
+  mapping.F22D1 = '22:1 undifferentiated';
+  mapping.F22D1C = '22:1 c';
+  mapping.F22D1T = '22:1 t';
+  mapping.F22D3 = '20:2 n-3';
+  mapping.F22D5N3 = '22:5 n-3 (DPA)';
+  mapping.F22D6 = '22:6';
+  mapping.F22D6N3 = '22:6 n-3 (DHA)';
+  mapping.F23D0 = '23:0';
+  mapping.F24D0 = '24:0';
+  mapping.F24D1 = '24:1';
+  mapping.F24D1C = '24:1 c';
+  mapping.LCW3TOTAL = 'Total Omega 3 Fatty Acid';
+  mapping.FAUNDIFF = 'Undifferentiated fatty acids';
 
   // acids
-  prefixToName.ACEAC = 'Acetic acid';
-  prefixToName.CITAC = 'Citric acid';
-  prefixToName.FUMAC = 'Fumaric acid';
-  prefixToName.LACAC = 'Lactic acid';
-  prefixToName.MALAC = 'Malic acid';
-  prefixToName.OXALAC = 'Oxalic acid';
-  prefixToName.PROPAC = 'Propionic acid';
-  prefixToName.QUINAC = 'Quinic acid';
-  prefixToName.SHIKAC = 'Shikimic acid';
-  prefixToName.SUCAC = 'Succinic acid';
-  prefixToName.TARAC = 'Tartaric acid';
+  mapping.ACEAC = 'Acetic acid';
+  mapping.CITAC = 'Citric acid';
+  mapping.FUMAC = 'Fumaric acid';
+  mapping.LACAC = 'Lactic acid';
+  mapping.MALAC = 'Malic acid';
+  mapping.OXALAC = 'Oxalic acid';
+  mapping.PROPAC = 'Propionic acid';
+  mapping.QUINAC = 'Quinic acid';
+  mapping.SHIKAC = 'Shikimic acid';
+  mapping.SUCAC = 'Succinic acid';
+  mapping.TARAC = 'Tartaric acid';
 
 
   //        prefixToName[""] = ";
   // Minerals & metals
-  prefixToName.AL = 'Aluminium';
-  prefixToName.AS = 'Arsenic';
-  prefixToName.CA = 'Calcium (Ca)';
-  prefixToName.CD = 'Cadmium (Cd)';
-  prefixToName.CU = 'Copper (Cu)';
-  prefixToName.CO = 'Cobalt (Co)';
-  prefixToName.CR = 'Chromium (Cr)';
-  prefixToName.FD = 'Fluoride (F)';
-  prefixToName.FE = 'Iron (Fe)';
-  prefixToName.HG = 'Mercury (Hg)';
-  prefixToName.ID = 'Iodine (I)';
-  prefixToName.K = 'Potassium (K)';
-  prefixToName.MG = 'Magnesium (Mg)';
-  prefixToName.MN = 'Manganese (Mn)';
-  prefixToName.M0 = 'Molybdenum (Mo)';
-  prefixToName.NA = 'Sodium (Na)';
-  prefixToName.NI = 'Nickel (Ni)';
-  prefixToName.P = 'Phosphorus (P)';
-  prefixToName.PB = 'Lead (Pb)';
-  prefixToName.S = 'Sulphur (S)';
-  prefixToName.SE = 'Selenium (Se)';
-  prefixToName.SN = 'Tin (Sn)';
-  prefixToName.ZN = 'Zinc (Zn)';
-  prefixToName.FLD = 'Flouride (F)';
+  mapping.AL = 'Aluminium';
+  mapping.AS = 'Arsenic';
+  mapping.CA = 'Calcium (Ca)';
+  mapping.CD = 'Cadmium (Cd)';
+  mapping.CU = 'Copper (Cu)';
+  mapping.CO = 'Cobalt (Co)';
+  mapping.CR = 'Chromium (Cr)';
+  mapping.FD = 'Fluoride (F)';
+  mapping.FE = 'Iron (Fe)';
+  mapping.HG = 'Mercury (Hg)';
+  mapping.ID = 'Iodine (I)';
+  mapping.K = 'Potassium (K)';
+  mapping.MG = 'Magnesium (Mg)';
+  mapping.MN = 'Manganese (Mn)';
+  mapping.M0 = 'Molybdenum (Mo)';
+  mapping.NA = 'Sodium (Na)';
+  mapping.NI = 'Nickel (Ni)';
+  mapping.P = 'Phosphorus (P)';
+  mapping.PB = 'Lead (Pb)';
+  mapping.S = 'Sulphur (S)';
+  mapping.SE = 'Selenium (Se)';
+  mapping.SN = 'Tin (Sn)';
+  mapping.ZN = 'Zinc (Zn)';
+  mapping.FLD = 'Flouride (F)';
   // Vitamins
-  prefixToName.BIOT = 'Biotin (B7)';
-  prefixToName.B1 = 'Thiamin (B1)';
-  prefixToName.THIA = 'Thiamin (B1)';
-  prefixToName.B2 = 'Riboflavin (B2)';
-  prefixToName.B3 = 'Niacin (B3)';
-  prefixToName.VITB6 = 'Pyridoxine (B6)';
-  prefixToName.VITB12 = 'Cobalamin (B12)';
-  prefixToName.CARTA = 'Alpha carotene';
-  prefixToName.CARTB = 'Beta carotene';
-  prefixToName.CARTBEQ = 'Beta carotene equivalents';
-  prefixToName.CHOLN = 'Choline';
-  prefixToName.BETN = 'Betaine';
-  prefixToName.CRYPX = 'Cryptoxanthin';
-  prefixToName.NIA = 'Niacin (B3)';
-  prefixToName.NIAEQ = 'Niacin Equivalents';
+  mapping.BIOT = 'Biotin (B7)';
+  mapping.B1 = 'Thiamin (B1)';
+  mapping.THIA = 'Thiamin (B1)';
+  mapping.B2 = 'Riboflavin (B2)';
+  mapping.B3 = 'Niacin (B3)';
+  mapping.VITB6 = 'Pyridoxine (B6)';
+  mapping.VITB12 = 'Cobalamin (B12)';
+  mapping.CARTA = 'Alpha carotene';
+  mapping.CARTB = 'Beta carotene';
+  mapping.CARTBEQ = 'Beta carotene equivalents';
+  mapping.CHOLN = 'Choline';
+  mapping.BETN = 'Betaine';
+  mapping.CRYPX = 'Cryptoxanthin';
+  mapping.NIA = 'Niacin (B3)';
+  mapping.NIAEQ = 'Niacin Equivalents';
 
 
-  prefixToName.FOL = 'Total folates';
-  prefixToName.FOLAC = 'Folic acid';
-  prefixToName.FOLFD = 'Folate, natural';
-  prefixToName.FOLDFE = 'Dietary folate equivalents';
+  mapping.FOL = 'Total folates';
+  mapping.FOLAC = 'Folic acid';
+  mapping.FOLFD = 'Folate, natural';
+  mapping.FOLDFE = 'Dietary folate equivalents';
   prefixToName['LUT+ZEA'] = 'Lutein + Zeaxanthin';
-  prefixToName.LUTN = 'Lutein';
-  prefixToName.LYCPN = 'Lycopene';
+  mapping.LUTN = 'Lutein';
+  mapping.LYCPN = 'Lycopene';
 
-  prefixToName.MK4 = 'Menaquinone-4';
-  prefixToName.PANTAC = 'Pantothenic acid (B5)';
-  prefixToName.VITB6A = 'Pyridoxine (B6)';
-  prefixToName.VITB12 = 'Cobalamin (B12)';
-  prefixToName.VITE = 'Vitamin E';
-  prefixToName.VITK = 'Vitamin K (phylloquinone)';
-  prefixToName.VITK1D = '';
-  prefixToName.RETOL = 'Retinol';
-  prefixToName.VITA_IU = 'Retinol Equivalents (VIT A)';
-  prefixToName.VITA_RAE = 'Retinol Activity Equivalent (RAE)';
-  prefixToName.VITA = 'Retinol Equivalents (VIT A)';
-  prefixToName.VITC = 'Vitamin C';
+  mapping.MK4 = 'Menaquinone-4';
+  mapping.PANTAC = 'Pantothenic acid (B5)';
+  mapping.VITB6A = 'Pyridoxine (B6)';
+  mapping.VITB12 = 'Cobalamin (B12)';
+  mapping.VITE = 'Vitamin E';
+  mapping.VITK = 'Vitamin K (phylloquinone)';
+  mapping.VITK1D = '';
+  mapping.RETOL = 'Retinol';
+  mapping.VITA_IU = 'Retinol Equivalents (VIT A)';
+  mapping.VITA_RAE = 'Retinol Activity Equivalent (RAE)';
+  mapping.VITA = 'Retinol Equivalents (VIT A)';
+  mapping.VITC = 'Vitamin C';
   // vit d
-  prefixToName.CHOCAL = 'Cholecalciferol (D3)';
-  prefixToName.ERGCAL = 'Ergocalciferol (D2)';
-  prefixToName.CHOCALOH = '25-OH Cholecalciferol (25-OH D3)';
-  prefixToName.ERGCALOH = '25-OH Ergocalciferol (25-OH D2)';
-  prefixToName.VITDEQ = 'Vitamin D3 equivalents, with factors';
-  prefixToName.VITD = 'Vitamin D';
+  mapping.CHOCAL = 'Cholecalciferol (D3)';
+  mapping.ERGCAL = 'Ergocalciferol (D2)';
+  mapping.CHOCALOH = '25-OH Cholecalciferol (25-OH D3)';
+  mapping.ERGCALOH = '25-OH Ergocalciferol (25-OH D2)';
+  mapping.VITDEQ = 'Vitamin D3 equivalents, with factors';
+  mapping.VITD = 'Vitamin D';
   // sterols
-  prefixToName.PHYSTR = 'Phytosterols';
-  prefixToName.STID7 = 'Stigmasterol'; // usually delta 7-stigmasterol
-  prefixToName.CAMD5 = 'Campesterol';
-  prefixToName.SITSTR = 'Sitosterol';
-  prefixToName.TOCPHA = 'Alpha-tocopherol';
-  prefixToName.TOCTRA = 'Alpha-tocotrienol';
-  prefixToName.TOCPHB = 'Beta-tocopherol';
-  prefixToName.TOCTRB = 'Beta-tocotrienol';
-  prefixToName.TOCPHD = 'Delta-tocopherol';
-  prefixToName.TOCTRD = 'Delta-tocotrienol';
-  prefixToName.TOCPHG = 'Gamma-tocopherol';
-  prefixToName.TOCTRG = 'Gamma-tocotrienol';
+  mapping.PHYSTR = 'Phytosterols';
+  mapping.STID7 = 'Stigmasterol'; // usually delta 7-stigmasterol
+  mapping.CAMD5 = 'Campesterol';
+  mapping.SITSTR = 'Sitosterol';
+  mapping.TOCPHA = 'Alpha-tocopherol';
+  mapping.TOCTRA = 'Alpha-tocotrienol';
+  mapping.TOCPHB = 'Beta-tocopherol';
+  mapping.TOCTRB = 'Beta-tocotrienol';
+  mapping.TOCPHD = 'Delta-tocopherol';
+  mapping.TOCTRD = 'Delta-tocotrienol';
+  mapping.TOCPHG = 'Gamma-tocopherol';
+  mapping.TOCTRG = 'Gamma-tocotrienol';
   // Other
-  prefixToName.CAFFN = 'Caffeine';
-  prefixToName.CHOLE = 'Cholesterol';
+  mapping.CAFFN = 'Caffeine';
+  mapping.CHOLE = 'Cholesterol';
 
-  return prefixToName[prefix] || null;
+  return mapping[prefix] || null;
 }
 
-function portionToValue(portion) {
-  /**
-   * Attempt to convert a string-based portion to a numerical value from
-   * a given look-up table.
-   */
-  const portions = {};
-  portions.tsp = 0.4;
-  portions.cup = 0.00;
-  portions.dsp = 1;
-  portions.handful = 40;
-  // ....
-  // ....
-  return portions[portion];
-}
+// function portionToValue(portion) {
+//   /**
+//    * Attempt to convert a string-based portion to a numerical value from
+//    * a given look-up table.
+//    */
+//   const portions = {};
+//   portions.tsp = 0.4;
+//   portions.cup = 0.00;
+//   portions.dsp = 1;
+//   portions.handful = 40;
+//   // ....
+//   // ....
+//   return portions[portion];
+// }
 function prefixToUnit(prefix) {
   /**
    * Return standardized units for particular nutrient. This issue can be solved

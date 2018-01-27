@@ -15,14 +15,14 @@ function ProfilerDeleteElement(props) {
   return (
     <ProfilerDeleteElementWrapper>
       <div className="delete-button-wrapper" onClick={props.onClick}>
-          <FaClose style={{ fontSize: 30, color: '#b778ef' }} />
-        </div>
+        <FaClose style={{ fontSize: 30, color: '#b778ef' }} />
+      </div>
     </ProfilerDeleteElementWrapper>
   );
 }
 
 ProfilerDeleteElement.propTypes = {
-    onClick: PropTypes.func
+  onClick: PropTypes.func,
 
 };
 

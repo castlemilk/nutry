@@ -58,7 +58,7 @@ export function profilerFunctionQuery(field, factor) {
     },
   };
 }
-export function profilerDecayFunctionQuery(field, scale, decay) {
+export function profilerDecayFunctionQuery(field, scale) {
   const gaussPayload = {
     gauss: {},
   };

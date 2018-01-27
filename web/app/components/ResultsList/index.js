@@ -8,10 +8,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SearchResultCard from 'components/SearchResultCard';
 import NoResultsFound from 'components/NoResultsFound';
-// import styled from 'styled-components';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 
 function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow": ["_source"] }]*/
   const { onProfileSelected } = props;

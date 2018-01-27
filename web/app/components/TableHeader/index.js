@@ -5,9 +5,6 @@
 */
 
 import React from 'react';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 import Header from './Header';
 import RowName from './RowName';
 import RowUnits from './RowUnits';

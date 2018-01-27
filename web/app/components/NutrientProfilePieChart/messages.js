@@ -14,6 +14,6 @@ export default defineMessages({
   },
   chartTitle: {
     id: `${scope}.chartTitle`,
-    defaultMessage: 'Nutrient Composition Breakdown',
+    defaultMessage: 'Macronutrient Composition Breakdown',
   },
 });

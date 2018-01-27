@@ -7,8 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Col, Row, Icon, Spin } from 'antd';
@@ -26,8 +24,6 @@ import { addProfilerElement, deleteProfilerElement, updateProfilerElement, chang
 import reducer from './reducer';
 import saga from './saga';
 import ProfilerWrapper from './ProfilerWrapper';
-// import messages from './messages';
-
 
 export class Profiler extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -39,23 +35,17 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
     this.props.onChangeSearch();
   }
   handleAddClick() {
-    console.log('add clicked!');
     this.props.onAddElement();
   }
   handleNutrientChange(value, id) {
-    // console.log(`element:id:${id}`)
-    // console.log(`element:value:${value}`)
     this.props.onUpdateElement(id, 'nutrient', value);
     this.props.onChangeSearch();
   }
   handleSliderChange(value, id) {
-    // console.log(`element:id:${id}`)
-    // console.log(`element:value:${value}`)
     this.props.onUpdateElement(id, 'scale', value);
     this.props.onChangeSearch();
   }
   handleElementRemove(id) {
-    // console.log(`element:id:${id}`)
     this.props.onDeleteElement(id);
     this.props.onChangeSearch();
   }
@@ -67,23 +57,15 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
   }
   handleTabChange() {
     const { searchType } = this.props;
-    console.log('handleTabChange');
-    console.log(searchType);
     if (searchType === 'profiler') {
       this.props.onChangeSearch();
     }
   }
   render() {
-    // console.log('results:');
-    // console.log(this.props.searchResults);
     const { searchResults, searchString, loading } = this.props;
-    console.log('foodProfile:searchResults:');
-    console.log(searchResults);
     const { onProfileSelected } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = searchResults.items ? searchResults.items : [];
-    // console.log('items:');
-    // console.log(items);
     const noResultsFound = items.length === 0 && searchString.length > 0 && !loading;
     const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList onProfileSelected={(profileData) => onProfileSelected(profileData)} results={items} />;
     const nutrientResultsView = loading ?
@@ -99,13 +81,10 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
         onScaleChange: (id, scale) => this.handleSliderChange(id, scale),
         onElementRemove: (id) => this.handleElementRemove(id),
       });
-      // console.log(elementProps)
       return (
         <ProfilerElement key={element.id} {...elementProps} />
       );
     });
-    // console.log('elements: ')
-    // console.log(this.props.elements);
     const sampleDataAdvanced = [{
       headerName: 'elements',
       isOpened: true,
@@ -113,7 +92,6 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
       height: 900,
       items: elementComponents.concat(initialList),
     }];
-    // console.log(sampleDataAdvanced);
     return (
       <ProfilerWrapper>
         <Row>

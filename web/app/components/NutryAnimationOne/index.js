@@ -6,14 +6,11 @@
 
 import React from 'react';
 import Anime from 'react-anime';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-//
 //
 // svgs1
 import CogLarge from 'images/cog-large.svg';
 import CogMedium from 'images/cog-medium.svg';
-import Carrot from 'images/carrot.svg'
+import Carrot from 'images/carrot.svg';
 import Lemon from 'images/lemon.svg';
 import Hotdog from 'images/hotdog.svg';
 import Eggplant from 'images/eggplant.svg';
@@ -49,7 +46,7 @@ const data1 = [
   {
     img: Avocado,
   },
-]
+];
 const data2 = [
   {
     img: Bacon,
@@ -66,7 +63,7 @@ const data2 = [
   {
     img: Skewer,
   },
-]
+];
 function getXPosition(radius, index) {
   return Math.cos(index * 15) * radius;
 }
@@ -78,52 +75,56 @@ function NutryAnimationOne() {
   return (
     <NutryAnimationOneWrapper>
       <div className="cogs-wrapper" >
-      <div className="center-cog-large-logo" >
-      <Anime  easing="linear"
-        duration={15000}
+        <div className="center-cog-large-logo" >
+          <Anime
+            easing="linear"
+            duration={15000}
+            rotate={360}
+            loop
+            direction="normal"
+          >
+            <img alt="" src={CogLarge} />
+          </Anime>
+        </div>
+        <div className="center-cog-medium-logo" >
+          <Anime
+            easing="linear"
+            duration={11950}
+            rotate={360}
+            loop
+            direction="reverse"
+          >
+            <img alt="" src={CogMedium} />
+          </Anime>
+        </div>
+      </div>
+      <Anime
+        easing="linear"
+        duration={(Math.floor(Math.random() * 20)) * 300}
+        direction="normal"
+        loop
+        delay={(el, index) => index * 240}
+        opacity={[0.9, 0]}
+        translateX={(el, index) => `${getXPosition(radius, index)}rem`}
+        translateY={(el, index) => `${getYPosition(radius, index)}rem`}
         rotate={360}
-        loop={true}
-        direction="normal">
-        <img src={CogLarge} />
+        scale={[0.6, 0.5]}
+      >
+        {data1.map((item) => <div className="spray-images" ><img alt="" src={item.img} /></div>)}
       </Anime>
-      </div>
-      <div className="center-cog-medium-logo" >
-      <Anime  easing="linear"
-        duration={11950}
+      <Anime
+        easing="linear"
+        duration={(Math.floor(Math.random() * 20)) * 300}
+        direction="normal"
+        loop
+        delay={(el, index) => (index * 240) + 200}
+        opacity={[0.9, 0]}
+        translateX={(el, index) => `${getXPosition(radius, index)}rem`}
+        translateY={(el, index) => `${getYPosition(radius, index)}rem`}
         rotate={360}
-        loop={true}
-        direction="reverse">
-        <img src={CogMedium} />
-      </Anime>
-      </div>
-      </div>
-      <Anime easing="linear"
-         duration={ (Math.floor(Math.random() * 20)) * 300}
-         direction="normal"
-         loop={true}
-         delay={(el, index) => index * 240}
-         opacity={[0.9, 0]}
-         translateX={(el, index) => `${getXPosition(radius, index)}rem`}
-         translateY={(el, index) => `${getYPosition(radius, index)}rem`}
-         rotate={360}
-         scale={[.6, .5]}>
-         {data1.map((item) => {
-           return <div className="spray-images" ><img src={item.img} /></div>
-         })}
-      </Anime>
-      <Anime easing="linear"
-         duration={ (Math.floor(Math.random() * 20)) * 300}
-         direction="normal"
-         loop={true}
-         delay={(el, index) => index * 240 + 200}
-         opacity={[0.9, 0]}
-         translateX={(el, index) => `${getXPosition(radius, index)}rem`}
-         translateY={(el, index) => `${getYPosition(radius, index)}rem`}
-         rotate={360}
-         scale={[.6, .5]}>
-         {data2.map((item) => {
-           return <div className="spray-images" ><img src={item.img} /></div>
-         })}
+        scale={[0.6, 0.5]}
+      >
+        {data2.map((item) => <div className="spray-images" ><img alt="" src={item.img} /></div>)}
       </Anime>
     </NutryAnimationOneWrapper>
   );

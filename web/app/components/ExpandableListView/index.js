@@ -85,6 +85,6 @@ ExpandableListView.propTypes = {
   data: PropTypes.array.isRequired,
   headerAttName: PropTypes.string.isRequired,
   itemsAttName: PropTypes.string.isRequired,
-}
+};
 
 export default ExpandableListView;

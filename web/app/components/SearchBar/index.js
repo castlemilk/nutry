@@ -7,11 +7,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import SearchBarWrapper from './SearchBarWrapper';
-// import { Button } from 'antd';
-// import styled from 'styled-components';
-
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 
 SearchBar.propTypes = {
   onFocus: PropTypes.func,
@@ -23,8 +18,6 @@ SearchBar.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   maxLength: PropTypes.number,
-  // profileSelected: PropTypes.string,
-  // onBackButton: PropTypes.func,
 };
 
 function SearchBar(props) {

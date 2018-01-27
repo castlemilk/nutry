@@ -20,12 +20,13 @@ import {
 
 
 export class NutrientRow extends React.Component {
+  /**
+   * Big rendering optimisation to prevent uneeded renders between tab changes
+   * and item selection.
+   * @param  {Object} nextProps
+   * @return {Boolean}           [description]
+   */
   shouldComponentUpdate(nextProps) {
-    // console.log(this.props.isSelected)
-    // console.log(nextProps.isSelected)
-    // console.log('----');
-    // console.log(this.props.nutrient.get('value'));
-    // console.log(nextProps.nutrient.get('value'));
     return nextProps.isSelected !== this.props.isSelected || nextProps.portion !== this.props.portion;
   }
   render() {
@@ -36,15 +37,7 @@ export class NutrientRow extends React.Component {
      * will be depicted as children through indentations
      */
 
-    const { onHover, onClick, nutrient, id, prefix, type, isSelected, mode, portion } = this.props;
-    // console.log(id)
-    // console.log(prefix)
-    // console.log(mode)
-    // console.log(isSelected)
-    // const selected = nutrient.get('selected');
-    // console.log(nutrient);
-    // console.log(portion);
-    // console.log(scaledValue(nutrient.get('value'), portion.g));
+    const { onHover, onClick, nutrient, id, prefix, type, isSelected, portion } = this.props;
     const name = nutrient.get('name');
     const units = nutrient.get('units');
     const value = scaledValue(nutrient.get('value'), portion.g) || (<span style={{ color: 'red' }}>{'~'}</span>);
@@ -77,7 +70,7 @@ export class NutrientRow extends React.Component {
       display:inline-block;
       overflow: hidden;
       width:60%;
-      font-size: ${fontSize}}vmin;
+      font-size: ${fontSize}vmin;
       font-family: 'Bitter', serif;
       .row-name-${type}-text {
         margin-left: ${indent}px;
@@ -97,7 +90,7 @@ export class NutrientRow extends React.Component {
       text-align: center;
       font-family: 'Bitter', serif;
     `;
-    console.log('nutrientRow:rendering');
+    // console.log('nutrientRow:rendering');
     return (<Row className={`Section__${type}__Row__${id}`} onMouseLeave={() => onHover(prefix, id)} onMouseEnter={() => onHover(prefix, id)} onClick={() => onClick(prefix, id)}>
       {hasName ? <RowName className={`Section__${type}__RowName__${id}`} ><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" > </span></RowName> }
       {hasUnits ? <RowUnits className={`Section__${type}__RowUnits__${id}`} >{units}</RowUnits> : null }
@@ -106,17 +99,13 @@ export class NutrientRow extends React.Component {
     );
   }
 }
-//
 NutrientRow.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  mode: PropTypes.string.isRequired,
-  // units: PropTypes.string.isRequired,
-  // name: PropTypes.string.isRequired,
+  prefix: PropTypes.string.isRequired,
   nutrient: PropTypes.object,
-  portions: PropTypes.object,
+  portion: PropTypes.object,
   isSelected: PropTypes.bool,
-  // value: PropTypes.number,
   onHover: PropTypes.func,
   onClick: PropTypes.func,
 };

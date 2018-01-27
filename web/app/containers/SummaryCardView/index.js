@@ -8,7 +8,6 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import SummaryCard from 'components/SummaryCard';
-// import { nutrientSelected } from 'containers/FoodProfile/actions';
 import { makeSelectBySummaryIds } from './selectors';
 
 const mapStateToProps = createStructuredSelector({

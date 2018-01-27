@@ -13,34 +13,26 @@ import Wrapper from './Wrapper';
 
 class DetailedCard extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
-  shouldComponentUpdate(nextProps) {
-    return false;
-  }
   render() {
     const { nutrientSections } = this.props;
-    console.log('rendering:DetailedCard');
-
-    // const entries = nutrientSections.mapEntries();
     const mode = 'detailed';
-    const rows = nutrientSections.reduce((accumulator, { headerName, items }, key) => {
-      return accumulator.concat({
-        headerName,
-        isOpened: true,
-        isReactComponent: true,
-        height: (items.length * 60) + 90,
-        items: items.map((row) => {
-          const { type, prefix } = row;
-          const id = uuidv4();
-          const rowProps = {
-            id,
-            mode,
-            prefix,
-            type,
-          };
-          return <NutrientRowView {...rowProps} key={id} />;
-        }),
-      });
-    }, []);
+    const rows = nutrientSections.reduce((accumulator, { headerName, items }) => accumulator.concat({
+      headerName,
+      isOpened: true,
+      isReactComponent: true,
+      height: (items.length * 60) + 90,
+      items: items.map((row) => {
+        const { type, prefix } = row;
+        const id = uuidv4();
+        const rowProps = {
+          id,
+          mode,
+          prefix,
+          type,
+        };
+        return <NutrientRowView {...rowProps} key={id} />;
+      }),
+    }), []);
     return (
       <Wrapper>
         <ExpandableListView

@@ -1,4 +1,4 @@
-import { getNutrient, getEnergyKJ, getEnergyKCAL, getCarbohydrates } from './nutrientMap';
+import { getNutrient } from './nutrientMap';
 /**
  * Process a generic profileBody fetched from a given backend such as firebase
  * or mongoDB. This data will be in the form:
@@ -13,33 +13,10 @@ import { getNutrient, getEnergyKJ, getEnergyKCAL, getCarbohydrates } from './nut
  * @param  {Object} nutrients Nutrient information payload
  * @return {Array}             formatted data stream for recharts input
  */
-
-export function getPieDataSummary(portion = false, nutrients) {
+export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected, portionSelected) {
   if (!nutrients) {
     return null;
   }
-  return [
-    getNutrient('CHOCDF', nutrients, portion),
-    // getCarbohydrates(nutrients, portion),
-    getNutrient('SUGAR', nutrients, portion),
-    getNutrient('FIBTG', nutrients, portion),
-    getNutrient('PROCNT', nutrients, portion),
-    getNutrient('FAT', nutrients, portion),
-    getNutrient('WATER', nutrients, portion),
-  ];
-}
-export function getPieDataDetailed(portion = 100, nutrients) {
-  return [
-    getEnergyKJ(nutrients, portion),
-    getEnergyKCAL(nutrients, portion),
-    getCarbohydrates(nutrients, portion),
-    getNutrient('SUGAR', nutrients, portion),
-    getNutrient('FIBTG', nutrients, portion),
-    getNutrient('PROCNT', nutrients, portion),
-    getNutrient('FAT', nutrients, portion),
-    getNutrient('NA', nutrients, portion),
-    getNutrient('K', nutrients, portion),
-    getNutrient('VITC', nutrients, portion),
-    getNutrient('VITD', nutrients, portion),
-  ];
+  const scale = portionSelected.g;
+  return nutrientFilter.map((prefix) => getNutrient(prefix, nutrients, scale, ageGroupSelected));
 }

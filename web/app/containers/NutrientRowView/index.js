@@ -5,7 +5,6 @@
  */
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import uuidv4 from 'uuid/v4';
 import NutrientRow from 'components/NutrientRow';
 import { nutrientSelected } from 'containers/FoodProfile/actions';
 import { makeSelectNutrient, makeSelectNutrientSelected, makeSelectPortionSelected } from './selectors';

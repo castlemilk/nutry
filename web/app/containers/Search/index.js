@@ -7,9 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { goBack } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Tabs, Icon, Spin, Button, Avatar } from 'antd';
@@ -41,40 +39,15 @@ import reducer from './reducer';
 import saga from './saga';
 import SearchWrapper from './SearchWrapper';
 
-// const tabData = [
-//   {
-//     name: 'All',
-//     key: 'all',
-//   },
-//   {
-//     name: 'Nutrients',
-//     key: 'nutrients',
-//   },
-//   {
-//     name: 'Profiler',
-//     key: 'profiler',
-//   },
-//   {
-//     name: 'Recipes',
-//     key: 'recipes',
-//   },
-//   {
-//     name: 'Wiki',
-//     key: 'recipes',
-//   },
-//
-// ];
 export class Search extends React.Component { // eslint-disable-line react/prefer-stateless-function
   handleClick(event) {
     return event;
   }
   handleTabChange(event) {
-    console.log(event);
     this.props.onSearchTypeChange(event);
     this.props.onSearchRefresh();
   }
   handleSearchStringChange(event) {
-    // const { searchType } = this.props;
     this.props.onChangeSearchString(event);
   }
   handleProfileSelected(profileInfo) {

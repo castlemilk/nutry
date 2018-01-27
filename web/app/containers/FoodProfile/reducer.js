@@ -35,9 +35,17 @@ const initialState = fromJS({
   tabSelected: 'summary',
   idSelected: null,
   nutrientSelected: null,
-  portionSelected: Map({}),
+  portionSelected: Map(
+    { amt: 1,
+      className: 'per100g',
+      g: 100,
+      label: 'per 100g',
+      unit: 'per 100g',
+      value: 100,
+    }
+),
   portionsAvailable: List([]),
-  ageGroupSelected: Map({}),
+  ageGroupSelected: Map({ value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' }),
 });
 
 const arrayToObject = (array) =>
@@ -61,7 +69,7 @@ function foodProfileReducer(state = initialState, action) {
         .setIn(['nutrients', 'byId'], fromJS(arrayToObject(Object.entries(action.nutrientsById))))
         .set('portionsAvailable', action.portionsAvailable)
         .set('portionSelected', action.portionsAvailable[0])
-        .set('ageGroupSelected', { value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' })
+        .set('ageGroupSelected', Map({ value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' }))
         .set('loading', false)
         .set('error', false);
     case GET_PROFILE_FAILURE:
@@ -69,7 +77,7 @@ function foodProfileReducer(state = initialState, action) {
         .set('error', true);
     case AGE_GROUP_CHANGED:
       return state
-        .set('ageGroupSelected', action.ageGroupSelected);
+        .set('ageGroupSelected', Map(action.ageGroupSelected));
     case PORTION_CHANGED:
       return state
         .set(['nutrients', 'byId'], state.getIn(['nutrients', 'byId']).map((nutrient) => nutrient.set('value', nutrient.get('value') * (action.portionSelected.g / 100))))
@@ -79,7 +87,7 @@ function foodProfileReducer(state = initialState, action) {
         .set('tabSelected', action.tab);
     case NUTRIENT_SELECTED:
       return state
-        // .set('nutrientSelected', action.prefix)
+        .set('nutrientSelected', action.prefix)
         .set('idSelected', action.id);
         // .setIn(['nutrients', 'byId', action.id, 'selected'], !state.getIn(['nutrients', 'byId', action.id, 'selected']));
     default:
