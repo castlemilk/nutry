@@ -17,7 +17,7 @@ function checkStatus(response) {
   throw error;
 }
 
-export function getFoodProfile(source, serialNumber) {
+export function getFoodProfile(serialNumber) {
   const session = axios.create({
     baseURL: firebaseConfig.endpoint,
     headers: {
@@ -26,11 +26,18 @@ export function getFoodProfile(source, serialNumber) {
     },
   });
   console.log('FirebaseServiceRest:ID:', serialNumber);
-  console.log('FirebaseServiceRest:source:', source);
   const path = `profiles/${serialNumber}.json`;
   return session.get(path)
     .then(checkStatus)
     .then(parseResults);
+}
+
+export async function getMultiFoodProfile(ids) {
+  const data = new Map();
+  await Promise.all(ids.map(async (id) => {
+    data.set(id, await getFoodProfile(id));
+  }));
+  return data;
 }
 
 // function foodProfileRefJSON(id, source) {

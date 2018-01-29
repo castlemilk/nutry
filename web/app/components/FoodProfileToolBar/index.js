@@ -95,7 +95,7 @@ function FoodProfileToolBar(props) {
 
 FoodProfileToolBar.propTypes = {
   ageGroupSelected: PropTypes.object,
-  portions: PropTypes.object,
+  portions: PropTypes.array,
   portionSelected: PropTypes.object,
   onAgeGroupChanged: PropTypes.func.isRequired,
   onPortionChanged: PropTypes.func.isRequired,

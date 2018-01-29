@@ -79,12 +79,17 @@ export const SUMMARY_IDS = [
     type: PARENT_ROW,
     selected: false,
   },
+  {
+    prefix: 'WATER',
+    type: PARENT_ROW,
+    selected: false,
+  },
 ];
 export const DETAILED_IDS = [
   // energy
-  'ENERC', 'ENERC_KJ',
+  'ENERC', 'ENERC_KCAL',
   // fats
-  'FAT', 'FATSAT', 'FAMS', 'FAPU', 'FATRN', 'LCW3TOTAL',
+  'FAT', 'FASAT', 'FAMS', 'FAPU', 'FATRN', 'LCW3TOTAL',
   // carbohydrates
   'CHOCDF', 'FIBTG', 'SUGAR', 'GLUS', 'MALS', 'FRUS', 'LACS', 'GALS',
   // proteins

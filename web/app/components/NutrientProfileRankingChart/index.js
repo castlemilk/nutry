@@ -5,19 +5,22 @@
 */
 
 import React from 'react';
-import { PieChart, Pie, Sector } from 'recharts';
+import { Sector, Bar, BarChart, ComposedChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Spin, Icon } from 'antd';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
-
 import { FormattedMessage } from 'react-intl';
 import LoadingContent from 'components/LoadingContent';
 import { getFilteredData } from 'lib/nutrientAnalytics';
-import { FILTERS } from './constants';
 import messages from './messages';
-import NutrientProfilePieChartWrapper from './NutrientProfilePieChartWrapper';
+import NutrientProfileRankingWrapper from './NutrientProfileRankingChartWrapper';
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#a94442', '#c566ac'];
-
+const data = [{ name: 'Page A', uv: 590, pv: 800, amt: 1400 },
+              { name: 'Page B', uv: 868, pv: 967, amt: 1506 },
+              { name: 'Page C', uv: 1397, pv: 1098, amt: 989 },
+              { name: 'Page D', uv: 1480, pv: 1200, amt: 1228 },
+              { name: 'Page E', uv: 1520, pv: 1108, amt: 1100 },
+              { name: 'Page F', uv: 1400, pv: 680, amt: 1700 }];
 
 const renderActiveShape = (props) => { /* eslint react/prop-types: 0 */
   const RADIAN = Math.PI / 180;
@@ -89,108 +92,61 @@ function nutrientToIndex(prefix, data) {
   }
   return index;
 }
-class NutrientProfilePieChart extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class NutrientProfileRankingChart extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    const { nutrients,
-    nutrientFilter,
-    ageGroupSelected,
-    portionSelected } = this.props;
-    const data = getFilteredData(nutrients, FILTERS[nutrientFilter], ageGroupSelected, portionSelected);
     this.state = {
       activeIndex: !this.props.loading ? getIndexLargestValue(data) : 0,
     };
   }
+
   componentWillMount() {
     if (!this.props.loading) {
       this.onFinishedLoading();
     }
   }
-  componentWillReceiveProps(nextProps) {
-  // You don't have to do this check first, but it can help prevent an unneeded render
-    const { nutrients,
-    nutrientFilter,
-    ageGroupSelected,
-    nutrientSelected,
-    portionSelected } = nextProps;
-    const data = getFilteredData(nutrients, FILTERS[nutrientFilter], ageGroupSelected, portionSelected);
-    const selectedIndex = !nextProps.loading ? nutrientToIndex(nutrientSelected, data) : null;
-    if (selectedIndex === null || selectedIndex === -1) {
-      return this.setState({ activeIndex: getIndexLargestValue(data) });
-    }
-    if (selectedIndex !== this.state.activeIndex) {
-      return this.setState({ activeIndex: selectedIndex });
-    }
-    return null;
+  componentDidMount() {
+    this.props.onLoadRankings();
   }
 
 
-  onPieEnter(data, index) {
-    this.setState({
-      activeIndex: index,
-    });
-  }
+  // onPieEnter(data, index) {
+  //   this.setState({
+  //     activeIndex: index,
+  //   });
+  // }
   onFinishedLoading() {
-    const { nutrients,
-    nutrientFilter,
-    ageGroupSelected,
-    portionSelected } = this.props;
-    const data = getFilteredData(nutrients, FILTERS[nutrientFilter], ageGroupSelected, portionSelected);
-    const largestIndex = getIndexLargestValue(data);
-    if (this.state.activeIndex !== largestIndex) {
-      this.setState({
-        activeIndex: largestIndex,
-      });
-    }
   }
 
   render() {
-    const { loading,
-      nutrients,
-      nutrientFilter,
-      ageGroupSelected,
-      portionSelected } = this.props;
-    const pieData = !loading ? getFilteredData(nutrients, FILTERS[nutrientFilter], ageGroupSelected, portionSelected) : null;
-    const pieDataColored = loading ? null : pieData.map((value, index) => {
-      const section = value;
-      section.fill = COLORS[index % COLORS.length];
-      return value;
-    });
-    const loadingPie = <Spin style={{ marginTop: '100px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
+    const { loading } = this.props;
+    const loadingPie = <Spin style={{ marginTop: '160px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     return (
-      <NutrientProfilePieChartWrapper>
+      <NutrientProfileRankingWrapper>
         <div className="pie-chart-title" >
           { loading ? <LoadingContent width={300} height={30} speed={1.5} /> : <FormattedMessage {...messages.chartTitle} /> }
         </div>
-        <div className="pie-chart-wrapper" >
+        <div className="ranking-chart-wrapper" >
           { loading ? loadingPie : (
-            <PieChart width={600} height={300}>
-              <Pie
-                activeIndex={this.state.activeIndex}
-                activeShape={renderActiveShape}
-                data={pieDataColored}
-                dataKey="value"
-                cx={240}
-                cy={150}
-                baseValue={100}
-                innerRadius={60}
-                outerRadius={80}
-                onMouseEnter={(d, i) => this.onPieEnter(d, i)}
-              />
-            </PieChart>)}
+            <ComposedChart layout="vertical" width={700} height={300} data={data} margin={{ top: 20, right: 80, bottom: 20, left: 20 }}>
+              <XAxis />
+              <YAxis dataKey="name" type="category" label="Pages" />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="pv" fill="#8884d8" />
+            </ComposedChart>)
+        }
         </div>
-      </NutrientProfilePieChartWrapper>
+      </NutrientProfileRankingWrapper>
     );
   }
 }
 
-NutrientProfilePieChart.propTypes = {
+NutrientProfileRankingChart.propTypes = {
+  onLoadRankings: PropTypes.func.isRequired,
+  rankingResults: PropTypes.object,
   nutrientSelected: PropTypes.string,
-  portionSelected: PropTypes.object.isRequired,
-  ageGroupSelected: PropTypes.object.isRequired,
-  nutrients: PropTypes.object.isRequired,
-  nutrientFilter: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
-export default NutrientProfilePieChart;
+export default NutrientProfileRankingChart;

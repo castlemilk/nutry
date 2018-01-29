@@ -12,12 +12,14 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row, Col } from 'antd';
+import { ONCE_TILL_UNMOUNT } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientDisplay from 'components/NutrientDisplay';
 import FoodProfileTitle from 'components/FoodProfileTitle';
 import FoodProfileToolBar from 'components/FoodProfileToolBar';
 import NutrientProfilePieChart from 'components/NutrientProfilePieChart';
+import NutrientProfileRankingChartView from 'containers/NutrientProfileRankingChartView';
 import {
   loadProfile,
   tabChanged,
@@ -43,6 +45,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
   componentWillMount() {
     const { SN, source } = this.props.profileHeader;
     this.props.onLoadProfile(SN, source);
+    // TODO: Add a prefix on results mouse-down to kick of the fetch extra early
   }
 
   render() {
@@ -125,6 +128,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             </Col>
             <Col xs={18} sm={18} md={10} lg={10}>
               <NutrientProfilePieChart {...analyticsProps} />
+              <NutrientProfileRankingChartView />
             </Col>
             <Col xs={3} sm={3} md={2} lg={2}>
             </Col>
@@ -143,7 +147,7 @@ FoodProfile.propTypes = {
   onLoadProfile: PropTypes.func,
   onTabChange: PropTypes.func,
   tabSelected: PropTypes.string,
-  portions: PropTypes.object,
+  portions: PropTypes.array,
   portionSelected: PropTypes.object,
   onAgeGroupChanged: PropTypes.func,
   onPortionChanged: PropTypes.func,
