@@ -56,7 +56,7 @@ const makeSelectTabSelected = () => createSelector(
 );
 const makeSelectPortions = () => createSelector(
   selectFoodProfileDomain,
-  (substate) => substate.get('portionsAvailable')
+  (substate) => substate.get('portionsAvailable').toJS()
 );
 const makeSelectPortion = () => createSelector(
   selectFoodProfileDomain,

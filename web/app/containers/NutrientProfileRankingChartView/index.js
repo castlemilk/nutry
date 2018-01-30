@@ -42,7 +42,7 @@ const NutrientProfileRankingChartView = compose(
 )(NutrientProfileRankingChart);
 
 NutrientProfileRankingChartView.propTypes = {
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   rankingResults: PropTypes.object,
   onLoadRankings: PropTypes.func,
 };

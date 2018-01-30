@@ -67,7 +67,7 @@ function foodProfileReducer(state = initialState, action) {
     case GET_PROFILE_SUCCESS:
       return state
         .setIn(['nutrients', 'byId'], fromJS(arrayToObject(Object.entries(action.nutrientsById))))
-        .set('portionsAvailable', action.portionsAvailable)
+        .set('portionsAvailable', List(action.portionsAvailable))
         .set('portionSelected', action.portionsAvailable[0])
         .set('ageGroupSelected', Map({ value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' }))
         .set('loading', false)

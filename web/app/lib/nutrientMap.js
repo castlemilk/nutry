@@ -411,6 +411,7 @@ export function prefixToName(prefix) {
   mapping.ENERC1 = 'Energy, including dietary fibre';
   mapping.ENERC1 = 'Energy';
   mapping.ENERC_KCAL = 'Energy';
+  mapping.WATER = 'Water';
   // Carbohydrates
   mapping.CHOCDF = 'Carbohydrate, by difference';
   mapping.CHOAVL = 'Available carbohydrate';
@@ -675,6 +676,7 @@ export function prefixToUnit(prefix) {
   units.ENERC = 'kJ';
   units.ENERC1 = 'kJ';
   units.ENERC_KCAL = 'kCal';
+  units.WATER = 'g';
   // Carbohydrates
   units.CHOCDF = 'g';
   units.CHOAVL = 'g';
