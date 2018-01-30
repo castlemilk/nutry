@@ -8,7 +8,7 @@ function parseResults(response) {
   return response.data;
 }
 function checkStatus(response) {
-  console.log(response);
+  // console.log(response);
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -25,7 +25,7 @@ export function getFoodProfile(serialNumber) {
       Accept: 'application/json',
     },
   });
-  console.log('FirebaseServiceRest:ID:', serialNumber);
+  // console.log('FirebaseServiceRest:ID:', serialNumber);
   const path = `profiles/${serialNumber}.json`;
   return session.get(path)
     .then(checkStatus)

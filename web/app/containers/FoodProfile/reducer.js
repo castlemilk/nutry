@@ -34,7 +34,7 @@ const initialState = fromJS({
   },
   tabSelected: 'summary',
   idSelected: null,
-  nutrientSelected: null,
+  nutrientSelected: 'CHOCDF',
   portionSelected: Map(
     { amt: 1,
       className: 'per100g',

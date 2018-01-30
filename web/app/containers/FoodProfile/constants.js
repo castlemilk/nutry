@@ -101,6 +101,8 @@ export const DETAILED_IDS = [
   'VITC', 'VITA_IU', 'RETOL', 'VITA_RAE', 'CARTA', 'CARTB', 'CRYPX', 'LYCPN',
   'LUT+ZEA', 'VITD', 'TOCPHA', 'TOCPHB', 'TOCPHD', 'VITK', 'THIA', 'NIA', 'SE',
   'FOL', 'FOLFD', 'FOLAC', 'FOLDFE', 'VITB6A', 'CHOLN', 'BETN',
+  // basics
+  'WATER',
 ];
 export const DETAILED_SECTIONS = {
   energy: {

@@ -27,23 +27,6 @@ export function getNutrient(prefix, nutrients, portion = false, ageGroup) {
     getRDI(prefix, ageGroup)
   );
 }
-export function getNormalisedNutrient(prefix, nutrients, portion = false) {
-  const nutrient = nutrients[prefix];
-  if (nutrient) {
-    return new Nutrient(
-      prefix,
-      nutrient.name || prefixToName(prefix),
-      nutrient.units || prefixToUnit(prefix),
-      getScaledValue(nutrient.value, portion) || '~'
-    );
-  }
-  return new Nutrient(
-    prefix,
-    prefixToName(prefix),
-    prefixToUnit(prefix),
-    '~'
-  );
-}
 function Nutrient(prefix, name, units, value, rdi = null) {
   this.prefix = prefix;
   this.name = name;
@@ -417,7 +400,7 @@ function isNumeric(n) {
   return !_.isNaN(n) && _.isFinite(n);
 }
 
-function prefixToName(prefix) {
+export function prefixToName(prefix) {
   /**
    * Convert nutrient prefix to full name from a standard hash/dictionary table
    * stored on the client side??
@@ -681,7 +664,7 @@ function prefixToName(prefix) {
 //   // ....
 //   return portions[portion];
 // }
-function prefixToUnit(prefix) {
+export function prefixToUnit(prefix) {
   /**
    * Return standardized units for particular nutrient. This issue can be solved
    * by assuming the served content is reliable and standardized - may not be

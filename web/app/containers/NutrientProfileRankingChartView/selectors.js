@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
  * Direct selector to the nutrientProfileRankingChartView state domain
  */
 const selectSearchDomain = (state) => state.get('search');
+const selectFoodProfileDomain = (state) => state.get('foodProfile');
 const selectNutrientProfileRankingChartViewDomain = (state) => state.get('nutrientRanking');
 
 /**
@@ -30,11 +31,16 @@ const makeSelectRankingResults = () => createSelector(
   selectNutrientProfileRankingChartViewDomain,
   (substate) => substate.get('rankingResults')
 );
+const makeSelectNutrientSelected = () => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.get('nutrientSelected')
+);
 
 export default makeSelectNutrientProfileRankingChartView;
 export {
   selectNutrientProfileRankingChartViewDomain,
   makeSelectLoading,
   makeSelectRankingResults,
+  makeSelectNutrientSelected,
   makeSelectSearchResults,
 };

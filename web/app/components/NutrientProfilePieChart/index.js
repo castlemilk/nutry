@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import LoadingContent from 'components/LoadingContent';
 import { getFilteredData } from 'lib/nutrientAnalytics';
+
 import { FILTERS } from './constants';
 import messages from './messages';
 import NutrientProfilePieChartWrapper from './NutrientProfilePieChartWrapper';
@@ -154,7 +155,7 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
     const pieDataColored = loading ? null : pieData.map((value, index) => {
       const section = value;
       section.fill = COLORS[index % COLORS.length];
-      return value;
+      return section;
     });
     const loadingPie = <Spin style={{ marginTop: '100px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     return (

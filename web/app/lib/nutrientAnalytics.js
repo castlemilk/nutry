@@ -25,24 +25,23 @@ export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected, por
 }
 
 export function getRankingResults(searchResults) {
-  // console.log('getRankingResults:');
-  // console.log(searchResults);
-  // console.log(searchResults.items.map((item) => console.log(item._source.SN)));
   const ids = searchResults.items.map((item) => item._source.SN);
-  const rankings = DETAILED_IDS.reduce((accumulator, prefix) => ({ ...accumulator, [prefix]: {} }), {});
-  // console.log(rankings);
-  const data = getMultiFoodProfile(ids).then((resultsArray) => {
+  const rankings = DETAILED_IDS.reduce((accumulator, prefix) => ({ ...accumulator, [prefix]: [] }), {});
+  return getMultiFoodProfile(ids).then((resultsArray) => {
     for (const [id, profile] of resultsArray.entries()) {
-      const { nutrients } = profile;
+      const { nutrients, name } = profile;
       for (const prefix of DETAILED_IDS) {
         if (nutrients[prefix]) {
-          rankings[prefix][id] = {
-            name: nutrients[prefix].name,
+          rankings[prefix].push({
+            name,
+            id,
             value: nutrients[prefix].value,
-            units: nutrients[prefix].units };
+            unit: nutrients[prefix].units });
         }
       }
     }
     return rankings;
-  }).then((result) => console.log(result));
+  }).then((result) =>
+    // console.log(result);
+     result);
 }

@@ -5,100 +5,156 @@
 */
 
 import React from 'react';
-import { Sector, Bar, BarChart, ComposedChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { Sector, Bar, BarChart, ComposedChart, XAxis, YAxis, Label, Text, ReferenceLine, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Spin, Icon } from 'antd';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import LoadingContent from 'components/LoadingContent';
+import { generateColor } from 'lib/utils';
 import { getFilteredData } from 'lib/nutrientAnalytics';
+import { prefixToName, prefixToUnit } from 'lib/nutrientMap';
+import AxisLabel from './AxisLabel';
 import messages from './messages';
 import NutrientProfileRankingWrapper from './NutrientProfileRankingChartWrapper';
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#a94442', '#c566ac'];
-const data = [{ name: 'Page A', uv: 590, pv: 800, amt: 1400 },
-              { name: 'Page B', uv: 868, pv: 967, amt: 1506 },
-              { name: 'Page C', uv: 1397, pv: 1098, amt: 989 },
-              { name: 'Page D', uv: 1480, pv: 1200, amt: 1228 },
-              { name: 'Page E', uv: 1520, pv: 1108, amt: 1100 },
-              { name: 'Page F', uv: 1400, pv: 680, amt: 1700 }];
-
-const renderActiveShape = (props) => { /* eslint react/prop-types: 0 */
-  const RADIAN = Math.PI / 180;
-  const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-                  fill, payload } = props;
-  const sin = Math.sin(-RADIAN * midAngle);
-  const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + ((outerRadius + 10) * cos);
-  const sy = cy + ((outerRadius + 10) * sin);
-  const mx = cx + ((outerRadius + 30) * cos);
-  const my = cy + ((outerRadius + 30) * sin);
-  const ex = mx + ((cos >= 0 ? 1 : -1) * 22);
-  const ey = my;
-  const textAnchor = cos >= 0 ? 'start' : 'end';
-
-  return (
-    <g>
-      <Sector
-        cx={cx}
-        cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        fill={payload.fill}
-      />
-      <Sector
-        cx={cx}
-        cy={cy}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        innerRadius={outerRadius + 6}
-        outerRadius={outerRadius + 10}
-        fill={payload.fill}
-      />
-      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text x={ex + ((cos >= 0 ? 1 : -1) * 12)} y={ey} dy={-18} textAnchor={textAnchor} fill={fill}>{payload.name}</text>
-      <text x={ex + ((cos >= 0 ? 1 : -1) * 12)} y={ey} textAnchor={textAnchor} fill="#333">{`${payload.value} ${payload.units}`}</text>
-      <text x={ex + ((cos >= 0 ? 1 : -1) * 12)} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-        {payload.value !== '~' ? `( ${((payload.value / payload.rdi) * 100).toFixed(2)}%)` : ' (NA) '}
-      </text>
-    </g>
-  );
+// const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#a94442', '#c566ac'];
+const RANKING_COLORS_50 = [
+  '#5A338A', '#5C348C', '#5D358F', '#5F3691', '#603794',
+  '#623796', '#633898', '#65399B', '#673A9D', '#683B9F', '#6A3CA2',
+  '#6B3DA4', '#6D3EA7', '#6E3FA9', '#7040AB', '#7240AE', '#7341B0', '#7542B3',
+  '#7643B5', '#7844B7', '#7945BA', '#7B46BC', '#7D47BF', '#7E48C1', '#8049C3',
+  '#8149C6', '#834AC8', '#844BCA', '#864CCD', '#884DCF', '#894ED2', '#8B4FD4',
+  '#8C50D6', '#8E51D9', '#8F52DB', '#9152DE', '#9353E0', '#9454E2', '#9655E5',
+  '#9756E7', '#9957EA', '#9A58EC', '#9C59EE', '#9E5AF1', '#9F5BF3', '#A15BF5',
+  '#A25CF8', '#A45DFA', '#A55EFD',
+  '#A75FFF'];
+const RANKING_COLORS_20 = [
+  '#5A338A',
+  '#5E3590',
+  '#623896',
+  '#663A9C',
+  '#6A3CA3',
+  '#6E3FA9',
+  '#7241AF',
+  '#7643B5',
+  '#7A46BB',
+  '#7E48C1',
+  '#834AC8',
+  '#874CCE',
+  '#8B4FD4',
+  '#8F51DA',
+  '#9353E0',
+  '#9756E6',
+  '#9B58ED',
+  '#9F5AF3',
+  '#A35DF9',
+  '#A75FFF',
+];
+const CustomTooltip = (props) => {
+  const { active, nutrientSelected } = props;
+  if (active) {
+    const { payload, label, foodID } = props;
+    const { name, value, unit, id } = payload[0].payload;
+    // console.log(props);
+    // TODO: add description mapping
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{foodID === id ? `${name} [Current FoodProfile]` : `${name}`}</p>
+        <p className="intro">{`Contains ${value} ${unit} of ${nutrientSelected}`}</p>
+        <p className="desc">Description: Coming soon!</p>
+      </div>
+    );
+  }
+  return null;
 };
-/**
- * Return the index with the largest value. This index will then be used
- * to set as the default section selected in the recharts graphic on render.
- * @param  {Array} data list of nutrients
- * @return {Number} index with highest value.
- */
-function getIndexLargestValue(data) {
-  return data.reduce((a, b, index) => (b.value > a[0] && typeof b.value === 'number') ? [b.value, index] : a, [-1, -1])[1];
+CustomTooltip.propTypes = {
+  type: PropTypes.string,
+  payload: PropTypes.array,
+  label: PropTypes.string,
+};
+
+function processData(rawData, nutrientSelected) {
+  const barData = rawData[nutrientSelected];
+  const COLORS = generateColor('#A75FFF', '#5A338A', barData.length);
+  return barData.sort((a, b) => b.value - a.value).map((value, index) => {
+    const bar = value;
+    bar.fill = COLORS[index % COLORS.length];
+    return bar;
+  });
 }
-/**
- * Determine the index corresponding to the specified nutrient. This will be
- * used to update the pie chart selected section to the hovered/select nutrient
- * @param  {Object} nutrient [description]
- * @param  {Array} pieData  [description]
- * @return {Number}          [description]
- */
-function nutrientToIndex(prefix, data) {
-  const index = data.findIndex((x) => x.prefix === prefix);
-  if (index === -1) {
-    return null;
+const getPath = (x, y, width, height, radius) => {
+  const maxRadius = Math.min(Math.abs(width) / 2, Math.abs(height) / 2);
+  const sign = height >= 0 ? 1 : -1;
+  const clockWise = height >= 0 ? 1 : 0;
+  let path;
+
+  if (maxRadius > 0 && radius instanceof Array) {
+    const newRadius = [];
+    for (let i = 0, len = 4; i < len; i += 1) {
+      newRadius[i] = radius[i] > maxRadius ? maxRadius : radius[i];
+    }
+
+    path = `M${x},${y + (sign * newRadius[0])}`;
+
+    if (newRadius[0] > 0) {
+      path += `A ${newRadius[0]},${newRadius[0]},0,0,${clockWise},${x + newRadius[0]},${y}`;
+    }
+
+    path += `L ${(x + width) - newRadius[1]},${y}`;
+
+    if (newRadius[1] > 0) {
+      path += `A ${newRadius[1]},${newRadius[1]},0,0,${clockWise},
+       ${x + width},${y + (sign * newRadius[1])}`;
+    }
+    path += `L ${x + width},${(y + height) - (sign * newRadius[2])}`;
+
+    if (newRadius[2] > 0) {
+      path += `A ${newRadius[2]},${newRadius[2]},0,0,${clockWise},
+       ${(x + width) - newRadius[2]},${y + height}`;
+    }
+    path += `L ${x + newRadius[3]},${y + height}`;
+
+    if (newRadius[3] > 0) {
+      path += `A ${newRadius[3]},${newRadius[3]},0,0,${clockWise},
+       ${x},${(y + height) - (sign * newRadius[3])}`;
+    }
+    path += 'Z';
+  } else if (maxRadius > 0 && radius === +radius && radius > 0) {
+    const newRadius = Math.min(maxRadius, radius);
+
+    path = `M ${x},${y + (sign * newRadius)}
+           A ${newRadius},${newRadius},0,0,${clockWise},${x + newRadius},${y}
+           L ${x + (width - newRadius)},${y}
+           A ${newRadius},${newRadius},0,0,${clockWise},${x + width},${y + (sign * newRadius)}
+           L ${x + width},${(y + height) - (sign * newRadius)}
+           A ${newRadius},${newRadius},0,0,${clockWise},${x + (width - newRadius)},${y + height}
+           L ${x + newRadius},${y + height}
+           A ${newRadius},${newRadius},0,0,${clockWise},${x},${(y + height) - (sign * newRadius)} Z`;
+  } else {
+    path = `M ${x},${y} h ${width} v ${height} h ${-width} Z`;
   }
-  if (data[index].value === '~') {
-    return null;
-  }
-  return index;
-}
+  return path;
+};
+// const getPath2 = (x, y, width, height) => `M${x},${y + height}
+//           C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3} ${x + width / 2}, ${y}
+//           C${x + width / 2},${y + height / 3} ${x + 2 * width / 3},${y + height} ${x + width}, ${y + height}
+//           Z`;
+const CustomShape = (props) => { /* eslint react/prop-types: 0 */
+  const barId = props.payload.id;
+  const { fillActive, fill, x, y, width, height, radius, foodID } = props;
+  return <path d={getPath(x, y, width, height, radius)} stroke="none" fill={barId === foodID ? fillActive : fill} />;
+};
+// const renderXLabel = (props) => (<Text>
+//   {prefixToName(props.nutrientSelected)} [{prefixToUnit(props.nutrientSelected)}]
+// </Text>);
+const xLabel = (nutrient) => `${prefixToName(nutrient)} [${prefixToUnit(nutrient)}]`;
 class NutrientProfileRankingChart extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeIndex: !this.props.loading ? getIndexLargestValue(data) : 0,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // this.state = {
+  //   //   activeIndex: !this.props.loading ? getIndexLargestValue(data) : 0,
+  //   // };
+  // }
 
   componentWillMount() {
     if (!this.props.loading) {
@@ -119,8 +175,11 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, rankingResults, nutrientSelected, id } = this.props;
     const loadingPie = <Spin style={{ marginTop: '160px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
+    // console.log(rankingResults, nutrientSelected);
+    const data = loading ? null : processData(rankingResults, nutrientSelected);
+    console.log(data);
     return (
       <NutrientProfileRankingWrapper>
         <div className="pie-chart-title" >
@@ -128,13 +187,29 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
         </div>
         <div className="ranking-chart-wrapper" >
           { loading ? loadingPie : (
-            <ComposedChart layout="vertical" width={700} height={300} data={data} margin={{ top: 20, right: 80, bottom: 20, left: 20 }}>
-              <XAxis />
-              <YAxis dataKey="name" type="category" label="Pages" />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="pv" fill="#8884d8" />
-            </ComposedChart>)
+            <BarChart layout="vertical" width={790} height={500} data={data} margin={{ top: 80, right: 180, bottom: 50, left: 80 }}>
+              <XAxis
+                type="number"
+                tick={{ stroke: 'gray', strokeWidth: 1, paddingBottom: 30 }}
+                tickMargin={10}
+                padding={{ bottom: 30 }}
+                domain={[0, 'dataMax']}
+              >
+                <Label position="center" dy={40}value={xLabel(nutrientSelected)} />
+              </XAxis>
+              <YAxis
+                dataKey="name"
+                type="category"
+                minTickGap={20}
+                tickMargin={0}
+              >
+                <Label angle={-90} dx={-70} >
+                  Other Results
+                </Label>
+              </YAxis>
+              <Tooltip content={<CustomTooltip nutrientSelected={prefixToName(nutrientSelected)} foodID={id} />} />
+              <Bar radius={10} shape={<CustomShape fillActive="#b74545" foodID={id} />} foodID={id} dataKey="value" />
+            </BarChart>)
         }
         </div>
       </NutrientProfileRankingWrapper>
@@ -147,6 +222,7 @@ NutrientProfileRankingChart.propTypes = {
   rankingResults: PropTypes.object,
   nutrientSelected: PropTypes.string,
   loading: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default NutrientProfileRankingChart;
