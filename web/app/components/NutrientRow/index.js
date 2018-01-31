@@ -20,6 +20,13 @@ import {
 
 
 export class NutrientRow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timer: 0,
+      safe: false,
+    };
+  }
   /**
    * Big rendering optimisation to prevent uneeded renders between tab changes
    * and item selection.
@@ -29,6 +36,26 @@ export class NutrientRow extends React.Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.isSelected !== this.props.isSelected || nextProps.portion !== this.props.portion;
   }
+  makeSafe() {
+    this.setState({ safe: true });
+  }
+  safeHoverTransistion() {
+    return setTimeout(() => this.makeSafe(), 1000);
+  }
+  handleMouseEnter(prefix, id) {
+    this.setState({
+      safe: false,
+      selectedPrefix: prefix,
+      safeTimer: this.safeHoverTransistion(),
+      transitionTimeout: setTimeout(() => this.props.onHover(prefix, id), 50),
+    });
+  }
+  handleMouseOut() {
+    // cancel hover transition
+    // if (prefix === this.state.selectedPrefix) {
+    clearTimeout(this.state.transitionTimeout);
+    // }
+  }
   render() {
     /**
      * Nutrient Row which is a standard row within a category. Will have zero
@@ -36,7 +63,6 @@ export class NutrientRow extends React.Component {
      * There are some nutrients which will be children of a parent nutrient and
      * will be depicted as children through indentations
      */
-
     const { onHover, onClick, nutrient, id, prefix, type, isSelected, portion } = this.props;
     const name = nutrient.get('name');
     const units = nutrient.get('units');
@@ -90,8 +116,7 @@ export class NutrientRow extends React.Component {
       text-align: center;
       font-family: 'Bitter', serif;
     `;
-    // console.log('nutrientRow:rendering');
-    return (<Row className={`Section__${type}__Row__${id}`} onMouseLeave={() => onHover(prefix, id)} onMouseEnter={() => onHover(prefix, id)} onClick={() => onClick(prefix, id)}>
+    return (<Row className={`Section__${type}__Row__${id}`} onMouseLeave={() => this.handleMouseOut()} onMouseEnter={() => this.handleMouseEnter(prefix, id)} onClick={() => onClick(prefix, id)}>
       {hasName ? <RowName className={`Section__${type}__RowName__${id}`} ><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" > </span></RowName> }
       {hasUnits ? <RowUnits className={`Section__${type}__RowUnits__${id}`} >{units}</RowUnits> : null }
       {hasValue ? <RowValue className={`Section__${type}__RowValue__${id}`} >{value}</RowValue> : null }

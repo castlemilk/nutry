@@ -19,7 +19,7 @@ const NutrientProfileRankingChartWrapper = styled.div`
     margin : 0 auto;
   }
   .recharts-wrapper .custom-tooltip {
-    background: #999999d1;
+    background: #d9d9d9d0;
     border-radius: 20px;
     padding: 10px;
     -webkit-box-shadow:  6px 6px 12px -6px rgba(0,0,0,0.44);

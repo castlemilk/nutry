@@ -165,7 +165,7 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
                 </Label>
               </YAxis>
               <Tooltip content={<CustomTooltip nutrientSelected={prefixToName(nutrientSelected)} foodID={id} />} />
-              <Bar shape={<CustomShape fillActive="#b74545" foodID={id} />} foodID={id} dataKey="value" />
+              <Bar shape={<CustomShape fillActive="#50c59f" foodID={id} />} foodID={id} dataKey="value" />
             </BarChart>)
         }
         </div>
