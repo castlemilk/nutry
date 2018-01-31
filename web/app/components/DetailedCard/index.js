@@ -9,6 +9,7 @@ import uuidv4 from 'uuid/v4';
 import NutrientRowView from 'containers/NutrientRowView';
 import ExpandableListView from 'components/ExpandableListView';
 import Wrapper from './Wrapper';
+
 // import messages from './messages';
 
 class DetailedCard extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -41,6 +42,7 @@ class DetailedCard extends React.Component { // eslint-disable-line react/prefer
           itemsAttName="items"
         />
       </Wrapper>
+
     );
   }
 }

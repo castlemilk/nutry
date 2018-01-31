@@ -92,7 +92,7 @@ export function scaledValue(value, portion = false) {
     return truncateTo(value * scale(portion), 2);
   }
 
-  return '~';
+  return 0;
 }
 
 const truncateTo = (unRouned, nrOfDecimals = 2) => {

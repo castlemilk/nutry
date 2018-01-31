@@ -11,7 +11,12 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientProfileRankingChart from 'components/NutrientProfileRankingChart';
-import { makeSelectLoading, makeSelectRankingResults, makeSelectNutrientSelected } from './selectors';
+import {
+  makeSelectLoading,
+  makeSelectRankingResults,
+  makeSelectNutrientSelected,
+  makeSelectPortionSelected,
+ } from './selectors';
 import { loadRankings } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -21,6 +26,7 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   rankingResults: makeSelectRankingResults(),
   nutrientSelected: makeSelectNutrientSelected(),
+  portionSelected: makeSelectPortionSelected(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -45,6 +51,8 @@ NutrientProfileRankingChartView.propTypes = {
   loading: PropTypes.bool,
   rankingResults: PropTypes.object,
   onLoadRankings: PropTypes.func,
+  portionSelected: PropTypes.object,
+  nutrientSelected: PropTypes.string,
 };
 
 export default NutrientProfileRankingChartView;

@@ -5,28 +5,28 @@
 */
 
 import React from 'react';
-import { Sector, Bar, BarChart, ComposedChart, XAxis, YAxis, Label, Text, ReferenceLine, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { Bar, BarChart, XAxis, YAxis, Label, Tooltip } from 'recharts';
 import { Spin, Icon } from 'antd';
 import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import LoadingContent from 'components/LoadingContent';
-import { generateColor } from 'lib/utils';
-import { getFilteredData } from 'lib/nutrientAnalytics';
+import { generateColor, scaledValue } from 'lib/utils';
+// import { getFilteredData } from 'lib/nutrientAnalytics';
 import { prefixToName, prefixToUnit } from 'lib/nutrientMap';
-import AxisLabel from './AxisLabel';
+// import AxisLabel from './AxisLabel';
 import messages from './messages';
 import NutrientProfileRankingWrapper from './NutrientProfileRankingChartWrapper';
 const CustomTooltip = (props) => {
-  const { active, nutrientSelected } = props;
+  const { active, nutrientSelected, portionSelected } = props;
   if (active) {
-    const { payload, label, foodID } = props;
+    const { payload, foodID } = props;
     const { name, value, unit, id } = payload[0].payload;
     // TODO: add description mapping
     return (
       <div className="custom-tooltip">
         <p className="label">{foodID === id ? `${name} [Current FoodProfile]` : `${name}`}</p>
-        <p className="intro">{`Contains ${value} ${unit} of ${nutrientSelected}`}</p>
+        <p className="intro">{`Contains ${value} ${unit} of ${nutrientSelected} per ${portionSelected.unit}`}</p>
         <p className="desc">Description: Coming soon!</p>
       </div>
     );
@@ -34,19 +34,19 @@ const CustomTooltip = (props) => {
   return null;
 };
 CustomTooltip.propTypes = {
-  type: PropTypes.string,
   payload: PropTypes.array,
-  label: PropTypes.string,
 };
 
-function processData(rawData, nutrientSelected) {
-  const barData = rawData[nutrientSelected];
+function processData(rawData, nutrientSelected, portionSelected) {
+  const barData = rawData.get(nutrientSelected);
+  if (!barData) {
+    return null;
+  }
   const COLORS = generateColor('#A75FFF', '#5A338A', barData.length);
-  return barData.sort((a, b) => b.value - a.value).map((value, index) => {
-    const bar = value;
-    bar.fill = COLORS[index % COLORS.length];
-    return bar;
-  });
+  return barData
+  .filter((value) => value.get('value') !== '~')
+      .sort((a, b) => b.get('value') - a.get('value'))
+        .map((value, index) => value.set('fill', COLORS[index % COLORS.length]).set('value', typeof value.get('value') === 'number' ? scaledValue(value.get('value'), portionSelected.g) : 0).toJS());
 }
 const getPath = (x, y, width, height, radius) => {
   const maxRadius = Math.min(Math.abs(width) / 2, Math.abs(height) / 2);
@@ -104,6 +104,7 @@ const getPath = (x, y, width, height, radius) => {
 const CustomShape = (props) => { /* eslint react/prop-types: 0 */
   const barId = props.payload.id;
   const { fillActive, fill, x, y, width, height, radius, foodID } = props;
+  // console.log(props);
   return <path d={getPath(x, y, width, height, radius)} stroke="none" fill={barId === foodID ? fillActive : fill} />;
 };
 const xLabel = (nutrient) => `${prefixToName(nutrient)} [${prefixToUnit(nutrient)}]`;
@@ -132,11 +133,16 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
   // }
   onFinishedLoading() {
   }
+  // shouldComponentUpdate(nextProps) {
+  //   return this.props.portionSelected !== nextProps.portionSelected;
+  // }
 
   render() {
-    const { loading, rankingResults, nutrientSelected, id } = this.props;
+    // TODO: investigation doing pre-processing on item select asynchronously
+    // potentially reducing latecy associated with processing data on render.
+    const { loading, rankingResults, nutrientSelected, id, portionSelected } = this.props;
     const loadingPie = <Spin style={{ marginTop: '160px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
-    const data = loading ? null : processData(rankingResults, nutrientSelected);
+    const data = loading ? null : processData(rankingResults, nutrientSelected, portionSelected);
     return (
       <NutrientProfileRankingWrapper>
         <div className="pie-chart-title" >
@@ -152,7 +158,7 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
                 padding={{ bottom: 30 }}
                 domain={[0, 'dataMax']}
               >
-                <Label position="center" dy={40}value={xLabel(nutrientSelected)} />
+                <Label position="center" dy={40} value={xLabel(nutrientSelected)} />
               </XAxis>
               <YAxis
                 dataKey="name"
@@ -164,7 +170,7 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
                   Other Results
                 </Label>
               </YAxis>
-              <Tooltip content={<CustomTooltip nutrientSelected={prefixToName(nutrientSelected)} foodID={id} />} />
+              <Tooltip content={<CustomTooltip portionSelected={portionSelected} nutrientSelected={prefixToName(nutrientSelected)} foodID={id} />} />
               <Bar shape={<CustomShape fillActive="#50c59f" foodID={id} />} foodID={id} dataKey="value" />
             </BarChart>)
         }
@@ -178,6 +184,7 @@ NutrientProfileRankingChart.propTypes = {
   onLoadRankings: PropTypes.func.isRequired,
   rankingResults: PropTypes.object,
   nutrientSelected: PropTypes.string,
+  portionSelected: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
 };

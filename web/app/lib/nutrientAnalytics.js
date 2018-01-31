@@ -1,3 +1,4 @@
+import { Map, List } from 'immutable';
 import { getMultiFoodProfile } from 'services/firebase/firebase';
 import { DETAILED_IDS } from 'containers/FoodProfile/constants';
 import { getNutrient } from './nutrientMap';
@@ -26,17 +27,22 @@ export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected, por
 
 export function getRankingResults(searchResults) {
   const ids = searchResults.items.map((item) => item._source.SN);
-  const rankings = DETAILED_IDS.reduce((accumulator, prefix) => ({ ...accumulator, [prefix]: [] }), {});
+  // console.log(DETAILED_IDS);
+  // console.log(prefixToName);
+  // console.log(prefixToUnit);
+  const rankings = Map(DETAILED_IDS.reduce((accumulator, prefix) => ({ ...accumulator, [prefix]: [] }), {}));
   return getMultiFoodProfile(ids).then((resultsArray) => {
     for (const [id, profile] of resultsArray.entries()) {
       const { nutrients, name } = profile;
+      // const nutrients = profile.get('nutrients');
+      // const name = profile.get('name');
       for (const prefix of DETAILED_IDS) {
         if (nutrients[prefix]) {
-          rankings[prefix].push({
+          rankings.update(prefix, (l) => (l || List()).push(Map({
             name,
             id,
-            value: nutrients[prefix].value,
-            unit: nutrients[prefix].units });
+            value: nutrients[prefix].value === '~' ? 0 : nutrients[prefix].value,
+            unit: nutrients[prefix].units })));
         }
       }
     }

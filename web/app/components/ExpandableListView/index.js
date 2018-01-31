@@ -24,7 +24,7 @@ class ExpandableListView extends React.Component {
   render() {
     const { headerAttName, itemsAttName } = this.props;
     const { data } = this.props;
-    console.log('rendering:ExpandableListView');
+    // console.log('rendering:ExpandableListView');
     return (
       <Wrapper >
         {
@@ -59,6 +59,7 @@ class ExpandableListView extends React.Component {
                         className="Section__Content"
                         style={{
                           display: 'block',
+                          position: 'relative',
                           overflow,
                           width: '100%',
                           maxHeight: Number(`${h}`),

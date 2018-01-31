@@ -33,6 +33,7 @@ const NutrientProfileRankingChartWrapper = styled.div`
   .custom-tooltip .intro {
     margin-top:10px;
     font-size: 20px;
+    color: black;
   }
   .pie-chart-title {
     font-size: 24px;

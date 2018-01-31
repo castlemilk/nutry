@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { FaInfoCircle } from 'react-icons/lib/fa';
 import { scaledValue } from 'lib/utils';
 import {
   HEADER,
@@ -63,7 +64,7 @@ export class NutrientRow extends React.Component {
      * There are some nutrients which will be children of a parent nutrient and
      * will be depicted as children through indentations
      */
-    const { onHover, onClick, nutrient, id, prefix, type, isSelected, portion } = this.props;
+    const { onClick, nutrient, id, prefix, type, isSelected, portion } = this.props;
     const name = nutrient.get('name');
     const units = nutrient.get('units');
     const value = scaledValue(nutrient.get('value'), portion.g) || (<span style={{ color: 'red' }}>{'~'}</span>);
@@ -89,13 +90,17 @@ export class NutrientRow extends React.Component {
     }
     const Row = styled.div`
          display: block;
+         position: relative;
          border-bottom: 1px solid #a79595;
          background-color: ${isSelected ? 'gray' : 'white'};
+         transform: scale(${isSelected ? 1.1 : 1});
+         transition-duration: 0.1s;
+         z-index: ${isSelected ? 10 : 0};
      `;
     const RowName = styled.div`
       display:inline-block;
       overflow: hidden;
-      width:60%;
+      width:59%;
       font-size: ${fontSize}vmin;
       font-family: 'Bitter', serif;
       .row-name-${type}-text {
@@ -105,21 +110,31 @@ export class NutrientRow extends React.Component {
     const RowUnits = styled.div`
       display:inline-block;
       overflow: hidden;
-      width:15%;
+      width:${isSelected ? 15 : 15}%;
       text-align: center;
       font-family: 'Droid Serif', serif;
     `;
     const RowValue = styled.div`
       display:inline-block;
       overflow: hidden;
-      width:25%;
+      width:${isSelected ? 17 : 25}%;
       text-align: center;
       font-family: 'Bitter', serif;
+    `;
+    const RowInfo = styled.div`
+      display:inline-block;
+      float:right;
+      overflow: hidden;
+      text-align: center;
+      font-family: 'Bitter', serif;
+      padding-right: 40px;
     `;
     return (<Row className={`Section__${type}__Row__${id}`} onMouseLeave={() => this.handleMouseOut()} onMouseEnter={() => this.handleMouseEnter(prefix, id)} onClick={() => onClick(prefix, id)}>
       {hasName ? <RowName className={`Section__${type}__RowName__${id}`} ><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" > </span></RowName> }
       {hasUnits ? <RowUnits className={`Section__${type}__RowUnits__${id}`} >{units}</RowUnits> : null }
       {hasValue ? <RowValue className={`Section__${type}__RowValue__${id}`} >{value}</RowValue> : null }
+      {isSelected ? <RowInfo ><FaInfoCircle /></RowInfo> : null}
+
     </Row>
     );
   }

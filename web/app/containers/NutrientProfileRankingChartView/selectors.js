@@ -35,6 +35,10 @@ const makeSelectNutrientSelected = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('nutrientSelected')
 );
+const makeSelectPortionSelected = () => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.get('portionSelected')
+);
 
 export default makeSelectNutrientProfileRankingChartView;
 export {
@@ -42,5 +46,6 @@ export {
   makeSelectLoading,
   makeSelectRankingResults,
   makeSelectNutrientSelected,
+  makeSelectPortionSelected,
   makeSelectSearchResults,
 };

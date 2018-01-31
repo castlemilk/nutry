@@ -96,7 +96,7 @@ export const DETAILED_IDS = [
   'PROCNT', 'TRP', 'THR', 'ILE', 'LEU', 'LYS', 'MET', 'CYS', 'PHE', 'TYR', 'VAL',
   'ARG', 'HISTN', 'ALA', 'ASP', 'GLU', 'PRO', 'SER', 'HYP',
   // minerals
-  'CA', 'FE', 'MG', 'P', 'K', 'NA', 'ZN', 'CU', 'MN', 'SE', 'FLD',
+  'CA', 'FE', 'MG', 'P', 'K', 'NA', 'ZN', 'CU', 'MN', 'FLD',
   // vitamins
   'VITC', 'VITA_IU', 'RETOL', 'VITA_RAE', 'CARTA', 'CARTB', 'CRYPX', 'LYCPN',
   'LUT+ZEA', 'VITD', 'TOCPHA', 'TOCPHB', 'TOCPHD', 'VITK', 'THIA', 'NIA', 'SE',

@@ -121,16 +121,16 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             </Col>
           </Row>
           <Row gutter={{ xs: 48, sm: 48, md: 48, lg: 48, xl: 48 }}>
-            <Col xs={3} sm={3} md={2} lg={2}>
+            <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
-            <Col xs={18} sm={18} md={10} lg={10} >
+            <Col xs={20} sm={20} md={10} lg={12} >
               <NutrientDisplay {...nutrientDisplayProps} />
             </Col>
-            <Col xs={18} sm={18} md={10} lg={10}>
+            <Col xs={20} sm={20} md={10} lg={10}>
               <NutrientProfilePieChart {...analyticsProps} />
               <NutrientProfileRankingChartView id={profileHeader.SN} />
             </Col>
-            <Col xs={3} sm={3} md={2} lg={2}>
+            <Col xs={2} sm={2} md={2} lg={1}>
             </Col>
           </Row>
         </div>

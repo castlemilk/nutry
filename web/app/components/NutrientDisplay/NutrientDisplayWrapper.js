@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const NutrientDisplayWrapper = styled.div`
+  position: relative;
   margin-top: 40px;
   background: white;
   width: 100%;
@@ -14,7 +15,6 @@ const NutrientDisplayWrapper = styled.div`
   box-shadow: 10px 10px 16px -10px rgba(0, 0, 0,0.44);
   .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab  {
     width: 300px;
-    align-text: center;
   }
   .summary-card-wrapper {
     background: white;
@@ -28,11 +28,17 @@ const NutrientDisplayWrapper = styled.div`
   }
   .detailed-table-header-wrapper {
     margin-top: 10px;
+    padding-right:40px;
+    padding-left: 40px;
+    font-size: 2.5vmin;
   }
   .detailed-card-wrapper {
     height: 720px;
     background: white;
-    overflow: scroll;
+    position: relative;
+    display: inline-block;
+    overflow-y: scroll;
+
   }
 `;
 
