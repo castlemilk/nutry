@@ -150,7 +150,7 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
         </div>
         <div className="ranking-chart-wrapper" >
           { loading ? loadingPie : (
-            <BarChart layout="vertical" width={790} height={500} data={data} margin={{ top: 80, right: 180, bottom: 50, left: 80 }}>
+            <BarChart layout="vertical" width={650} height={500} data={data} margin={{ top: 80, right: 180, bottom: 50, left: 80 }}>
               <XAxis
                 type="number"
                 tick={{ stroke: 'gray', strokeWidth: 1, paddingBottom: 30 }}

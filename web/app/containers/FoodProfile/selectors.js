@@ -18,6 +18,10 @@ const makeSelectFoodProfile = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.toJS()
 );
+const makeSelectProfileHeader = () => createSelector(
+  selectFoodProfileDomain,
+  (substate) => substate.get('profileHeader')
+);
 const makeSelectSerialNumber = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('serialNumber')
@@ -74,6 +78,7 @@ const makeSelectAgeGroup = () => createSelector(
 export default makeSelectFoodProfile;
 export {
   selectFoodProfileDomain,
+  makeSelectProfileHeader,
   makeSelectProfileLoading,
   makeSelectTabSelected,
   makeSelectAllNutrients,

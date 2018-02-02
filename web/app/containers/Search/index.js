@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { push } from 'react-router-redux';
 import { Tabs, Icon, Spin, Button, Avatar } from 'antd';
 
 import injectSaga from 'utils/injectSaga';
@@ -51,6 +52,8 @@ export class Search extends React.Component { // eslint-disable-line react/prefe
     this.props.onChangeSearchString(event);
   }
   handleProfileSelected(profileInfo) {
+    // console.log(profileInfo);
+    this.props.dispatch(push(`/foodprofile/${profileInfo.SN}`, { profileInfo }));
     this.props.onProfileSelected(profileInfo);
   }
   handleBackButton() {
@@ -176,6 +179,7 @@ Search.propTypes = {
   profileInfo: PropTypes.object,
   searchType: PropTypes.string,
   onClearFoodProfile: PropTypes.func,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({

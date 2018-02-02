@@ -24,6 +24,7 @@ import {
 const initialState = fromJS({
   loading: true,
   serialNumber: null,
+  profileHeader: Map({}),
   error: false,
   source: null,
   nutrients: {
@@ -66,6 +67,7 @@ function foodProfileReducer(state = initialState, action) {
         .set('source', action.source);
     case GET_PROFILE_SUCCESS:
       return state
+        .set('profileHeader', action.profileHeader)
         .setIn(['nutrients', 'byId'], fromJS(arrayToObject(Object.entries(action.nutrientsById))))
         .set('portionsAvailable', List(action.portionsAvailable))
         .set('portionSelected', action.portionsAvailable[0])

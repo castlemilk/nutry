@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const RowValue = styled.div`
   display:table-cell;
-  width:27%;
+  width:30%;
   text-align: center;
   font-family: 'Bitter', serif;
 `;

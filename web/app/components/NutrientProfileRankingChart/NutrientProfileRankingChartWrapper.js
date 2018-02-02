@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 const NutrientProfileRankingChartWrapper = styled.div`
   margin-top: 40px;
-  height: 590px;
-  width: 780px;
+  height: 545px;
+  width: 650px;
   margin-left:auto;
   margin-right:auto;
+  margin-bottom: 40px;
   display:block;
   background: white;
   text-align: center;

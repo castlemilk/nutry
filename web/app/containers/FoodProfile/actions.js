@@ -30,9 +30,11 @@ export function loadProfile(serialNumber, source) {
   };
 }
 export function loadProfileSuccess(profileBody) {
+  const { SN, name, group, alias, source, usage, tags } = profileBody;
   return {
     type: GET_PROFILE_SUCCESS,
     nutrientsById: profileBody.nutrients,
+    profileHeader: { SN, name, group, alias, source, usage, tags},
     portionsAvailable: defaultPortions(profileBody.portions),
   };
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const NutrientProfilePieChartWrapper = styled.div`
 margin-top: 40px;
 height: 370px;
-width: 780px;
+width: 650px;
 margin-left:auto;
 margin-right:auto;
 display:block;

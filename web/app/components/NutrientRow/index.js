@@ -84,9 +84,9 @@ export class NutrientRow extends React.Component {
       indent = 20;
     } else if (parentRow) {
       indent = 5;
-      fontSize = 2.5;
+      fontSize = 2.2;
     } else if (headerRow) {
-      fontSize = 2.5;
+      fontSize = 2.2;
     }
     const Row = styled.div`
          display: block;
@@ -100,7 +100,7 @@ export class NutrientRow extends React.Component {
     const RowName = styled.div`
       display:inline-block;
       overflow: hidden;
-      width:59%;
+      width:57%;
       font-size: ${fontSize}vmin;
       font-family: 'Bitter', serif;
       .row-name-${type}-text {
@@ -110,7 +110,7 @@ export class NutrientRow extends React.Component {
     const RowUnits = styled.div`
       display:inline-block;
       overflow: hidden;
-      width:${isSelected ? 15 : 15}%;
+      width:${isSelected ? 15 : 14}%;
       text-align: center;
       font-family: 'Droid Serif', serif;
     `;
@@ -123,17 +123,23 @@ export class NutrientRow extends React.Component {
     `;
     const RowInfo = styled.div`
       display:inline-block;
-      float:right;
+      margin: auto;
       overflow: hidden;
       text-align: center;
       font-family: 'Bitter', serif;
-      padding-right: 40px;
+      padding-right: 1%;
+      .info-icon:hover {
+        color: red;
+        display:inline-block;
+        text-align: center;
+        margin: auto;
+      }
     `;
     return (<Row className={`Section__${type}__Row__${id}`} onMouseLeave={() => this.handleMouseOut()} onMouseEnter={() => this.handleMouseEnter(prefix, id)} onClick={() => onClick(prefix, id)}>
       {hasName ? <RowName className={`Section__${type}__RowName__${id}`} ><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" > </span></RowName> }
       {hasUnits ? <RowUnits className={`Section__${type}__RowUnits__${id}`} >{units}</RowUnits> : null }
       {hasValue ? <RowValue className={`Section__${type}__RowValue__${id}`} >{value}</RowValue> : null }
-      {isSelected ? <RowInfo ><FaInfoCircle /></RowInfo> : null}
+      {isSelected ? <RowInfo ><FaInfoCircle className="info-icon" /></RowInfo> : null}
 
     </Row>
     );

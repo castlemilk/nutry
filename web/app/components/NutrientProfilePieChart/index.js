@@ -171,7 +171,7 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
                 activeShape={renderActiveShape}
                 data={pieDataColored}
                 dataKey="value"
-                cx={240}
+                cx={290}
                 cy={150}
                 baseValue={100}
                 innerRadius={60}

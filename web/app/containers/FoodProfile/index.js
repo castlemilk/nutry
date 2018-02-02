@@ -26,6 +26,7 @@ import {
   portionChanged,
   ageGroupChanged } from './actions';
 import {
+  makeSelectProfileHeader,
   makeSelectProfileLoading,
   makeSelectTabSelected,
   makeSelectAllNutrients,
@@ -43,21 +44,21 @@ import FoodProfileWrapper from './FoodProfileWrapper';
 export class FoodProfile extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
-    const { SN, source } = this.props.profileHeader;
-    this.props.onLoadProfile(SN, source);
+    this.props.onLoadProfile(this.props.match.params.profileId);
     // TODO: Add a prefix on results mouse-down to kick of the fetch extra early
   }
 
   render() {
+    const { SN } = this.props.location.state.profileInfo || this.props.match.params.profileId;
     const profileBackgroundStyle = {
       width: '100%',
       height: '100%',
       backgroundColor: '#DBD8D8',
     };
     const { loading,
-      profileHeader,
       tabSelected,
       portions,
+      profileHeader,
       nutrients,
       portionSelected,
       nutrientSelected,
@@ -121,16 +122,16 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             </Col>
           </Row>
           <Row gutter={{ xs: 48, sm: 48, md: 48, lg: 48, xl: 48 }}>
-            <Col xs={2} sm={2} md={2} lg={1}>
+            <Col xs={2} sm={2} md={1} lg={1}>
             </Col>
-            <Col xs={20} sm={20} md={10} lg={12} >
+            <Col xs={20} sm={20} md={12} lg={12} >
               <NutrientDisplay {...nutrientDisplayProps} />
             </Col>
             <Col xs={20} sm={20} md={10} lg={10}>
               <NutrientProfilePieChart {...analyticsProps} />
-              <NutrientProfileRankingChartView id={profileHeader.SN} />
+              <NutrientProfileRankingChartView id={SN} />
             </Col>
-            <Col xs={2} sm={2} md={2} lg={1}>
+            <Col xs={2} sm={2} md={1} lg={1}>
             </Col>
           </Row>
         </div>
@@ -141,6 +142,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
 
 FoodProfile.propTypes = {
   loading: PropTypes.bool,
+  profileHeaderCache: PropTypes.object,
   profileHeader: PropTypes.object.isRequired,
   nutrients: PropTypes.object,
   nutrientSelected: PropTypes.string,
@@ -152,10 +154,12 @@ FoodProfile.propTypes = {
   onAgeGroupChanged: PropTypes.func,
   onPortionChanged: PropTypes.func,
   ageGroupSelected: PropTypes.object,
+  location: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectProfileLoading(),
+  profileHeader: makeSelectProfileHeader(),
   tabSelected: makeSelectTabSelected(),
   portions: makeSelectPortions(),
   nutrients: makeSelectAllNutrients(),

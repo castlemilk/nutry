@@ -1,7 +1,7 @@
 import { Map, List } from 'immutable';
 import { getMultiFoodProfile } from 'services/firebase/firebase';
 import { DETAILED_IDS } from 'containers/FoodProfile/constants';
-import { getNutrient } from './nutrientMap';
+import { getNutrient, prefixToName, prefixToUnit } from './nutrientMap';
 
 /**
  * Process a generic profileBody fetched from a given backend such as firebase
