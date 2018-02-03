@@ -1,4 +1,4 @@
-*.json
+
 *config.yml
 *.pyc
 venv/
