@@ -4,6 +4,8 @@
  *
  */
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import NutrientRow from 'components/NutrientRow';
 import { nutrientSelected } from 'containers/FoodProfile/actions';
@@ -21,9 +23,10 @@ function mapDispatchToProps(dispatch) {
     dispatch,
     onClick: (prefix, id) => dispatch(nutrientSelected(prefix, id)),
     onHover: (prefix, id) => dispatch(nutrientSelected(prefix, id)),
+    onInfoClick: (id) => dispatch(push(`/wiki/${id}`)),
   };
 }
 
-const NutrientRowView = connect(mapStateToProps, mapDispatchToProps)(NutrientRow);
+const NutrientRowView = withRouter(connect(mapStateToProps, mapDispatchToProps)(NutrientRow));
 
 export default NutrientRowView;

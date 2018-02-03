@@ -12,14 +12,16 @@ export function* defaultSaga() {
 }
 
 export function* getProfile() { /* eslint no-underscore-dangle: ["error", { "allow": ["_source"] }]*/
+  console.log('loadingProfile')
   const serialNumber = yield select(makeSelectSerialNumber());
   const source = yield select(makeSelectSource());
   let error = null;
   for (let i = 1; i <= 3; i += 1) {
     try {
+
       const profile = yield call(getFoodProfile, serialNumber);
       yield put(loadProfileSuccess(profile));
-      yield call(delay, 2000);
+      return;
     } catch (err) {
       error = err;
       console.log(err);
@@ -39,7 +41,11 @@ export default function* fetchProfile() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  const watcher = yield takeLatest(GET_PROFILE, getProfile);
-  yield take([LOCATION_CHANGE, GET_PROFILE_SUCCESS]);
-  yield cancel(watcher);
+  while (true) {
+      const watcher = yield takeLatest(GET_PROFILE, getProfile);
+      const done = yield take([ LOCATION_CHANGE, GET_PROFILE_SUCCESS]);
+      if (done) {
+        yield cancel(watcher)
+      }
+  }
 }

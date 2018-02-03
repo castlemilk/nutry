@@ -22,11 +22,10 @@ export function defaultAction() {
     type: DEFAULT_ACTION,
   };
 }
-export function loadProfile(serialNumber, source) {
+export function loadProfile(serialNumber) {
   return {
     type: GET_PROFILE,
     serialNumber,
-    source,
   };
 }
 export function loadProfileSuccess(profileBody) {

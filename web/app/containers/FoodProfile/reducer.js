@@ -4,6 +4,7 @@
  *
  */
 import { fromJS, List, Map } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   DEFAULT_ACTION,
@@ -92,6 +93,10 @@ function foodProfileReducer(state = initialState, action) {
         .set('nutrientSelected', action.prefix)
         .set('idSelected', action.id);
         // .setIn(['nutrients', 'byId', action.id, 'selected'], !state.getIn(['nutrients', 'byId', action.id, 'selected']));
+    case LOCATION_CHANGE:
+      return state
+        .set('loading', true)
+        .set('error', false)
     default:
       return state;
   }

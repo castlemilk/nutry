@@ -7,6 +7,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -44,12 +46,28 @@ import FoodProfileWrapper from './FoodProfileWrapper';
 export class FoodProfile extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   componentWillMount() {
-    this.props.onLoadProfile(this.props.match.params.profileId);
     // TODO: Add a prefix on results mouse-down to kick of the fetch extra early
+  }
+  // shouldComponentUpdate(nextProps) {
+  //   console.log(nextProps)
+  //   return this.props.match.params.profileId !== nextProps.match.params.profileId
+  // }
+  componentDidMount() {
+    console.log('componentDidMount')
+    if (this.props.loading) {
+        this.props.onLoadProfile(this.props.match.params.profileId);
+    }
+  }
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
+    if (this.props.loading)
+     {
+        this.props.onLoadProfile(this.props.match.params.profileId);
+    }
   }
 
   render() {
-    const { SN } = this.props.location.state.profileInfo || this.props.match.params.profileId;
+    const SN = this.props.match.params.profileId;
     const profileBackgroundStyle = {
       width: '100%',
       height: '100%',
@@ -58,14 +76,15 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
     const { loading,
       tabSelected,
       portions,
-      profileHeader,
       nutrients,
+      profileHeader,
       portionSelected,
       nutrientSelected,
       ageGroupSelected } = this.props;
     const { onTabChange,
       onPortionChanged,
       onAgeGroupChanged,
+      onLoadNewProfile,
      } = this.props;
     const profileTitleProps = {
       loading,
@@ -82,6 +101,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       loading,
       nutrients,
       nutrientFilter: tabSelected,
+      onLoadNewProfile,
       ageGroupSelected,
       portionSelected,
       nutrientSelected,
@@ -129,7 +149,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             </Col>
             <Col xs={20} sm={20} md={10} lg={10}>
               <NutrientProfilePieChart {...analyticsProps} />
-              <NutrientProfileRankingChartView id={SN} />
+              <NutrientProfileRankingChartView onLoadNewProfile={onLoadNewProfile} id={SN} />
             </Col>
             <Col xs={2} sm={2} md={1} lg={1}>
             </Col>
@@ -155,6 +175,7 @@ FoodProfile.propTypes = {
   onPortionChanged: PropTypes.func,
   ageGroupSelected: PropTypes.object,
   location: PropTypes.object,
+  onLoadNewProfile: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -174,7 +195,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onLoadProfile: (serialNumber, source) => dispatch(loadProfile(serialNumber, source)),
+    onLoadProfile: (serialNumber) => dispatch(loadProfile(serialNumber)),
+    onLoadNewProfile: (profileId) => dispatch(push(`/foodprofile/${profileId}`)),
     onTabChange: (tab) => dispatch(tabChanged(tab)),
     onPortionChanged: (portion) => dispatch(portionChanged(portion)),
     onAgeGroupChanged: (ageGroup) => dispatch(ageGroupChanged(ageGroup)),
@@ -190,4 +212,5 @@ export default compose(
   withReducer,
   withSaga,
   withConnect,
+  withRouter,
 )(FoodProfile);

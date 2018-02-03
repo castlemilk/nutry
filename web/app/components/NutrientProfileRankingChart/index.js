@@ -133,6 +133,13 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
   // }
   onFinishedLoading() {
   }
+  handleBarClick(value) {
+    console.log(value)
+    const { id } = value;
+    // this.props.onProfileSelected(id)
+    this.props.onLoadNewProfile(id)
+    // this.props.onOtherSearchResultSelect(id)
+  }
   // shouldComponentUpdate(nextProps) {
   //   return this.props.portionSelected !== nextProps.portionSelected;
   // }
@@ -140,7 +147,12 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
   render() {
     // TODO: investigation doing pre-processing on item select asynchronously
     // potentially reducing latecy associated with processing data on render.
-    const { loading, rankingResults, nutrientSelected, id, portionSelected } = this.props;
+    const { loading,
+      rankingResults,
+      nutrientSelected,
+      id,
+      onOtherSearchResultSelect,
+      portionSelected } = this.props;
     const loadingPie = <Spin style={{ marginTop: '160px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     const data = loading ? null : processData(rankingResults, nutrientSelected, portionSelected);
     return (
@@ -171,7 +183,7 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
                 </Label>
               </YAxis>
               <Tooltip content={<CustomTooltip portionSelected={portionSelected} nutrientSelected={prefixToName(nutrientSelected)} foodID={id} />} />
-              <Bar shape={<CustomShape fillActive="#50c59f" foodID={id} />} foodID={id} dataKey="value" />
+              <Bar onClick={(value) => this.handleBarClick(value) } shape={<CustomShape fillActive="#50c59f" foodID={id} />} foodID={id} dataKey="value" />
             </BarChart>)
         }
         </div>
@@ -187,6 +199,8 @@ NutrientProfileRankingChart.propTypes = {
   portionSelected: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
+  onProfileSelected: PropTypes.func,
+  onOtherSearchResultSelect: PropTypes.func,
 };
 
 export default NutrientProfileRankingChart;

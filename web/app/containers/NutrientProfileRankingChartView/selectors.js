@@ -12,7 +12,7 @@ const selectNutrientProfileRankingChartViewDomain = (state) => state.get('nutrie
  */
 const makeSelectSearchResults = () => createSelector(
   selectSearchDomain,
-  (substate) => substate.get('results')
+  (substate) => substate ? substate.get('results', []) : []
 );
 
 /**

@@ -5,12 +5,15 @@
  */
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+// import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientProfileRankingChart from 'components/NutrientProfileRankingChart';
+import { loadProfile } from 'containers/FoodProfile/actions';
 import {
   makeSelectLoading,
   makeSelectRankingResults,
@@ -33,6 +36,8 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onLoadRankings: () => dispatch(loadRankings()),
+    // onProfileSelected: (id) => dispatch(loadProfile(id)),
+    // onOtherSearchResultSelect: (id) => dispatch(push(`/foodprofile/${id}`)),
   };
 }
 
@@ -53,6 +58,8 @@ NutrientProfileRankingChartView.propTypes = {
   onLoadRankings: PropTypes.func,
   portionSelected: PropTypes.object,
   nutrientSelected: PropTypes.string,
+  // onProfileSelected: PropTypes.func,
+  onOtherSearchResultSelect: PropTypes.func,
 };
 
 export default NutrientProfileRankingChartView;

@@ -18,6 +18,7 @@ import injectReducer from 'utils/injectReducer';
 import { compose } from 'redux';
 import Search from 'containers/Search/Loadable';
 import FoodProfile from 'containers/FoodProfile/Loadable';
+import WikiView from 'containers/WikiView/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import reducer from './reducer';
@@ -30,6 +31,7 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
         <Switch>
           <Route exact path="/" component={Search} />
           <Route path="/foodprofile/:profileId" component={FoodProfile} />
+          <Route path="/wiki/:articleId" component={WikiView} />
           <Route exact path="/overview" component={LandingPage} />
           <Route component={NotFoundPage} />
         </Switch>

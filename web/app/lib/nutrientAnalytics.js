@@ -26,6 +26,9 @@ export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected, por
 }
 
 export function getRankingResults(searchResults) {
+  if (!searchResults.items) {
+    return List([]);
+  }
   const ids = searchResults.items.map((item) => item._source.SN);
   // console.log(DETAILED_IDS);
   // console.log(prefixToName);

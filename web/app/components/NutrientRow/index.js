@@ -64,7 +64,7 @@ export class NutrientRow extends React.Component {
      * There are some nutrients which will be children of a parent nutrient and
      * will be depicted as children through indentations
      */
-    const { onClick, nutrient, id, prefix, type, isSelected, portion } = this.props;
+    const { onClick, nutrient, id, prefix, type, isSelected, portion, onInfoClick } = this.props;
     const name = nutrient.get('name');
     const units = nutrient.get('units');
     const value = scaledValue(nutrient.get('value'), portion.g) || (<span style={{ color: 'red' }}>{'~'}</span>);
@@ -139,7 +139,7 @@ export class NutrientRow extends React.Component {
       {hasName ? <RowName className={`Section__${type}__RowName__${id}`} ><span className="row-name-text" >{name}</span></RowName> : <RowName><span className="row-name-text" > </span></RowName> }
       {hasUnits ? <RowUnits className={`Section__${type}__RowUnits__${id}`} >{units}</RowUnits> : null }
       {hasValue ? <RowValue className={`Section__${type}__RowValue__${id}`} >{value}</RowValue> : null }
-      {isSelected ? <RowInfo ><FaInfoCircle className="info-icon" /></RowInfo> : null}
+      {isSelected ? <RowInfo ><FaInfoCircle onClick={() => onInfoClick(prefix)} className="info-icon" /></RowInfo> : null}
 
     </Row>
     );
@@ -154,6 +154,7 @@ NutrientRow.propTypes = {
   isSelected: PropTypes.bool,
   onHover: PropTypes.func,
   onClick: PropTypes.func,
+  onInfoClick: PropTypes.func,
 };
 
 
