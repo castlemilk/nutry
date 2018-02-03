@@ -10,8 +10,13 @@ import {
   LOGIN_SUCCESS,
 } from './constants';
 
+import {
+  SEARCH_COMPLETE,
+} from 'containers/Search/constants';
+
 const initialState = fromJS({
   loggedIn: false,
+  searchReults: null,
 });
 
 function appReducer(state = initialState, action) {
@@ -20,6 +25,8 @@ function appReducer(state = initialState, action) {
       return state;
     case LOGIN_SUCCESS:
       return state.set('loggedIn', true);
+    case SEARCH_COMPLETE:
+      return state.set('searchResults', action.searchResults)
     default:
       return state;
   }

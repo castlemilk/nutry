@@ -25,12 +25,13 @@ import Profiler from 'containers/Profiler';
 import FoodProfile from 'containers/FoodProfile';
 import { makeSelectLoggedIn } from 'containers/App/selectors';
 import { login } from 'containers/App/actions';
+import { makeSelectSearchResults } from 'containers/App/selectors';
 import { clearFoodProfile } from 'containers/FoodProfile/actions';
 
 import { makeSelectSearch,
   makeSelectSearchString,
   makeSelectSearchType,
-  makeSelectSearchResults,
+  // makeSelectSearchResults,
   makeSelectSearchLoading,
   makeSelectProfileSelected } from './selectors';
 import { changeSearchString,

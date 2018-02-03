@@ -5,6 +5,10 @@ import {
   LOGIN_FAILURE,
 } from './constants';
 
+import {
+  SEARCH_COMPLETE,
+} from 'containers/Search/constants';
+
 export function defaultAction() {
   return {
     type: DEFAULT_ACTION,
@@ -21,6 +25,14 @@ export function loginSuccess(token) {
     token,
   };
 }
+
+export function searchComplete(searchResults) {
+  return {
+    type: SEARCH_COMPLETE,
+    searchResults,
+  }
+}
+
 export function loginFailure(err) {
   return {
     type: LOGIN_FAILURE,
