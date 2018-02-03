@@ -1,0 +1,39 @@
+mongodb:
+  ssh:
+    proxy: true
+    remote_host: remote.host.com
+    remote_port: 1091
+    remote_username: guest
+    remote_password: guest-password
+    tunnel_port: <remote_port>
+    local_port: <local-port-to-forward-to>
+    identity: <key>
+  host: <local-host-to-listen-on>
+#  port: 27017
+  port: 27000
+  username:
+  password:
+  databases:
+    - item1
+    - item2
+
+elasticsearch:
+  host: localhost
+  port: 9200
+  username: use-for-xpack
+  password: use-for-xpack
+  index: index-name
+
+
+firebase:
+  project_name: firebase-project-name
+  base_url: https://<project-name>.firebaseio.com
+  path: firebase-pathing for databases
+
+
+
+
+deployment:
+  ec2:
+    access_key: generated-aws-access-key
+    secret_key: generated-aws-secret-key
