@@ -85,6 +85,9 @@ python dbmanager.py -ri
 ```
 
 # Infrastructure deployment
+## Requirements
+* Python
+* Ansible (Tested/developed with 2.4)
 The Nutry CLI aims to also contain the required capability for production deployment, accessing the same configuration file with the following section:
 ```yaml
 deployment:
