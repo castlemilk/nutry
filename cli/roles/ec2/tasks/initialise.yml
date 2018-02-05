@@ -1,0 +1,6 @@
+---
+- name: set require variable pathing
+  debug:
+    msg: "{{ vars }}"
+  tags:
+    - debug

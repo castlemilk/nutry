@@ -1,7 +1,9 @@
 
 *config.yml
 *.pyc
+*.retry
 venv/
 *.idea
 */node_modules/
 node_modules/
+*.pem

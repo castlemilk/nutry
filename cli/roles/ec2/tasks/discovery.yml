@@ -1,0 +1,47 @@
+- name: Discover EC2_COMPUTE information
+  ec2_instance_facts:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    region: "{{ deployment.aws.region }}"
+    filters:
+      "tag:Name": "{{ instance.instance_tags.Name }}"
+  register: compute_facts
+
+- debug: var=compute_facts
+  tags:
+    - debug
+- name: Discover EC2_STORAGE information
+  ec2_vol_facts:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    region: "{{ deployment.aws.region }}"
+    # filters:
+    #   "tag:Name": "{{ instance.instance_tags.Name }}"
+  register: volume_facts
+
+- debug: var=volume_facts
+  tags:
+    - debug
+
+- debug:
+    msg: "Found {{ compute_facts.instances|length }} instances "
+  tags:
+    - debug
+
+- debug:
+    msg: "Instance-ID {{ item.instance_id }}, State {{ item.state.name }}, Image-ID {{ item.image_id }}"
+  with_items: "{{ compute_facts.instances }}"
+  tags:
+    - debug
+
+- debug:
+    msg: "Found {{ volume_facts.volumes|length }} volumes "
+  tags:
+    - debug
+
+
+- debug:
+    msg: "Instance-ID {{ item.id }}, State {{ item.attachment_set.status }}, Type {{ item.type }}"
+  with_items: "{{ volume_facts.volumes }}"
+  tags:
+    - debug

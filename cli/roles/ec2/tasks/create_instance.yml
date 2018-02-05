@@ -1,0 +1,65 @@
+- name: Provision a set of instances
+  ec2:
+     ec2_access_key: "{{ deployment.aws.access_key }}"
+     ec2_secret_key: "{{ deployment.aws.secret_key }}"
+     spot_price: "{{ instance.spot_price}}"
+     spot_wait_timeout: "{{ instance.spot_wait_timeout }}"
+     key_name: "{{ deployment.aws.key_name }}"
+     region: "{{ instance.region }}"
+     group_id: "{{ sg_id }}"
+     instance_type: "{{ instance.flavor }}"
+     image: "{{ instance.image }}"
+     wait: true
+     exact_count: 1
+     count_tag: "{{ instance.count_tag }}"
+     instance_tags: "{{ instance.instance_tags }}"
+     vpc_subnet_id: "{{ subnet_id }}"
+     assign_public_ip: "{{ instance.public_facing }}"
+     zone: "{{ instance.availability_zone }}"
+     user_data: "{{ lookup('template', 'user_data_hostname.txt.j2') }}"
+  register: instance_info
+
+
+- debug: var=instance_info
+  tags:
+    - debug
+- set_fact: os_ansible_user="centos"
+  when: "'centos' in instance.platform | regex_escape()"
+- set_fact: os_ansible_user="ubuntu"
+  when: "'ubuntu' in instance.platform | regex_escape()"
+- set_fact: os_ansible_user="cloud-user"
+  when: "'rhel' in instance.platform | regex_escape()"
+
+
+- name: Add all instance public IPs to host group for SSH
+  add_host:
+    hostname: "{{ item.public_ip }}"
+    groups: "{{ instance.group }}"
+    ansible_ssh_host: "{{ item.public_ip }}"
+    ansible_ssh_private_key_file: "{{ private_ssh_key_file }}"
+    ansible_ssh_user: "{{ os_ansible_user }}"
+    ansible_user: "{{ os_ansible_user }}"
+  with_items: "{{ instance_info.tagged_instances }}"
+
+- name: attach EBS volume with data
+  ec2_vol:
+    instance: "{{ item.id }}"
+    id: "{{ vol_id }}"
+    device_name: /dev/sdf
+    region: "{{ instance.region }}"
+    zone: "{{ instance.availability_zone }}"
+  with_items: "{{ instance_info.tagged_instances }}"
+  when: vol_id is defined
+
+- name: Wait for SSH to come up
+  local_action: wait_for
+  args:
+    host: "{{ item.public_ip }}"
+    port: 22
+    state: started
+  with_items: "{{ instance_info.tagged_instances }}"
+
+
+- name: Instance ready for use [{{ os_ansible_user }}@{{ item.public_ip }}]
+  debug:
+    var: hostvars

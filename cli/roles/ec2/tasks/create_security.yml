@@ -1,0 +1,21 @@
+- name: Security Group which allows inbound SSH
+  ec2_group:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    name: SSH-Only
+    description: Inbound SSH Only
+    vpc_id: "{{ vpc.vpc_id }}"
+    region: "{{ deployment.aws.region }}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+  register: security_group
+
+- debug: var=security_group
+  tags:
+    - debug
+
+- set_fact:
+    sg_id: "{{ security_group.group_id }}"

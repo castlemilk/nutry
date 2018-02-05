@@ -1,0 +1,37 @@
+- set_fact:
+    force_purge: true
+  tags:
+    - force
+
+
+- pause:
+    prompt: "Are you sure you want to delete instance: [Instance-ID {{ purge_instance.instance_id }}, State {{ purge_instance.state.name }}, Image-ID {{ purge_instance.image_id }}]"
+  register: instance_purge_confirmation
+  when: not force_purge|bool
+
+
+- debug:
+    var: instance_purge_confirmation
+- name: Removing instance
+  ec2:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    state: absent
+    instance_ids: "{{ purge_instance.instance_id }}"
+    region: "{{ deployment.aws.region }}"
+    wait: true
+  when:
+    - not force_purge|bool
+    - instance_purge_confirmation.user_input|bool or instance_purge_confirmation.user_input == 'yes'
+
+
+- name: Removing instance
+  ec2:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    state: absent
+    instance_ids: "{{ purge_instance.instance_id }}"
+    region: "{{ deployment.aws.region }}"
+    wait: true
+  when:
+    - force_purge|bool

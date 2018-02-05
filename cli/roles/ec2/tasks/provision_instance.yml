@@ -1,0 +1,3 @@
+- include: create_volume.yml
+  when: instance.volume_size is defined and instance.volume_type is defined
+- include: create_instance.yml

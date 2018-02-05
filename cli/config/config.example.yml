@@ -35,5 +35,37 @@ firebase:
 
 deployment:
   ec2:
-    access_key: generated-aws-access-key
-    secret_key: generated-aws-secret-key
+      # AMIS:
+      #  * ami-b6bb47d4 # CentOS 1801_01
+      #  * ami-8b51afe9 # Ubuntu 16.04 LTS
+      #  * ami-cab258a8 # Ubuntu 16.04 LTLS 2017/11/21
+      aws:
+        access_key: <aws-access-key {String} >
+        secret_key: <aws-secret-key {String} >
+        region: <deployment-region {String} >
+        availability_zone: <ap-southeast-2a {String}>
+        # m3.medium - 1 vCPU,
+        # c1.medium - 2 vCPU,, 1.7GB RAM, 350GB Storage @ (0.0164 per Hour * 24 * 365 / 13) = $11.05 per month
+        # m1.small - 1 vCPU, 1.7GB RAM, 160GB Storage @ (0.0058 per hour * 24 * 365 / 13) = $3.905 per month
+        # t2.small  - 1 vCPU, 2GB RAM, xxx EBS Storage @ (0.0088 per hour * 24 * 30) = $5.92 per month
+        route53: <enable route53 {Boolean}
+        project_name: <project-name {String} >
+        key_name: <local-key-name {String} >
+        instances:
+          - name: <instance-1-name {String}>
+            hostname: <instance-1-hostname {String}>
+            platform: <platform (ubuntu, centos, rhel) {String}
+            group: <group-name {String}>
+            flavor: <instance-type (m3.medium, t2.small, m1.small, c1.medium etc) {String}
+            image: <aws ami image for specified platform {String}>
+            spot_price: <spot-price-for-given-instance-type {String}>
+            spot_wait_timeout: <spot-price-waitout-time {Number}>
+            # volume_type: gp2
+            # volume_size: 10
+            region: <instance-region {String}>
+            availability_zone: <instance-availability-zone {String}>
+            count_tag:
+              Name: <instance-count-tag {String}>
+            instance_tags:
+              Name: <instance-tag {String}>
+            public_facing: <provision-public-facing-address {Boolean}>

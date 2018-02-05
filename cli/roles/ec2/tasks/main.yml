@@ -1,0 +1,19 @@
+- block:
+  - import_tasks: initialise.yml
+  - import_tasks: create_keys.yml
+  - import_tasks: create_networks.yml
+  - import_tasks: create_security.yml
+  tags:
+    - deploy
+- include_tasks: provision_instance.yml
+  tags:
+    - deploy
+  with_items: "{{ deployment.aws.instances }}"
+  loop_control:
+    loop_var: instance
+- include_tasks: purge_instance.yml
+  tags:
+    - purge
+  with_items: "{{ deployment.aws.instances }}"
+  loop_control:
+    loop_var: instance

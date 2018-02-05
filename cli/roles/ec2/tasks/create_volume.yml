@@ -1,0 +1,16 @@
+- ec2_vol:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    name: "{{ deployment.aws.project_name }}-data-vol"
+    volume_size: "{{ instance.volume_size }}"
+    volume_type: "{{ instance.volume_type }}"
+    region: "{{ instance.region }}"
+    zone: "{{ instance.availability_zone }}"
+  register: volume
+
+- debug: var=volume
+  tags:
+    - debug
+
+- set_fact:
+    vol_id: "{{ volume.volume_id }}"

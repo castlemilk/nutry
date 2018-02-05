@@ -1,0 +1,33 @@
+- set_fact:
+    force_purge: true
+  tags:
+    - force
+
+- pause:
+    prompt: "Are you sure you want to delete volume: [ Volume-ID {{ purge_volume.id }}, State {{ purge_volume.status }} ]"
+  register: volume_purge_confirmation
+  when: not force_purge|bool
+
+- debug:
+    var: volume_purge_confirmation
+
+- ec2_vol:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    id: "{{ purge_volume.id }}"
+    region: "{{ deployment.aws.region }}"
+    zone: "{{ purge_volume.zone }}"
+    state: absent
+  when:
+    - not force_purge|bool
+    - volume_purge_confirmation.user_input|bool or volume_purge_confirmation.user_input == 'yes'
+
+- ec2_vol:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    id: "{{ purge_volume.id }}"
+    region: "{{ deployment.aws.region }}"
+    zone: "{{ purge_volume.zone }}"
+    state: absent
+  when:
+    - force_purge|bool

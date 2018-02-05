@@ -1,0 +1,12 @@
+- include_tasks: discovery.yml
+
+- include_tasks: delete_instance.yml
+  when: compute_facts.instances is defined and compute_facts.instances|length > 0
+  with_items: "{{ compute_facts.instances }}"
+  loop_control:
+    loop_var: purge_instance
+- include_tasks: delete_volume.yml
+  when: volume_facts.volumes is defined and volume_facts.volumes|length > 0
+  with_items: "{{ volume_facts.volumes }}"
+  loop_control:
+    loop_var: purge_volume

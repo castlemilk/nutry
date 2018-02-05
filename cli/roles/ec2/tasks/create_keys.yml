@@ -1,0 +1,26 @@
+- name: Provision EC2 keypair
+  ec2_key:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    name: "{{ deployment.aws.key_name }}"
+    region: "{{ deployment.aws.region }}"
+    state: present
+  register: hostkey
+
+- debug: var=hostkey
+  tags:
+    - debug
+- name: get the username running the deploy
+  command: whoami
+  register: username_on_the_host
+- set_fact:
+    private_ssh_key_file: "{{ playbook_dir }}/{{deployment.aws.key_name}}.pem"
+- name: Save Private Key as {{ deployment.aws.key_name }}.pem
+  when: hostkey.key.private_key is defined
+  copy:
+    content: "{{ hostkey.key.private_key }}"
+    dest: "{{ private_ssh_key_file }}"
+    force: no
+    owner: "{{ username_on_the_host }}"
+    group: "{{ username_on_the_host }}"
+    mode: 0600

@@ -1,0 +1,8 @@
+---
+- name: deploy spot instances
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - config/config.yml
+  roles:
+    - ec2
