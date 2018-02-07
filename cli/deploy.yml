@@ -6,3 +6,11 @@
     - config/config.yml
   roles:
     - ec2
+
+- name: configure instances
+  hosts: backend
+  tags:
+    - configure
+    - common
+  roles:
+    - common

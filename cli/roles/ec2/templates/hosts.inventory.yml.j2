@@ -1,0 +1,14 @@
+all:
+  hosts:
+  children:
+{% for group, hosts in groups.iteritems() %}
+    {{ group }}:
+{% for host in hosts %}
+      {{  hostvars[host].ansible_hostname }}:
+        hostname: {{ hostvars[host].ansible_hostname }}
+        ansible_hostname: {{ hostvars[host].ansible_hostname }}
+        ansible_ssh_host: {{ hostvars[host].ansible_ssh_host }}
+        ansible_ssh_user: {{ hostvars[host].ansible_ssh_user }}
+        ansible_ssh_private_key_file: {{ hostvars[host].ansible_ssh_private_key_file }}
+{% endfor %}
+{% endfor %}

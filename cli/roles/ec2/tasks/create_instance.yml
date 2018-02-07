@@ -30,15 +30,17 @@
 - set_fact: os_ansible_user="cloud-user"
   when: "'rhel' in instance.platform | regex_escape()"
 
-
 - name: Add all instance public IPs to host group for SSH
   add_host:
+    name: "{{ instance.name | default(instance.hostname) }}"
     hostname: "{{ item.public_ip }}"
     groups: "{{ instance.group }}"
+    ansible_hostname: "{{ item.public_ip }}"
     ansible_ssh_host: "{{ item.public_ip }}"
     ansible_ssh_private_key_file: "{{ private_ssh_key_file }}"
     ansible_ssh_user: "{{ os_ansible_user }}"
     ansible_user: "{{ os_ansible_user }}"
+    ansible_python_interpreter: "{{ (instance.platform == 'ubuntu') | ternary('/usr/bin/python3', '/usr/bin/python2') }}"
   with_items: "{{ instance_info.tagged_instances }}"
 
 - name: attach EBS volume with data
@@ -59,7 +61,6 @@
     state: started
   with_items: "{{ instance_info.tagged_instances }}"
 
-
-- name: Instance ready for use [{{ os_ansible_user }}@{{ item.public_ip }}]
+- name: "Instance ready for use"
   debug:
     var: hostvars

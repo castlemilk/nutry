@@ -17,3 +17,7 @@
   with_items: "{{ deployment.aws.instances }}"
   loop_control:
     loop_var: instance
+
+- import_tasks: write_inventory.yml
+  tags:
+    - deploy

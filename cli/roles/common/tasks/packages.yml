@@ -1,0 +1,5 @@
+- name: install base packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ packages.base }}"

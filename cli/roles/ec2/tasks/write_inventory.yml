@@ -1,0 +1,20 @@
+- debug:
+    msg: "{{ hostvars }}"
+
+# - name: Create Inventory File [YAML]
+#   template:
+#     src: hosts.inventory.yml.j2
+#     dest: "{{ playbook_dir }}/hosts.inventory.yml"
+- name: Create Inventory File [INI]
+  template:
+    src: hosts.inventory.ini.j2
+    dest: "{{ playbook_dir }}/hosts.inventory.ini"
+# - name: Write Group Name
+#   lineinfile:
+#     dest: "{{ playbook_dir }}/inventory_{{ deployment.aws.project_name }}.inventory"
+#     line: "{{ inventory_group.key }}"
+# - name: Write Inventory Host Information
+#   lineinfile:
+#     dest: "{{ playbook_dir }}/inventory_{{ deployment.aws.project_name }}.inventory"
+#     line: "{{ hostvars[item].name }} ansible_ssh_host: {{ hostvars[item].ansible_ssh_host }} ansible_ssh_user: {{ hostvars[item].ansible_ssh_user }} ansible_ssh_private_key_file: {{ hostvars[item].ansible_ssh_private_key_file }}"
+#   with_item: "{{ inventory_group.value }}"
