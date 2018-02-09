@@ -16,7 +16,7 @@ import {
 
 const initialState = fromJS({
   loggedIn: false,
-  searchReults: null,
+  searchResults: [],
 });
 
 function appReducer(state = initialState, action) {
@@ -26,7 +26,7 @@ function appReducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       return state.set('loggedIn', true);
     case SEARCH_COMPLETE:
-      return state.set('searchResults', action.searchResults)
+      return state.set('searchResults', action.searchResults);
     default:
       return state;
   }

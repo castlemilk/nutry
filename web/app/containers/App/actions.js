@@ -1,13 +1,14 @@
 import {
+  SEARCH_COMPLETE,
+} from 'containers/Search/constants';
+
+import {
   DEFAULT_ACTION,
   LOGIN_CLICKED,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
 } from './constants';
 
-import {
-  SEARCH_COMPLETE,
-} from 'containers/Search/constants';
 
 export function defaultAction() {
   return {
@@ -30,7 +31,7 @@ export function searchComplete(searchResults) {
   return {
     type: SEARCH_COMPLETE,
     searchResults,
-  }
+  };
 }
 
 export function loginFailure(err) {

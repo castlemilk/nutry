@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -23,15 +23,13 @@ import Footer from 'components/Footer';
 import NoResultsFound from 'components/NoResultsFound';
 import Profiler from 'containers/Profiler';
 import FoodProfile from 'containers/FoodProfile';
-import { makeSelectLoggedIn } from 'containers/App/selectors';
+import { makeSelectLoggedIn, makeSelectSearchResults } from 'containers/App/selectors';
 import { login } from 'containers/App/actions';
-import { makeSelectSearchResults } from 'containers/App/selectors';
 import { clearFoodProfile } from 'containers/FoodProfile/actions';
 
 import { makeSelectSearch,
   makeSelectSearchString,
   makeSelectSearchType,
-  // makeSelectSearchResults,
   makeSelectSearchLoading,
   makeSelectProfileSelected } from './selectors';
 import { changeSearchString,
