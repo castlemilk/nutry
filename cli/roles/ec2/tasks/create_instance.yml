@@ -41,6 +41,7 @@
     ansible_ssh_user: "{{ os_ansible_user }}"
     ansible_user: "{{ os_ansible_user }}"
     ansible_python_interpreter: "{{ (instance.platform == 'ubuntu') | ternary('/usr/bin/python3', '/usr/bin/python2') }}"
+    ansible_ssh_common_args: "'-o StrictHostKeyChecking=no'"
   with_items: "{{ instance_info.tagged_instances }}"
 
 - name: attach EBS volume with data

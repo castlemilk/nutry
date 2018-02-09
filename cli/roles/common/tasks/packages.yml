@@ -1,3 +1,29 @@
+
+- block:
+    - name: "Autoremove unused dependency packages"
+      apt:
+        autoremove: yes
+    - name: Update cache
+      apt:
+        update_cache: yes
+    - name: update all packages
+      apt:
+        name: "*"
+        state: latest
+        force_apt_get: True
+    - name: install base packages
+      package:
+        name: "{{ item }}"
+        state: latest
+      with_items: "{{ packages.base }}"
+  when: ansible_os_family == "Debian"
+
+- name: update all packages
+  yum:
+    name: "*"
+    state: latest
+  when: ansible_os_family == "CentOS"
+
 - name: install base packages
   package:
     name: "{{ item }}"

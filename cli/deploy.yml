@@ -9,8 +9,12 @@
 
 - name: configure instances
   hosts: backend
+  become: yes
+  vars:
+    
   tags:
     - configure
     - common
   roles:
     - common
+    - geerlingguy.docker
