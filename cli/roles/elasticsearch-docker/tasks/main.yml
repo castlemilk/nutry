@@ -1,0 +1,11 @@
+
+- include_tasks: os_tuning.yml
+- name: deploy elasticsearch container
+  docker_service:
+    project_name: es
+    definition: "{{ lookup('template', compose_project) | from_yaml }}"
+    state: present
+  register: es_container
+
+- debug:
+    var: es_container

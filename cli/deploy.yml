@@ -7,14 +7,28 @@
   roles:
     - ec2
 
-- name: configure instances
+- name: baseline instances
   hosts: backend
   become: yes
   vars:
-    docker_install_compose: true
+    docker_install_compose: false
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
   tags:
     - configure
     - common
   roles:
     - common
     - geerlingguy.docker
+
+
+- name: deploy containers
+  hosts: backend
+  become: yes
+  vars:
+    compose_project: elasticsearch-compose.yml
+  tags:
+    - elasticsearch
+  roles:
+    - elasticsearch-docker

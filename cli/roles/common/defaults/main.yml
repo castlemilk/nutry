@@ -2,6 +2,11 @@ packages:
   base:
     - htop
     - lsof
+    - python3-pip
+    - language-pack-en
   container:
     - docker
-    
+
+pip_install_packages:
+  - name: docker-py
+  - name: docker-compose

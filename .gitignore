@@ -9,3 +9,5 @@ node_modules/
 *.pem
 *.inventory
 *.inventory*
+*.inventory.yml
+*.inventory.ini

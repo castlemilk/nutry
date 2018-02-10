@@ -1,10 +1,10 @@
 - debug:
     msg: "{{ hostvars }}"
 
-# - name: Create Inventory File [YAML]
-#   template:
-#     src: hosts.inventory.yml.j2
-#     dest: "{{ playbook_dir }}/hosts.inventory.yml"
+- name: Create Inventory File [YAML]
+  template:
+    src: hosts.inventory.yml.j2
+    dest: "{{ playbook_dir }}/hosts.inventory.yml"
 - name: Create Inventory File [INI]
   template:
     src: hosts.inventory.ini.j2
