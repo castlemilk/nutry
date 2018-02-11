@@ -4,7 +4,7 @@
  *
  */
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import DetailedCard from 'components/DetailedCard';
 import { makeSelectNutrientBySection } from './selectors';

@@ -1,10 +1,11 @@
 import { delay } from 'redux-saga';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { search, profiler } from 'services/elasticsearch/elasticsearch';
-import { CHANGE_SEARCH, REFRESH_SEARCH } from './constants';
-import { searchFailure } from './actions';
-import { makeSelectAllElements } from 'containers/Profiler/selectors';
+import { search } from 'services/elasticsearch/elasticsearch';
 import { searchComplete } from 'containers/App/actions';
+import { CHANGE_SEARCH, REFRESH_SEARCH } from './constants';
+
+import { searchFailure } from './actions';
+
 import { makeSelectSearchString, makeSelectSearchType } from './selectors';
 
 
@@ -19,8 +20,8 @@ export function* getResults() {
   const searchString = yield select(makeSelectSearchString());
 
   try {
-    console.log('running search')
-    yield delay(200);
+    console.log('running search');
+    yield delay(400);
     if (searchType === 'nutrients' || searchType === 'all') {
       const results = yield call(search, searchString);
       // yield put(searchComplete(results));
@@ -34,7 +35,7 @@ export function* getResults() {
       yield put(searchComplete(Object()));
     }
   } catch (err) {
-    console.log(err)
+    console.log(err);
     yield put(searchFailure(err));
   }
 }

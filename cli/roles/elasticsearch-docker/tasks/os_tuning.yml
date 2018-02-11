@@ -1,0 +1,7 @@
+- name: set vm.max_map_count=262144 for elasticsearch
+  sysctl:
+    name: vm.max_map_count
+    value: 262144
+    state: present
+    sysctl_set: yes
+    reload: yes

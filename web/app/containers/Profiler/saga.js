@@ -1,10 +1,13 @@
 import { delay } from 'redux-saga';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { profiler } from 'services/elasticsearch/elasticsearch';
-import { CHANGE_PROFILER_SEARCH } from './constants';
 import { CHANGE_SEARCH } from 'containers/Search/constants';
 import { makeSelectSearchString } from 'containers/Search/selectors';
-import { searchComplete, searchFailure } from './actions';
+import { searchComplete } from 'containers/App/actions';
+import { CHANGE_PROFILER_SEARCH } from './constants';
+
+import { searchFailure } from './actions';
+
 import { makeSelectAllElements } from './selectors';
 
 
@@ -15,16 +18,16 @@ export function* defaultSaga() {
 
 export function* getResults() {
   // Fetch results from elasticsearch from the given search searchString
-  yield delay(300);
+  yield delay(400);
   const searchString = yield select(makeSelectSearchString());
 
   try {
-    console.log('getResults:searchString:');
-    console.log(searchString);
+    // console.log('getResults:searchString:');
+    // console.log(searchString);
     const elements = yield select(makeSelectAllElements());
     const results = yield call(profiler, searchString, elements);
-    console.log('getResults:results');
-    console.log(results ? results.items : []);
+    // console.log('getResults:results');
+    // console.log(results ? results.items : []);
     yield put(searchComplete(results));
   } catch (err) {
     console.log(err);

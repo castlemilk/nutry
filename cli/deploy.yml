@@ -8,7 +8,7 @@
     - ec2
 
 - name: baseline instances
-  hosts: backend
+  hosts: backend:frontend
   become: yes
   vars:
     docker_install_compose: false
@@ -21,7 +21,6 @@
   roles:
     - common
     - geerlingguy.docker
-
 
 - name: deploy containers
   hosts: backend

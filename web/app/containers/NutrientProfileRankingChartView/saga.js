@@ -2,8 +2,8 @@ import { delay } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { takeLatest, call, put, select, take, cancel } from 'redux-saga/effects';
 import { getRankingResults } from 'lib/nutrientAnalytics';
+import { makeSelectSearchResults } from 'containers/App/selectors';
 import { GET_NUTRIENT_RANKING, GET_NUTRIENT_RANKING_SUCCESS } from './constants';
-import { makeSelectSearchResults } from './selectors';
 import { loadRankingsSuccess, loadRankingsFailure } from './actions';
 
 
@@ -16,7 +16,7 @@ export function* getRankings() { /* eslint no-underscore-dangle: ["error", { "al
       yield put(loadRankingsSuccess(rankingResults));
     } catch (err) {
       error = err;
-      console.log(err);
+      // console.log(err);
       if (i < 5) {
         yield call(delay, 1000); // retry after 2s
       }

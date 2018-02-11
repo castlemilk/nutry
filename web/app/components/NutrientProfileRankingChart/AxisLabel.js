@@ -40,7 +40,7 @@ export default function AxisLabel({ axisType, x, y, width, height, stroke, child
         renderText(
           child,
           cx,
-          cy + index * lineHeight,
+          cy + (index * lineHeight),
           rot,
           stroke,
           index)

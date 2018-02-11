@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
  * Direct selector to the profiler state domain
  */
 const selectProfilerDomain = (state) => state.get('profiler');
+const selectSearchDomain = (state) => state.get('search');
 
 /**
  * Other specific selectors
@@ -41,9 +42,13 @@ const makeSelectSearchResults = () => createSelector(
   selectProfilerDomain,
   (searchState) => searchState.get('results')
 );
-const makeSelectSearchLoading = () => createSelector(
+const makeSelectProfilerLoading = () => createSelector(
   selectProfilerDomain,
-  (searchState) => searchState.get('loading')
+  (substate) => substate.get('elements').length > 0 ? substate.get('loading') : false
+);
+const makeSelectSearchLoading = () => createSelector(
+  selectSearchDomain,
+  (substate) => substate.get('loading')
 );
 const makeSelectElement = (id) => createSelector(
   selectProfilerDomain,
@@ -55,6 +60,7 @@ export {
   selectProfilerDomain,
   makeSelectSearchResults,
   makeSelectSearchLoading,
+  makeSelectProfilerLoading,
   makeSelectAllElements,
   makeSelectElement,
 };

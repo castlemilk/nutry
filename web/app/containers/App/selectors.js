@@ -15,9 +15,14 @@ const makeSelectSearchResults = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('searchResults')
 );
+const makeSelectSearchLoading = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('loading')
+);
 
 export {
   makeSelectLocation,
   makeSelectLoggedIn,
   makeSelectSearchResults,
+  makeSelectSearchLoading,
 };

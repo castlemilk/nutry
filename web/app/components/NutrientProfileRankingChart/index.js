@@ -134,10 +134,10 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
   onFinishedLoading() {
   }
   handleBarClick(value) {
-    console.log(value)
+    console.log(value);
     const { id } = value;
     // this.props.onProfileSelected(id)
-    this.props.onLoadNewProfile(id)
+    this.props.onLoadNewProfile(id);
     // this.props.onOtherSearchResultSelect(id)
   }
   // shouldComponentUpdate(nextProps) {
@@ -151,7 +151,6 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
       rankingResults,
       nutrientSelected,
       id,
-      onOtherSearchResultSelect,
       portionSelected } = this.props;
     const loadingPie = <Spin style={{ marginTop: '160px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     const data = loading ? null : processData(rankingResults, nutrientSelected, portionSelected);
@@ -183,7 +182,7 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
                 </Label>
               </YAxis>
               <Tooltip content={<CustomTooltip portionSelected={portionSelected} nutrientSelected={prefixToName(nutrientSelected)} foodID={id} />} />
-              <Bar onClick={(value) => this.handleBarClick(value) } shape={<CustomShape fillActive="#50c59f" foodID={id} />} foodID={id} dataKey="value" />
+              <Bar onClick={(value) => this.handleBarClick(value)} shape={<CustomShape fillActive="#50c59f" foodID={id} />} foodID={id} dataKey="value" />
             </BarChart>)
         }
         </div>
@@ -199,8 +198,6 @@ NutrientProfileRankingChart.propTypes = {
   portionSelected: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
-  onProfileSelected: PropTypes.func,
-  onOtherSearchResultSelect: PropTypes.func,
 };
 
 export default NutrientProfileRankingChart;

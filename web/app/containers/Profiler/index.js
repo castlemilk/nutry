@@ -19,7 +19,8 @@ import NoResultsFound from 'components/NoResultsFound';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectSearchString } from 'containers/Search/selectors';
-import { makeSelectAllElements, makeSelectSearchResults, makeSelectSearchLoading } from './selectors';
+import { makeSelectSearchResults } from 'containers/App/selectors';
+import { makeSelectAllElements, makeSelectSearchLoading, makeSelectProfilerLoading } from './selectors';
 import { addProfilerElement, deleteProfilerElement, updateProfilerElement, changeSearch } from './actions';
 import reducer from './reducer';
 import saga from './saga';
@@ -62,13 +63,14 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
     }
   }
   render() {
-    const { searchResults, searchString, loading } = this.props;
+    const { searchResults, searchString, searchLoading, profilerLoading } = this.props;
     const { onProfileSelected } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = searchResults.items ? searchResults.items : [];
-    const noResultsFound = items.length === 0 && searchString.length > 0 && !loading;
+    console.log(searchLoading, profilerLoading, items, items.length);
+    const noResultsFound = items.length === 0 && searchString.length > 0 && (!searchLoading);
     const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList onProfileSelected={(profileData) => onProfileSelected(profileData)} results={items} />;
-    const nutrientResultsView = loading ?
+    const nutrientResultsView = (searchLoading || profilerLoading) ?
     (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
     </div>) : nutrientResults;
@@ -116,7 +118,8 @@ Profiler.propTypes = {
   elements: PropTypes.array,
   searchResults: PropTypes.array,
   searchString: PropTypes.string,
-  loading: PropTypes.bool,
+  searchLoading: PropTypes.bool,
+  profilerLoading: PropTypes.bool,
   onChangeSearch: PropTypes.func,
   onUpdateElement: PropTypes.func,
   onChangeSearchString: PropTypes.func,
@@ -128,7 +131,8 @@ Profiler.propTypes = {
 const mapStateToProps = createStructuredSelector({
   elements: makeSelectAllElements(),
   searchResults: makeSelectSearchResults(),
-  loading: makeSelectSearchLoading(),
+  searchLoading: makeSelectSearchLoading(),
+  profilerLoading: makeSelectProfilerLoading(),
   searchString: makeSelectSearchString(),
 });
 

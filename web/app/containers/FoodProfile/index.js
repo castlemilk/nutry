@@ -7,14 +7,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row, Col } from 'antd';
-import { ONCE_TILL_UNMOUNT } from 'utils/constants';
+// import { ONCE_TILL_UNMOUNT } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientDisplay from 'components/NutrientDisplay';
@@ -53,16 +53,15 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
   //   return this.props.match.params.profileId !== nextProps.match.params.profileId
   // }
   componentDidMount() {
-    console.log('componentDidMount')
+    // console.log('componentDidMount');
     if (this.props.loading) {
-        this.props.onLoadProfile(this.props.match.params.profileId);
+      this.props.onLoadProfile(this.props.match.params.profileId);
     }
   }
   componentDidUpdate() {
-    console.log('componentDidUpdate')
-    if (this.props.loading)
-     {
-        this.props.onLoadProfile(this.props.match.params.profileId);
+    // console.log('componentDidUpdate');
+    if (this.props.loading) {
+      this.props.onLoadProfile(this.props.match.params.profileId);
     }
   }
 
@@ -162,7 +161,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
 
 FoodProfile.propTypes = {
   loading: PropTypes.bool,
-  profileHeaderCache: PropTypes.object,
+  // profileHeaderCache: PropTypes.object,
   profileHeader: PropTypes.object.isRequired,
   nutrients: PropTypes.object,
   nutrientSelected: PropTypes.string,
@@ -174,8 +173,9 @@ FoodProfile.propTypes = {
   onAgeGroupChanged: PropTypes.func,
   onPortionChanged: PropTypes.func,
   ageGroupSelected: PropTypes.object,
-  location: PropTypes.object,
+  // location: PropTypes.object,
   onLoadNewProfile: PropTypes.func,
+  match: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

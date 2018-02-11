@@ -5,7 +5,7 @@
  */
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+// import { push } from 'react-router-redux';
 // import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientProfileRankingChart from 'components/NutrientProfileRankingChart';
-import { loadProfile } from 'containers/FoodProfile/actions';
+// import { loadProfile } from 'containers/FoodProfile/actions';
 import {
   makeSelectLoading,
   makeSelectRankingResults,

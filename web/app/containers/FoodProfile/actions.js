@@ -33,7 +33,7 @@ export function loadProfileSuccess(profileBody) {
   return {
     type: GET_PROFILE_SUCCESS,
     nutrientsById: profileBody.nutrients,
-    profileHeader: { SN, name, group, alias, source, usage, tags},
+    profileHeader: { SN, name, group, alias, source, usage, tags },
     portionsAvailable: defaultPortions(profileBody.portions),
   };
 }

@@ -52,8 +52,9 @@ const initialState = fromJS({
 
 const arrayToObject = (array) =>
    array.reduce((obj, item) => {
-     obj[item[0]] = Object.assign(item[1], { selected: false });
-     return obj;
+     const newAccum = obj;
+     newAccum[item[0]] = Object.assign(item[1], { selected: false });
+     return newAccum;
    }, {});
 
 function foodProfileReducer(state = initialState, action) {
@@ -96,7 +97,7 @@ function foodProfileReducer(state = initialState, action) {
     case LOCATION_CHANGE:
       return state
         .set('loading', true)
-        .set('error', false)
+        .set('error', false);
     default:
       return state;
   }

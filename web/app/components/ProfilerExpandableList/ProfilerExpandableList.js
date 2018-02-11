@@ -26,8 +26,8 @@ export default class ProfilerExpandableList extends Component {
     const newData = Object.assign({}, this.props.data);
     newData[headerIndex].isOpened = !newData[headerIndex].isOpened;
     this.setState(newData);
-    console.log('changing state:');
-    console.log(newData);
+    // console.log('changing state:');
+    // console.log(newData);
   }
 
   render() {
