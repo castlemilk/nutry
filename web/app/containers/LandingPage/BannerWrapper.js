@@ -41,14 +41,13 @@ const BannerWrapper = styled.div`
   }
 
   .banner-bg {
-    background: #7F3FBF;
     width: 120%;
     height: 200px;
     background: #7f3fbf;
     position: absolute;
     bottom: -150px;
-    left: 0%;
-    transform: translate(0px, 0px) rotate(-3.8243deg);
+    left: 0;
+    transform: translate(0, 0) rotate(-3.8243deg);
   }
 
   .banner-page {
@@ -58,7 +57,7 @@ const BannerWrapper = styled.div`
   }
 
   .banner-page h1 {
-      font-size: 70px;
+    font-size: 70px;
   }
 
   .banner-page span {
@@ -67,34 +66,23 @@ const BannerWrapper = styled.div`
 
   .buttons {
     display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
     margin-top: 24px;
-  }
-
-  .buttons .btn {
-  }
-
-  .buttons .btn:hover {
-    border-color: rgba(127, 63, 191,0.70);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.70);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.60);
-    box-shadow: 0px 4px 10px 0px rgba(127, 63, 191,0.70);
   }
 
   .btn {
     color: white;
     width: 200px;
-    background: #7F3FBF;
+    background: #7f3fbf;
     border-radius: 100px;
-    margin-right:20px;
+    margin-right: 20px;
     border: none;
   }
 
   .btn:hover {
+    border-color: rgba(127, 63, 191, 0.7);
     color: black;
+    box-shadow: 0 4px 10px 0 rgba(127, 63, 191, 0.7);
   }
 `;
 

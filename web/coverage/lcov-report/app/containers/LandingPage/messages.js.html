@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/containers/LandingPage/messages.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">app/containers/LandingPage</a> messages.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/4</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*<span class="cstat-no" title="statement not covered" ></span>
+ * LandingPage Messages
+ *
+ * This contains all the text for the LandingPage component.
+ */
+import { defineMe<span class="cstat-no" title="statement not covered" >ssages } from 'react-i</span>ntl';
+&nbsp;
+const scope <span class="cstat-no" title="statement not covered" >= 'app.containers.LandingPage</span>';
+&nbsp;
+export default defineMessages({
+  introduce: {
+    id: `${scope}.introduce`,<span class="cstat-no" title="statement not covered" ></span>
+    defaultMessage: 'Highly intuitive and flexible nutrient search and planning tool',
+  },
+  search: {
+    id: `${scope}.search`,
+    defaultMessage: 'Search',
+  },
+  enterprise: {
+    id: `${scope}.enterprise`,
+    defaultMessage: 'Enterprise',
+  },
+  searchP1: {
+    id: `${scope}.p1.search`,
+    defaultMessage: 'Search',
+  },
+  profilerP1: {
+    id: `${scope}.p1.profiler`,
+    defaultMessage: 'Profiling',
+  },
+  recipeP1: {
+    id: `${scope}.p1.recipe`,
+    defaultMessage: 'Recipes',
+  },
+  wikiP1: {
+    id: `${scope}.p1.wiki`,
+    defaultMessage: 'Wiki',
+  },
+  features: {
+    id: `${scope}.p1.features`,
+    defaultMessage: 'Features',
+  },
+  // p2
+  nutrientEngine: {
+    id: `${scope}.p2.nutrientEngine`,
+    defaultMessage: 'Nutrient Engine',
+  },
+  architectureAPI: {
+    id: `${scope}.p2.architectureAPI`,
+    title: 'Developer API',
+    text: 'Developer API available for consumption. Enalbling the community and other orginsations to build tools based off the Nutry Engine.',
+  },
+  architectureAI: {
+    id: `${scope}.p2.architectureAI`,
+    title: 'Artificial Intellegence Processor',
+    text: 'Machine Learning and Deep Learning is ' +
+    'applied to the Nutry Core System. Ingesting ' +
+    'the available data and taking real-time feed back ' +
+    'from users to generate actionalble insights and continually improve the suggestion and search engines.',
+  },
+  architectureGUI: {
+    id: `${scope}.p2.architectureGUI`,
+    title: 'Search Engine',
+    text: 'Nutry Search and other sub-set content available for dynamic' +
+    ' and rapid search. As users interact with this interface Nutry continually ' +
+    ' collects informnation about a given user to further improve the suggestion engine and contextualise content for the specific user.',
+  },
+  architectureCoreSystem: {
+    id: `${scope}.p2.architectureCoreSystem`,
+    title: 'Nutry Core System',
+    text: 'Heart of the end-to-end user experience. Response for mediating all ' +
+    'sub-systems within the Nutry Stack.',
+  },
+  architecturePathOne: {
+    id: `${scope}.p2.architecturePathOne`,
+    title: 'Ingestion Pipeline',
+    text: 'Data sources are ingested into nutry, being normsalised and enriched ' +
+    ', both with trained Dieticians and using machine learning &amp; deep learning techniques' +
+    ' which aim to actively model the data and its potential correlation to a range of ' +
+    ' health and nutrition contexts',
+  },
+  architecturePathTwo: {
+    id: `${scope}.p2.architecturePathTwo`,
+    title: 'AI Pipeline',
+    text: 'Deep Learning (DL) and Machine Learning (ML) Techniques are utilised to' +
+    ' bring about the Nutry vision of contextualising and simplifying the relavence of nutritional data',
+  },
+  architecturePathThree: {
+    id: `${scope}.p2.architecturePathThree`,
+    title: 'Consumption Mechanism',
+    text: 'Nutry is made available by a range of mechanisms which are all contexualised to specific areas.' +
+    ' The major areas being: Enterprise, Consumer and Developers.',
+  },
+  architectureDataSources: {
+    id: `${scope}.p2.architectureDataSources`,
+    title: 'Data Sources',
+    text: 'Nutry aims to ingest relavent data from as many sources as possible. This includes ' +
+    'publicly available data such as NUTTAB, USDA. These are nutrient data sets made possible by different government organisations.' +
+    ' In This case Australia and USA respectively.',
+  },
+  architectureEnterprise: {
+    id: `${scope}.p2.architectureEnterprise`,
+    title: 'Nutry Enterprise',
+    text: 'A consumption mechanism for health professionals. This could be in the form of organisation wide subscriptions or small businesses or health consultants.' +
+    ' These users rely on highly accurate and detailed information. As well as integrations with other servives such as medicare et al.',
+  },
+  architectureDefault: {
+    id: `${scope}.p2.architectureDefault`,
+    title: 'Nutry Overview',
+    text: 'To the right you see an overview of the Nutry architecture topology at a high level. This is the end-to-end system which brings you the highly' +
+    ' accurate and contextualised content.',
+  },
+  developers: {
+    id: `${scope}.p3.developers`,
+    defaultMessage: 'Developers',
+    description: 'Nutry is built on a core tenant or philosophy of improving access to information' +
+    ' and making it easy for people to digest it (no pun intended). By proving a highly accessible and verbose API we make it possible for other' +
+    ' organisations and users to consume the data to built tools that we know you\'ll love becuase of how rich the data is.',
+  },
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Feb 13 2018 22:26:31 GMT+1100 (AEDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

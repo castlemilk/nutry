@@ -18,10 +18,9 @@ function LoadingContent(props) {
     .ant-progress-bg {
       background-color: #babfc3;
     }
-    
-    .ant-progress-status-active .ant-progress-bg:before {
+
+    .ant-progress-status-active .ant-progress-bg::before {
       animation: ant-progress-active ${props.speed || 1}s cubic-bezier(0.23, 1, 0.32, 1) infinite;
-      -webkit-animation: ant-progress-active ${props.speed || 1}s cubic-bezier(0.23, 1, 0.32, 1) infinite;
     }
   `;
   return (

@@ -31,7 +31,7 @@ const ProfilerElementWrapper = styled.div`
   .ant-slider-handle {
     border: solid 2px #b877f0;
   }
-  
+
   .profiler-element-remove-wrapper {
     float: left;
     margin: 3px 6px 10px;

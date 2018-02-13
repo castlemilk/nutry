@@ -15,8 +15,7 @@ const SearchWrapper = styled.div`
     background-color: rgba(211, 211, 211, 0.3);
   }
 
-  @media only screen and (min-width:700px) {
-
+  @media only screen and (min-width: 700px) {
     .tab-bar .ant-tabs-nav-container {
       margin-left: 160px;
     }

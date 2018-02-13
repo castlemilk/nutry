@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/components/NutryArchitecture/index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">app/components/NutryArchitecture</a> index.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/31</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/17</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**<span class="cstat-no" title="statement not covered" ></span>
+*
+* NutryArchitecture
+*
+*/
+&nbsp;
+import React <span class="cstat-no" title="statement not covered" >from 'react';<span class="cstat-no" title="statement not covered" ></span></span>
+&nbsp;
+import architectureAI <span class="cstat-no" title="statement not covered" >from 'images/architectureAI.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import architectureAPI <span class="cstat-no" title="statement not covered" >from 'images/architectureAPI.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import architectureCoreSystem <span class="cstat-no" title="statement not covered" >from 'images/architectureCoreSystem.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import architectureDataSources <span class="cstat-no" title="statement not covered" >from 'images/architectureDataSources.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import architectureGUI <span class="cstat-no" title="statement not covered" >from 'images/architectureGUI.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import architecturePathOne <span class="cstat-no" title="statement not covered" >from 'images/architecturePathOne.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import architecturePathTwo <span class="cstat-no" title="statement not covered" >from 'images/architecturePathTwo.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import architecturePathThree <span class="cstat-no" title="statement not covered" >from 'images/architecturePathThree.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import architectureEnterprise <span class="cstat-no" title="statement not covered" >from 'images/architectureEnterprise.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+&nbsp;
+import NutryArchitectureWrapper <span class="cstat-no" title="statement not covered" >from './NutryArchitectureWrapper';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+const data <span class="cstat-no" title="statement not covered" >= [</span>
+  {
+    className: 'architectureDataSources',
+    img: architectureDataSources,
+  },
+  {
+    className: 'architecturePathOne',
+    img: architecturePathOne,
+  },
+  {
+    className: 'architectureCoreSystem',
+    img: architectureCoreSystem,
+  },
+  {
+    className: 'architecturePathTwo',
+    img: architecturePathTwo,
+  },
+  {
+    className: 'architectureAI',
+    img: architectureAI,
+  },
+  {
+    className: 'architecturePathThree',
+    img: architecturePathThree,
+  },
+  {
+    className: 'architectureEnterprise',
+    img: architectureEnterprise,
+  },
+  {
+    className: 'architectureGUI',
+    img: architectureGUI,
+  },
+  {
+    className: 'architectureAPI',
+    img: architectureAPI,
+  },
+];
+&nbsp;
+function NutryArchitecture(props) {<span class="fstat-no" title="function not covered" ></span>
+  const images <span class="cstat-no" title="statement not covered" >= data.ma<span class="fstat-no" title="function not covered" >p(</span>(item) =&gt; (<span class="cstat-no" title="statement not covered" ></span></span>
+    &lt;img key={item.className} alt="" onFocus={() =&gt; props.onHover(item.className)} onMouseOve<span class="fstat-no" title="function not covered" >r={() =&gt;</span> pr<span class="cstat-no" title="statement not covered" >ops.onHover(item.className)} className</span>={item.className} src={i<span class="fstat-no" title="function not covered" >tem.img} /&gt;<span class="cstat-no" title="statement not covered" ></span></span>
+    ));
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;NutryArchitectureWrapper&gt;
+      &lt;div className="architecture-box" &gt;
+        {images}
+      &lt;/div&gt;
+    &lt;/NutryArchitectureWrapper&gt;
+  );
+}<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+export default NutryArchitecture;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Feb 13 2018 22:26:31 GMT+1100 (AEDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

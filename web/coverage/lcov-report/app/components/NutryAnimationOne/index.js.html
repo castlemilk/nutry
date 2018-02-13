@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/components/NutryAnimationOne/index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">app/components/NutryAnimationOne</a> index.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/33</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138</td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**<span class="cstat-no" title="statement not covered" ></span>
+*
+* NutryAnimationOne
+*
+*/
+&nbsp;
+import React <span class="cstat-no" title="statement not covered" >from 'react';<span class="cstat-no" title="statement not covered" ></span></span>
+import Anime from <span class="cstat-no" title="statement not covered" >'react-anime';<span class="cstat-no" title="statement not covered" ></span></span>
+//
+// svgs1
+import CogLarge <span class="cstat-no" title="statement not covered" >from 'images/cog-large.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import CogMedium <span class="cstat-no" title="statement not covered" >from 'images/cog-medium.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Carrot <span class="cstat-no" title="statement not covered" >from 'images/carrot.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Lemon <span class="cstat-no" title="statement not covered" >from 'images/lemon.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Hotdog <span class="cstat-no" title="statement not covered" >from 'images/hotdog.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Eggplant <span class="cstat-no" title="statement not covered" >from 'images/eggplant.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Watermelon <span class="cstat-no" title="statement not covered" >from 'images/watermelon.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Chicken <span class="cstat-no" title="statement not covered" >from 'images/chicken.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Avocado <span class="cstat-no" title="statement not covered" >from 'images/avocado.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+// svgs2
+import Bacon <span class="cstat-no" title="statement not covered" >from 'images/bacon.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Sushi <span class="cstat-no" title="statement not covered" >from 'images/sushi.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Egg <span class="cstat-no" title="statement not covered" >from 'images/egg.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Skewer <span class="cstat-no" title="statement not covered" >from 'images/skewer.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import Pot <span class="cstat-no" title="statement not covered" >from 'images/pot.svg';<span class="cstat-no" title="statement not covered" ></span></span>
+import NutryAnimationOneWrapper <span class="cstat-no" title="statement not covered" >from './NutryAnimationOneWrapper';<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+const data1 <span class="cstat-no" title="statement not covered" >= [</span>
+  {
+    img: Carrot,
+  },
+  {
+    img: Lemon,
+  },
+  {
+    img: Hotdog,
+  },
+  {
+    img: Eggplant,
+  },
+  {
+    img: Watermelon,
+  },
+  {
+    img: Chicken,
+  },
+  {
+    img: Avocado,
+  },
+];
+const data2 = [
+  {
+    img: Bacon,
+  },<span class="cstat-no" title="statement not covered" ></span>
+  {
+    img: Sushi,
+  },
+  {
+    img: Pot,
+  },
+  {
+    img: Egg,
+  },
+  {
+    img: Skewer,
+  },
+];
+function <span class="fstat-no" title="function not covered" >getXPosition(</span>radius, index) {
+<span class="cstat-no" title="statement not covered" >  return Math.cos(index * 15) * radius;</span>
+}
+function <span class="fstat-no" title="function not covered" >getYPosition(</span>radius, index) {
+<span class="cstat-no" title="statement not covered" >  return Math.sin(index * 15) * radius;</span>
+}
+function <span class="fstat-no" title="function not covered" >NutryAnimationOne(</span>) {
+  const radius <span class="cstat-no" title="statement not covered" >= 2</span>0;
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;NutryAnimationOneWrapper&gt;
+      &lt;div className="cogs-wrapper" &gt;
+        &lt;div className="center-cog-large-logo" &gt;
+          &lt;Anime
+            easing="linear"
+            duration={15000}
+            rotate={360}
+            loop
+            direction="normal"
+          &gt;
+            &lt;img alt="" src={CogLarge} /&gt;
+          &lt;/Anime&gt;
+        &lt;/div&gt;
+        &lt;div className="center-cog-medium-logo" &gt;
+          &lt;Anime
+            easing="linear"
+            duration={11950}
+            rotate={360}
+            loop
+            direction="reverse"
+          &gt;
+            &lt;img alt="" src={CogMedium} /&gt;
+          &lt;/Anime&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;Anime
+        easing="linear"
+        duration={(Math.floor(Math.random() * 20)) * 300}
+        direction="normal"
+        loop
+        delay={(el, index)<span class="fstat-no" title="function not covered" > =&gt; in</span>dex * 240}<span class="cstat-no" title="statement not covered" ></span>
+        opacity={[0.9, 0]}
+        translateX={(el, index)<span class="fstat-no" title="function not covered" > =&gt; `${getX</span>Position(rad<span class="cstat-no" title="statement not covered" >ius, index)}rem`}</span>
+        translateY={(el, index)<span class="fstat-no" title="function not covered" > =&gt; `${getY</span>Position(rad<span class="cstat-no" title="statement not covered" >ius, index)}rem`}</span>
+        rotate={360}
+        scale={[0.6, 0.5]}
+      &gt;
+        {data1.map<span class="fstat-no" title="function not covered" >((</span>item) =&gt; &lt;div c<span class="cstat-no" title="statement not covered" >lassName="spray-images" &gt;&lt;img alt="" src={item.img} /&gt;&lt;/div&gt;)}</span>
+      &lt;/Anime&gt;
+      &lt;Anime
+        easing="linear"
+        duration={(Math.floor(Math.random() * 20)) * 300}
+        direction="normal"
+        loop
+        delay={(el, index)<span class="fstat-no" title="function not covered" > =&gt; (i</span>ndex * 240) <span class="cstat-no" title="statement not covered" >+ 200}</span>
+        opacity={[0.9, 0]}
+        translateX={(el, index)<span class="fstat-no" title="function not covered" > =&gt; `${getX</span>Position(rad<span class="cstat-no" title="statement not covered" >ius, index)}rem`}</span>
+        translateY={(el, index)<span class="fstat-no" title="function not covered" > =&gt; `${getY</span>Position(rad<span class="cstat-no" title="statement not covered" >ius, index)}rem`}</span>
+        rotate={360}
+        scale={[0.6, 0.5]}
+      &gt;
+        {data2.map<span class="fstat-no" title="function not covered" >((</span>item) =&gt; &lt;div c<span class="cstat-no" title="statement not covered" >lassName="spray-images" &gt;&lt;img alt="" src={item.img} /&gt;&lt;/div&gt;)}</span>
+      &lt;/Anime&gt;
+    &lt;/NutryAnimationOneWrapper&gt;
+  );
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >NutryAnimationOne.propTypes = {<span class="cstat-no" title="statement not covered" ></span></span>
+&nbsp;
+};
+&nbsp;
+export default NutryAnimationOne;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Feb 13 2018 22:26:31 GMT+1100 (AEDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

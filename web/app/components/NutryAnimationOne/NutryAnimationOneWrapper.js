@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const NutryAnimationOneWrapper = styled.div`
   position: absolute;
-  z-index : 1;
+  z-index: 1;
 
   .cogs-wrapper {
     position: absolute;
@@ -20,7 +20,7 @@ const NutryAnimationOneWrapper = styled.div`
     bottom: -25px;
     left: 100px;
   }
-  
+
   .spray-images {
     position: absolute;
     z-index: 1;

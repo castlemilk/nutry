@@ -9,8 +9,6 @@ const FoodProfileTitleWrapper = styled.div`
     border-style: solid;
     border-width: 1px;
     border-color: black;
-    -webkit-box-shadow:  6px 6px 12px -6px rgba(0, 0, 0, 0.44);
-    -moz-box-shadow:  6px 6px 12px -6px rgba(0, 0, 0, 0.44);
     box-shadow: 10px 10px 16px -10px rgba(0, 0, 0, 0.44);
   }
 
@@ -28,8 +26,8 @@ const FoodProfileTitleWrapper = styled.div`
   }
 
   .profile-title .profile-title-usage-header {
-      font-size: 20px;
-      display: inline;
+    font-size: 20px;
+    display: inline;
   }
 `;
 

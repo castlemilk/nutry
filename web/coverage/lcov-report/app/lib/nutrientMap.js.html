@@ -1,0 +1,2822 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/lib/nutrientMap.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">app/lib</a> nutrientMap.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/501</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/45</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/500</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import _ from 'lodash';
+import { Map } from 'immutable';
+/**
+ *
+ * @param  {[type]} prefix [description]
+ * @return {[type]}        [description]
+ */
+export function <span class="fstat-no" title="function not covered" >defaultNutrient(</span>prefix) {
+<span class="cstat-no" title="statement not covered" >  return Map({</span>
+    name: prefixToName(prefix),
+    units: prefixToUnit(prefix),
+    value: '~',
+  });
+}
+export function <span class="fstat-no" title="function not covered" >getNutrient(</span>prefix, nutrients, portion = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span> ageGroup) {
+  const nutrient = <span class="cstat-no" title="statement not covered" >nutrients.get(prefix);</span>
+<span class="cstat-no" title="statement not covered" >  if (nutrient) {</span>
+<span class="cstat-no" title="statement not covered" >    return new Nutrient(</span>
+      prefix,
+      nutrient.get('name') || prefixToName(prefix),
+      nutrient.get('units') || prefixToUnit(prefix),
+      getScaledValue(nutrient.get('value'), portion) || '~',
+      getRDI(prefix, ageGroup)
+    );
+  }
+<span class="cstat-no" title="statement not covered" >  return new Nutrient(</span>
+    prefix,
+    prefixToName(prefix),
+    prefixToUnit(prefix),
+    '~',
+    getRDI(prefix, ageGroup)
+  );
+}
+function <span class="fstat-no" title="function not covered" >Nutrient(</span>prefix, name, units, value, rdi = <span class="branch-0 cbranch-no" title="branch not covered" >null)</span> {
+<span class="cstat-no" title="statement not covered" >  this.prefix = prefix;</span>
+<span class="cstat-no" title="statement not covered" >  this.name = name;</span>
+<span class="cstat-no" title="statement not covered" >  this.units = units;</span>
+<span class="cstat-no" title="statement not covered" >  this.value = value;</span>
+<span class="cstat-no" title="statement not covered" >  this.rdi = rdi;</span>
+}
+function <span class="fstat-no" title="function not covered" >Portion(</span>name, amount, value) {
+<span class="cstat-no" title="statement not covered" >  this.unit = name;</span>
+<span class="cstat-no" title="statement not covered" >  this.value = value;</span>
+<span class="cstat-no" title="statement not covered" >  this.className = name ? `${name.replace(/ |_|,|-|/g, '')}` : 'portion-class';</span>
+<span class="cstat-no" title="statement not covered" >  this.label = name;</span>
+<span class="cstat-no" title="statement not covered" >  this.amt = amount;</span>
+<span class="cstat-no" title="statement not covered" >  this.g = value;</span>
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >getOmega3(</span>nutrients, portion) {
+  let omega3Total = <span class="cstat-no" title="statement not covered" >0;</span>
+<span class="cstat-no" title="statement not covered" >  if (nutrients.F20D5) {</span>
+<span class="cstat-no" title="statement not covered" >    omega3Total += nutrients.F20D5.value;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (nutrients.F22D6) {</span>
+<span class="cstat-no" title="statement not covered" >    omega3Total += nutrients.F22D6.value;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (nutrients.F18D3CN3) {</span>
+<span class="cstat-no" title="statement not covered" >    omega3Total += nutrients.F18D3CN3.value;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return new Nutrient(</span>
+    'LCW3TOTAL',
+    'Total Omega-3 Fatty Acid',
+    'mg',
+    omega3Total * scale(portion)
+  );
+}
+export function <span class="fstat-no" title="function not covered" >getRDI(</span>prefix, ageGroup) {
+<span class="cstat-no" title="statement not covered" >  return RDImapping[ageGroup.get('value')][prefix];</span>
+}
+// const RDIEnergyMapping = {
+//   I1: {},
+// };
+const pc = 0.45;
+const ps = 0.1;
+const gctoe = 17;
+const RDImapping = {
+  // Infant (0m-6m)
+  I1: {
+    ENERC: 2200,
+    WATER: 700,
+    SUGAR: (2200 * pc * ps) / gctoe,
+    CHOCDF: (2200 * pc) / gctoe,
+    PROCNT: 10,
+    FIBTG: 0,
+    NA: 120,
+    FAT: 50,
+  },
+  // Infant (7m-12m)
+  I2: {
+    ENERC: 3100,
+    WATER: 800,
+    SUGAR: (3100 * pc * ps) / gctoe,
+    CHOCDF: (3100 * pc) / gctoe,
+    PROCNT: 14,
+    FIBTG: 0,
+    NA: 170,
+    FAT: 50,
+  },
+  // Children (1-3)
+  C1: {
+    ENERC: 4300,
+    WATER: 1400,
+    SUGAR: (4300 * pc * ps) / gctoe,
+    CHOCDF: (4300 * pc) / gctoe,
+    PROCNT: 14,
+    FIBTG: 14,
+    NA: 200,
+    FAT: 50,
+  },
+  // Children (4-8)
+  C2: {
+    ENERC: 7000,
+    WATER: 1600,
+    SUGAR: (7000 * pc * ps) / gctoe,
+    CHOCDF: (7000 * pc) / gctoe,
+    PROCNT: 20,
+    FIBTG: 18,
+    NA: 300,
+    FAT: 50,
+  },
+  // Boys (9-13)
+  B1: {
+    ENERC: 8300,
+    WATER: 2200,
+    SUGAR: (8300 * pc * ps) / gctoe,
+    CHOCDF: (8300 * pc) / gctoe,
+    PROCNT: 40,
+    FIBTG: 24,
+    NA: 400,
+    FAT: 50,
+  },
+  // Boys (14-16)
+  B2: {
+    ENERC: 12000,
+    WATER: 2700,
+    SUGAR: (12000 * pc * ps) / gctoe,
+    CHOCDF: (12000 * pc) / gctoe,
+    PROCNT: 65,
+    FIBTG: 28,
+    NA: 460,
+    FAT: 50,
+  },
+  // Girls (9-13)
+  G1: {
+    ENERC: 8500,
+    WATER: 1900,
+    SUGAR: (8500 * pc * ps) / gctoe,
+    CHOCDF: (8500 * pc) / gctoe,
+    PROCNT: 35,
+    FIBTG: 20,
+    NA: 400,
+    FAT: 50,
+  },
+  // Girls (14-16)
+  G2: {
+    ENERC: 11500,
+    WATER: 2200,
+    SUGAR: (11500 * pc * ps) / gctoe,
+    CHOCDF: (11500 * pc) / gctoe,
+    PROCNT: 45,
+    FIBTG: 22,
+    NA: 460,
+    FAT: 50,
+  },
+  // Adult Male (19-30)
+  AM19: {
+    ENERC: 12000,
+    WATER: 3400,
+    SUGAR: (12000 * pc * ps) / gctoe,
+    CHOCDF: (12000 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 460,
+    FAT: 50,
+  },
+  // 'Adult Male (31-50)
+  AM31: {
+    ENERC: 11900,
+    WATER: 3400,
+    SUGAR: (11900 * pc * ps) / gctoe,
+    CHOCDF: (11900 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 460,
+    FAT: 50,
+  },
+  // Adult Male (51-70)
+  AM51: {
+    ENERC: 10900,
+    WATER: 3400,
+    SUGAR: (10900 * pc * ps) / gctoe,
+    CHOCDF: (10900 * pc) / gctoe,
+    PROCNT: 64,
+    FIBTG: 30,
+    NA: 460,
+    FAT: 50,
+  },
+  // Adult Male (71-)
+  AM71: {
+    ENERC: 10000,
+    WATER: 3400,
+    SUGAR: (10000 * pc * ps) / gctoe,
+    CHOCDF: (10000 * pc) / gctoe,
+    PROCNT: 81,
+    FIBTG: 30,
+    NA: 460,
+    FAT: 50,
+  },
+  // Adult Female (19-30)
+  AF19: {
+    ENERC: 9600,
+    WATER: 2800,
+    SUGAR: (9600 * pc * ps) / gctoe,
+    CHOCDF: (9600 * pc) / gctoe,
+    PROCNT: 46,
+    FIBTG: 25,
+    NA: 460,
+    FAT: 50,
+  },
+  // Adult Female (31-50)
+  AF31: {
+    ENERC: 9100,
+    WATER: 2800,
+    SUGAR: (9100 * pc * ps) / gctoe,
+    CHOCDF: (9100 * pc) / gctoe,
+    PROCNT: 46,
+    FIBTG: 25,
+    NA: 460,
+    FAT: 50,
+  },
+  // Adult Female (51-70)
+  AF51: {
+    ENERC: 8700,
+    WATER: 2800,
+    SUGAR: (8700 * pc * ps) / gctoe,
+    CHOCDF: (8700 * pc) / gctoe,
+    PROCNT: 46,
+    FIBTG: 25,
+    NA: 460,
+    FAT: 50,
+  },
+  // Adult Female (71-)
+  AF71: {
+    ENERC: 8300,
+    WATER: 2800,
+    SUGAR: (8300 * pc * ps) / gctoe,
+    CHOCDF: (8300 * pc) / gctoe,
+    PROCNT: 57,
+    FIBTG: 25,
+    NA: 460,
+    FAT: 50,
+  },
+  // Pregnant (14-18)
+  P1: {
+    ENERC: 13000,
+    WATER: 2400,
+    SUGAR: (13000 * pc * ps) / gctoe,
+    CHOCDF: (13000 * pc) / gctoe,
+    PROCNT: 58,
+    FIBTG: 25,
+    NA: 460,
+    FAT: 50,
+  },
+  // Pregnant (19-31)
+  P2: {
+    ENERC: 12000,
+    WATER: 3100,
+    SUGAR: (12000 * pc * ps) / gctoe,
+    CHOCDF: (12000 * pc) / gctoe,
+    PROCNT: 60,
+    FIBTG: 28,
+    NA: 460,
+    FAT: 50,
+  },
+  // Pregnant (31-50)
+  P3: {
+    ENERC: 11500,
+    WATER: 3100,
+    SUGAR: (11500 * pc * ps) / gctoe,
+    CHOCDF: (11500 * pc) / gctoe,
+    PROCNT: 60,
+    FIBTG: 28,
+    NA: 460,
+    FAT: 50,
+  },
+  // Lactation (14-18)
+  L1: {
+    ENERC: 11000,
+    WATER: 2900,
+    SUGAR: (11000 * pc * ps) / gctoe,
+    CHOCDF: (11000 * pc) / gctoe,
+    PROCNT: 63,
+    FIBTG: 27,
+    NA: 460,
+    FAT: 50,
+  },
+  // Lactation (19-30)
+  L2: {
+    ENERC: 10500,
+    WATER: 3500,
+    SUGAR: (10500 * pc * ps) / gctoe,
+    CHOCDF: (10500 * pc) / gctoe,
+    PROCNT: 67,
+    FIBTG: 30,
+    NA: 460,
+    FAT: 50,
+  },
+  // Lactation (31-50)
+  L3: {
+    ENERC: 10000,
+    WATER: 3500,
+    SUGAR: (10000 * pc * ps) / gctoe,
+    CHOCDF: (10000 * pc) / gctoe,
+    PROCNT: 67,
+    FIBTG: 30,
+    NA: 460,
+    FAT: 50,
+  },
+};
+&nbsp;
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >defaultPortions(</span>profilePortions = <span class="branch-0 cbranch-no" title="branch not covered" >null)</span> {
+  let portions = <span class="cstat-no" title="statement not covered" >[];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (profilePortions) {</span>
+<span class="cstat-no" title="statement not covered" >    portions = profilePortions.map(<span class="fstat-no" title="function not covered" >(p</span>ortion) =&gt; <span class="cstat-no" title="statement not covered" >portion.unit.includes('tsp') ?</span></span>
+      new Portion(`${String(portion.amt)} ${portion.unit}`,
+        portion.unit,
+        portion.g
+      ) :
+      new Portion(portion.name,
+      portion.unit,
+      portion.g));
+  }
+<span class="cstat-no" title="statement not covered" >  portions.unshift(new Portion('per 100g', 1, 100));</span>
+<span class="cstat-no" title="statement not covered" >  return portions;</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >getScaledValue(</span>value, portion = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span> {
+<span class="cstat-no" title="statement not covered" >  if (!portion) {</span>
+<span class="cstat-no" title="statement not covered" >    return truncateTo(value, 2);</span>
+  } else <span class="cstat-no" title="statement not covered" >if (value) {</span>
+<span class="cstat-no" title="statement not covered" >    return truncateTo(value * scale(portion), 2);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return '~';</span>
+}
+// function getScaledNutrient(prefix, nutrient, portion = false) {
+//   /**
+//    * Will attempt to discover the formatting of the scaling factor and
+//    * convert the current value accordingly
+//    */
+//   // TODO: fix this, returning nutrient isnt compaitible with the getNutrient method
+//   if (!portion) {
+//     return new Nutrient(prefix, nutrient.name, nutrient.units, nutrient.value);
+//   }
+//   return new Nutrient(
+//     prefix,
+//     nutrient.name,
+//     nutrient.units,
+//     truncateTo(nutrient.value * scale(portion), 1)
+//   );
+// }
+&nbsp;
+const truncateTo = <span class="fstat-no" title="function not covered" >(u</span>nRouned, nrOfDecimals = <span class="branch-0 cbranch-no" title="branch not covered" >2)</span> =&gt; {
+  const parts = <span class="cstat-no" title="statement not covered" >String(unRouned).split('.');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (parts.length !== 2) {</span>
+    // without any decimal part
+<span class="cstat-no" title="statement not covered" >    return unRouned;</span>
+  }
+&nbsp;
+  const newDecimals = <span class="cstat-no" title="statement not covered" >parts[1].slice(0, nrOfDecimals);</span>
+  const newString = <span class="cstat-no" title="statement not covered" >`${parts[0]}.${newDecimals}`;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return Number(newString);</span>
+};
+&nbsp;
+function <span class="fstat-no" title="function not covered" >scale(</span>portion) {
+  /**
+   * Attempt to parse combinations of scales/portions and return an numerical
+   * value for usage by higher order functions.
+   */
+  const defaultUnit = <span class="cstat-no" title="statement not covered" >100;</span> // per 100g is the default measurement
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (_.isInteger(portion)) {</span>
+    // portion = 200 (g)
+<span class="cstat-no" title="statement not covered" >    return _.parseInt(portion) / defaultUnit;</span>
+  } else <span class="cstat-no" title="statement not covered" >if (isFloat(portion)) {</span>
+    // portion = 28.5 (g)
+<span class="cstat-no" title="statement not covered" >    return parseFloat(portion) / defaultUnit;</span>
+  } else <span class="cstat-no" title="statement not covered" >if (!isNumeric(portion)) {</span>
+    // portion = 1 tsp
+  } else {
+<span class="cstat-no" title="statement not covered" >    return 1;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return 1;</span>
+}
+function <span class="fstat-no" title="function not covered" >isFloat(</span>n) {
+<span class="cstat-no" title="statement not covered" >  return isNumeric(n) &amp;&amp; !_.isInteger(n);</span>
+}
+function <span class="fstat-no" title="function not covered" >isNumeric(</span>n) {
+<span class="cstat-no" title="statement not covered" >  return !_.isNaN(n) &amp;&amp; _.isFinite(n);</span>
+}
+&nbsp;
+export function <span class="fstat-no" title="function not covered" >prefixToName(</span>prefix) {
+  /**
+   * Convert nutrient prefix to full name from a standard hash/dictionary table
+   * stored on the client side??
+   * TODO: potentially look at this being hotloaded by REST service
+   */
+  const mapping = <span class="cstat-no" title="statement not covered" >{};</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ENERC = 'Energy';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ENERC1 = 'Energy, including dietary fibre';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ENERC1 = 'Energy';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ENERC_KCAL = 'Energy';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.WATER = 'Water';</span>
+  // Carbohydrates
+<span class="cstat-no" title="statement not covered" >  mapping.CHOCDF = 'Carbohydrate, by difference';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CHOAVL = 'Available carbohydrate';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SUGAR = 'Sugar Total';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FIBTG = 'Dietary Fibre';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SUCS = 'Sucrose';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.MALS = 'Maltose';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.GALS = 'Galactose';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FRUS = 'Fructose';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.GLUS = 'Glucose';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LACS = 'Lactose';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.STARCH = 'Starch';</span>
+  // common
+<span class="cstat-no" title="statement not covered" >  mapping.DEXTN = 'Dextrin';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.GYRL = 'Glycerol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.GLYC = 'Glycogen';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.INULN = 'Inulin';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.MANTL = 'Mannitol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.MALTDEX = 'Maltodextrin';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.OLSAC = 'Oligosaccharides';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.RAFS = 'Raffinose';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.STAS = 'Stachyose';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SORTL = 'Sorbitol';</span>
+&nbsp;
+&nbsp;
+  // Protiens &amp; amino acids
+<span class="cstat-no" title="statement not covered" >  mapping.PROCNT = 'Protein';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TRP = 'Tryptophan';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TYR = 'Tyrosine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.THR = 'Threonine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SER = 'Serine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ALA = 'Alanine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ARG = 'Arginine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ASP = 'Aspartic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CYS = 'Cystine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.HIS = 'Histidine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.HISTN = 'Histidine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ILE = 'Isoleucine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.HYP = 'Hyroxyprofile';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.PRO = 'Proline';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.GLU = 'Glutamic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.GLY = 'Glycine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.PHE = 'Phenylalanine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.MET = 'Methionine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LYS = 'Lysine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LEU = 'Leucine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VAL = 'Valine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TRP_G = 'Tryptophan';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TYR_G = 'Tyrosine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.THR_G = 'Threonine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SER_G = 'Serine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ALA_G = 'Alanine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ARG_G = 'Arginine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ASP_G = 'Aspartic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CYS_G = 'Cystine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.HIS_G = 'Histidine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.HISTN_G = 'Histidine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ILE_G = 'Isoleucine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.HYP_G = 'Hyroxyprofile';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.PRO_G = 'Proline';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.GLU_G = 'Glutamic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.GLY_G = 'Glycine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.PHE_G = 'Phenylalanine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.MET_G = 'Methionine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LYS_G = 'Lysine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LEU_G = 'Leucine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VAL_G = 'Valine';</span>
+  // Fats &amp; fatty acids
+<span class="cstat-no" title="statement not covered" >  mapping.FAT = 'Total lipid (fat)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FAMS = 'Fatty acids, total monounsaturated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FAPU = 'Fatty acids, total polyunsaturated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FASAT = 'Fatty acids, total saturated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FATSAT = 'Fatty acids, total saturated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FATRN = 'Fatty acids, total trans';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F4D0 = '4:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F6D0 = '6:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F8D0 = '8:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F10D0 = '10:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F10D1 = '10:1';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F12D0 = '12:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F13D0 = '13:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F14D0 = '14:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F14D1 = '14:1';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F15D0 = '15:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F15D1 = '15:1';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F16D0 = '16:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F16D1 = '16:1 undifferentiated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F16D1T = '16:0T'; </span>// trans
+<span class="cstat-no" title="statement not covered" >  mapping.F16D1T = '16:0C'; </span>// cis
+<span class="cstat-no" title="statement not covered" >  mapping.F17D0 = '17:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F17D1 = '17:1';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D0 = '18:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D1C = '18:1 C';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D1TN7 = '18:1 T7';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D1 = '18:1 undifferentiated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D2 = '18:2 undifferentiated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D2CN6 = '18:2 c n-6';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D2TT = '18:2 TT';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D2I = '18:2 I';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D2N6 = '18:2 n-6';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D3 = '18:3 undifferentiated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D3T = '18:3 T';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D3I = '18:3 I';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D3N6 = '18:3 n-6';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D3N3F = '18:3 n-3'; </span>// per unit
+<span class="cstat-no" title="statement not covered" >  mapping.F18D3N3 = '18:3 n-3'; </span>// per %
+<span class="cstat-no" title="statement not covered" >  mapping.F18D4 = '18:4';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F18D4N3 = '18:4 n-3';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F19D0 = '19:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D0 = '20:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D1 = '20:1';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D1N11F = '20:1 n-11';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D2N6 = '20:2 n-6 c,c';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D3N3 = '20:2 n-3';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D3 = '20:3 undifferentiated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D4 = '20:4 undifferentiated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D4N6 = '20:4 n-6';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F20D5 = '20:5 n-3 (EPA)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F21D0 = '21:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F22D0 = '22:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F22D1 = '22:1 undifferentiated';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F22D1C = '22:1 c';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F22D1T = '22:1 t';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F22D3 = '20:2 n-3';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F22D5N3 = '22:5 n-3 (DPA)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F22D6 = '22:6';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F22D6N3 = '22:6 n-3 (DHA)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F23D0 = '23:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F24D0 = '24:0';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F24D1 = '24:1';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.F24D1C = '24:1 c';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LCW3TOTAL = 'Total Omega 3 Fatty Acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FAUNDIFF = 'Undifferentiated fatty acids';</span>
+&nbsp;
+  // acids
+<span class="cstat-no" title="statement not covered" >  mapping.ACEAC = 'Acetic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CITAC = 'Citric acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FUMAC = 'Fumaric acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LACAC = 'Lactic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.MALAC = 'Malic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.OXALAC = 'Oxalic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.PROPAC = 'Propionic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.QUINAC = 'Quinic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SHIKAC = 'Shikimic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SUCAC = 'Succinic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TARAC = 'Tartaric acid';</span>
+&nbsp;
+&nbsp;
+  //        prefixToName[""] = ";
+  // Minerals &amp; metals
+<span class="cstat-no" title="statement not covered" >  mapping.AL = 'Aluminium';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.AS = 'Arsenic';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CA = 'Calcium (Ca)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CD = 'Cadmium (Cd)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CU = 'Copper (Cu)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CO = 'Cobalt (Co)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CR = 'Chromium (Cr)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FD = 'Fluoride (F)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FE = 'Iron (Fe)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.HG = 'Mercury (Hg)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ID = 'Iodine (I)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.K = 'Potassium (K)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.MG = 'Magnesium (Mg)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.MN = 'Manganese (Mn)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.M0 = 'Molybdenum (Mo)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.NA = 'Sodium (Na)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.NI = 'Nickel (Ni)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.P = 'Phosphorus (P)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.PB = 'Lead (Pb)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.S = 'Sulphur (S)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SE = 'Selenium (Se)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SN = 'Tin (Sn)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ZN = 'Zinc (Zn)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FLD = 'Flouride (F)';</span>
+  // Vitamins
+<span class="cstat-no" title="statement not covered" >  mapping.BIOT = 'Biotin (B7)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.B1 = 'Thiamin (B1)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.THIA = 'Thiamin (B1)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.B2 = 'Riboflavin (B2)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.B3 = 'Niacin (B3)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITB6 = 'Pyridoxine (B6)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITB12 = 'Cobalamin (B12)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CARTA = 'Alpha carotene';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CARTB = 'Beta carotene';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CARTBEQ = 'Beta carotene equivalents';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CHOLN = 'Choline';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.BETN = 'Betaine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CRYPX = 'Cryptoxanthin';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.NIA = 'Niacin (B3)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.NIAEQ = 'Niacin Equivalents';</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  mapping.FOL = 'Total folates';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FOLAC = 'Folic acid';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FOLFD = 'Folate, natural';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.FOLDFE = 'Dietary folate equivalents';</span>
+<span class="cstat-no" title="statement not covered" >  prefixToName['LUT+ZEA'] = 'Lutein + Zeaxanthin';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LUTN = 'Lutein';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.LYCPN = 'Lycopene';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  mapping.MK4 = 'Menaquinone-4';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.PANTAC = 'Pantothenic acid (B5)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITB6A = 'Pyridoxine (B6)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITB12 = 'Cobalamin (B12)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITE = 'Vitamin E';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITK = 'Vitamin K (phylloquinone)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITK1D = '';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.RETOL = 'Retinol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITA_IU = 'Retinol Equivalents (VIT A)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITA_RAE = 'Retinol Activity Equivalent (RAE)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITA = 'Retinol Equivalents (VIT A)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITC = 'Vitamin C';</span>
+  // vit d
+<span class="cstat-no" title="statement not covered" >  mapping.CHOCAL = 'Cholecalciferol (D3)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ERGCAL = 'Ergocalciferol (D2)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CHOCALOH = '25-OH Cholecalciferol (25-OH D3)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.ERGCALOH = '25-OH Ergocalciferol (25-OH D2)';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITDEQ = 'Vitamin D3 equivalents, with factors';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.VITD = 'Vitamin D';</span>
+  // sterols
+<span class="cstat-no" title="statement not covered" >  mapping.PHYSTR = 'Phytosterols';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.STID7 = 'Stigmasterol'; </span>// usually delta 7-stigmasterol
+<span class="cstat-no" title="statement not covered" >  mapping.CAMD5 = 'Campesterol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.SITSTR = 'Sitosterol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TOCPHA = 'Alpha-tocopherol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TOCTRA = 'Alpha-tocotrienol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TOCPHB = 'Beta-tocopherol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TOCTRB = 'Beta-tocotrienol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TOCPHD = 'Delta-tocopherol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TOCTRD = 'Delta-tocotrienol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TOCPHG = 'Gamma-tocopherol';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.TOCTRG = 'Gamma-tocotrienol';</span>
+  // Other
+<span class="cstat-no" title="statement not covered" >  mapping.CAFFN = 'Caffeine';</span>
+<span class="cstat-no" title="statement not covered" >  mapping.CHOLE = 'Cholesterol';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return mapping[prefix] || null;</span>
+}
+&nbsp;
+// function portionToValue(portion) {
+//   /**
+//    * Attempt to convert a string-based portion to a numerical value from
+//    * a given look-up table.
+//    */
+//   const portions = {};
+//   portions.tsp = 0.4;
+//   portions.cup = 0.00;
+//   portions.dsp = 1;
+//   portions.handful = 40;
+//   // ....
+//   // ....
+//   return portions[portion];
+// }
+export function <span class="fstat-no" title="function not covered" >prefixToUnit(</span>prefix) {
+  /**
+   * Return standardized units for particular nutrient. This issue can be solved
+   * by assuming the served content is reliable and standardized - may not be
+   * a safe assumption when considering multiple data sources etc.
+   * TODO: potentially look at this being hotloaded by REST service
+   */
+  const units = <span class="cstat-no" title="statement not covered" >{};</span>
+<span class="cstat-no" title="statement not covered" >  units.ENERC = 'kJ';</span>
+<span class="cstat-no" title="statement not covered" >  units.ENERC1 = 'kJ';</span>
+<span class="cstat-no" title="statement not covered" >  units.ENERC_KCAL = 'kCal';</span>
+<span class="cstat-no" title="statement not covered" >  units.WATER = 'g';</span>
+  // Carbohydrates
+<span class="cstat-no" title="statement not covered" >  units.CHOCDF = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.CHOAVL = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.SUGAR = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.FIBTG = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.SUCS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.MALS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.GALS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.FRUS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.LACS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.GLUS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.STARCH = 'g';</span>
+  // common
+<span class="cstat-no" title="statement not covered" >  units.DEXTN = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.GYRL = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.GLYC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.INULN = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.MANTL = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.MALTDEX = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.OLSAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.RAFS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.STAS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.SORTL = 'g';</span>
+&nbsp;
+&nbsp;
+  // Protiens &amp; amino acids
+<span class="cstat-no" title="statement not covered" >  units.PROCNT = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.TRP = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TYR = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.THR = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.SER = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.ALA = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.ARG = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.ASP = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.CYS = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.HIS = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.HISTN = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.ILE = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.HYP = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.PRO = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.GLU = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.GLY = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.PHE = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.MET = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.LYS = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.LEU = 'mg';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  units.TRP_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TYR_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.THR_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.SER_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.ALA_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.ARG_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.ASP_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.CYS_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.HIS_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.HISTN_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.ILE_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.HYP_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.PRO_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.GLU_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.GLY_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.PHE_G = 'mg,';</span>
+<span class="cstat-no" title="statement not covered" >  units.MET_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.LYS_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.LEU_G = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.VAL_G = 'mg';</span>
+  // Fats &amp; fatty acids
+<span class="cstat-no" title="statement not covered" >  units.FAT = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.FAMS = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.FAPU = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.FASAT = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.FATSAT = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.FATRN = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.F4D0 = 'mg'; </span>// %T or g?
+<span class="cstat-no" title="statement not covered" >  units.F6D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F8D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F10D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F10D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F12D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F13D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F14D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F14D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F15D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F15D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F16D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F16D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F16D1T = 'mg'; </span>// trans
+<span class="cstat-no" title="statement not covered" >  units.F16D1T = 'mg'; </span>// cis
+<span class="cstat-no" title="statement not covered" >  units.F17D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F17D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D1C = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D1TN7 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D2 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D2CN6 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D2TT = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D2I = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D2N6 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D3 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D3T = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D3I = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D3N6 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D3N3F = 'mg'; </span>// per unit
+<span class="cstat-no" title="statement not covered" >  units.F18D3N3 = 'mg'; </span>// per %
+<span class="cstat-no" title="statement not covered" >  units.F18D4 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F18D4N3 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F19D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D1N11F = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D2N6 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D3N3 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D3 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D4 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D4N6 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F20D5 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F21D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F22D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F22D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F22D1C = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F22D1T = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F22D3 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F22D5N3 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F22D6 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F22D6N3 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F23D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F24D0 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F24D1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.F24D1C = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.LCW3TOTAL = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.FAUNDIFF = 'mg';</span>
+&nbsp;
+  // acids
+<span class="cstat-no" title="statement not covered" >  units.ACEAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.CITAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.FUMAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.LACAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.MALAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.OXALAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.PROPAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.QUINAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.SHIKAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.SUCAC = 'g';</span>
+<span class="cstat-no" title="statement not covered" >  units.TARAC = 'g';</span>
+&nbsp;
+&nbsp;
+  //        units["] = ";
+  // Minerals &amp; metals
+<span class="cstat-no" title="statement not covered" >  units.AL = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.AS = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CA = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.CD = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CU = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.CO = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CR = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.FD = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.FE = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.HG = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.ID = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.K = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.MG = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.MN = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.M0 = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.NA = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.NI = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.P = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.PB = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.S = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.SE = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.SN = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.ZN = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.FLD = 'mg';</span>
+  // Vitamins
+<span class="cstat-no" title="statement not covered" >  units.BIOT = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.B1 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.THIA = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.B2 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.B3 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITB6 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITB12 = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CARTA = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CARTB = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CARTBEQ = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CHOLN = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.BETN = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CRYPX = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.NIA = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.NIAEQ = 'mg';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  units.FOL = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.FOLAC = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.FOLFD = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.FOLDFE = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units['LUT+ZEA'] = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.LUTN = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.LYCPN = 'ug';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  units.MK4 = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.PANTAC = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITB6A = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITB12 = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITE = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITK = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITK1D = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.RETOL = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITA_IU = 'IU';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITA = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITA_RAE = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITC = 'mg';</span>
+  // vit d
+<span class="cstat-no" title="statement not covered" >  units.CHOCAL = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.ERGCAL = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.CHOCALOH = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.ERGCALOH = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITDEQ = 'ug';</span>
+<span class="cstat-no" title="statement not covered" >  units.VITD = 'ug';</span>
+  // sterols
+<span class="cstat-no" title="statement not covered" >  units.PHYSTR = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.STID7 = 'mg'; </span>// usually delta 7-stigmasterol
+<span class="cstat-no" title="statement not covered" >  units.CAMD5 = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.SITSTR = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TOCPHA = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TOCTRA = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TOCPHB = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TOCTRB = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TOCPHD = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TOCTRD = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TOCPHG = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.TOCTRG = 'mg';</span>
+  // Other
+<span class="cstat-no" title="statement not covered" >  units.CAFFN = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  units.CHOLE = 'mg';</span>
+<span class="cstat-no" title="statement not covered" >  return units[prefix] || 'NA';</span>
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Feb 13 2018 22:26:31 GMT+1100 (AEDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

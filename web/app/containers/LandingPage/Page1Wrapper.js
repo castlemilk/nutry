@@ -29,10 +29,6 @@ const Page1Wrapper = styled.div`
     z-index: 1;
   }
 
-  .page1-point-wrapper {
-    fill: none;
-  }
-
   .page1-block h3 {
     margin-top: 10px;
     color: white;
@@ -41,6 +37,7 @@ const Page1Wrapper = styled.div`
 
   .page1-point-wrapper {
     background: transparent;
+    fill: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -55,17 +52,12 @@ const Page1Wrapper = styled.div`
     height: 120px;
     margin: 46px auto 40px;
     align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
   }
 
   .page1-image img:hover {
-    border-color: rgba(127, 63, 191,0.70);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.70);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.60);
-    box-shadow: 0px 4px 10px 0px rgba(127, 63, 191,0.70);
+    border-color: rgba(127, 63, 191, 0.7);
+    box-shadow: 0 4px 10px 0 rgba(127, 63, 191, 0.7);
     margin-top: -10px;
   }
 
@@ -78,13 +70,12 @@ const Page1Wrapper = styled.div`
     font-family: 'SF UI Display', "Helvetica Neue For Number", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  
+
   .page1 {
     min-height: 784px;
     background: #7f3fbf;
     background: -webkit-gradient(linear, left top, left bottom, from(#7f3fbf), to(#7f3fbf));
-    background: -webkit-linear-gradient(top, #7f3fbf 0%, #7f3fbf 100%);
-    background: linear-gradient(to bottom, #7f3fbf 0%, #7f3fbf 100%);
+    background: linear-gradient(to bottom, #7f3fbf 0, #7f3fbf 100%);
   }
 `;
 

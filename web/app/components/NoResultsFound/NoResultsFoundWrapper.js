@@ -12,6 +12,6 @@ const NoResultsFoundWrapper = styled.div`
     text-align: center;
     font-size: 25px;
   }
- `;
+`;
 
 export default NoResultsFoundWrapper;

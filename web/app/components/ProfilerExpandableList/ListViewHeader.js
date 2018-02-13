@@ -8,7 +8,7 @@ const ListViewHeader = styled.div`
   .headerText {
     margin-left: 5px;
   }
-  
+
   .headerIcon {
     margin-left: 3px;
   }

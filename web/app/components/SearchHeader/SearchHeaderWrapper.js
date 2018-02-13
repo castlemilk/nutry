@@ -21,11 +21,15 @@ const SearchHeaderWrapper = styled.div`
     border-color: #7f3fbf;
   }
 
-  .back-button .ant-btn-primary:hover {
+  .ant-btn .ant-btn-primary {
+    background: rgba(211, 211, 211, 0.3);
+  }
+
+  .ant-btn-primary:hover {
     background-color: #7f3fdf;
     border-color: #7f3fdf;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .back-button .button {
@@ -42,13 +46,9 @@ const SearchHeaderWrapper = styled.div`
     display: flex;
   }
 
-  .ant-btn ant-btn-primary {
-    background: rgba(211, 211, 211, 0.3);
-  }
-
   .header {
-    height:auto;
-    padding:1%;
+    height: auto;
+    padding: 1%;
     width: 100%;
     padding-left: 30px;
     padding-right: 30px;
@@ -66,10 +66,9 @@ const SearchHeaderWrapper = styled.div`
     min-width: 50px;
     max-height: 52px;
     max-width: 80%;
-    margin-left:2%;
-    float:left;
-    padding:0;
-    margin:0;
+    margin-left: 2%;
+    float: left;
+    padding: 0;
     display: block;
   }
 

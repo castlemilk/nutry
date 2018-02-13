@@ -19,10 +19,8 @@ const ProfilerAddElementWrapper = styled.div`
     margin: 20px;
     border-radius: 20px;
     bottom: 2px;
-    border-color: rgba(127, 63, 191, 0.70);
-    -webkit-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.70);
-    -moz-box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.60);
-    box-shadow: 0px 4px 10px 0px rgba(127, 63, 191, 0.70);
+    border-color: rgba(127, 63, 191, 0.7);
+    box-shadow: 0 4px 10px 0 rgba(127, 63, 191, 0.7);
   }
 
   .plus-button-wrapper:focus {

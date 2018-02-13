@@ -89,18 +89,18 @@ export class NutrientRow extends React.Component {
       fontSize = 2.2;
     }
     const Row = styled.div`
-         display: block;
-         position: relative;
-         border-bottom: 1px solid #a79595;
-         background-color: ${isSelected ? 'gray' : 'white'};
-         transform: scale(${isSelected ? 1.1 : 1});
-         transition-duration: 0.1s;
-         z-index: ${isSelected ? 10 : 0};
-     `;
+      display: block;
+      position: relative;
+      border-bottom: 1px solid #a79595;
+      background-color: ${isSelected ? 'gray' : 'white'};
+      transform: scale(${isSelected ? 1.1 : 1});
+      transition-duration: 0.1s;
+      z-index: ${isSelected ? 10 : 0};
+    `;
     const RowName = styled.div`
       display: inline-block;
       overflow: hidden;
-      width:57%;
+      width: 57%;
       font-size: ${fontSize}vmin;
       font-family: 'Bitter', serif;
 
@@ -111,7 +111,7 @@ export class NutrientRow extends React.Component {
     const RowUnits = styled.div`
       display: inline-block;
       overflow: hidden;
-      width:${isSelected ? 15 : 14}%;
+      width: ${isSelected ? 15 : 14}%;
       text-align: center;
       font-family: 'Droid Serif', serif;
     `;

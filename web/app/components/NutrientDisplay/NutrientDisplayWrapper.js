@@ -10,11 +10,9 @@ const NutrientDisplayWrapper = styled.div`
   border-style: solid;
   border-width: 1px;
   border-color: black;
-  -webkit-box-shadow:  6px 6px 12px -6px rgba(0, 0, 0, 0.44);
-  -moz-box-shadow:  6px 6px 12px -6px rgba(0, 0, 0, 0.44);
   box-shadow: 10px 10px 16px -10px rgba(0, 0, 0, 0.44);
 
-  .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab  {
+  .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
     width: 300px;
   }
 
@@ -32,7 +30,7 @@ const NutrientDisplayWrapper = styled.div`
 
   .detailed-table-header-wrapper {
     margin-top: 10px;
-    padding-right:40px;
+    padding-right: 40px;
     padding-left: 40px;
     font-size: 2.5vmin;
   }
