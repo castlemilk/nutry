@@ -98,39 +98,41 @@ export class NutrientRow extends React.Component {
          z-index: ${isSelected ? 10 : 0};
      `;
     const RowName = styled.div`
-      display:inline-block;
+      display: inline-block;
       overflow: hidden;
       width:57%;
       font-size: ${fontSize}vmin;
       font-family: 'Bitter', serif;
+
       .row-name-${type}-text {
         margin-left: ${indent}px;
       }
     `;
     const RowUnits = styled.div`
-      display:inline-block;
+      display: inline-block;
       overflow: hidden;
       width:${isSelected ? 15 : 14}%;
       text-align: center;
       font-family: 'Droid Serif', serif;
     `;
     const RowValue = styled.div`
-      display:inline-block;
+      display: inline-block;
       overflow: hidden;
-      width:${isSelected ? 17 : 25}%;
+      width: ${isSelected ? 17 : 25}%;
       text-align: center;
       font-family: 'Bitter', serif;
     `;
     const RowInfo = styled.div`
-      display:inline-block;
+      display: inline-block;
       margin: auto;
       overflow: hidden;
       text-align: center;
       font-family: 'Bitter', serif;
       padding-right: 1%;
+
       .info-icon:hover {
         color: red;
-        display:inline-block;
+        display: inline-block;
         text-align: center;
         margin: auto;
       }

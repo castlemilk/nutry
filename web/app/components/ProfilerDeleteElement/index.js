@@ -14,9 +14,9 @@ import ProfilerDeleteElementWrapper from './ProfilerDeleteElementWrapper';
 function ProfilerDeleteElement(props) {
   return (
     <ProfilerDeleteElementWrapper>
-      <div className="delete-button-wrapper" onClick={props.onClick}>
+      <button className="delete-button-wrapper" onClick={props.onClick}>
         <FaClose style={{ fontSize: 30, color: '#b778ef' }} />
-      </div>
+      </button>
     </ProfilerDeleteElementWrapper>
   );
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { firebaseConfig } from 'config';
+// import { Map } from 'immutable';
 
 function parseResults(response) {
   if (response.status !== 200) {
@@ -33,10 +34,11 @@ export function getFoodProfile(serialNumber) {
 }
 
 export async function getMultiFoodProfile(ids) {
-  const data = new Map();
+  const data = {};
   await Promise.all(ids.map(async (id) => {
-    data.set(id, await getFoodProfile(id));
+    data[id] = await getFoodProfile(id);
   }));
+  // console.log(data);
   return data;
 }
 

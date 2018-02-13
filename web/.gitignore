@@ -1,0 +1,12 @@
+*config.yml
+*.pyc
+*.retry
+venv/
+*.idea
+*/node_modules/
+node_modules/
+*.pem
+*.inventory
+*.inventory*
+*.inventory.yml
+*.inventory.ini

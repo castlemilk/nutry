@@ -20,7 +20,7 @@ export function* getResults() {
   const searchString = yield select(makeSelectSearchString());
 
   try {
-    console.log('running search');
+    // console.log('running search');
     yield delay(400);
     if (searchType === 'nutrients' || searchType === 'all') {
       const results = yield call(search, searchString);
@@ -35,7 +35,7 @@ export function* getResults() {
       yield put(searchComplete(Object()));
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     yield put(searchFailure(err));
   }
 }

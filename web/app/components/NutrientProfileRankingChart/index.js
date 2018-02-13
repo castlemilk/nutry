@@ -134,7 +134,7 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
   onFinishedLoading() {
   }
   handleBarClick(value) {
-    console.log(value);
+    // console.log(value);
     const { id } = value;
     // this.props.onProfileSelected(id)
     this.props.onLoadNewProfile(id);
@@ -152,6 +152,7 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
       nutrientSelected,
       id,
       portionSelected } = this.props;
+    // console.log(rankingResults);
     const loadingPie = <Spin style={{ marginTop: '160px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     const data = loading ? null : processData(rankingResults, nutrientSelected, portionSelected);
     return (

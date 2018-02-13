@@ -30,7 +30,7 @@ export function* getResults() {
     // console.log(results ? results.items : []);
     yield put(searchComplete(results));
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     yield put(searchFailure(err));
   }
 }

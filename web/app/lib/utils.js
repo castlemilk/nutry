@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
-function interpolateColor(color1, color2, factor) {
+function interpolateColor(color1, color2, f) {
+  let factor = f;
   if (arguments.length < 3) {
     factor = 0.5;
   }
@@ -10,14 +11,14 @@ function interpolateColor(color1, color2, factor) {
   }
   return convertToHex(result);
 }
-export function interpolateColors(color1, color2, steps) {
-  const stepFactor = 1 / (steps - 1),
-    interpolatedColorArray = [];
+export function interpolateColors(c1, c2, steps) {
+  const stepFactor = 1 / (steps - 1);
+  const interpolatedColorArray = [];
 
-  color1 = color1.match(/\d+/g).map(Number);
-  color2 = color2.match(/\d+/g).map(Number);
+  const color1 = c1.match(/\d+/g).map(Number);
+  const color2 = c2.match(/\d+/g).map(Number);
 
-  for (let i = 0; i < steps; i++) {
+  for (let i = 0; i < steps; i += 1) {
     interpolatedColorArray.push(interpolateColor(color1, color2, stepFactor * i));
   }
 
@@ -26,7 +27,7 @@ export function interpolateColors(color1, color2, steps) {
 
 function hex(c) {
   const s = '0123456789abcdef';
-  let i = parseInt(c);
+  let i = parseInt(c, 10);
   if (i === 0 || isNaN(c)) { return '00'; }
   i = Math.round(Math.min(Math.max(0, i), 255));
   return s.charAt((i - (i % 16)) / 16) + s.charAt(i % 16);
@@ -79,10 +80,10 @@ export function generateColor(colorStart, colorEnd, colorCount) {
 
 
 export const arrayToObject = (array) =>
-   array.reduce((obj, item) => {
-     obj[item.id] = item;
-     return obj;
-   }, {});
+   array.reduce((obj, item) => ({
+     ...obj,
+     [item.id]: item,
+   }), {});
 
 
 export function scaledValue(value, portion = false) {

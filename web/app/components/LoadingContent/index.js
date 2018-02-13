@@ -14,9 +14,11 @@ function LoadingContent(props) {
   const LoadingContentWrapper = styled.div`
     margin: 5px;
     display: inline-block;
+
     .ant-progress-bg {
       background-color: #babfc3;
     }
+    
     .ant-progress-status-active .ant-progress-bg:before {
       animation: ant-progress-active ${props.speed || 1}s cubic-bezier(0.23, 1, 0.32, 1) infinite;
       -webkit-animation: ant-progress-active ${props.speed || 1}s cubic-bezier(0.23, 1, 0.32, 1) infinite;

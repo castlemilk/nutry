@@ -67,7 +67,7 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
     const { onProfileSelected } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = searchResults.items ? searchResults.items : [];
-    console.log(searchLoading, profilerLoading, items, items.length);
+    // console.log(searchLoading, profilerLoading, items, items.length);
     const noResultsFound = items.length === 0 && searchString.length > 0 && (!searchLoading);
     const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList onProfileSelected={(profileData) => onProfileSelected(profileData)} results={items} />;
     const nutrientResultsView = (searchLoading || profilerLoading) ?

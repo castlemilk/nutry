@@ -31,7 +31,7 @@ class Page3 extends React.Component { // eslint-disable-line react/prefer-statel
                 leaveReverse
               >
                 <h3 className="description">
-                {messages.developers.description}
+                  {messages.developers.description}
                 </h3>
                 {codeEditor}
               </QueueAnim>
@@ -40,7 +40,7 @@ class Page3 extends React.Component { // eslint-disable-line react/prefer-statel
             </ScrollOverPack>
           </div>
         </div>
-      </Page3Wrapper >
+      </Page3Wrapper>
     );
   }
 

@@ -113,8 +113,8 @@ export default defineMessages({
   developers: {
     id: `${scope}.p3.developers`,
     defaultMessage: 'Developers',
-    description: `Nutry is built on a core tenant or philosophy of improving access to information` +
+    description: 'Nutry is built on a core tenant or philosophy of improving access to information' +
     ' and making it easy for people to digest it (no pun intended). By proving a highly accessible and verbose API we make it possible for other' +
-    ` organisations and users to consume the data to built tools that we know you'll love becuase of how rich the data is.`
+    ' organisations and users to consume the data to built tools that we know you\'ll love becuase of how rich the data is.',
   },
 });

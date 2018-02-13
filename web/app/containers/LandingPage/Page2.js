@@ -20,7 +20,7 @@ class Page2 extends React.Component { // eslint-disable-line react/prefer-statel
   }
   componentDidMount
   handleHover(value) {
-    console.log(`hovering on: ${value}`);
+    // console.log(`hovering on: ${value}`);
     this.setState({
       architectureHovering: value,
     });

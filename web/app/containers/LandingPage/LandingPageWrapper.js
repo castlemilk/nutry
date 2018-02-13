@@ -4,6 +4,7 @@ const LandingPageWrapper = styled.div`
     overflow: hidden;
     padding: 0;
     width: 100%;
+
     .home-page-wrapper .page h2 {
       font-size: 60px;
       line-height: 46px;
@@ -12,6 +13,7 @@ const LandingPageWrapper = styled.div`
       font-weight: 400;
       margin: 140px auto 100px;
     }
+    
     .home-page-wrapper .page {
       width: 100%;
       max-width: 1600px;

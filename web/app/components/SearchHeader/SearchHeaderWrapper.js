@@ -5,6 +5,7 @@ const SearchHeaderWrapper = styled.div`
   position: relative;
   width: 100%;
   min-width: 380px;
+
   .back-button {
     height: auto;
     width: 180px;
@@ -13,21 +14,24 @@ const SearchHeaderWrapper = styled.div`
     margin-top: 10px;
     margin-bottom: 16px;
   }
+
   .ant-btn-primary {
     width: 100%;
     background-color: #7f3fbf;
     border-color: #7f3fbf;
   }
+
   .back-button .ant-btn-primary:hover {
     background-color: #7f3fdf;
     border-color: #7f3fdf;
-    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
     transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
   }
+
   .back-button .button {
     width: 100%;
-
   }
+
   .sign-in-wrapper {
     margin-left: 30px;
     padding-right: 20px;
@@ -37,9 +41,11 @@ const SearchHeaderWrapper = styled.div`
     justify-content: center;
     display: flex;
   }
+
   .ant-btn ant-btn-primary {
-    backhround: rgba(211, 211, 211, 0.3);
+    background: rgba(211, 211, 211, 0.3);
   }
+
   .header {
     height:auto;
     padding:1%;
@@ -48,12 +54,14 @@ const SearchHeaderWrapper = styled.div`
     padding-right: 30px;
     display: flex;
   }
+
   .logo-wrapper {
     width: 100%;
     height: 100%;
     vertical-align: middle;
     text-align: center;
   }
+
   .logo-image {
     min-width: 50px;
     max-height: 52px;
@@ -64,6 +72,7 @@ const SearchHeaderWrapper = styled.div`
     margin:0;
     display: block;
   }
+
   .search-box {
     width: 100%;
     height: 100%;
@@ -71,6 +80,7 @@ const SearchHeaderWrapper = styled.div`
     justify-content: center;
     display: flex;
   }
+
   .search-box .profile-title {
     max-height: 200px;
   }

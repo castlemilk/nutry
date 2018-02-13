@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  display:table;
+  display: table;
   width: 100%;
   margin-left: 5px;
 `;

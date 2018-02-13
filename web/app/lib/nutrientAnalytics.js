@@ -1,7 +1,8 @@
 import { Map, List } from 'immutable';
 import { getMultiFoodProfile } from 'services/firebase/firebase';
 import { DETAILED_IDS } from 'containers/FoodProfile/constants';
-import { getNutrient, prefixToName, prefixToUnit } from './nutrientMap';
+import { getNutrient } from './nutrientMap';
+// import { getNutrient, prefixToName, prefixToUnit } from './nutrientMap';
 
 /**
  * Process a generic profileBody fetched from a given backend such as firebase
@@ -25,7 +26,7 @@ export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected, por
   return nutrientFilter.map((prefix) => getNutrient(prefix, nutrients, scale, ageGroupSelected));
 }
 
-export function getRankingResults(searchResults) {
+export function getRankingResults(searchResults) { /* eslint no-underscore-dangle: ["error", { "allow": [ "_source"] }]*/
   if (!searchResults.items) {
     return List([]);
   }
@@ -34,12 +35,14 @@ export function getRankingResults(searchResults) {
   // console.log(prefixToName);
   // console.log(prefixToUnit);
   const rankings = Map(DETAILED_IDS.reduce((accumulator, prefix) => ({ ...accumulator, [prefix]: [] }), {}));
-  return getMultiFoodProfile(ids).then((resultsArray) => {
-    for (const [id, profile] of resultsArray.entries()) {
-      const { nutrients, name } = profile;
+  return getMultiFoodProfile(ids).then((resultsDict) => {
+    Object.keys(resultsDict).map((id) => {
+      // console.log(id);
+      // console.log(resultsDict);
+      const { nutrients, name } = resultsDict[id];
       // const nutrients = profile.get('nutrients');
       // const name = profile.get('name');
-      for (const prefix of DETAILED_IDS) {
+      DETAILED_IDS.map((prefix) => {
         if (nutrients[prefix]) {
           rankings.update(prefix, (l) => (l || List()).push(Map({
             name,
@@ -47,8 +50,10 @@ export function getRankingResults(searchResults) {
             value: nutrients[prefix].value === '~' ? 0 : nutrients[prefix].value,
             unit: nutrients[prefix].units })));
         }
-      }
-    }
+        return null;
+      });
+      return rankings;
+    });
     return rankings;
   }).then((result) =>
     // console.log(result);
