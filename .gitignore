@@ -10,3 +10,5 @@ node_modules/
 *.inventory*
 *.inventory.yml
 *.inventory.ini
+coverage/*
+coverage/

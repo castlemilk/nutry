@@ -3,13 +3,14 @@ import { firebaseConfig } from 'config';
 // import { Map } from 'immutable';
 
 function parseResults(response) {
+  // console.log(response);
   if (response.status !== 200) {
     return null;
   }
   return response.data;
+  // return response;
 }
 function checkStatus(response) {
-  // console.log(response);
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -38,7 +39,6 @@ export async function getMultiFoodProfile(ids) {
   await Promise.all(ids.map(async (id) => {
     data[id] = await getFoodProfile(id);
   }));
-  // console.log(data);
   return data;
 }
 
