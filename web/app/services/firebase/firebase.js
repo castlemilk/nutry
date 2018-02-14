@@ -2,7 +2,7 @@ import axios from 'axios';
 import { firebaseConfig } from 'config';
 // import { Map } from 'immutable';
 
-function parseResults(response) {
+export function parseResults(response) {
   // console.log(response);
   if (response.status !== 200) {
     return null;
@@ -10,11 +10,12 @@ function parseResults(response) {
   return response.data;
   // return response;
 }
-function checkStatus(response) {
+export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
-  const error = new Error(response.statusText);
+  const errorMessage = response.statusText || 'ERROR STATUS';
+  const error = new Error(errorMessage);
   error.response = response;
   throw error;
 }
@@ -41,13 +42,3 @@ export async function getMultiFoodProfile(ids) {
   }));
   return data;
 }
-
-// function foodProfileRefJSON(id, source) {
-//   return foodProfileRef(id, source).then((response) => response.json());
-// }
-//
-// function fetchFoodProfile(id, source) {
-//   foodProfileRef(id, source).then((snapshot) => {
-//     cb(snapshot);
-//   });
-// }

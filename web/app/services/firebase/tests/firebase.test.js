@@ -1,7 +1,8 @@
 // import axios from 'axios';
+// import rewire from 'rewire';
 import moxios from 'moxios';
 import sinon from 'sinon';
-import { getFoodProfile, getMultiFoodProfile } from '../firebase';
+import { parseResults, checkStatus, getFoodProfile, getMultiFoodProfile } from '../firebase';
 import { getFoodProfileMockSuccess, getMultiFoodProfileMockSuccess } from '../../../mocks/getFoodProfileMock';
 
 describe('firebase', () => {
@@ -37,5 +38,19 @@ describe('firebase', () => {
       expect(onFulfilled.getCall(0).args[0]['00001']).toMatchObject(getMultiFoodProfileMockSuccess[1].response);
       done();
     });
+  });
+  it('parseResults', (done) => {
+    const responseSuccess = { status: 200, data: { a: 'a', b: 'b', c: 'c' } };
+    const responseFailure = { status: 404 };
+    expect(parseResults(responseSuccess)).toMatchObject(responseSuccess.data);
+    expect(parseResults(responseFailure)).toBe(null);
+    done();
+  });
+  it('checkStatus', (done) => {
+    const responseSuccess = { status: 200, data: { a: 'a', b: 'b', c: 'c' } };
+    const responseFailure = { status: 404 };
+    expect(checkStatus(responseSuccess)).toMatchObject(responseSuccess);
+    expect(() => { checkStatus(responseFailure); }).toThrow();
+    done();
   });
 });
