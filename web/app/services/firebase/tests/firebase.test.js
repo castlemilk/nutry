@@ -25,22 +25,17 @@ describe('firebase', () => {
       });
     });
   });
-  it('getMultiFoodProfile', () => {
+  it('getMultiFoodProfile', (done) => {
     // const payload = getMultiFoodProfileMockSuccess;
-    // const onFulfilled = sinon.spy();
-    moxios.stubRequest(/.*profiles\/00000.json.*/, getMultiFoodProfileMockSuccess[0])
-    moxios.stubRequest(/.*profiles\/00001.json.*/, getMultiFoodProfileMockSuccess[1])
-    getMultiFoodProfile(['00000', '00001']
+    const onFulfilled = sinon.spy();
+    moxios.stubRequest(/.*profiles\/00000.json.*/, getMultiFoodProfileMockSuccess[0]);
+    moxios.stubRequest(/.*profiles\/00001.json.*/, getMultiFoodProfileMockSuccess[1]);
+    getMultiFoodProfile(['00000', '00001']).then(onFulfilled);
+    // moxios wait for stubs complete etc.
     moxios.wait(() => {
-      const request = moxios.requests.mostRecent();
-      // Override with a mocked response via a specified payload.
-      request.respondWith(payload).then((response) => {
-        console.log(onFulfilled);
-        console.log(response);
-        expect(onFulfilled.getCall(0).args[0].SN).toBe('02049');
-        expect(onFulfilled.getCall(0).args[0].name).toBe(getFoodProfileMockSuccess.response.name);
-        done();
-      });
+      expect(onFulfilled.getCall(0).args[0]['00000']).toMatchObject(getMultiFoodProfileMockSuccess[0].response);
+      expect(onFulfilled.getCall(0).args[0]['00001']).toMatchObject(getMultiFoodProfileMockSuccess[1].response);
+      done();
     });
   });
 });
