@@ -142,7 +142,6 @@ export class NutrientRow extends React.Component {
       {hasUnits ? <RowUnits className={`Section__${type}__RowUnits__${id}`} >{units}</RowUnits> : null }
       {hasValue ? <RowValue className={`Section__${type}__RowValue__${id}`} >{value}</RowValue> : null }
       {isSelected ? <RowInfo ><FaInfoCircle onClick={() => onInfoClick(prefix)} className="info-icon" /></RowInfo> : null}
-
     </Row>
     );
   }

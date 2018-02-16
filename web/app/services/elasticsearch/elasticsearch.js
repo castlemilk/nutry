@@ -8,7 +8,7 @@ import { searchQuery,
   matchField } from './queries';
 
 
-function parseResults(response) {
+export function parseResults(response) {
   if (response.status !== 200) {
     return null;
   }
@@ -18,7 +18,7 @@ function parseResults(response) {
     items: response.data.hits.hits,
   };
 }
-function checkStatus(response) {
+export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }

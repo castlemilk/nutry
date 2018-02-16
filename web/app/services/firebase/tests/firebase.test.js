@@ -2,8 +2,14 @@
 // import rewire from 'rewire';
 import moxios from 'moxios';
 import sinon from 'sinon';
-import { parseResults, checkStatus, getFoodProfile, getMultiFoodProfile } from '../firebase';
-import { getFoodProfileMockSuccess, getMultiFoodProfileMockSuccess } from '../../../mocks/getFoodProfileMock';
+import {
+  parseResults,
+  checkStatus,
+  getFoodProfile,
+  getMultiFoodProfile } from '../firebase';
+import {
+  getFoodProfileMockSuccess,
+  getMultiFoodProfileMockSuccess } from '../../../mocks/getFoodProfileMock';
 
 describe('firebase', () => {
   beforeEach(() => {

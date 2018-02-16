@@ -116,7 +116,7 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
 Profiler.propTypes = {
   onProfileSelected: PropTypes.func.isRequired,
   elements: PropTypes.array,
-  searchResults: PropTypes.array,
+  searchResults: PropTypes.object,
   searchString: PropTypes.string,
   searchLoading: PropTypes.bool,
   profilerLoading: PropTypes.bool,

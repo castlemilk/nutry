@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 import {
   SEARCH_COMPLETE,
 } from 'containers/Search/constants';
@@ -16,7 +16,7 @@ import {
 
 const initialState = fromJS({
   loggedIn: false,
-  searchResults: [],
+  searchResults: List([]),
   loading: true,
 });
 

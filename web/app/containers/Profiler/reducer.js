@@ -4,7 +4,7 @@
  *
  */
 
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 import uuidv4 from 'uuid/v4';
 import {
   DEFAULT_ACTION,
@@ -17,7 +17,7 @@ import {
 
 const initialState = fromJS({
   loading: false,
-  results: [],
+  results: List([]),
   elements: {},
 });
 

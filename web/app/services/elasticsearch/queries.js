@@ -66,20 +66,20 @@ export function profilerDecayFunctionQuery(field, scale) {
     origin: scale,
     scale: 200,
   };
-  const linearPayload = {
-    linear: {},
-  };
-  linearPayload.linear[field] = {
-    origin: scale,
-    scale: 100,
-  };
-  const expPayload = {
-    exp: {},
-  };
-  expPayload.exp[field] = {
-    origin: scale,
-    scale: 50,
-  };
+  // const linearPayload = {
+  //   linear: {},
+  // };
+  // linearPayload.linear[field] = {
+  //   origin: scale,
+  //   scale: 100,
+  // };
+  // const expPayload = {
+  //   exp: {},
+  // };
+  // expPayload.exp[field] = {
+  //   origin: scale,
+  //   scale: 50,
+  // };
   return gaussPayload;
 }
 
