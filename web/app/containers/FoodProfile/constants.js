@@ -483,3 +483,29 @@ export const DETAILED_SECTIONS = {
     ],
   },
 };
+export const INITIAL_STATE = {
+  loading: true,
+  serialNumber: null,
+  profileHeader: {},
+  error: false,
+  source: null,
+  nutrients: {
+    byId: {},
+    bySection: DETAILED_SECTIONS,
+    bySummaryIds: SUMMARY_IDS,
+    byDetailedIds: DETAILED_IDS,
+  },
+  tabSelected: 'summary',
+  idSelected: null,
+  nutrientSelected: 'CHOCDF',
+  portionSelected:
+  { amt: 1,
+    className: 'per100g',
+    g: 100,
+    label: 'per 100g',
+    unit: 'per 100g',
+    value: 100,
+  },
+  portionsAvailable: [],
+  ageGroupSelected: { value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' },
+};

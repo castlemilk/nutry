@@ -24,17 +24,9 @@ export default class ListHeader extends Component {
   render() {
     const { header, headerIndex } = this.props;
 
-    if (this.state.isOpened) {
-      return (
-        <ListViewHeader className="Section__ListViewHeaader" onClick={() => this.handleClick(headerIndex)}>
-          <span className="headerIcon"><FaMinus /></span>
-          <span className="headerText">{header}</span>
-        </ListViewHeader>
-      );
-    }
     return (
       <ListViewHeader className="Section__ListViewHeaader" onClick={() => this.handleClick(headerIndex)}>
-        <span className="headerIcon"><FaPlus /></span>
+        <span className="headerIcon">{ this.state.isOpened ? <FaMinus /> : <FaPlus />}</span>
         <span className="headerText">{header}</span>
       </ListViewHeader>
     );

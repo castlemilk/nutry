@@ -16,39 +16,39 @@ import {
   NUTRIENT_SELECTED,
   GET_PROFILE_FAILURE,
   GET_PROFILE_SUCCESS,
-  SUMMARY_IDS,
-  DETAILED_IDS,
-  DETAILED_SECTIONS,
+  // DETAILED_SECTIONS,
+  // SUMMARY_IDS,
+  // DETAILED_IDS,
+  INITIAL_STATE,
 } from './constants';
 
-
-const initialState = fromJS({
-  loading: true,
-  serialNumber: null,
-  profileHeader: Map({}),
-  error: false,
-  source: null,
-  nutrients: {
-    byId: Map({}),
-    bySection: Map(DETAILED_SECTIONS),
-    bySummaryIds: SUMMARY_IDS,
-    byDetailedIds: DETAILED_IDS,
-  },
-  tabSelected: 'summary',
-  idSelected: null,
-  nutrientSelected: 'CHOCDF',
-  portionSelected: Map(
-    { amt: 1,
-      className: 'per100g',
-      g: 100,
-      label: 'per 100g',
-      unit: 'per 100g',
-      value: 100,
-    }
-),
-  portionsAvailable: List([]),
-  ageGroupSelected: Map({ value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' }),
-});
+// const initialState = fromJS({
+//   loading: true,
+//   serialNumber: null,
+//   profileHeader: Map({}),
+//   error: false,
+//   source: null,
+//   nutrients: {
+//     byId: Map({}),
+//     bySection: Map(DETAILED_SECTIONS),
+//     bySummaryIds: SUMMARY_IDS,
+//     byDetailedIds: DETAILED_IDS,
+//   },
+//   tabSelected: 'summary',
+//   idSelected: null,
+//   nutrientSelected: 'CHOCDF',
+//   portionSelected:
+//   Map({ amt: 1,
+//     className: 'per100g',
+//     g: 100,
+//     label: 'per 100g',
+//     unit: 'per 100g',
+//     value: 100,
+//   }),
+//   portionsAvailable: List([]),
+//   ageGroupSelected: Map({ value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' }),
+// });
+const initialState = fromJS(INITIAL_STATE);
 
 const arrayToObject = (array) =>
    array.reduce((obj, item) => {
