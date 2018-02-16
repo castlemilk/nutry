@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
 // import { FormattedMessage } from 'react-intl';
 // import messages from './messages';
 import LoadingContent from 'components/LoadingContent';
-import FoodProfileTitleWrapper from './ProfileTitleWrapper';
+import FoodProfileTitleWrapper from './FoodProfileTitleWrapper';
 
 function FoodProfileTitle(props) {
   const { profileHeader, loading } = props;
