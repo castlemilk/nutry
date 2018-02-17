@@ -15,7 +15,8 @@ import SummaryCardView from 'containers/SummaryCardView';
 import DetailedCardView from 'containers/DetailedCardView';
 import TableHeader from 'components/TableHeader';
 import LoadingContent from 'components/LoadingContent';
-// import messages from './messages';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 import NutrientDisplayWrapper from './NutrientDisplayWrapper';
 
 
@@ -39,17 +40,17 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
     };
     this.props.onTabChange(keys[value]);
   };
-  handlePortionChange = (event, index, value) => {
-    this.setState({
-      portion: this.portions[value].g,
-      portion_index: index,
-    });
-  }
-  handleChangeIndex = (index) => {
-    this.setState({
-      index,
-    });
-  };
+  // handlePortionChange = (event, index, value) => {
+  //   this.setState({
+  //     portion: this.portions[value].g,
+  //     portion_index: index,
+  //   });
+  // }
+  // handleChangeIndex = (index) => {
+  //   this.setState({
+  //     index,
+  //   });
+  // };
   render() {
     const { index } = this.state;
     const { loading } = this.props;
@@ -252,10 +253,10 @@ class NutrientDisplay extends React.Component { // eslint-disable-line react/pre
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
           <Tabs inkBarStyle={inkBarStyle} value={index} onChange={this.handleChangeTabs}>
-            <Tab label="Summary" value={0} >
+            <Tab label={<FormattedMessage {...messages.summaryTab} />} value={0} >
               {tabs[0]}
             </Tab>
-            <Tab label="Detailed" value={1} >
+            <Tab label={<FormattedMessage {...messages.detailedTab} />} value={1} >
               {tabs[1]}
             </Tab>
           </Tabs>

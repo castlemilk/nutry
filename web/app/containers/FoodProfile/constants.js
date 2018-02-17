@@ -3,7 +3,7 @@
  * FoodProfile constants
  *
  */
-
+import { Map } from 'immutable';
 const prefix = (name) => `app/FoodProfile/${name}`;
 export const DEFAULT_ACTION = prefix('DEFAULT_ACTION');
 
@@ -483,6 +483,24 @@ export const DETAILED_SECTIONS = {
     ],
   },
 };
+export const FILTERS = {
+  summary: [
+    'CHOCDF',
+    'SUGAR',
+    'FIBTG',
+    'PROCNT',
+    'FAT',
+    'WATER',
+  ],
+  detailed: [
+    'CHOCDF',
+    'SUGAR',
+    'FIBTG',
+    'PROCNT',
+    'FAT',
+    'WATER',
+  ],
+};
 export const INITIAL_STATE = {
   loading: true,
   serialNumber: null,
@@ -491,13 +509,13 @@ export const INITIAL_STATE = {
   source: null,
   nutrients: {
     byId: {},
-    bySection: DETAILED_SECTIONS,
+    bySection: Map(DETAILED_SECTIONS),
     bySummaryIds: SUMMARY_IDS,
     byDetailedIds: DETAILED_IDS,
   },
   tabSelected: 'summary',
   idSelected: null,
-  nutrientSelected: 'CHOCDF',
+  nutrientSelected: null,
   portionSelected:
   { amt: 1,
     className: 'per100g',

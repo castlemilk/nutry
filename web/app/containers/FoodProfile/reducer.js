@@ -5,6 +5,7 @@
  */
 import { fromJS, List, Map } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
+import { getFilteredData } from 'lib/nutrientAnalytics';
 
 import {
   DEFAULT_ACTION,
@@ -19,6 +20,7 @@ import {
   // DETAILED_SECTIONS,
   // SUMMARY_IDS,
   // DETAILED_IDS,
+  FILTERS,
   INITIAL_STATE,
 } from './constants';
 
@@ -67,15 +69,25 @@ function foodProfileReducer(state = initialState, action) {
       return state
         .set('serialNumber', action.serialNumber)
         .set('source', action.source);
-    case GET_PROFILE_SUCCESS:
+    case GET_PROFILE_SUCCESS: {
+      const nutrients = fromJS(arrayToObject(Object.entries(action.nutrientsById)));
+      const defaultAgeGroup = Map({ value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' });
+      const defaultPortion = action.portionsAvailable[0];
       return state
         .set('profileHeader', action.profileHeader)
-        .setIn(['nutrients', 'byId'], fromJS(arrayToObject(Object.entries(action.nutrientsById))))
+        .setIn(['nutrients', 'byId'], nutrients)
+        .setIn(['nutrients', 'bySummaryPie'],
+          getFilteredData(
+            nutrients,
+            FILTERS.summary,
+            defaultAgeGroup,
+            defaultPortion))
         .set('portionsAvailable', List(action.portionsAvailable))
-        .set('portionSelected', action.portionsAvailable[0])
-        .set('ageGroupSelected', Map({ value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' }))
+        .set('portionSelected', defaultPortion)
+        .set('ageGroupSelected', defaultAgeGroup)
         .set('loading', false)
         .set('error', false);
+    }
     case GET_PROFILE_FAILURE:
       return state
         .set('error', true);
@@ -95,9 +107,7 @@ function foodProfileReducer(state = initialState, action) {
         .set('idSelected', action.id);
         // .setIn(['nutrients', 'byId', action.id, 'selected'], !state.getIn(['nutrients', 'byId', action.id, 'selected']));
     case LOCATION_CHANGE:
-      return state
-        .set('loading', true)
-        .set('error', false);
+      return initialState;
     default:
       return state;
   }

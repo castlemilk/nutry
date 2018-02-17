@@ -8,8 +8,8 @@ import { defineMessages } from 'react-intl';
 const scope = 'app.components.ProfileTitle';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the ProfileTitle component !',
+  usageHeader: {
+    id: `${scope}.usageHeader`,
+    defaultMessage: 'Example Usage:',
   },
 });

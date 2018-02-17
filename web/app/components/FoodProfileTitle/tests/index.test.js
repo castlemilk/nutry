@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
+import LoadingContent from 'components/LoadingContent';
 import FoodProfileTitle from '../index';
 import FoodProfileTitleWrapper from '../FoodProfileTitleWrapper';
 
 describe('<FoodProfileTitle />', () => {
-  it('loading', () => {
+  it('shows loading animation', () => {
     const titleProps = {
       profileHeader: {},
       loading: true,
@@ -14,8 +14,9 @@ describe('<FoodProfileTitle />', () => {
       <FoodProfileTitle {...titleProps} />
     );
     expect(renderedComponent.find(FoodProfileTitleWrapper).length).toEqual(1);
+    expect(renderedComponent.find(LoadingContent).length).toEqual(3);
   });
-  it('display', () => {
+  it('shows title display', () => {
     const titleProps = {
       profileHeader: {
         name: 'item1',
@@ -28,5 +29,8 @@ describe('<FoodProfileTitle />', () => {
       <FoodProfileTitle {...titleProps} />
     );
     expect(renderedComponent.find(FoodProfileTitleWrapper).length).toEqual(1);
+    expect(renderedComponent.find('h1').length).toEqual(1);
+    expect(renderedComponent.find('h2').length).toEqual(1);
+    expect(renderedComponent.find('h3').length).toEqual(2);
   });
 });

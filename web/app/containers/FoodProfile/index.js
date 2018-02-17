@@ -110,7 +110,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       loading,
       portions,
       portionSelected,
-      ageGroupSelected,
+      ageGroupSelected: ageGroupSelected.toJS(),
       onAgeGroupChanged,
       onPortionChanged,
     };

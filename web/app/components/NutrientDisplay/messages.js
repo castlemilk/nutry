@@ -8,8 +8,12 @@ import { defineMessages } from 'react-intl';
 const scope = 'app.components.NutrientDisplay';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the NutrientDisplay component !',
+  summaryTab: {
+    id: `${scope}.summaryTab`,
+    defaultMessage: 'SUMMARY',
+  },
+  detailedTab: {
+    id: `${scope}.detailedTab`,
+    defaultMessage: 'DETAILED',
   },
 });

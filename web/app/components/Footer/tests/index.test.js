@@ -1,10 +1,14 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
 
-// import Footer from '../index';
+import Footer from '../index';
+import FooterWrapper from '../FooterWrapper';
 
 describe('<Footer />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('display', () => {
+    const renderedComponent = shallow(
+      <Footer />
+    );
+    expect(renderedComponent.find(FooterWrapper).length).toEqual(1);
   });
 });

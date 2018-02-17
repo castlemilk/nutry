@@ -10,7 +10,7 @@ import { Progress } from 'antd';
 import styled from 'styled-components';
 // import LoadingContentWrapper from './LoadingContentWrapper';
 function LoadingContent(props) {
-  const { width } = props;
+  const width = props.width || 100;
   const LoadingContentWrapper = styled.div`
     margin: 5px;
     display: inline-block;
@@ -26,7 +26,7 @@ function LoadingContent(props) {
   return (
     <LoadingContentWrapper >
       <div style={{ width }}>
-        <Progress percent={100} status="active" showInfo={false} strokeWidth={props.height} />
+        <Progress percent={100} status="active" showInfo={false} strokeWidth={props.height || 10} />
       </div>
     </LoadingContentWrapper>
   );

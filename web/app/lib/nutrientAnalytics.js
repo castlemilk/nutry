@@ -19,8 +19,8 @@ import { getNutrient } from './nutrientMap';
  * @return {Array}             formatted data stream for recharts input
  */
 export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected, portionSelected) {
-  if (!nutrients) {
-    return null;
+  if (!nutrients || !nutrientFilter) {
+    return [];
   }
   const scale = portionSelected.g;
   return nutrientFilter.map((prefix) => getNutrient(prefix, nutrients, scale, ageGroupSelected));
@@ -37,11 +37,7 @@ export function getRankingResults(searchResults) { /* eslint no-underscore-dangl
   const rankings = Map(DETAILED_IDS.reduce((accumulator, prefix) => ({ ...accumulator, [prefix]: [] }), {}));
   return getMultiFoodProfile(ids).then((resultsDict) => {
     Object.keys(resultsDict).map((id) => {
-      // console.log(id);
-      // console.log(resultsDict);
       const { nutrients, name } = resultsDict[id];
-      // const nutrients = profile.get('nutrients');
-      // const name = profile.get('name');
       DETAILED_IDS.map((prefix) => {
         if (nutrients[prefix]) {
           rankings.update(prefix, (l) => (l || List()).push(Map({

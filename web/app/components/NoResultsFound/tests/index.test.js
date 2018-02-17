@@ -1,10 +1,14 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
 
-// import NoResultsFound from '../index';
+import NoResultsFound from '../index';
+import NoResultsFoundWrapper from '../NoResultsFoundWrapper';
 
 describe('<NoResultsFound />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('display', () => {
+    const renderedComponent = shallow(
+      <NoResultsFound />
+    );
+    expect(renderedComponent.find(NoResultsFoundWrapper).length).toEqual(1);
   });
 });

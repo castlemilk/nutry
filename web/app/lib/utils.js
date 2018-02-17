@@ -1,5 +1,36 @@
 import _ from 'lodash';
 
+
+/**
+ * Return the index with the largest value. This index will then be used
+ * to set as the default section selected in the recharts graphic on render.
+ * @param  {Array} data list of nutrients
+ * @return {Number} index with highest value.
+ */
+export function getIndexLargestValue(data) {
+  return data.reduce((a, b, index) => (b.value > a[0] && typeof b.value === 'number') ? [b.value, index] : a, [-1, -1]
+)[1];
+}
+/**
+ * Determine the index corresponding to the specified nutrient. This will be
+ * used to update the pie chart selected section to the hovered/select nutrient
+ * @param  {Object} nutrient [description]
+ * @param  {Array} pieData  [description]
+ * @return {Number}          [description]
+ */
+export function nutrientToIndex(prefix, data) {
+  if (!data || !prefix) {
+    return null;
+  }
+  const index = data.findIndex((x) => x.prefix === prefix);
+  if (index === -1) {
+    return null;
+  }
+  if (data[index].value === '~') {
+    return null;
+  }
+  return index;
+}
 function interpolateColor(color1, color2, f) {
   let factor = f;
   if (arguments.length < 3) {
