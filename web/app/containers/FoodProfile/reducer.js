@@ -6,6 +6,7 @@
 import { fromJS, List, Map } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { getFilteredData } from 'lib/nutrientAnalytics';
+import { updateRDI } from 'lib/nutrientMap';
 
 import {
   DEFAULT_ACTION,
@@ -80,8 +81,12 @@ function foodProfileReducer(state = initialState, action) {
           getFilteredData(
             nutrients,
             FILTERS.summary,
-            defaultAgeGroup,
-            defaultPortion))
+            defaultAgeGroup))
+        .setIn(['nutrients', 'byDetailedPie'],
+          getFilteredData(
+            nutrients,
+            FILTERS.detailed,
+            defaultAgeGroup))
         .set('portionsAvailable', List(action.portionsAvailable))
         .set('portionSelected', defaultPortion)
         .set('ageGroupSelected', defaultAgeGroup)
@@ -91,13 +96,35 @@ function foodProfileReducer(state = initialState, action) {
     case GET_PROFILE_FAILURE:
       return state
         .set('error', true);
-    case AGE_GROUP_CHANGED:
+    case AGE_GROUP_CHANGED: {
+      const ageGroupSelected = Map(action.ageGroupSelected);
       return state
-        .set('ageGroupSelected', Map(action.ageGroupSelected));
-    case PORTION_CHANGED:
+        .set('ageGroupSelected', ageGroupSelected)
+        .updateIn(['nutrients', 'bySummaryPie'], (nutrients) => updateRDI(nutrients, ageGroupSelected))
+        .updateIn(['nutrients', 'byDetailedPie'], (nutrients) => updateRDI(nutrients, ageGroupSelected));
+    }
+    case PORTION_CHANGED: {
+      const scaledNutrients = state.getIn(['nutrients', 'byId']).map(
+        (nutrient) => nutrient.set('value',
+          nutrient.get('value') * (action.portionSelected.g / 100)
+        )
+      );
+      const ageGroup = state.get('ageGroupSelected');
+      const portionSelected = action.portionSelected;
       return state
-        .set(['nutrients', 'byId'], state.getIn(['nutrients', 'byId']).map((nutrient) => nutrient.set('value', nutrient.get('value') * (action.portionSelected.g / 100))))
-        .set('portionSelected', action.portionSelected);
+        .set(['nutrients', 'byId'], scaledNutrients)
+        .set('portionSelected', portionSelected)
+        .setIn(['nutrients', 'bySummaryPie'],
+          getFilteredData(
+            scaledNutrients,
+            FILTERS.summary,
+            ageGroup))
+        .setIn(['nutrients', 'byDetailedPie'],
+          getFilteredData(
+            scaledNutrients,
+            FILTERS.summary,
+            ageGroup));
+    }
     case TAB_CHANGED:
       return state
         .set('tabSelected', action.tab);

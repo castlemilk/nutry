@@ -8,17 +8,23 @@ import _ from 'lodash';
  * @return {Number} index with highest value.
  */
 export function getIndexLargestValue(data) {
+  if (!data) {
+    return -1;
+  }
   return data.reduce((a, b, index) => (b.value > a[0] && typeof b.value === 'number') ? [b.value, index] : a, [-1, -1]
 )[1];
+  // console.log(data);
+  // return data.reduce((a, b, index) => (b.get('value') > a[0] && typeof b.get('value') === 'number') ? [b.get('value'), index] : a, [-1, -1]
+// )[1];
 }
 /**
  * Determine the index corresponding to the specified nutrient. This will be
  * used to update the pie chart selected section to the hovered/select nutrient
- * @param  {Object} nutrient [description]
  * @param  {Array} pieData  [description]
+ * @param  {Object} nutrient [description]
  * @return {Number}          [description]
  */
-export function nutrientToIndex(prefix, data) {
+export function nutrientToIndex(data, prefix) {
   if (!data || !prefix) {
     return null;
   }

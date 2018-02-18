@@ -3,7 +3,7 @@
  * FoodProfile constants
  *
  */
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 const prefix = (name) => `app/FoodProfile/${name}`;
 export const DEFAULT_ACTION = prefix('DEFAULT_ACTION');
 
@@ -512,6 +512,8 @@ export const INITIAL_STATE = {
     bySection: Map(DETAILED_SECTIONS),
     bySummaryIds: SUMMARY_IDS,
     byDetailedIds: DETAILED_IDS,
+    bySummaryPie: List([]),
+    byDetailedPie: List([]),
   },
   tabSelected: 'summary',
   idSelected: null,

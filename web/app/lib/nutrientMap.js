@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 /**
  *
  * @param  {[type]} prefix [description]
@@ -12,18 +12,23 @@ export function defaultNutrient(prefix) {
     value: '~',
   });
 }
-export function getNutrient(prefix, nutrients, portion = false, ageGroup) {
+export function getNutrient(prefix, nutrients, ageGroup, portion = false) {
+  // console.log(prefix, nutrients);
   const nutrient = nutrients.get(prefix);
+  // console.log('nutrient:');
+  // console.log(nutrient);
   if (nutrient) {
-    return new Nutrient(
+    const newNutrient = Nutrient(
       prefix,
       nutrient.get('name') || prefixToName(prefix),
       nutrient.get('units') || prefixToUnit(prefix),
       getScaledValue(nutrient.get('value'), portion) || '~',
       getRDI(prefix, ageGroup)
     );
+    console.log(newNutrient);
+    return newNutrient;
   }
-  return new Nutrient(
+  return Nutrient(
     prefix,
     prefixToName(prefix),
     prefixToUnit(prefix),
@@ -32,11 +37,26 @@ export function getNutrient(prefix, nutrients, portion = false, ageGroup) {
   );
 }
 function Nutrient(prefix, name, units, value, rdi = null) {
-  this.prefix = prefix;
-  this.name = name;
-  this.units = units;
-  this.value = value;
-  this.rdi = rdi;
+  return Map({
+    prefix,
+    name,
+    units,
+    value,
+    rdi,
+  });
+  // nutrient.set('prefix', prefix);
+  // nutrient.set('name', name);
+  // nutrient.set('units', units);
+  // nutrient.set('value', value);
+  // nutrient.set('rdi', rdi);
+  // this.prefix = prefix;
+  // this.name = name;
+  // this.units = units;
+  // this.value = value;
+  // this.rdi = rdi;
+  // console.log('NUTRIENT_FUNCTION:');
+  // console.log(nutrient);
+  // return nutrient;
 }
 function Portion(name, amount, value) {
   this.unit = name;
@@ -64,6 +84,10 @@ export function getOmega3(nutrients, portion) {
     'mg',
     omega3Total * scale(portion)
   );
+}
+export function updateRDI(nutrients, ageGroup) {
+  const newNutrients = List(nutrients.map((nutrient) => nutrient.set('rdi', getRDI(nutrient.get('prefix'), ageGroup))));
+  return newNutrients;
 }
 export function getRDI(prefix, ageGroup) {
   return RDImapping[ageGroup.get('value')][prefix];

@@ -11,10 +11,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import LoadingContent from 'components/LoadingContent';
-import { getFilteredData } from 'lib/nutrientAnalytics';
 import { nutrientToIndex, getIndexLargestValue } from 'lib/utils';
-
-import { FILTERS } from './constants';
 import messages from './messages';
 import { renderActiveShape } from './utils';
 import NutrientProfilePieChartWrapper from './NutrientProfilePieChartWrapper';
@@ -24,14 +21,10 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#a94442', '#c566ac'
 class NutrientProfilePieChart extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    const { nutrients,
-    nutrientFilter,
-    ageGroupSelected,
-    portionSelected, loading } = this.props;
-    const data = loading ? null : getFilteredData(nutrients, FILTERS[nutrientFilter], ageGroupSelected, portionSelected);
-    console.log('constructor');
+    console.log(props);
+    const { nutrients, loading } = this.props;
     this.state = {
-      activeIndex: !loading ? getIndexLargestValue(data) : 0,
+      activeIndex: !loading ? getIndexLargestValue(nutrients) : 0,
     };
   }
   // componentWillMount() {
@@ -52,13 +45,9 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
   componentWillReceiveProps(nextProps) {
   // You don't have to do this check first, but it can help prevent an unneeded render
     const { nutrients,
-    nutrientFilter,
-    ageGroupSelected,
-    nutrientSelected,
-    portionSelected } = nextProps;
-    const data = getFilteredData(nutrients, FILTERS[nutrientFilter], ageGroupSelected, portionSelected);
-    const selectedIndex = nutrientToIndex(nutrientSelected, data);
-    return selectedIndex !== null ? this.setState({ activeIndex: selectedIndex }) : this.setState({ activeIndex: getIndexLargestValue(data) });
+    nutrientSelected } = nextProps;
+    const selectedIndex = nutrientToIndex(nutrients, nutrientSelected);
+    return selectedIndex !== null ? this.setState({ activeIndex: selectedIndex }) : this.setState({ activeIndex: getIndexLargestValue(nutrients) });
   }
 
   onPieEnter(data, index) {
@@ -69,18 +58,13 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
 
   render() {
     const { loading,
-      nutrients,
-      nutrientFilter,
-      ageGroupSelected,
-      portionSelected } = this.props;
+      nutrients } = this.props;
     // const pieData = !loading ? getFilteredData(nutrients, FILTERS[nutrientFilter], ageGroupSelected, portionSelected) : null;
-    const pieDataColored = getFilteredData(
-      nutrients, FILTERS[nutrientFilter],
-      ageGroupSelected, portionSelected).map((value, index) => {
-        const section = value;
-        section.fill = COLORS[index % COLORS.length];
-        return section;
-      });
+    const pieDataColored = nutrients.map((value, index) => {
+      const section = value;
+      section.fill = COLORS[index % COLORS.length];
+      return section;
+    });
     const loadingPie = <Spin style={{ marginTop: '100px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     return loading ? (
       <NutrientProfilePieChartWrapper>
@@ -119,10 +103,9 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
 
 NutrientProfilePieChart.propTypes = {
   nutrientSelected: PropTypes.string,
-  portionSelected: PropTypes.object.isRequired,
-  ageGroupSelected: PropTypes.object.isRequired,
+  // portionSelected: PropTypes.object.isRequired,
+  // ageGroupSelected: PropTypes.object.isRequired,
   nutrients: PropTypes.object.isRequired,
-  nutrientFilter: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 

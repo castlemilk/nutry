@@ -18,12 +18,12 @@ import { getNutrient } from './nutrientMap';
  * @param  {Object} nutrients Nutrient information payload
  * @return {Array}             formatted data stream for recharts input
  */
-export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected, portionSelected) {
+export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected) {
+  // console.log(nutrients, nutrientFilter, ageGroupSelected);
   if (!nutrients || !nutrientFilter) {
     return [];
   }
-  const scale = portionSelected.g;
-  return nutrientFilter.map((prefix) => getNutrient(prefix, nutrients, scale, ageGroupSelected));
+  return List(nutrientFilter.map((prefix) => getNutrient(prefix, nutrients, ageGroupSelected)));
 }
 
 export function getRankingResults(searchResults) { /* eslint no-underscore-dangle: ["error", { "allow": [ "_source"] }]*/

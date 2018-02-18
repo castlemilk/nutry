@@ -20,7 +20,7 @@ import injectReducer from 'utils/injectReducer';
 import NutrientDisplay from 'components/NutrientDisplay';
 import FoodProfileTitle from 'components/FoodProfileTitle';
 import FoodProfileToolBar from 'components/FoodProfileToolBar';
-import NutrientProfilePieChart from 'components/NutrientProfilePieChart';
+import NutrientProfilePieChartView from 'containers/NutrientProfilePieChartView';
 import NutrientProfileRankingChartView from 'containers/NutrientProfileRankingChartView';
 import {
   loadProfile,
@@ -73,12 +73,12 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       backgroundColor: '#DBD8D8',
     };
     const { loading,
-      tabSelected,
+      // tabSelected,
       portions,
-      nutrients,
+      // nutrients,
       profileHeader,
       portionSelected,
-      nutrientSelected,
+      // nutrientSelected,
       ageGroupSelected } = this.props;
     const { onTabChange,
       onPortionChanged,
@@ -96,16 +96,16 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
     };
 
 
-    const analyticsProps = {
-      loading,
-      nutrients,
-      nutrientFilter: tabSelected,
-      onLoadNewProfile,
-      ageGroupSelected,
-      portionSelected,
-      nutrientSelected,
-
-    };
+    // const analyticsProps = {
+    //   loading,
+    //   nutrients,
+    //   nutrientFilter: tabSelected,
+    //   onLoadNewProfile,
+    //   ageGroupSelected,
+    //   portionSelected,
+    //   nutrientSelected,
+    //
+    // };
     const foodProfileToolbarProps = {
       loading,
       portions,
@@ -147,7 +147,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
               <NutrientDisplay {...nutrientDisplayProps} />
             </Col>
             <Col xs={20} sm={20} md={10} lg={10}>
-              <NutrientProfilePieChart {...analyticsProps} />
+              <NutrientProfilePieChartView />
               <NutrientProfileRankingChartView onLoadNewProfile={onLoadNewProfile} id={SN} />
             </Col>
             <Col xs={2} sm={2} md={1} lg={1}>
@@ -163,11 +163,11 @@ FoodProfile.propTypes = {
   loading: PropTypes.bool,
   // profileHeaderCache: PropTypes.object,
   profileHeader: PropTypes.object.isRequired,
-  nutrients: PropTypes.object,
-  nutrientSelected: PropTypes.string,
+  // nutrients: PropTypes.object,
+  // nutrientSelected: PropTypes.string,
   onLoadProfile: PropTypes.func,
   onTabChange: PropTypes.func,
-  tabSelected: PropTypes.string,
+  // tabSelected: PropTypes.string,
   portions: PropTypes.array,
   portionSelected: PropTypes.object,
   onAgeGroupChanged: PropTypes.func,
