@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { Spin } from 'antd';
-import { Map } from 'immutable';
 import { Pie } from 'recharts';
 
 import LoadingContent from 'components/LoadingContent';
