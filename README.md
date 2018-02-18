@@ -10,7 +10,7 @@ results.
 A search interface is provided for users to search for food items. This search
 handles typos and multiple sentence combinations.
 <p align="center">
-<img src="docs/images/search.png" width="600" vertical-align="text-top"/>
+<img src="docs/images/search.png" width="800" vertical-align="text-top"/>
 </p>
 ## Profiler
 The profiler tab at the search interface enables a deeper dive into how search
@@ -18,7 +18,7 @@ results are to be ranked and queried. Providing a multi-dimensional search
 criteria to be set, with a slider allowing variations, search results will
 update in real-time.
 <p align="center">
-<img src="docs/images/profiler.png" width="600" vertical-align="text-top"/>
+<img src="docs/images/profiler.png" width="800" vertical-align="text-top"/>
 </p>
 
 ## Food Profile Dashboard
@@ -29,7 +29,7 @@ toolbar that enables specifics around age group and portion size to be set.
 The toolbar allows a user to customise the food profile presentation to meet
 their most relevant context.
 <p align="center">
-<img src="docs/images/foodprofile.png" width="600" vertical-align="text-top"/>
+<img src="docs/images/foodprofile.png" width="800" vertical-align="text-top"/>
 </p>
 A relative ranking of each selected nutritional value is presented as a
 horizontal bar chart. This shows the relative ranking of a selected
