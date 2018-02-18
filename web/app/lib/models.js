@@ -1,4 +1,8 @@
 import { Map } from 'immutable';
+/**
+ * [prefix description]
+ * @type {[type]}
+ */
 export class Nutrient {
   constructor(prefix, name, ageGroup, portion) {
     this.prefix = prefix;
@@ -30,5 +34,17 @@ export class Nutrient {
       portion: this.portion,
       rdi: this.rdi,
     });
+  }
+}
+export class Portion {
+  constructor() {
+    // TODO: add more here
+    this.stub = true;
+  }
+}
+export class AgeGroup {
+  constructor() {
+    // TODO: add more here
+    this.stub = true;
   }
 }

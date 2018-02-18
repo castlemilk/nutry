@@ -8,26 +8,29 @@ import React from 'react';
 import { Bar, BarChart, XAxis, YAxis, Label, Tooltip } from 'recharts';
 import { Spin, Icon } from 'antd';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import LoadingContent from 'components/LoadingContent';
 import { generateColor, scaledValue } from 'lib/utils';
-// import { getFilteredData } from 'lib/nutrientAnalytics';
 import { prefixToName, prefixToUnit } from 'lib/nutrientMap';
-// import AxisLabel from './AxisLabel';
 import messages from './messages';
 import NutrientProfileRankingWrapper from './NutrientProfileRankingChartWrapper';
 const CustomTooltip = (props) => {
   const { active, nutrientSelected, portionSelected } = props;
   if (active) {
     const { payload, foodID } = props;
-    const { name, value, unit, id } = payload[0].payload;
-    // TODO: add description mapping
+    if (payload) {
+      const { name, value, unit, id } = payload ? payload[0].payload : null;
+      // TODO: add description mapping
+      return (
+        <div className="custom-tooltip">
+          <p className="label">{foodID === id ? `${name} [Current FoodProfile]` : `${name}`}</p>
+          <p className="intro">{`Contains ${value} ${unit} of ${nutrientSelected} per ${portionSelected.unit}`}</p>
+          <p className="desc">Description: Coming soon!</p>
+        </div>
+      );
+    }
     return (
       <div className="custom-tooltip">
-        <p className="label">{foodID === id ? `${name} [Current FoodProfile]` : `${name}`}</p>
-        <p className="intro">{`Contains ${value} ${unit} of ${nutrientSelected} per ${portionSelected.unit}`}</p>
-        <p className="desc">Description: Coming soon!</p>
       </div>
     );
   }
@@ -109,12 +112,6 @@ const CustomShape = (props) => { /* eslint react/prop-types: 0 */
 };
 const xLabel = (nutrient) => `${prefixToName(nutrient)} [${prefixToUnit(nutrient)}]`;
 class NutrientProfileRankingChart extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  // constructor(props) {
-  //   super(props);
-  //   // this.state = {
-  //   //   activeIndex: !this.props.loading ? getIndexLargestValue(data) : 0,
-  //   // };
-  // }
 
   componentWillMount() {
     if (!this.props.loading) {
@@ -125,24 +122,12 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
     this.props.onLoadRankings();
   }
 
-
-  // onPieEnter(data, index) {
-  //   this.setState({
-  //     activeIndex: index,
-  //   });
-  // }
   onFinishedLoading() {
   }
   handleBarClick(value) {
-    // console.log(value);
     const { id } = value;
-    // this.props.onProfileSelected(id)
     this.props.onLoadNewProfile(id);
-    // this.props.onOtherSearchResultSelect(id)
   }
-  // shouldComponentUpdate(nextProps) {
-  //   return this.props.portionSelected !== nextProps.portionSelected;
-  // }
 
   render() {
     // TODO: investigation doing pre-processing on item select asynchronously
@@ -152,7 +137,6 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
       nutrientSelected,
       id,
       portionSelected } = this.props;
-    // console.log(rankingResults);
     const loadingPie = <Spin style={{ marginTop: '160px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     const data = loading ? null : processData(rankingResults, nutrientSelected, portionSelected);
     return (

@@ -7,6 +7,7 @@ import { fromJS, List, Map } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { getFilteredData } from 'lib/nutrientAnalytics';
 import { updateRDI } from 'lib/nutrientMap';
+import { getIndexLargestValue } from 'lib/utils';
 
 import {
   DEFAULT_ACTION,
@@ -71,17 +72,25 @@ function foodProfileReducer(state = initialState, action) {
         .set('serialNumber', action.serialNumber)
         .set('source', action.source);
     case GET_PROFILE_SUCCESS: {
+      /**
+       * TODO: utilise more efficient structure and manipulation of data for
+       * the different nutrient storage and presenation requirements.
+       */
       const nutrients = fromJS(arrayToObject(Object.entries(action.nutrientsById)));
       const defaultAgeGroup = Map({ value: 'AM19', label: 'Adult Male (19-30)', className: 'am-19' });
       const defaultPortion = action.portionsAvailable[0];
+      const summaryPieNutients = getFilteredData(
+        nutrients,
+        FILTERS.summary,
+        defaultAgeGroup);
+      const nutrientSelected = summaryPieNutients.get(
+          getIndexLargestValue(summaryPieNutients)
+          ).get('prefix');
       return state
         .set('profileHeader', action.profileHeader)
         .setIn(['nutrients', 'byId'], nutrients)
-        .setIn(['nutrients', 'bySummaryPie'],
-          getFilteredData(
-            nutrients,
-            FILTERS.summary,
-            defaultAgeGroup))
+        .setIn(['nutrients', 'bySummaryPie'], summaryPieNutients)
+
         .setIn(['nutrients', 'byDetailedPie'],
           getFilteredData(
             nutrients,
@@ -90,6 +99,7 @@ function foodProfileReducer(state = initialState, action) {
         .set('portionsAvailable', List(action.portionsAvailable))
         .set('portionSelected', defaultPortion)
         .set('ageGroupSelected', defaultAgeGroup)
+        .set('nutrientSelected', nutrientSelected)
         .set('loading', false)
         .set('error', false);
     }

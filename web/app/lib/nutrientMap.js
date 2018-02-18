@@ -25,7 +25,6 @@ export function getNutrient(prefix, nutrients, ageGroup, portion = false) {
       getScaledValue(nutrient.get('value'), portion) || '~',
       getRDI(prefix, ageGroup)
     );
-    console.log(newNutrient);
     return newNutrient;
   }
   return Nutrient(

@@ -71,7 +71,7 @@ describe('utils', () => {
     };
     const activeShape = renderActiveShape(props);
     expect(activeShape.props.children.length).toEqual(7);
-    console.log(activeShape.props.children[6]);
+    // console.log(activeShape.props.children[6]);
   });
   it('renders active shape with empty value', () => {
     const props = {
@@ -106,6 +106,6 @@ describe('utils', () => {
     };
     const activeShape = renderActiveShape(props);
     expect(activeShape.props.children.length).toEqual(7);
-    console.log(activeShape.props.children[6]);
+    // console.log(activeShape.props.children[6]);
   });
 });
