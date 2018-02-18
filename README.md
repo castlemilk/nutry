@@ -12,6 +12,7 @@ handles typos and multiple sentence combinations.
 <p align="center">
 <img src="docs/images/search.png" width="800" vertical-align="text-top"/>
 </p>
+
 ## Profiler
 The profiler tab at the search interface enables a deeper dive into how search
 results are to be ranked and queried. Providing a multi-dimensional search
