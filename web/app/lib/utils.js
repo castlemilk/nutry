@@ -1,6 +1,11 @@
 import _ from 'lodash';
 
-
+export function getXPosition(radius, index) {
+  return Math.cos(index * 15) * radius;
+}
+export function getYPosition(radius, index) {
+  return Math.sin(index * 15) * radius;
+}
 /**
  * Return the index with the largest value. This index will then be used
  * to set as the default section selected in the recharts graphic on render.

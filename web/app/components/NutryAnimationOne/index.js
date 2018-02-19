@@ -6,7 +6,8 @@
 
 import React from 'react';
 import Anime from 'react-anime';
-//
+import { getXPosition, getYPosition } from 'lib/utils';
+
 // svgs1
 import CogLarge from 'images/cog-large.svg';
 import CogMedium from 'images/cog-medium.svg';
@@ -27,49 +28,55 @@ import NutryAnimationOneWrapper from './NutryAnimationOneWrapper';
 const data1 = [
   {
     img: Carrot,
+    id: 1,
   },
   {
     img: Lemon,
+    id: 2,
   },
   {
     img: Hotdog,
+    id: 3,
   },
   {
     img: Eggplant,
+    id: 4,
   },
   {
     img: Watermelon,
+    id: 5,
   },
   {
     img: Chicken,
+    id: 6,
   },
   {
     img: Avocado,
+    id: 7,
   },
 ];
 const data2 = [
   {
     img: Bacon,
+    id: 1,
   },
   {
     img: Sushi,
+    id: 2,
   },
   {
     img: Pot,
+    id: 3,
   },
   {
     img: Egg,
+    id: 4,
   },
   {
     img: Skewer,
+    id: 5,
   },
 ];
-function getXPosition(radius, index) {
-  return Math.cos(index * 15) * radius;
-}
-function getYPosition(radius, index) {
-  return Math.sin(index * 15) * radius;
-}
 function NutryAnimationOne() {
   const radius = 20;
   return (
@@ -100,38 +107,40 @@ function NutryAnimationOne() {
       </div>
       <Anime
         easing="linear"
-        duration={(Math.floor(Math.random() * 20)) * 300}
+        duration={4000}
         direction="normal"
         loop
+        /* istanbul ignore next */
         delay={(el, index) => index * 240}
         opacity={[0.9, 0]}
+        /* istanbul ignore next */
         translateX={(el, index) => `${getXPosition(radius, index)}rem`}
+        /* istanbul ignore next */
         translateY={(el, index) => `${getYPosition(radius, index)}rem`}
         rotate={360}
         scale={[0.6, 0.5]}
       >
-        {data1.map((item) => <div className="spray-images" ><img alt="" src={item.img} /></div>)}
+        {data1.map((item) => <div key={`spray-group-1-${item.id}`} className="spray-images" ><img alt="" src={item.img} /></div>)}
       </Anime>
       <Anime
         easing="linear"
-        duration={(Math.floor(Math.random() * 20)) * 300}
+        duration={7000}
         direction="normal"
         loop
+        /* istanbul ignore next */
         delay={(el, index) => (index * 240) + 200}
         opacity={[0.9, 0]}
+        /* istanbul ignore next */
         translateX={(el, index) => `${getXPosition(radius, index)}rem`}
+        /* istanbul ignore next */
         translateY={(el, index) => `${getYPosition(radius, index)}rem`}
         rotate={360}
         scale={[0.6, 0.5]}
       >
-        {data2.map((item) => <div className="spray-images" ><img alt="" src={item.img} /></div>)}
+        {data2.map((item) => <div key={`spray-group-1-${item.id}`} className="spray-images" ><img alt="" src={item.img} /></div>)}
       </Anime>
     </NutryAnimationOneWrapper>
   );
 }
-
-NutryAnimationOne.propTypes = {
-
-};
 
 export default NutryAnimationOne;
