@@ -40,3 +40,17 @@ export const portionSelected = {
   unit: 'per 100g',
   value: 100,
 };
+export const nutrient = Map({
+  prefix: 'CHOCDF',
+  name: 'Carbohydrates, by difference',
+  units: 'g',
+  value: 7,
+  rdi: null,
+});
+export const nutrientNoValue = Map({
+  prefix: 'CHOCDF',
+  name: 'Carbohydrates, by difference',
+  units: 'g',
+  value: '~',
+  rdi: null,
+});

@@ -3,7 +3,6 @@
 * NutrientChildRow
 *
 */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -16,8 +15,6 @@ import {
   CHILD_ROW,
   CHILD2_ROW,
 } from './constants';
-// import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 
 
 export class NutrientRow extends React.Component {
@@ -37,25 +34,15 @@ export class NutrientRow extends React.Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.isSelected !== this.props.isSelected || nextProps.portion !== this.props.portion;
   }
-  makeSafe() {
-    this.setState({ safe: true });
-  }
-  safeHoverTransistion() {
-    return setTimeout(() => this.makeSafe(), 1000);
-  }
   handleMouseEnter(prefix, id) {
     this.setState({
       safe: false,
       selectedPrefix: prefix,
-      safeTimer: this.safeHoverTransistion(),
       transitionTimeout: setTimeout(() => this.props.onHover(prefix, id), 50),
     });
   }
   handleMouseOut() {
-    // cancel hover transition
-    // if (prefix === this.state.selectedPrefix) {
     clearTimeout(this.state.transitionTimeout);
-    // }
   }
   render() {
     /**
