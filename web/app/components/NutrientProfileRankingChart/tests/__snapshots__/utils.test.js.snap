@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils CustomShape() renders correct custom shape 1`] = `
+<path
+  d="M 140,312.3333333333333 h 220.2362304194038 v 45 h -220.2362304194038 Z"
+  fill="#9a57eb"
+  stroke="none"
+/>
+`;
+
+exports[`utils CustomShape() renders correct custom shape different radius 1`] = `
+<path
+  d="M 140,322.3333333333333
+           A 10,10,0,0,1,150,312.3333333333333
+           L 350.2362304194038,312.3333333333333
+           A 10,10,0,0,1,360.2362304194038,322.3333333333333
+           L 360.2362304194038,347.3333333333333
+           A 10,10,0,0,1,350.2362304194038,357.3333333333333
+           L 150,357.3333333333333
+           A 10,10,0,0,1,140,347.3333333333333 Z"
+  fill="#9a57eb"
+  stroke="none"
+/>
+`;
+
+exports[`utils CustomShape() renders correct custom shape radius array 1`] = `
+<path
+  d="M140,313.3333333333333A 1,1,0,0,1,141,312.3333333333333L 358.2362304194038,312.3333333333333A 2,2,0,0,1,
+       360.2362304194038,314.3333333333333L 360.2362304194038,354.3333333333333A 3,3,0,0,1,
+       357.2362304194038,357.3333333333333L 144,357.3333333333333A 4,4,0,0,1,
+       140,353.3333333333333Z"
+  fill="#9a57eb"
+  stroke="none"
+/>
+`;
+
+exports[`utils CustomTooltip() renders correct tooltip 1`] = `
+<div
+  className="custom-tooltip"
+>
+  <p
+    className="label"
+  >
+    braised veal thymus
+  </p>
+  <p
+    className="intro"
+  >
+    Contains 22.67 g of Protien per per 100g
+  </p>
+  <p
+    className="desc"
+  >
+    Description: Coming soon!
+  </p>
+</div>
+`;
+
+exports[`utils CustomTooltip() renders correct tooltip when foodId == id 1`] = `
+<div
+  className="custom-tooltip"
+>
+  <p
+    className="label"
+  >
+    braised veal thymus
+  </p>
+  <p
+    className="intro"
+  >
+    Contains 22.67 g of Protien per per 100g
+  </p>
+  <p
+    className="desc"
+  >
+    Description: Coming soon!
+  </p>
+</div>
+`;
+
+exports[`utils CustomTooltip() renders correct when no payload 1`] = `
+<div
+  className="custom-tooltip"
+/>
+`;

@@ -28,7 +28,7 @@ export function getFilteredData(nutrients, nutrientFilter, ageGroupSelected) {
 
 export function getRankingResults(searchResults) { /* eslint no-underscore-dangle: ["error", { "allow": [ "_source"] }]*/
   if (!searchResults.items) {
-    return List([]);
+    return [];
   }
   const ids = searchResults.items.map((item) => item._source.SN);
   // console.log(DETAILED_IDS);
@@ -40,7 +40,7 @@ export function getRankingResults(searchResults) { /* eslint no-underscore-dangl
       const { nutrients, name } = resultsDict[id];
       DETAILED_IDS.map((prefix) => {
         if (nutrients[prefix]) {
-          rankings.update(prefix, (l) => (l || List()).push(Map({
+          rankings.update(prefix, (l) => (l || []).push(Map({
             name,
             id,
             value: nutrients[prefix].value === '~' ? 0 : nutrients[prefix].value,

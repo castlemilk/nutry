@@ -35,7 +35,7 @@ export const CustomShape = (props) => { /* eslint react/prop-types: 0 */
   // console.log(props);
   return <path d={getPath(x, y, width, height, radius)} stroke="none" fill={barId === foodID ? fillActive : fill} />;
 };
-export const getPath = (x, y, width, height, radius) => {
+const getPath = (x, y, width, height, radius) => {
   const maxRadius = Math.min(Math.abs(width) / 2, Math.abs(height) / 2);
   const sign = height >= 0 ? 1 : -1;
   const clockWise = height >= 0 ? 1 : 0;
@@ -90,9 +90,12 @@ export const getPath = (x, y, width, height, radius) => {
 };
 
 export function processData(rawData, nutrientSelected, portionSelected) {
+  if (rawData.length === 0) {
+    return [];
+  }
   const barData = rawData.get(nutrientSelected);
   if (!barData) {
-    return null;
+    return [];
   }
   const COLORS = generateColor('#A75FFF', '#5A338A', barData.length);
   return barData
