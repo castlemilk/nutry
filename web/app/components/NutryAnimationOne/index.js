@@ -113,9 +113,7 @@ function NutryAnimationOne() {
         /* istanbul ignore next */
         delay={(el, index) => index * 240}
         opacity={[0.9, 0]}
-        /* istanbul ignore next */
         translateX={(el, index) => `${getXPosition(radius, index)}rem`}
-        /* istanbul ignore next */
         translateY={(el, index) => `${getYPosition(radius, index)}rem`}
         rotate={360}
         scale={[0.6, 0.5]}
@@ -127,12 +125,9 @@ function NutryAnimationOne() {
         duration={7000}
         direction="normal"
         loop
-        /* istanbul ignore next */
         delay={(el, index) => (index * 240) + 200}
         opacity={[0.9, 0]}
-        /* istanbul ignore next */
         translateX={(el, index) => `${getXPosition(radius, index)}rem`}
-        /* istanbul ignore next */
         translateY={(el, index) => `${getYPosition(radius, index)}rem`}
         rotate={360}
         scale={[0.6, 0.5]}

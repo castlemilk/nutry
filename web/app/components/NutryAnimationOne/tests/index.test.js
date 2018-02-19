@@ -11,6 +11,7 @@ describe('<NutryAnimationOne />', () => {
       <NutryAnimationOne />
     );
     console.log(renderedComponent.debug());
+    console.log(renderedComponent.props);
     expect(renderedComponent.find(NutryAnimationOneWrapper).length).toEqual(1);
     expect(renderedComponent.find('Anime').length).toEqual(4);
     expect(renderedComponent.find('img').length).toEqual(14);

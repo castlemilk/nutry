@@ -46,7 +46,6 @@ describe('<ExpandableListView />', () => {
     const renderedComponent = shallow(
       <ExpandableListView {...props} />
     );
-    console.log(renderedComponent.debug());
     const listHeader = renderedComponent.find('Motion').first().dive().find(ListHeader).dive().find(ListViewHeader);
     listHeader.simulate('click', 0);
     expect(renderedComponent.state('data')[0].isOpened).toEqual(false);
