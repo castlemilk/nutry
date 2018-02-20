@@ -110,7 +110,6 @@ function NutryAnimationOne() {
         duration={4000}
         direction="normal"
         loop
-        /* istanbul ignore next */
         delay={(el, index) => index * 240}
         opacity={[0.9, 0]}
         translateX={(el, index) => `${getXPosition(radius, index)}rem`}

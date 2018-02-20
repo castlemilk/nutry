@@ -21,6 +21,5 @@ describe('<NutryAnimationOne />', () => {
     expect(renderedComponent.find('Anime').get(3).props.delay(null, 1)).toEqual(440);
     expect(renderedComponent.find('Anime').get(3).props.translateX(null, 1)).toEqual(`${getXPosition(radius, 1)}rem`);
     expect(renderedComponent.find('Anime').get(3).props.translateY(null, 1)).toEqual(`${getYPosition(radius, 1)}rem`);
-    // console.log(renderedComponent.find('Anime').get(3).props.delay);
   });
 });
