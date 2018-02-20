@@ -10,7 +10,7 @@ import { Slider } from 'antd';
 import Select from 'react-select';
 import ProfilerDeleteElement from 'components/ProfilerDeleteElement';
 import ProfilerElementWrapper from './ProfilerElementWrapper';
-
+import NUTRIENTS from './constants';
 /**
  * NUTRIENTS - Array of nutrients values usable in the profiler.
  * the value should correspond to a valid field in the nutritional database
@@ -18,28 +18,9 @@ import ProfilerElementWrapper from './ProfilerElementWrapper';
  * @type {Array}
  *
  */
-const NUTRIENTS = [
-  { value: 'CHOCDF', label: 'Carbohydrates', className: 'elements-carbohydrates' },
-  { value: 'FAT', label: 'Fat', className: 'elements-fat' },
-  { value: 'PROCNT', label: 'Protein', className: 'elements-protein' },
-  { value: 'WATER', label: 'Water', className: 'elements-water' },
-  { value: 'VITC', label: 'Vitamin C', className: 'elements-vitamin-c' },
-  { value: 'SUGAR', label: 'Sugar', className: 'elements-sugar' },
-  { value: 'NA', adjustment_factor: 0.1, label: 'Salt (Sodium)', className: 'elements-salt' },
-];
+
 
 export class ProfilerElement extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static displayName: 'ProfilerElement'
-  static propTypes: {
-    id: PropTypes.string.isRequired,
-    scale: PropTypes.number.isRequired,
-    nutrient: PropTypes.string,
-    onNutrientChange: PropTypes.func.isRequired,
-    onScaleChange: PropTypes.func.isRequired,
-    onElementRemove: PropTypes.func.isRequired,
-
-  };
-
   render() {
     const { scale, id } = this.props;
     return (
@@ -48,7 +29,6 @@ export class ProfilerElement extends React.Component { // eslint-disable-line re
           <div className="profiler-element-text">
             <Select
               id={id}
-              ref={(ref) => { this.select = ref; }}
               onBlurResetsInput={false}
               onSelectResetsInput={false}
               autoFocus
