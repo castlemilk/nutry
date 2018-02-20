@@ -1,5 +1,5 @@
 import expect from 'expect';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 import ExpandableListView from '../index';
 import ListViewHeader from '../ListViewHeader';
