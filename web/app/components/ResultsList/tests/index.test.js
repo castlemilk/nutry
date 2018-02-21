@@ -27,6 +27,17 @@ describe('<ResultsList />', () => {
     expect(renderedComponent.find('div').length).toEqual(1);
     expect(renderedComponent.find(NoResultsFound).length).toEqual(1);
   });
+  it('should render NoResultsFound component on undefined list', () => {
+    const props = {
+      results: null,
+      onProfileSelected: () => {},
+    };
+    const renderedComponent = shallow(
+      <ResultsList {...props} />
+    );
+    expect(renderedComponent.find('div').length).toEqual(1);
+    expect(renderedComponent.find(NoResultsFound).length).toEqual(1);
+  });
   it('will respond to hover effect', () => { /* eslint no-underscore-dangle: ["error", { "allow": ["_source"] }]*/
     const onClickSpy = jest.fn();
     const props = {
