@@ -22,7 +22,7 @@ function NoResultsFound() {
       <div className="message-wrapper">
         <FormattedMessage {...messages.header} />
       </div>
-    </NoResultsFoundWrapper >
+    </NoResultsFoundWrapper>
   );
 }
 

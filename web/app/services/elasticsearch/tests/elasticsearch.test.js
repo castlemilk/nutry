@@ -12,7 +12,7 @@ import {
   getProfilerParsedSuccess,
   getDocumentPlainSuccess,
   getDocumentParsedSuccess,
-} from '../../../mocks/getElastisearchQueryMock';
+} from '../../../mocks/getElasticsearchQueryMock';
 
 describe('elasticsearch', () => {
   beforeEach(() => {

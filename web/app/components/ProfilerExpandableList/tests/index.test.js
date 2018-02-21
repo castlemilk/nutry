@@ -7,7 +7,7 @@ import ListHeader from '../ListHeader';
 import Wrapper from '../Wrapper';
 
 
-describe('<ExpandableListView />', () => {
+describe('<ProfilerExpandableList />', () => {
   it('should render a div', () => {
     const props = {
       headerAttName: 'headerName',

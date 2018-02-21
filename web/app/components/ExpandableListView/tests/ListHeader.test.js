@@ -32,5 +32,7 @@ describe('<ListHeader />', () => {
     renderedComponent.find(ListViewHeader).simulate('click');
     expect(onClickSpy).toHaveBeenCalled();
     expect(renderedComponent.state('isOpened')).toEqual(false);
+    renderedComponent.find(ListViewHeader).simulate('click');
+    expect(renderedComponent.state('isOpened')).toEqual(true);
   });
 });

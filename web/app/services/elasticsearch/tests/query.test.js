@@ -10,7 +10,7 @@ import {
   profilerFunctionQueryMock,
   profilerDecayFunctionQueryMock,
   matchFieldMock,
-} from '../../../mocks/getElastisearchQueryMock';
+} from '../../../mocks/getElasticsearchQueryMock';
 
 
 describe('elasticsearch query functions', () => {
