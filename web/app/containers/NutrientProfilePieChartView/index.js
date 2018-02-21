@@ -13,14 +13,12 @@ import injectReducer from 'utils/injectReducer';
 import NutrientProfilePieChart from 'components/NutrientProfilePieChart';
 import {
   makeSelectLoading,
-  makeSelectNutrients,
   makeSelectSummaryNutrients,
   makeSelectNutrientSelected,
   makeSelectPortionSelected,
  } from './selectors';
 
 import reducer from './reducer';
-// import messages from './messages';
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
@@ -51,5 +49,4 @@ NutrientProfilePieChartView.propTypes = {
   nutrients: PropTypes.object,
   portionSelected: PropTypes.object,
   nutrientSelected: PropTypes.string,
-  // onProfileSelected: PropTypes.func,
 };

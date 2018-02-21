@@ -8,8 +8,11 @@ export const CustomTooltip = (props) => {
   const { active, nutrientSelected, portionSelected } = props;
   if (active) {
     const { payload, foodID } = props;
-    if (payload) {
-      const { name, value, unit, id } = payload ? payload[0].payload : null;
+    if (Array.isArray(payload) && payload.length > 0) {
+      const name = payload[0].payload.name || 'NA';
+      const value = payload[0].payload.value || 'NA';
+      const unit = payload[0].payload.unit || 'NA';
+      const id = payload[0].payload.id || 'NA';
       // TODO: add description mapping
       return (
         <div className="custom-tooltip">
@@ -90,7 +93,9 @@ const getPath = (x, y, width, height, radius) => {
 };
 
 export function processData(rawData, nutrientSelected, portionSelected) {
-  if (rawData.length === 0) {
+  if (typeof rawData === 'undefined' || rawData === null) {
+    return [];
+  } else if (rawData.length === 0) {
     return [];
   }
   const barData = rawData.get(nutrientSelected);

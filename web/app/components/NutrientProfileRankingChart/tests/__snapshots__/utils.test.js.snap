@@ -23,6 +23,22 @@ exports[`utils CustomShape() renders correct custom shape different radius 1`] =
 />
 `;
 
+exports[`utils CustomShape() renders correct custom shape negative height 1`] = `
+<path
+  d="M140,313.3333333333333L 361.2362304194038,312.3333333333333L 360.2362304194038,310.3333333333333L 139,311.3333333333333Z"
+  fill="#9a57eb"
+  stroke="none"
+/>
+`;
+
+exports[`utils CustomShape() renders correct custom shape negative height 2`] = `
+<path
+  d="M140,313.3333333333333L 361.2362304194038,312.3333333333333L 360.2362304194038,310.3333333333333L 139,311.3333333333333Z"
+  fill="#9a57eb"
+  stroke="none"
+/>
+`;
+
 exports[`utils CustomShape() renders correct custom shape radius array 1`] = `
 <path
   d="M140,313.3333333333333A 1,1,0,0,1,141,312.3333333333333L 358.2362304194038,312.3333333333333A 2,2,0,0,1,
@@ -30,6 +46,33 @@ exports[`utils CustomShape() renders correct custom shape radius array 1`] = `
        357.2362304194038,357.3333333333333L 144,357.3333333333333A 4,4,0,0,1,
        140,353.3333333333333Z"
   fill="#9a57eb"
+  stroke="none"
+/>
+`;
+
+exports[`utils CustomShape() renders correct custom shape radius array is large 1`] = `
+<path
+  d="M140,334.8333333333333A 22.5,22.5,0,0,1,162.5,312.3333333333333L 337.7362304194038,312.3333333333333A 22.5,22.5,0,0,1,
+       360.2362304194038,334.8333333333333L 360.2362304194038,334.8333333333333A 22.5,22.5,0,0,1,
+       337.7362304194038,357.3333333333333L 162.5,357.3333333333333A 22.5,22.5,0,0,1,
+       140,334.8333333333333Z"
+  fill="#9a57eb"
+  stroke="none"
+/>
+`;
+
+exports[`utils CustomShape() renders correct custom shape radius array that is negative 1`] = `
+<path
+  d="M140,311.3333333333333L 361.2362304194038,312.3333333333333L 360.2362304194038,358.3333333333333L 139,357.3333333333333Z"
+  fill="#9a57eb"
+  stroke="none"
+/>
+`;
+
+exports[`utils CustomShape() renders correct custom shape when barId == foodID (i.e active) 1`] = `
+<path
+  d="M 140,312.3333333333333 h 220.2362304194038 v 45 h -220.2362304194038 Z"
+  fill="#50c59f"
   stroke="none"
 />
 `;
@@ -63,7 +106,7 @@ exports[`utils CustomTooltip() renders correct tooltip when foodId == id 1`] = `
   <p
     className="label"
   >
-    braised veal thymus
+    braised veal thymus [Current FoodProfile]
   </p>
   <p
     className="intro"
@@ -82,4 +125,26 @@ exports[`utils CustomTooltip() renders correct when no payload 1`] = `
 <div
   className="custom-tooltip"
 />
+`;
+
+exports[`utils CustomTooltip() renders when no info in payload 1`] = `
+<div
+  className="custom-tooltip"
+>
+  <p
+    className="label"
+  >
+    NA
+  </p>
+  <p
+    className="intro"
+  >
+    Contains NA NA of Protien per per 100g
+  </p>
+  <p
+    className="desc"
+  >
+    Description: Coming soon!
+  </p>
+</div>
 `;

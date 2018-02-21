@@ -29,7 +29,6 @@ class NutrientProfileRankingChart extends React.Component { // eslint-disable-li
   onFinishedLoading() {
   }
   handleBarClick(value) {
-    console.log('clicked');
     const { id } = value;
     this.props.onLoadNewProfile(id);
   }
