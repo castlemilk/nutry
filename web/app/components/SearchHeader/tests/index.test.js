@@ -1,10 +1,16 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-
-// import SearchHeader from '../index';
+import React from 'react';
+import { shallow } from 'enzyme';
+import SearchHeader from '../index';
+import SearchHeaderWrapper from '../SearchHeaderWrapper';
 
 describe('<SearchHeader />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('should render', () => {
+    const props = {
+      searchBarView: Object(),
+    };
+    const renderedComponent = shallow(
+      <SearchHeader {...props} />
+    );
+    expect(renderedComponent.find(SearchHeaderWrapper).length).toEqual(1);
   });
 });

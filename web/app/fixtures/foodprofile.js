@@ -54,3 +54,14 @@ export const nutrientNoValue = Map({
   value: '~',
   rdi: null,
 });
+export const profileInfo = {
+  SN: '02042',
+  name: 'Dried thyme',
+  alias: ['Dried thyme', 'thyme, dried'],
+  tags: ['herb', 'dried herbs'],
+  usage: ['seasoning', 'spice', 'chicken', 'turkey', 'poultry', 'meat', 'marinade', 'flavour', 'ingredient'],
+  group: 'Spices and Herbs',
+  allergen: [''],
+  source: 'USDA',
+  clinical_pos: [],
+  clinical_neg: [] };
