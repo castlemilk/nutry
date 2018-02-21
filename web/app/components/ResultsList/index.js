@@ -11,7 +11,8 @@ import NoResultsFound from 'components/NoResultsFound';
 
 function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow": ["_source"] }]*/
   const { onProfileSelected, results } = props;
-  const resultsView = (typeof results !== 'undefined' && results.length > 0) ? props.results.map((result) => {
+  console.log(results);
+  const resultsView = results ? results.map((result) => {
     const profileInfo = result._source;
     const searchResultCardProps = {
       profileInfo,

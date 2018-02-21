@@ -10,7 +10,7 @@ import { Slider } from 'antd';
 import Select from 'react-select';
 import ProfilerDeleteElement from 'components/ProfilerDeleteElement';
 import ProfilerElementWrapper from './ProfilerElementWrapper';
-import NUTRIENTS from './constants';
+import { NUTRIENTS } from './constants';
 /**
  * NUTRIENTS - Array of nutrients values usable in the profiler.
  * the value should correspond to a valid field in the nutritional database

@@ -11,7 +11,7 @@ import RowName from './RowName';
 import RowUnits from './RowUnits';
 import RowValue from './RowValue';
 import Table from './Table';
-import { messages } from './messages';
+import messages from './messages';
 
 class TableHeader extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {

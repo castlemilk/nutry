@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container [App] - reducers should handle the loginFailure action correctly 1`] = `
+Immutable.Map {
+  "loggedIn": false,
+  "searchResults": Immutable.List [],
+  "loading": true,
+  "error": true,
+}
+`;
+
+exports[`Container [App] - reducers should handle the loginFailure action correctly 2`] = `
+Immutable.Map {
+  "loggedIn": false,
+  "searchResults": Array [],
+  "loading": false,
+  "error": false,
+}
+`;
+
+exports[`Container [App] - reducers should handle the loginSuccess action correctly 1`] = `
+Immutable.Map {
+  "loggedIn": false,
+  "searchResults": Immutable.List [],
+  "loading": true,
+  "error": false,
+}
+`;
+
+exports[`Container [App] - reducers should handle the loginSuccess action correctly 2`] = `
+Immutable.Map {
+  "loggedIn": true,
+  "searchResults": Immutable.List [],
+  "loading": true,
+  "error": false,
+}
+`;
+
+exports[`Container [App] - reducers should return the initial state 1`] = `
+Immutable.Map {
+  "loggedIn": false,
+  "searchResults": Immutable.List [],
+  "loading": true,
+  "error": false,
+}
+`;

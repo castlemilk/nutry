@@ -64,11 +64,12 @@ export class Search extends React.Component { // eslint-disable-line react/prefe
   render() {
     const { profileInfo, loading, searchString, searchResults, searchType } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
-    const items = searchResults.items ? searchResults.items : [];
-    const noResultsFound = items.length === 0 && searchString.length > 0 && !loading;
-    const nutrientResults = noResultsFound ?
+    const items = searchResults.items || [];
+    // const noResultsFound = items.length === 0 && searchString.length > 0 && !loading;
+    const nutrientResults = (searchString.length > 0 && !loading && items.length === 0) ?
       <NoResultsFound /> :
       <ResultsList onProfileSelected={(profileData) => this.handleProfileSelected(profileData)} results={items} />;
+
     const nutrientResultsView = loading ?
     (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
