@@ -6,8 +6,16 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.components.TableHeader.header',
-    defaultMessage: 'This is the TableHeader component !',
+  name: {
+    id: 'app.components.TableHeader.name',
+    defaultMessage: 'Name',
+  },
+  units: {
+    id: 'app.components.TableHeader.units',
+    defaultMessage: 'Units',
+  },
+  value: {
+    id: 'app.components.TableHeader.value',
+    defaultMessage: 'Value',
   },
 });
