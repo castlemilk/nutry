@@ -8,9 +8,10 @@ import {
   LOGIN_FAILURE,
 } from './constants';
 
-export function login() {
+export function login(username) {
   return {
     type: LOGIN_CLICKED,
+    username,
   };
 }
 export function loginSuccess(token) {

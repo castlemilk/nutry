@@ -11,6 +11,10 @@ const makeSelectLoggedIn = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('loggedIn')
 );
+const makeSelectUsername = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('username')
+);
 const makeSelectSearchResults = () => createSelector(
   selectGlobal,
   (globalState) => globalState.get('searchResults')
@@ -23,6 +27,7 @@ const makeSelectSearchLoading = () => createSelector(
 export {
   makeSelectLocation,
   makeSelectLoggedIn,
+  makeSelectUsername,
   makeSelectSearchResults,
   makeSelectSearchLoading,
 };

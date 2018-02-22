@@ -9,7 +9,7 @@ import {
   SEARCH_COMPLETE,
 } from 'containers/Search/constants';
 import {
-  DEFAULT_ACTION,
+  LOGIN_CLICKED,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
 } from './constants';
@@ -20,15 +20,18 @@ const initialState = fromJS({
   searchResults: List([]),
   loading: true,
   error: false,
+  username: false,
+  token: false,
 });
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case LOGIN_CLICKED:
+      return state.set('username', action.username);
     case LOGIN_SUCCESS:
       return state.set('loggedIn', true)
-                  .set('error', false);
+                  .set('error', false)
+                  .set('token', action.token);
     case LOGIN_FAILURE:
       return state.set('error', true);
     case SEARCH_COMPLETE:

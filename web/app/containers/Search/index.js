@@ -199,7 +199,7 @@ function mapDispatchToProps(dispatch) {
     onChangeSearchString: (evt) => dispatch(changeSearchString(evt.target.value)),
     onSearchTypeChange: (evt) => dispatch(changeSearchType(evt)),
     onSearchRefresh: () => dispatch(searchRefresh()),
-    onLogin: () => dispatch(login()),
+    onLogin: () => dispatch(login('demo')),
     onProfileSelected: (profileInfo) => dispatch(profileSelected(profileInfo)),
     onClearFoodProfile: () => dispatch(clearFoodProfile()),
   };

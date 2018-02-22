@@ -351,6 +351,8 @@
     "raf": "3.4.0",
     "react-icons": "^2.2.7",
     "react-test-renderer": "16.2.0",
+    "redux-saga-test-plan": "^3.5.0",
+    "redux-saga-testing": "^1.0.5",
     "rewire": "^3.0.2",
     "rewire-webpack": "^1.0.1",
     "rimraf": "2.6.1",
