@@ -1,5 +1,6 @@
 import { delay } from 'redux-saga';
-import { put, takeLatest, call } from 'redux-saga/effects';
+import { put, takeLatest, call, select } from 'redux-saga/effects';
+
 import { loginSuccess, loginFailure } from './actions';
 import { makeSelectUsername } from './selectors';
 
@@ -7,9 +8,11 @@ import { LOGIN_CLICKED } from './constants';
 
 
 export function* loginUser() {
-  // TODO: hit a Authentication backend here
+  // TODO: hit an Authentication backend here
   try {
-    const username = yield makeSelectUsername();
+    console.log('loginUser');
+    const username = yield select(makeSelectUsername());
+    console.log(username);
     if (!username) {
       throw Error('Username not specified');
     }
@@ -17,6 +20,7 @@ export function* loginUser() {
     const token = 'yummy-chocolate';
     yield put(loginSuccess(token));
   } catch (err) {
+    console.log(err);
     yield put(loginFailure(err));
   }
 }

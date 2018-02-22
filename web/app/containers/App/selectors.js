@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 const selectRoute = (state) => state.get('route');
-const selectGlobal = (state) => state.get('global');
+const selectGlobal = (state) => { console.log(state); return state.get('global'); };
 
 const makeSelectLocation = () => createSelector(
   selectRoute,

@@ -6,6 +6,8 @@ Immutable.Map {
   "searchResults": Immutable.List [],
   "loading": true,
   "error": true,
+  "username": false,
+  "token": false,
 }
 `;
 
@@ -15,6 +17,8 @@ Immutable.Map {
   "searchResults": Array [],
   "loading": false,
   "error": false,
+  "username": false,
+  "token": false,
 }
 `;
 
@@ -24,6 +28,8 @@ Immutable.Map {
   "searchResults": Immutable.List [],
   "loading": true,
   "error": false,
+  "username": undefined,
+  "token": false,
 }
 `;
 
@@ -33,6 +39,8 @@ Immutable.Map {
   "searchResults": Immutable.List [],
   "loading": true,
   "error": false,
+  "username": false,
+  "token": "d95f8aed95f8aed95f8aed95f8aed95f8ae",
 }
 `;
 
@@ -42,5 +50,7 @@ Immutable.Map {
   "searchResults": Immutable.List [],
   "loading": true,
   "error": false,
+  "username": false,
+  "token": false,
 }
 `;
