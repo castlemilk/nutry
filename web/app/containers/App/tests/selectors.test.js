@@ -7,6 +7,7 @@ import {
   makeSelectLoggedIn,
   makeSelectSearchResults,
   makeSelectSearchLoading,
+  makeSelectUsername,
 } from '../selectors';
 
 describe('Container [App] - selectors', () => {
@@ -58,6 +59,20 @@ describe('Container [App] - selectors', () => {
         global: globalState,
       });
       expect(makeSelectSearchLoading()(mockedState)).toEqual(globalState.get('loading'));
+    });
+  });
+  describe('makeSelectUsername', () => {
+    it('makeSelectUsername', () => {
+      const globalState = fromJS({
+        loggedIn: false,
+        searchResults: List([]),
+        loading: true,
+        username: false,
+      });
+      const mockedState = fromJS({
+        global: globalState,
+      });
+      expect(makeSelectUsername()(mockedState)).toEqual(globalState.get('username'));
     });
   });
 });
