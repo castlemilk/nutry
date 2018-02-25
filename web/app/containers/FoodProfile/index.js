@@ -44,7 +44,6 @@ import saga from './saga';
 import FoodProfileWrapper from './FoodProfileWrapper';
 
 export class FoodProfile extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   componentWillMount() {
     // TODO: Add a prefix on results mouse-down to kick of the fetch extra early
   }
@@ -55,18 +54,17 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
   componentDidMount() {
     // console.log('componentDidMount');
     if (this.props.loading) {
-      this.props.onLoadProfile(this.props.match.params.profileId);
+      this.props.onLoadProfile(this.props.match ? this.props.match.params.profileId : this.props.profileHeader.SN);
     }
   }
   componentDidUpdate() {
     // console.log('componentDidUpdate');
     if (this.props.loading) {
-      this.props.onLoadProfile(this.props.match.params.profileId);
+      this.props.onLoadProfile(this.props.match ? this.props.match.params.profileId : this.props.profileHeader.SN);
     }
   }
 
   render() {
-    const SN = this.props.match.params.profileId;
     const profileBackgroundStyle = {
       width: '100%',
       height: '100%',
@@ -80,6 +78,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       portionSelected,
       // nutrientSelected,
       ageGroupSelected } = this.props;
+    const SN = this.props.match ? this.props.match.params.profileId : this.props.profileHeader.SN;
     const { onTabChange,
       onPortionChanged,
       onAgeGroupChanged,
@@ -110,7 +109,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       loading,
       portions,
       portionSelected,
-      ageGroupSelected: ageGroupSelected.toJS(),
+      ageGroupSelected,
       onAgeGroupChanged,
       onPortionChanged,
     };

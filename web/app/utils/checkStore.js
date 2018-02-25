@@ -16,6 +16,7 @@ export default function checkStore(store) {
     injectedReducers: isObject,
     injectedSagas: isObject,
   };
+  console.log(store);
   invariant(
     conformsTo(store, shape),
     '(app/utils...) injectors: Expected a valid redux store'

@@ -10,7 +10,6 @@ import { updateRDI } from 'lib/nutrientMap';
 import { getIndexLargestValue } from 'lib/utils';
 
 import {
-  DEFAULT_ACTION,
   ON_BACK,
   GET_PROFILE,
   TAB_CHANGED,
