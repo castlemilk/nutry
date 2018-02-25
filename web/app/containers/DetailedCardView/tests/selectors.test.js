@@ -1,8 +1,20 @@
-// import { fromJS } from 'immutable';
+import { Map, fromJS } from 'immutable';
 // import { selectDetailedCardViewDomain } from '../selectors';
+import { DETAILED_SECTIONS } from 'containers/FoodProfile/constants';
+import {
+  makeSelectNutrientBySection,
+} from '../selectors';
 
-describe('selectDetailedCardViewDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('Container [App] - selectors', () => {
+  describe('makeSelectLocation', () => {
+    it('should select the location', () => {
+      const foodProfile = fromJS({
+        nutrients: { bySection: Map(DETAILED_SECTIONS) },
+      });
+      const mockedState = fromJS({
+        foodProfile,
+      });
+      expect(makeSelectNutrientBySection()(mockedState)).toEqual(foodProfile.getIn(['nutrients', 'bySection']));
+    });
   });
 });

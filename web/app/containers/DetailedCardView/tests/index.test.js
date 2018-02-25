@@ -1,10 +1,13 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-
-// import { DetailedCardView } from '../index';
+import React from 'react';
+import { shallow } from 'enzyme';
+import { Route } from 'react-router-dom';
+import DetailedCardView from '../index';
 
 describe('<DetailedCardView />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('should render container', () => {
+    const renderedComponent = shallow(
+      <DetailedCardView />
+    );
+    expect(renderedComponent.find(Route).length).toEqual(1);
   });
 });

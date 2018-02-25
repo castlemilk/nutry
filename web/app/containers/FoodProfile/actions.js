@@ -5,7 +5,6 @@
  */
 import { defaultPortions } from 'lib/nutrientMap';
 import {
-  DEFAULT_ACTION,
   ON_BACK,
   GET_PROFILE,
   TAB_CHANGED,
@@ -16,12 +15,6 @@ import {
   GET_PROFILE_SUCCESS,
 } from './constants';
 
-
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
 export function loadProfile(serialNumber) {
   return {
     type: GET_PROFILE,

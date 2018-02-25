@@ -13,12 +13,6 @@ const mapStateToProps = createStructuredSelector({
   nutrientSections: makeSelectNutrientBySection(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const DetailedCardView = withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailedCard));
+const DetailedCardView = withRouter(connect(mapStateToProps)(DetailedCard));
 
 export default DetailedCardView;

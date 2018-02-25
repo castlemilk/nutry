@@ -63,8 +63,6 @@ const arrayToObject = (array) =>
 
 function foodProfileReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
     case ON_BACK:
       return initialState;
     case GET_PROFILE:

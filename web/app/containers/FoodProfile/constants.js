@@ -5,7 +5,6 @@
  */
 import { Map, List } from 'immutable';
 const prefix = (name) => `app/FoodProfile/${name}`;
-export const DEFAULT_ACTION = prefix('DEFAULT_ACTION');
 
 export const ON_BACK = prefix('ON_BACK');
 
