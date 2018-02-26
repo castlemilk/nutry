@@ -7,14 +7,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row, Col } from 'antd';
-// import { ONCE_TILL_UNMOUNT } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import NutrientDisplay from 'components/NutrientDisplay';
@@ -44,21 +41,15 @@ import saga from './saga';
 import FoodProfileWrapper from './FoodProfileWrapper';
 
 export class FoodProfile extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  componentWillMount() {
-    // TODO: Add a prefix on results mouse-down to kick of the fetch extra early
-  }
-  // shouldComponentUpdate(nextProps) {
-  //   console.log(nextProps)
-  //   return this.props.match.params.profileId !== nextProps.match.params.profileId
+  // componentWillMount() {
+  //   // TODO: Add a prefix on results mouse-down to kick of the fetch extra early
   // }
   componentDidMount() {
-    // console.log('componentDidMount');
     if (this.props.loading) {
       this.props.onLoadProfile(this.props.match ? this.props.match.params.profileId : this.props.profileHeader.SN);
     }
   }
   componentDidUpdate() {
-    // console.log('componentDidUpdate');
     if (this.props.loading) {
       this.props.onLoadProfile(this.props.match ? this.props.match.params.profileId : this.props.profileHeader.SN);
     }
@@ -71,12 +62,9 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       backgroundColor: '#DBD8D8',
     };
     const { loading,
-      // tabSelected,
       portions,
-      // nutrients,
       profileHeader,
       portionSelected,
-      // nutrientSelected,
       ageGroupSelected } = this.props;
     const SN = this.props.match ? this.props.match.params.profileId : this.props.profileHeader.SN;
     const { onTabChange,
@@ -94,17 +82,6 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       onTabChange,
     };
 
-
-    // const analyticsProps = {
-    //   loading,
-    //   nutrients,
-    //   nutrientFilter: tabSelected,
-    //   onLoadNewProfile,
-    //   ageGroupSelected,
-    //   portionSelected,
-    //   nutrientSelected,
-    //
-    // };
     const foodProfileToolbarProps = {
       loading,
       portions,
@@ -160,19 +137,14 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
 
 FoodProfile.propTypes = {
   loading: PropTypes.bool,
-  // profileHeaderCache: PropTypes.object,
   profileHeader: PropTypes.object.isRequired,
-  // nutrients: PropTypes.object,
-  // nutrientSelected: PropTypes.string,
   onLoadProfile: PropTypes.func,
   onTabChange: PropTypes.func,
-  // tabSelected: PropTypes.string,
   portions: PropTypes.array,
   portionSelected: PropTypes.object,
   onAgeGroupChanged: PropTypes.func,
   onPortionChanged: PropTypes.func,
   ageGroupSelected: PropTypes.object,
-  // location: PropTypes.object,
   onLoadNewProfile: PropTypes.func,
   match: PropTypes.object,
 };

@@ -66,8 +66,7 @@ function foodProfileReducer(state = initialState, action) {
       return initialState;
     case GET_PROFILE:
       return state
-        .set('serialNumber', action.serialNumber)
-        .set('source', action.source);
+        .set('serialNumber', action.serialNumber);
     case GET_PROFILE_SUCCESS: {
       /**
        * TODO: utilise more efficient structure and manipulation of data for
