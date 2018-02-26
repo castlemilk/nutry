@@ -22,7 +22,7 @@ import WikiView from 'containers/WikiView/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import reducer from './reducer';
-import saga from './sagas';
+import saga from './saga';
 
 export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {

@@ -6,27 +6,20 @@ import { GET_PROFILE, GET_PROFILE_SUCCESS } from './constants';
 import { loadProfileSuccess, loadProfileFailure } from './actions';
 import { makeSelectSerialNumber } from './selectors';
 
-// Individual exports for testing
-export function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
-}
-
 export function* getProfile() { /* eslint no-underscore-dangle: ["error", { "allow": ["_source"] }]*/
-  // console.log('loadingProfile')
   const serialNumber = yield select(makeSelectSerialNumber());
-  // const source = yield select(makeSelectSource());
+  // if (!serialNumber) {
+  //   console.log('noSerialNumber defined');
+  //   yield put(loadProfileFailure(new Error('No SerialNumber Specified')));
+  // }
   let error = null;
   for (let i = 1; i <= 3; i += 1) {
     try {
       const profile = yield call(getFoodProfile, serialNumber);
       yield put(loadProfileSuccess(profile));
-      return;
     } catch (err) {
       error = err;
-      // console.log(err);
-      if (i < 5) {
-        yield call(delay, 1000); // retry after 2s
-      }
+      yield call(delay, 1000); // retry after 2s
     }
   }
   yield put(loadProfileFailure(error));
@@ -44,7 +37,7 @@ export default function* fetchProfile() {
     const watcher = yield takeLatest(GET_PROFILE, getProfile);
     const done = yield take([LOCATION_CHANGE, GET_PROFILE_SUCCESS]);
     if (done) {
-      yield cancel(watcher);
+      yield cancel(...watcher);
     }
   }
 }
