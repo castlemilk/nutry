@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -61,16 +60,17 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
       height: '100%',
       backgroundColor: '#DBD8D8',
     };
-    const { loading,
-      portions,
-      profileHeader,
-      portionSelected,
-      ageGroupSelected } = this.props;
+    const { ageGroupSelected } = this.props;
+    const { loading } = this.props;
+    const { portions } = this.props;
+    const { profileHeader } = this.props;
+    const { portionSelected } = this.props;
+
+
     const SN = this.props.match ? this.props.match.params.profileId : this.props.profileHeader.SN;
     const { onTabChange,
       onPortionChanged,
       onAgeGroupChanged,
-      onLoadNewProfile,
      } = this.props;
     const profileTitleProps = {
       loading,
@@ -124,7 +124,7 @@ export class FoodProfile extends React.Component { // eslint-disable-line react/
             </Col>
             <Col xs={20} sm={20} md={10} lg={10}>
               <NutrientProfilePieChartView />
-              <NutrientProfileRankingChartView onLoadNewProfile={onLoadNewProfile} id={SN} />
+              <NutrientProfileRankingChartView id={SN} />
             </Col>
             <Col xs={2} sm={2} md={1} lg={1}>
             </Col>
@@ -145,7 +145,6 @@ FoodProfile.propTypes = {
   onAgeGroupChanged: PropTypes.func,
   onPortionChanged: PropTypes.func,
   ageGroupSelected: PropTypes.object,
-  onLoadNewProfile: PropTypes.func,
   match: PropTypes.object,
 };
 
@@ -163,16 +162,12 @@ const mapStateToProps = createStructuredSelector({
   ageGroupSelected: makeSelectAgeGroup(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-    onLoadProfile: (serialNumber) => dispatch(loadProfile(serialNumber)),
-    onLoadNewProfile: (profileId) => dispatch(push(`/foodprofile/${profileId}`)),
-    onTabChange: (tab) => dispatch(tabChanged(tab)),
-    onPortionChanged: (portion) => dispatch(portionChanged(portion)),
-    onAgeGroupChanged: (ageGroup) => dispatch(ageGroupChanged(ageGroup)),
-  };
-}
+export const mapDispatchToProps = (dispatch) => ({
+  onLoadProfile: (serialNumber) => dispatch(loadProfile(serialNumber)),
+  onTabChange: (tab) => dispatch(tabChanged(tab)),
+  onPortionChanged: (portion) => dispatch(portionChanged(portion)),
+  onAgeGroupChanged: (ageGroup) => dispatch(ageGroupChanged(ageGroup)),
+});
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 

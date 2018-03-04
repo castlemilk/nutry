@@ -13,11 +13,6 @@ const selectFoodProfileDomain = (state) => state.get('foodProfile');
 /**
  * Default selector used by FoodProfile
  */
-
-const makeSelectFoodProfile = () => createSelector(
-  selectFoodProfileDomain,
-  (substate) => substate.toJS()
-);
 const makeSelectProfileHeader = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('profileHeader')
@@ -74,8 +69,6 @@ const makeSelectAgeGroup = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('ageGroupSelected').toJS()
 );
-
-export default makeSelectFoodProfile;
 export {
   selectFoodProfileDomain,
   makeSelectProfileHeader,
@@ -89,8 +82,6 @@ export {
   makeSelectPortion,
   makeSelectPortions,
   makeSelectAgeGroup,
-  // makeSelectProfile,
   makeSelectSource,
   makeSelectSerialNumber,
-
 };

@@ -5,6 +5,7 @@
  */
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -33,6 +34,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onLoadRankings: () => dispatch(loadRankings()),
+    onLoadNewProfile: (profileId) => dispatch(push(`/foodprofile/${profileId}`)),
   };
 }
 

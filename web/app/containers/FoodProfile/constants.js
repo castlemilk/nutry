@@ -502,10 +502,10 @@ export const FILTERS = {
 };
 export const INITIAL_STATE = {
   loading: true,
-  serialNumber: null,
+  serialNumber: false,
   profileHeader: {},
   error: false,
-  source: null,
+  source: false,
   nutrients: {
     byId: {},
     bySection: Map(DETAILED_SECTIONS),
@@ -515,10 +515,9 @@ export const INITIAL_STATE = {
     byDetailedPie: List([]),
   },
   tabSelected: 'summary',
-  idSelected: null,
-  nutrientSelected: null,
-  portionSelected:
-  { amt: 1,
+  idSelected: false,
+  nutrientSelected: false,
+  portionSelected: { amt: 1,
     className: 'per100g',
     g: 100,
     label: 'per 100g',

@@ -1,12 +1,10 @@
 // import { expectSaga } from 'redux-saga-test-plan';
 import { delay } from 'redux-saga';
-import { call, takeLatest, put, take, cancel } from 'redux-saga/effects';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { call, takeLatest, put } from 'redux-saga/effects';
 import { profileBody } from 'fixtures/foodprofile';
 
 import {
   GET_PROFILE,
-  GET_PROFILE_SUCCESS,
 } from '../constants';
 import { loadProfileSuccess, loadProfileFailure } from '../actions';
 import fetchProfile, { getProfile } from '../saga';
@@ -28,6 +26,12 @@ describe('Container [FoodProfile] - sagas', () => { /* eslint-disable redux-saga
       const response = profileBody;
       const putDescriptor = getProfileGenerator.next(response).value;
       expect(putDescriptor).toEqual(put(loadProfileSuccess(response)));
+    });
+    it('should dispatch loadProfileSuccess action if the token is recieved and stored successfully', () => {
+      const response = profileBody;
+      const putDescriptor = getProfileGenerator.next(response).value;
+      expect(putDescriptor).toEqual(put(loadProfileSuccess(response)));
+      expect(getProfileGenerator.next().done).toEqual(true);
     });
     it('should dispatch loadProfileSuccess after retry attempts made', () => {
       const response = new Error('Fetch Failure');
@@ -60,23 +64,6 @@ describe('Container [FoodProfile] - sagas', () => { /* eslint-disable redux-saga
       expect(putDescriptor).toEqual(put(loadProfileFailure(response)));
     });
   });
-  // describe('getProfile Saga', () => {
-  //   let getProfileGenerator;
-  //   beforeEach(() => {
-  //     getProfileGenerator = getProfile();
-  //       // select serialNumber
-  //     const selectDescriptor = getProfileGenerator.next('2222222').value;
-  //     expect(selectDescriptor).toMatchSnapshot();
-  //     // call axios getFoodProfile
-  //     const callDescriptor = getProfileGenerator.next().value;
-  //     expect(callDescriptor).toMatchSnapshot();
-  //   });
-  //   it('should dispatch loadProfileFailure when no user is specified', () => {
-  //     const response = new Error('Failed to fetch');
-  //     const putDescriptor = getProfileGenerator.throw(response).value;
-  //     expect(putDescriptor).toEqual(put(loadProfileFailure(response)));
-  //   });
-  // });
   describe('fetchProfile Saga', () => {
     const fetchProfileSaga = fetchProfile();
     it('works with unit tests', () => {
@@ -84,35 +71,35 @@ describe('Container [FoodProfile] - sagas', () => { /* eslint-disable redux-saga
       expect(takeLatestDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
     });
   });
-  describe('fetchProfile Saga', () => {
-    const fetchProfileSaga = fetchProfile();
-    it('works with next redux events triggering', () => {
-      const takeLatestDescriptor = fetchProfileSaga.next().value;
-      expect(takeLatestDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
-      const takeDescriptor = fetchProfileSaga.next().value;
-      expect(takeDescriptor).toEqual(take([LOCATION_CHANGE, GET_PROFILE_SUCCESS]));
-    });
-  });
-  describe('fetchProfile Saga', () => {
-    const fetchProfileSaga = fetchProfile();
-    it('works with unit tests when hitting cancellation event', () => {
-      const takeLatestDescriptor = fetchProfileSaga.next().value;
-      expect(takeLatestDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
-      const takeDescriptor = fetchProfileSaga.next({ type: LOCATION_CHANGE, payload: { done: true } }).value;
-      expect(takeDescriptor).toEqual(take([LOCATION_CHANGE, GET_PROFILE_SUCCESS]));
-      const doneDescriptor = fetchProfileSaga.next({ type: LOCATION_CHANGE, payload: { done: true } }).value;
-      expect(doneDescriptor).toEqual(cancel(...takeLatestDescriptor));
-    });
-  });
-  describe('fetchProfile Saga', () => {
-    const fetchProfileSaga = fetchProfile();
-    it('works with unit tests when not done', () => {
-      const takeLatestDescriptor = fetchProfileSaga.next().value;
-      expect(takeLatestDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
-      const takeDescriptor = fetchProfileSaga.next().value;
-      expect(takeDescriptor).toEqual(take([LOCATION_CHANGE, GET_PROFILE_SUCCESS]));
-      const doneDescriptor = fetchProfileSaga.next().value;
-      expect(doneDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
-    });
-  });
+  // describe('fetchProfile Saga', () => {
+  //   const fetchProfileSaga = fetchProfile();
+  //   it('works with next redux events triggering', () => {
+  //     const takeLatestDescriptor = fetchProfileSaga.next().value;
+  //     expect(takeLatestDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
+  //     const takeDescriptor = fetchProfileSaga.next().value;
+  //     expect(takeDescriptor).toEqual(take([LOCATION_CHANGE, GET_PROFILE_SUCCESS]));
+  //   });
+  // });
+  // describe('fetchProfile Saga', () => {
+  //   const fetchProfileSaga = fetchProfile();
+  //   it('works with unit tests when hitting cancellation event', () => {
+  //     const takeLatestDescriptor = fetchProfileSaga.next().value;
+  //     expect(takeLatestDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
+  //     const takeDescriptor = fetchProfileSaga.next({ type: LOCATION_CHANGE, payload: { done: true } }).value;
+  //     expect(takeDescriptor).toEqual(take([LOCATION_CHANGE, GET_PROFILE_SUCCESS]));
+  //     const doneDescriptor = fetchProfileSaga.next({ type: LOCATION_CHANGE, payload: { done: true } }).value;
+  //     expect(doneDescriptor).toEqual(cancel(...takeLatestDescriptor));
+  //   });
+  // });
+  // describe('fetchProfile Saga', () => {
+  //   const fetchProfileSaga = fetchProfile();
+  //   it('works with unit tests when not done', () => {
+  //     const takeLatestDescriptor = fetchProfileSaga.next().value;
+  //     expect(takeLatestDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
+  //     const takeDescriptor = fetchProfileSaga.next().value;
+  //     expect(takeDescriptor).toEqual(take([LOCATION_CHANGE, GET_PROFILE_SUCCESS]));
+  //     const doneDescriptor = fetchProfileSaga.next().value;
+  //     expect(doneDescriptor).toEqual(takeLatest(GET_PROFILE, getProfile));
+  //   });
+  // });
 });

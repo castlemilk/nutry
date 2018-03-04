@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileFailure action if too many errors are thrown 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileFailure action if too many errors are thrown 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      undefined,
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileSuccess action if the token is recieved and stored successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileSuccess action if the token is recieved and stored successfully 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      undefined,
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileSuccess action if the token is recieved and stored successfully 3`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileSuccess action if the token is recieved and stored successfully 4`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      undefined,
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileSuccess after retry attempts made 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "SELECT": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileSuccess after retry attempts made 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      undefined,
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - sagas getProfile Saga should dispatch loadProfileSuccess after retry attempts made 3`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      undefined,
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;

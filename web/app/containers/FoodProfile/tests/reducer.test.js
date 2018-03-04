@@ -18,7 +18,7 @@ import {
 
 import foodProfileReducer from '../reducer';
 
-describe('Container [App] - reducers', () => {
+describe('Container [FoodProfile] - reducers', () => {
   let state;
   beforeEach(() => {
   });
