@@ -123,6 +123,7 @@ class Page1 extends React.PureComponent { // eslint-disable-line react/prefer-st
     hoverKey: null,
   }
   onMouseOver = (key) => {
+    console.log('onMouseOver');
     this.setState({
       hoverKey: key,
     });

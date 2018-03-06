@@ -2,14 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 // import { IntlProvider } from 'react-intl';
 
-import { LandingPage } from '../index';
-import LandingPageWrapper from '../LandingPageWrapper';
+import Banner from '../Banner';
+import BannerWrapper from '../BannerWrapper';
 
 describe('<LandingPage />', () => {
   it('should render wrapper', () => {
     const renderedComponent = shallow(
-      <LandingPage />
+      <Banner />
     );
-    expect(renderedComponent.find(LandingPageWrapper).length).toEqual(1);
+    expect(renderedComponent.find(BannerWrapper).length).toEqual(1);
   });
 });
