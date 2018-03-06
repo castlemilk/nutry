@@ -20,7 +20,7 @@ class Page3 extends React.Component { // eslint-disable-line react/prefer-statel
           <div className="page" >
             <h2><FormattedMessage {...messages.developers} /></h2>
             <ScrollOverPack component={Row} className="page3-content" playScale="0.1">
-              <Col xs={4} md={4}>
+              <Col key="side-bar-left" xs={4} md={4}>
               </Col>
               <QueueAnim
                 component={Col}
@@ -35,7 +35,7 @@ class Page3 extends React.Component { // eslint-disable-line react/prefer-statel
                 </h3>
                 {codeEditor}
               </QueueAnim>
-              <Col xs={4} md={4}>
+              <Col key="side-bar-right" xs={4} md={4}>
               </Col>
             </ScrollOverPack>
           </div>

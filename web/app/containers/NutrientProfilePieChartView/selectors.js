@@ -1,28 +1,8 @@
 import { createSelector } from 'reselect';
 
-/**
- * Direct selector to the nutrientProfileRankingChartView state domain
- */
-const selectSearchDomain = (state) => state.get('search');
 const selectFoodProfileDomain = (state) => state.get('foodProfile');
-const selectNutrientProfilePieChartViewDomain = (state) => state.get('nutrientPie');
 
-/**
- * Other specific selectors
- */
-const makeSelectSearchResults = () => createSelector(
-  selectSearchDomain,
-  (substate) => substate ? substate.get('results', []) : []
-);
 
-/**
- * Default selector used by NutrientProfileRankingChartView
- */
-
-const makeSelectNutrientProfileRankingChartView = () => createSelector(
-  selectNutrientProfilePieChartViewDomain,
-  (substate) => substate.toJS()
-);
 const makeSelectLoading = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('loading')
@@ -49,8 +29,6 @@ const makeSelectPortionSelected = () => createSelector(
   selectFoodProfileDomain,
   (substate) => substate.get('portionSelected')
 );
-
-export default makeSelectNutrientProfileRankingChartView;
 export {
   makeSelectLoading,
   makeSelectNutrients,
@@ -58,5 +36,4 @@ export {
   makeSelectDetailedNutrients,
   makeSelectNutrientSelected,
   makeSelectPortionSelected,
-  makeSelectSearchResults,
 };

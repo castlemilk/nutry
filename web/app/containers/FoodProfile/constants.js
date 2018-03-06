@@ -516,7 +516,7 @@ export const INITIAL_STATE = {
   },
   tabSelected: 'summary',
   idSelected: false,
-  nutrientSelected: false,
+  nutrientSelected: '',
   portionSelected: { amt: 1,
     className: 'per100g',
     g: 100,

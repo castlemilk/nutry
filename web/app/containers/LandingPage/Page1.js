@@ -123,7 +123,6 @@ class Page1 extends React.PureComponent { // eslint-disable-line react/prefer-st
     hoverKey: null,
   }
   onMouseOver = (key) => {
-    console.log('onMouseOver');
     this.setState({
       hoverKey: key,
     });
@@ -152,7 +151,7 @@ class Page1 extends React.PureComponent { // eslint-disable-line react/prefer-st
       },
     ];
   };
-  getSvgChild = (child) => child.map((item, i) => {
+  getSvgChild = (child) => child.map((item) => {
     const props = { ...item.props };
     if (item.type === 'g') {
       props.transform = null;
@@ -163,11 +162,9 @@ class Page1 extends React.PureComponent { // eslint-disable-line react/prefer-st
         }
       });
     }
-    return (
-      <g key={i.toString()} >
-        {React.cloneElement(item, props)}
-      </g>
-    );
+    return (<g>
+      {React.cloneElement(item, props)}
+    </g>);
   });
   leave = {
     opacity: 0, duration: 300, x: 100, y: 150, ease: 'easeInBack',

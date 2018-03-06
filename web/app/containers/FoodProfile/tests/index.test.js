@@ -5,7 +5,6 @@ import { shallow } from 'enzyme';
 import { profileInfo, portionSelected, ageGroupSelected } from 'fixtures/foodprofile';
 import NutrientDisplay from 'components/NutrientDisplay';
 import FoodProfileToolBar from 'components/FoodProfileToolBar';
-import sinon from 'sinon';
 import { AGES } from 'components/FoodProfileToolBar/constants';
 import { FoodProfile, mapDispatchToProps } from '../index';
 import FoodProfileWrapper from '../FoodProfileWrapper';
