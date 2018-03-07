@@ -15,11 +15,6 @@ const selectNutrientRowViewDomain = (state) => state.get('foodProfile');
  * Default selector used by NutrientRowView
  */
 
-const makeSelectNutrientRowView = () => createSelector(
-  selectNutrientRowViewDomain,
-  (substate) => substate.toJS()
-);
-
 const makeSelectNutrient = (id) => createSelector(
   selectNutrientRowViewDomain,
   (substate) => substate.getIn(['nutrients', 'byId', id]) || defaultNutrient(id)
@@ -32,8 +27,6 @@ const makeSelectPortionSelected = () => createSelector(
   selectNutrientRowViewDomain,
   (substate) => substate.get('portionSelected')
 );
-
-export default makeSelectNutrientRowView;
 export {
   selectNutrientRowViewDomain,
   makeSelectNutrientSelected,
