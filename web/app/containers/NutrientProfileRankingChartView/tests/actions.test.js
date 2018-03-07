@@ -1,18 +1,45 @@
 
+import { rankingResults } from 'fixtures/foodprofile';
+
 import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
+  GET_NUTRIENT_RANKING,
+  GET_NUTRIENT_RANKING_SUCCESS,
+  GET_NUTRIENT_RANKING_FAILURE,
 } from '../constants';
 
-describe('NutrientProfileRankingChartView actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
-      const expected = {
-        type: DEFAULT_ACTION,
+import {
+  loadRankings,
+  loadRankingsSuccess,
+  loadRankingsFailure } from '../actions';
+
+describe('Container [NutrientProfileRankingChartView] - actions', () => {
+  describe('loadRankings', () => {
+    it('should return the correct type', () => {
+      const expectedResult = {
+        type: GET_NUTRIENT_RANKING,
       };
-      expect(defaultAction()).toEqual(expected);
+
+      expect(loadRankings()).toEqual(expectedResult);
+    });
+  });
+  describe('loadRankingsSuccess', () => {
+    it('should return the correct type', () => {
+      const expectedResult = {
+        type: GET_NUTRIENT_RANKING_SUCCESS,
+        rankingResults,
+      };
+
+      expect(loadRankingsSuccess(rankingResults)).toEqual(expectedResult);
+    });
+  });
+  describe('loadRankingsFailure', () => {
+    it('should return the correct type', () => {
+      const err = new Error();
+      const expectedResult = {
+        type: GET_NUTRIENT_RANKING_FAILURE,
+        err,
+      };
+      expect(loadRankingsFailure(err)).toEqual(expectedResult);
     });
   });
 });

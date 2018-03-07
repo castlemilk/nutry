@@ -1,10 +1,20 @@
 // import React from 'react';
-// import { shallow } from 'enzyme';
 
-// import { NutrientProfileRankingChartView } from '../index';
+import { mapDispatchToProps } from '../index';
 
-describe('<NutrientProfileRankingChartView />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('Map Dispatch To Props', () => {
+  it('should call loadRankings action', () => {
+    // const onLoadProfileSpy = sinon.spy();
+    const onLoadRankingsSpy = jest.fn();
+    const { onLoadRankings } = mapDispatchToProps(onLoadRankingsSpy);
+    onLoadRankings();
+    expect(onLoadRankingsSpy).toHaveBeenCalled();
+  });
+  it('should call push action', () => {
+    // const onLoadProfileSpy = sinon.spy();
+    const onLoadNewProfileSpy = jest.fn();
+    const { onLoadNewProfile } = mapDispatchToProps(onLoadNewProfileSpy);
+    onLoadNewProfile('22222');
+    expect(onLoadNewProfileSpy).toHaveBeenCalled();
   });
 });

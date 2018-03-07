@@ -1,8 +1,47 @@
-// import { fromJS } from 'immutable';
-// import { selectNutrientProfileRankingChartViewDomain } from '../selectors';
+import { fromJS } from 'immutable';
 
-describe('selectNutrientProfileRankingChartViewDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+import { rankingResults, portionSelected, nutrientSelected } from 'fixtures/foodprofile';
+import {
+  makeSelectLoading,
+  makeSelectRankingResults,
+  makeSelectNutrientSelected,
+  makeSelectPortionSelected,
+} from '../selectors';
+
+
+describe('Container [selectNutrientProfileRankingChartView] - selectors', () => {
+  it('should select the loading state', () => {
+    const mockedState = fromJS({
+      nutrientRanking: {
+        loading: true,
+      },
+    });
+    expect(makeSelectLoading()(mockedState)).toEqual(true);
+  });
+  it('should select the ranking results', () => {
+    const mockedState = fromJS({
+      nutrientRanking: {
+        rankingResults,
+      },
+    });
+    expect(makeSelectRankingResults()(mockedState)).toEqual(rankingResults);
+  });
+  it('should select the nutrientSelected', () => {
+    const mockedState = fromJS({
+      foodProfile: {
+        nutrientSelected,
+      },
+    });
+    expect(makeSelectNutrientSelected()(mockedState))
+        .toEqual(nutrientSelected);
+  });
+  it('should select portionSelected', () => {
+    const mockedState = fromJS({
+      foodProfile: {
+        portionSelected,
+      },
+    });
+    expect(makeSelectPortionSelected()(mockedState))
+        .toEqual(mockedState.getIn(['foodProfile', 'portionSelected']));
   });
 });

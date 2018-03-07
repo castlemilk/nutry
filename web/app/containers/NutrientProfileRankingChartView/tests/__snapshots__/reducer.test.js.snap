@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container [FoodProfile] - reducers should handle the loadRankings action correctly 1`] = `
+Immutable.Map {
+  "loading": true,
+  "rankingResults": Immutable.Map {},
+}
+`;
+
+exports[`Container [FoodProfile] - reducers should handle the loadRankingsFailure action correctly on empty 1`] = `
+Immutable.Map {
+  "loading": true,
+  "rankingResults": Immutable.Map {},
+}
+`;
+
+exports[`Container [FoodProfile] - reducers should handle the loadRankingsSuccess action correctly 1`] = `
+Immutable.Map {
+  "loading": false,
+  "rankingResults": Immutable.Map {
+    "ALA": Array [],
+    "ARG": Array [],
+    "CA": Array [
+      Immutable.Map {
+        "name": "raw beef thymus",
+        "id": "13337",
+        "value": 7,
+        "unit": "mg",
+      },
+      Immutable.Map {
+        "name": "braised beef thymus",
+        "id": "13338",
+        "value": 10,
+        "unit": "mg",
+      },
+      Immutable.Map {
+        "name": "Raw veal thymus",
+        "id": "17218",
+        "value": 3,
+        "unit": "mg",
+      },
+      Immutable.Map {
+        "name": "braised veal thymus",
+        "id": "17219",
+        "value": 4,
+        "unit": "mg",
+      },
+      Immutable.Map {
+        "name": "Fresh thyme",
+        "id": "02049",
+        "value": 405,
+        "unit": "mg",
+      },
+      Immutable.Map {
+        "name": "Dried thyme",
+        "id": "02042",
+        "value": 1890,
+        "unit": "mg",
+      },
+    ],
+    "CHOCDF": Array [
+      Immutable.Map {
+        "name": "raw beef thymus",
+        "id": "13337",
+        "value": 0,
+        "unit": "g",
+      },
+      Immutable.Map {
+        "name": "braised beef thymus",
+        "id": "13338",
+        "value": 0,
+        "unit": "g",
+      },
+      Immutable.Map {
+        "name": "Raw veal thymus",
+        "id": "17218",
+        "value": 0,
+        "unit": "g",
+      },
+      Immutable.Map {
+        "name": "braised veal thymus",
+        "id": "17219",
+        "value": 0,
+        "unit": "g",
+      },
+      Immutable.Map {
+        "name": "Fresh thyme",
+        "id": "02049",
+        "value": 24.45,
+        "unit": "g",
+      },
+      Immutable.Map {
+        "name": "Dried thyme",
+        "id": "02042",
+        "value": 63.94,
+        "unit": "g",
+      },
+    ],
+    "VITD": Array [
+      Immutable.Map {
+        "name": "braised veal thymus",
+        "id": "17219",
+        "value": 0,
+        "unit": "ug",
+      },
+      Immutable.Map {
+        "name": "Fresh thyme",
+        "id": "02049",
+        "value": 0,
+        "unit": "ug",
+      },
+      Immutable.Map {
+        "name": "Dried thyme",
+        "id": "02042",
+        "value": 0,
+        "unit": "ug",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Container [FoodProfile] - reducers should return the initial state 1`] = `
+Immutable.Map {
+  "loading": true,
+  "rankingResults": Immutable.Map {},
+}
+`;

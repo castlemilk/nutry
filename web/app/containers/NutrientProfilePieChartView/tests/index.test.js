@@ -16,9 +16,7 @@ describe('<NutrientProfilePieChartView />', () => {
     const history = createHistory();
     const store = configureStore(initialState, history);
     const renderedComponent = mount(
-      // <Provider store={store}>
       <NutrientProfilePieChartView store={store} />
-      // </Provider>
     );
     expect(renderedComponent.find(NutrientProfilePieChart).length).toEqual(1);
   });

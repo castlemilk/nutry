@@ -6,7 +6,6 @@
 
 import { fromJS, Map } from 'immutable';
 import {
-  DEFAULT_ACTION,
   GET_NUTRIENT_RANKING,
   GET_NUTRIENT_RANKING_SUCCESS,
   GET_NUTRIENT_RANKING_FAILURE,
@@ -19,8 +18,6 @@ const initialState = fromJS({
 
 function nutrientProfileRankingChartViewReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
     case GET_NUTRIENT_RANKING:
       return state.set('loading', true);
     case GET_NUTRIENT_RANKING_SUCCESS:

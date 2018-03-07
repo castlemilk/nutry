@@ -30,7 +30,7 @@ const mapStateToProps = createStructuredSelector({
   portionSelected: makeSelectPortionSelected(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     onLoadRankings: () => dispatch(loadRankings()),

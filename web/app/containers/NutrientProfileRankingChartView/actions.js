@@ -5,17 +5,10 @@
  */
 
 import {
-  DEFAULT_ACTION,
   GET_NUTRIENT_RANKING,
   GET_NUTRIENT_RANKING_SUCCESS,
   GET_NUTRIENT_RANKING_FAILURE,
 } from './constants';
-
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
 
 export function loadRankings() {
   return {
