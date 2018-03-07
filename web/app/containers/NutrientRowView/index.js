@@ -18,9 +18,8 @@ const mapStateToProps = (state, { prefix, id }) => createStructuredSelector({
   isSelected: makeSelectNutrientSelected(id),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
     onClick: (prefix, id) => dispatch(nutrientSelected(prefix, id)),
     onHover: (prefix, id) => dispatch(nutrientSelected(prefix, id)),
     onInfoClick: (id) => dispatch(push(`/wiki/${id}`)),

@@ -9,7 +9,7 @@ import {
 } from '../selectors';
 
 
-describe('Container [selectNutrientProfileRankingChartView] - selectors', () => {
+describe('Container [NutrientProfileRankingChartView] - selectors', () => {
   it('should select the loading state', () => {
     const mockedState = fromJS({
       nutrientRanking: {
