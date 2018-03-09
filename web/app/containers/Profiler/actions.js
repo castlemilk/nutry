@@ -5,7 +5,6 @@
  */
 
 import {
-  DEFAULT_ACTION,
   CHANGE_PROFILER_SEARCH,
   SEARCH_COMPLETE,
   SEARCH_FAILURE,
@@ -14,12 +13,6 @@ import {
   DELETE_PROFILER_ELEMENT,
   UPDATE_PROFILER_ELEMENT,
 } from './constants';
-
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
 
 export function changeSearch() {
   return {

@@ -7,7 +7,6 @@
 import { fromJS, Map, List } from 'immutable';
 import uuidv4 from 'uuid/v4';
 import {
-  DEFAULT_ACTION,
   CHANGE_PROFILER_SEARCH,
   SEARCH_COMPLETE,
   ADD_PROFILER_ELEMENT,
@@ -23,8 +22,6 @@ const initialState = fromJS({
 
 function profilerReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
     case CHANGE_PROFILER_SEARCH:
       return state
         .set('loading', true);

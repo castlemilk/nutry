@@ -228,35 +228,30 @@ describe('<FoodProfile />', () => {
       <FoodProfile {...props} />,
     );
     const toolbar = renderedComponent.find(FoodProfileToolBar).dive();
-    // console.log(toolbar.debug());
     toolbar.find('Select').first().simulate('change', { target: { value: AGES[0].value } });
     expect(onAgeGroupChangedSpy).toHaveBeenCalled();
   });
 });
 describe('Map Dispatch To Props', () => {
   it('should call loadProfile action', () => {
-    // const onLoadProfileSpy = sinon.spy();
     const onLoadProfileSpy = jest.fn();
     const { onLoadProfile } = mapDispatchToProps(onLoadProfileSpy);
     onLoadProfile();
     expect(onLoadProfileSpy).toHaveBeenCalled();
   });
   it('should call tabChanged action', () => {
-    // const onLoadProfileSpy = sinon.spy();
     const onTabChangedSpy = jest.fn();
     const { onTabChange } = mapDispatchToProps(onTabChangedSpy);
     onTabChange(1);
     expect(onTabChangedSpy).toHaveBeenCalled();
   });
   it('should call portionChanged action', () => {
-    // const onLoadProfileSpy = sinon.spy();
     const onPortionChangedSpy = jest.fn();
     const { onPortionChanged } = mapDispatchToProps(onPortionChangedSpy);
     onPortionChanged(portionSelected);
     expect(onPortionChangedSpy).toHaveBeenCalled();
   });
   it('should call ageGroupChanged action', () => {
-    // const onLoadProfileSpy = sinon.spy();
     const onAgeGroupChangedSpy = jest.fn();
     const { onAgeGroupChanged } = mapDispatchToProps(onAgeGroupChangedSpy);
     onAgeGroupChanged(ageGroupSelected);

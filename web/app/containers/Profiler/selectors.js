@@ -14,22 +14,9 @@ const selectSearchDomain = (state) => state.get('search');
 /**
  * Default selector used by Profiler
  */
-
-const makeSelectProfiler = () => createSelector(
-  selectProfilerDomain,
-  (substate) => substate.toJS()
-);
 const makeSelectAllElements = () => createSelector(
   selectProfilerDomain,
   (substate) => {
-    // const elements = substate.get('elements');
-    // if (elements.size === 0) {
-    //   return [];
-    // }
-    // console.log(elements);
-    // const items = Array.from(elements.entries()).map((element) => Object.assign({ id: element[0] }, element[1]));
-    // console.log(items);
-    // return items;
     const elements = substate.get('elements');
     if (elements.size > 0) {
       const [...entries] = substate.get('elements').entries();
@@ -54,8 +41,6 @@ const makeSelectElement = (id) => createSelector(
   selectProfilerDomain,
   (substate) => substate.getIn(['elements', id])
 );
-
-export default makeSelectProfiler;
 export {
   selectProfilerDomain,
   makeSelectSearchResults,

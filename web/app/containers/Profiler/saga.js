@@ -10,27 +10,16 @@ import { searchFailure } from './actions';
 
 import { makeSelectAllElements } from './selectors';
 
-
-// Individual exports for testing
-export function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
-}
-
 export function* getResults() {
   // Fetch results from elasticsearch from the given search searchString
   yield delay(400);
   const searchString = yield select(makeSelectSearchString());
 
   try {
-    // console.log('getResults:searchString:');
-    // console.log(searchString);
     const elements = yield select(makeSelectAllElements());
     const results = yield call(profiler, searchString, elements);
-    // console.log('getResults:results');
-    // console.log(results ? results.items : []);
     yield put(searchComplete(results));
   } catch (err) {
-    // console.log(err);
     yield put(searchFailure(err));
   }
 }

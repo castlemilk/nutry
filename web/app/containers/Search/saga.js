@@ -20,22 +20,16 @@ export function* getResults() {
   const searchString = yield select(makeSelectSearchString());
 
   try {
-    // console.log('running search');
     yield delay(400);
     if (searchType === 'nutrients' || searchType === 'all') {
       const results = yield call(search, searchString);
-      // yield put(searchComplete(results));
       yield put(searchComplete(results));
     } else if (searchType === 'profiler') {
       yield put(searchComplete(Object()));
-      // const elements = yield select(makeSelectAllElements())
-      // const results = yield call(profiler, searchString, elements);
-      // yield put(searchComplete(results));
     } else {
       yield put(searchComplete(Object()));
     }
   } catch (err) {
-    // console.log(err);
     yield put(searchFailure(err));
   }
 }

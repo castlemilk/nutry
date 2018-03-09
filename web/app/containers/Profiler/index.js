@@ -20,62 +20,70 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectSearchString } from 'containers/Search/selectors';
 import { makeSelectSearchResults } from 'containers/App/selectors';
-import { makeSelectAllElements, makeSelectSearchLoading, makeSelectProfilerLoading } from './selectors';
-import { addProfilerElement, deleteProfilerElement, updateProfilerElement, changeSearch } from './actions';
+import {
+  makeSelectAllElements,
+  makeSelectSearchLoading,
+  makeSelectProfilerLoading } from './selectors';
+import {
+  addProfilerElement,
+  deleteProfilerElement,
+  updateProfilerElement,
+  changeSearch } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import ProfilerWrapper from './ProfilerWrapper';
 
 export class Profiler extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-
-    this.handleAddClick = this.handleAddClick.bind(this);
-  }
   componentDidMount() {
     this.props.onChangeSearch();
   }
+
   handleAddClick() {
     this.props.onAddElement();
   }
+
   handleNutrientChange(value, id) {
     this.props.onUpdateElement(id, 'nutrient', value);
     this.props.onChangeSearch();
   }
+
   handleSliderChange(value, id) {
     this.props.onUpdateElement(id, 'scale', value);
     this.props.onChangeSearch();
   }
+
   handleElementRemove(id) {
     this.props.onDeleteElement(id);
     this.props.onChangeSearch();
   }
-  handleSearchStringChange(event) {
-    const { searchType } = this.props;
-    if (searchType === 'all' || searchType === 'nutrients') {
-      this.props.onChangeSearchString(event);
-    }
-  }
-  handleTabChange() {
-    const { searchType } = this.props;
-    if (searchType === 'profiler') {
-      this.props.onChangeSearch();
-    }
-  }
+
   render() {
-    const { searchResults, searchString, searchLoading, profilerLoading } = this.props;
+    const {
+      searchResults,
+      searchString,
+      searchLoading,
+      profilerLoading } = this.props;
     const { onProfileSelected } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = searchResults.items ? searchResults.items : [];
     // console.log(searchLoading, profilerLoading, items, items.length);
-    const noResultsFound = items.length === 0 && searchString.length > 0 && (!searchLoading);
-    const nutrientResults = noResultsFound ? <NoResultsFound /> : <ResultsList onProfileSelected={(profileData) => onProfileSelected(profileData)} results={items} />;
+    const noResultsFound = items.length === 0
+                            && searchString.length > 0
+                            && (!searchLoading);
+    const nutrientResults = noResultsFound ? <NoResultsFound /> :
+    (<ResultsList
+      onProfileSelected={(profileData) => onProfileSelected(profileData)}
+      results={items}
+    />);
     const nutrientResultsView = (searchLoading || profilerLoading) ?
     (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
     </div>) : nutrientResults;
     const initialList = [
-      <ProfilerAddElement key="add-element" onClick={() => this.handleAddClick()} />,
+      <ProfilerAddElement
+        key="add-element"
+        onClick={() => this.handleAddClick()}
+      />,
     ];
     const elementComponents = this.props.elements.map((element) => {
       const elementProps = Object.assign(element, {
@@ -122,10 +130,8 @@ Profiler.propTypes = {
   profilerLoading: PropTypes.bool,
   onChangeSearch: PropTypes.func,
   onUpdateElement: PropTypes.func,
-  onChangeSearchString: PropTypes.func,
   onAddElement: PropTypes.func,
   onDeleteElement: PropTypes.func,
-  searchType: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -136,9 +142,8 @@ const mapStateToProps = createStructuredSelector({
   searchString: makeSelectSearchString(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
     onChangeSearch: () => dispatch(changeSearch()),
     onAddElement: () => dispatch(addProfilerElement()),
     onUpdateElement: (id, key, value) => dispatch(updateProfilerElement(id, key, value)),
