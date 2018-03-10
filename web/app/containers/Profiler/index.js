@@ -22,8 +22,7 @@ import { makeSelectSearchString } from 'containers/Search/selectors';
 import { makeSelectSearchResults } from 'containers/App/selectors';
 import {
   makeSelectAllElements,
-  makeSelectSearchLoading,
-  makeSelectProfilerLoading } from './selectors';
+  makeSelectSearchLoading } from './selectors';
 import {
   addProfilerElement,
   deleteProfilerElement,
@@ -62,7 +61,7 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
       searchResults,
       searchString,
       searchLoading,
-      profilerLoading } = this.props;
+      } = this.props;
     const { onProfileSelected } = this.props;
     const loadingSpinner = <Icon type="loading" style={{ fontSize: 40 }} spin />;
     const items = searchResults.items ? searchResults.items : [];
@@ -75,7 +74,7 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
       onProfileSelected={(profileData) => onProfileSelected(profileData)}
       results={items}
     />);
-    const nutrientResultsView = (searchLoading || profilerLoading) ?
+    const nutrientResultsView = (searchLoading) ?
     (<div className="loading-spinner">
       <Spin indicator={loadingSpinner} />
     </div>) : nutrientResults;
@@ -95,7 +94,7 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
         <ProfilerElement key={element.id} {...elementProps} />
       );
     });
-    const sampleDataAdvanced = [{
+    const elementData = [{
       headerName: 'elements',
       isOpened: true,
       isReactComponent: true,
@@ -107,7 +106,7 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
         <Row>
           <Col xs={24} md={24}>
             <ProfilerExpandableList
-              data={sampleDataAdvanced}
+              data={elementData}
               headerAttName="headerName"
               itemsAttName="items"
             />
@@ -123,11 +122,13 @@ export class Profiler extends React.Component { // eslint-disable-line react/pre
 
 Profiler.propTypes = {
   onProfileSelected: PropTypes.func.isRequired,
-  elements: PropTypes.array,
+  elements: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.array.isRequired,
+  ]),
   searchResults: PropTypes.object,
   searchString: PropTypes.string,
   searchLoading: PropTypes.bool,
-  profilerLoading: PropTypes.bool,
   onChangeSearch: PropTypes.func,
   onUpdateElement: PropTypes.func,
   onAddElement: PropTypes.func,
@@ -138,7 +139,6 @@ const mapStateToProps = createStructuredSelector({
   elements: makeSelectAllElements(),
   searchResults: makeSelectSearchResults(),
   searchLoading: makeSelectSearchLoading(),
-  profilerLoading: makeSelectProfilerLoading(),
   searchString: makeSelectSearchString(),
 });
 

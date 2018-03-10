@@ -4,7 +4,7 @@ import { List } from 'immutable';
 import { Slider } from 'antd';
 import Select from 'react-select';
 import { getProfilerParsedSuccess } from 'mocks/getElasticsearchQueryMock';
-import { nutrient } from 'fixtures/profiler';
+import { elementsList } from 'fixtures/profiler';
 import ProfilerAddElement from 'components/ProfilerAddElement';
 import ProfilerDeleteElement from 'components/ProfilerDeleteElement';
 import ProfilerElement from 'components/ProfilerElement';
@@ -117,11 +117,7 @@ describe('<Profiler />', () => {
     const onUpdateElementSpy = jest.fn();
     const onChangeSearchSpy = jest.fn();
     const props = {
-      elements: [{
-        id: 'uuid',
-        nutrient,
-        scale: 50,
-      }],
+      elements: elementsList,
       searchResults: getProfilerParsedSuccess,
       searchString: 'blabla',
       searchLoading: false,
@@ -146,11 +142,7 @@ describe('<Profiler />', () => {
     const onUpdateElementSpy = jest.fn();
     const onChangeSearchSpy = jest.fn();
     const props = {
-      elements: [{
-        id: 'uuid',
-        nutrient,
-        scale: 50,
-      }],
+      elements: elementsList,
       searchResults: getProfilerParsedSuccess,
       searchString: 'blabla',
       searchLoading: false,
@@ -175,11 +167,7 @@ describe('<Profiler />', () => {
     const onDeleteElementSpy = jest.fn();
     const onChangeSearchSpy = jest.fn();
     const props = {
-      elements: [{
-        id: 'uuid',
-        nutrient,
-        scale: 50,
-      }],
+      elements: elementsList,
       searchResults: getProfilerParsedSuccess,
       searchString: 'blabla',
       searchLoading: false,

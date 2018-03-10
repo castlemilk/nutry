@@ -22,7 +22,10 @@ function ListItemsManager(props) {
 }
 
 ListItemsManager.propTypes = {
-  items: PropTypes.array.isRequired,
+  items: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.array.isRequired,
+  ]),
   isReactComponent: PropTypes.bool,
 };
 

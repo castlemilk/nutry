@@ -29,10 +29,6 @@ const makeSelectSearchResults = () => createSelector(
   selectProfilerDomain,
   (searchState) => searchState.get('results')
 );
-const makeSelectProfilerLoading = () => createSelector(
-  selectProfilerDomain,
-  (substate) => substate.get('elements').length > 0 ? substate.get('loading') : false
-);
 const makeSelectSearchLoading = () => createSelector(
   selectSearchDomain,
   (substate) => substate.get('loading')
@@ -42,10 +38,8 @@ const makeSelectElement = (id) => createSelector(
   (substate) => substate.getIn(['elements', id])
 );
 export {
-  selectProfilerDomain,
   makeSelectSearchResults,
   makeSelectSearchLoading,
-  makeSelectProfilerLoading,
   makeSelectAllElements,
   makeSelectElement,
 };

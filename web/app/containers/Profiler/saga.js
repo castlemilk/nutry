@@ -12,9 +12,8 @@ import { makeSelectAllElements } from './selectors';
 
 export function* getResults() {
   // Fetch results from elasticsearch from the given search searchString
-  yield delay(400);
+  yield call(delay, 400);
   const searchString = yield select(makeSelectSearchString());
-
   try {
     const elements = yield select(makeSelectAllElements());
     const results = yield call(profiler, searchString, elements);
