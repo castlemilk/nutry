@@ -1,8 +1,20 @@
-// import { fromJS } from 'immutable';
-// import { selectSummaryCardViewDomain } from '../selectors';
+import { fromJS } from 'immutable';
+// import { selectDetailedCardViewDomain } from '../selectors';
+import { SUMMARY_IDS } from 'containers/FoodProfile/constants';
+import {
+  makeSelectBySummaryIds,
+} from '../selectors';
 
-describe('selectSummaryCardViewDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('Container [DetailedCardView] - selectors', () => {
+  describe('makeSelectLocation', () => {
+    it('should select the location', () => {
+      const foodProfile = fromJS({
+        nutrients: { bySummaryIds: SUMMARY_IDS },
+      });
+      const mockedState = fromJS({
+        foodProfile,
+      });
+      expect(makeSelectBySummaryIds()(mockedState)).toMatchSnapshot();
+    });
   });
 });

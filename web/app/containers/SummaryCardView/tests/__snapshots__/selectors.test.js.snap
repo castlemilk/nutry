@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container [DetailedCardView] - selectors makeSelectLocation should select the location 1`] = `
+Immutable.List [
+  Immutable.Map {
+    "prefix": "ENERC",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "ENERC_KCAL",
+    "type": "PARENT_NONAME_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "CHOCDF",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "SUGAR",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "FIBTG",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "PROCNT",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "FAT",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "NA",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "K",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "VITC",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "VITD",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+  Immutable.Map {
+    "prefix": "WATER",
+    "type": "PARENTR_ROW",
+    "selected": false,
+  },
+]
+`;

@@ -5,7 +5,7 @@ import {
   makeSelectNutrientBySection,
 } from '../selectors';
 
-describe('Container [App] - selectors', () => {
+describe('Container [DetailedCardView] - selectors', () => {
   describe('makeSelectLocation', () => {
     it('should select the location', () => {
       const foodProfile = fromJS({

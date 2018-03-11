@@ -14,9 +14,5 @@ import { makeSelectBySummaryIds } from './selectors';
 const mapStateToProps = createStructuredSelector({
   nutrientIds: makeSelectBySummaryIds(),
 });
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatch,
-});
-const SummaryCardView = withRouter(connect(mapStateToProps, mapDispatchToProps)(SummaryCard));
+const SummaryCardView = withRouter(connect(mapStateToProps, null)(SummaryCard));
 export default SummaryCardView;
