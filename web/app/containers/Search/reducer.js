@@ -5,9 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 import {
-  DEFAULT_ACTION,
   CHANGE_SEARCH,
   REFRESH_SEARCH,
   SEARCH_COMPLETE,
@@ -25,8 +23,6 @@ const initialState = fromJS({
 
 function searchReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
     case CHANGE_SEARCH:
       return state
         .set('searchString', action.searchString)
@@ -43,8 +39,6 @@ function searchReducer(state = initialState, action) {
     case PROFILE_SELECTED:
       return state
         .set('profileSelected', action.profileInfo);
-    case LOCATION_CHANGE:
-      return state.set('profileSelected', null);
     default:
       return state;
   }

@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container [Search] - reducers should handle searchFailure correctly 1`] = `
+Immutable.Map {
+  "searchString": "",
+  "loading": false,
+  "results": Immutable.List [],
+  "searchType": "all",
+  "profileSelected": null,
+}
+`;
+
+exports[`Container [Search] - reducers should handle the changeSearchString action correctly 1`] = `
+Immutable.Map {
+  "searchString": "blabla",
+  "loading": true,
+  "results": Immutable.List [],
+  "searchType": "all",
+  "profileSelected": null,
+}
+`;
+
+exports[`Container [Search] - reducers should handle the changeSearchType action correctly 1`] = `
+Immutable.Map {
+  "searchString": "",
+  "loading": false,
+  "results": Immutable.List [],
+  "searchType": "all",
+  "profileSelected": null,
+}
+`;
+
+exports[`Container [Search] - reducers should handle the profileSelected action correctly 1`] = `
+Immutable.Map {
+  "searchString": "",
+  "loading": false,
+  "results": Immutable.List [],
+  "searchType": "all",
+  "profileSelected": Object {
+    "SN": "02042",
+    "alias": Array [
+      "Dried thyme",
+      "thyme, dried",
+    ],
+    "allergen": Array [
+      "",
+    ],
+    "clinical_neg": Array [],
+    "clinical_pos": Array [],
+    "group": "Spices and Herbs",
+    "name": "Dried thyme",
+    "source": "USDA",
+    "tags": Array [
+      "herb",
+      "dried herbs",
+    ],
+    "usage": Array [
+      "seasoning",
+      "spice",
+      "chicken",
+      "turkey",
+      "poultry",
+      "meat",
+      "marinade",
+      "flavour",
+      "ingredient",
+    ],
+  },
+}
+`;
+
+exports[`Container [Search] - reducers should handle the searchComplete action correctly 1`] = `
+Immutable.Map {
+  "searchString": "",
+  "loading": false,
+  "results": Object {
+    "hits": 1,
+    "items": Array [
+      Object {
+        "_id": "AWF8pHZ9bw9zRJtz161q",
+        "_index": "nutry-names",
+        "_score": 10,
+        "_source": Object {
+          "SN": "02049",
+          "alias": Array [],
+          "allergen": Array [],
+          "group": "Spices and Herbs",
+          "name": "Fresh thyme",
+          "nutrients": Object {},
+          "portions": Array [],
+          "tags": Array [],
+          "usage": Array [],
+        },
+      },
+    ],
+    "max_score": 10,
+  },
+  "searchType": "all",
+  "profileSelected": null,
+}
+`;
+
+exports[`Container [Search] - reducers should handle the searchLoading action correctly 1`] = `
+Immutable.Map {
+  "searchString": "",
+  "loading": false,
+  "results": Immutable.List [],
+  "searchType": "all",
+  "profileSelected": null,
+}
+`;
+
+exports[`Container [Search] - reducers should handle the searchRefresh action correctly 1`] = `
+Immutable.Map {
+  "searchString": "",
+  "loading": false,
+  "results": Immutable.List [],
+  "searchType": "all",
+  "profileSelected": null,
+}
+`;
+
+exports[`Container [Search] - reducers should return the initial state 1`] = `
+Immutable.Map {
+  "searchString": "",
+  "loading": false,
+  "results": Immutable.List [],
+  "searchType": "all",
+  "profileSelected": null,
+}
+`;

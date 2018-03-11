@@ -13,11 +13,6 @@ const selectSearchDomain = (state) => state.get('search');
 /**
  * Default selector used by SearchB
  */
-
-const makeSelectSearch = () => createSelector(
-  selectSearchDomain,
-  (substate) => substate.toJS()
-);
 const makeSelectSearchString = () => createSelector(
   selectSearchDomain,
   (searchState) => searchState.get('searchString')
@@ -39,13 +34,10 @@ const makeSelectProfileSelected = () => createSelector(
   (searchState) => searchState.get('profileSelected')
 );
 
-export default makeSelectSearch;
 export {
-  selectSearchDomain,
   makeSelectSearchString,
   makeSelectSearchResults,
   makeSelectSearchLoading,
   makeSelectSearchType,
-  makeSelectSearch,
   makeSelectProfileSelected,
 };

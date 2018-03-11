@@ -8,26 +8,17 @@ import { searchFailure } from './actions';
 
 import { makeSelectSearchString, makeSelectSearchType } from './selectors';
 
-
-// Individual exports for testing
-export function* defaultSaga() {
-  // See example in containers/HomePage/saga.js
-}
-
 export function* getResults() {
   // Fetch results from elasticsearch from the given search searchString
+  yield call(delay, 400);
   const searchType = yield select(makeSelectSearchType());
-  const searchString = yield select(makeSelectSearchString());
-
   try {
-    yield delay(400);
-    if (searchType === 'nutrients' || searchType === 'all') {
-      const results = yield call(search, searchString);
-      yield put(searchComplete(results));
-    } else if (searchType === 'profiler') {
+    if (searchType === 'profiler') {
       yield put(searchComplete(Object()));
     } else {
-      yield put(searchComplete(Object()));
+      const searchString = yield select(makeSelectSearchString());
+      const results = yield call(search, searchString);
+      yield put(searchComplete(results));
     }
   } catch (err) {
     yield put(searchFailure(err));

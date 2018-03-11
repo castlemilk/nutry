@@ -5,7 +5,6 @@
  */
 
 import {
-  DEFAULT_ACTION,
   SEARCH_TYPE_CHANGED,
   REFRESH_SEARCH,
   CHANGE_SEARCH,
@@ -15,11 +14,6 @@ import {
   PROFILE_SELECTED,
 } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
 export function changeSearchString(searchString) {
   return {
     type: CHANGE_SEARCH,
