@@ -43,6 +43,7 @@
     "pretest": "npm run test:clean && npm run lint",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
+    "test:ci": "cross-env NODE_ENV=test jest --testResultsProcessor ./node_modules/jest-junit --coverage --coverageDirectory=test/coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
@@ -238,6 +239,14 @@
     ],
     "testRegex": "tests/.*\\.test\\.js$"
   },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "output": "test/junit.xml",
+    "classNameTemplate": "{classname} - {title}",
+    "titleTemplate": "{classname} - {title}",
+    "ancestorSeparator": " > ",
+    "usePathForSuiteName": "true"
+  },
   "dependencies": {
     "antd": "^3.1.0",
     "babel-polyfill": "6.26.0",
@@ -339,6 +348,7 @@
     "image-webpack-loader": "2.0.0",
     "imports-loader": "0.7.1",
     "jest": "^22.3.0",
+    "jest-junit": "^3.6.0",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "lint-staged": "3.5.1",

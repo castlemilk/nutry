@@ -10,7 +10,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": false,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},
@@ -563,7 +563,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": true,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},
@@ -1116,7 +1116,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": false,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},
@@ -2228,7 +2228,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": false,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},
@@ -2781,7 +2781,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": false,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},
@@ -3334,7 +3334,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": false,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},
@@ -6246,7 +6246,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": false,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},
@@ -6885,7 +6885,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": false,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},
@@ -7438,7 +7438,7 @@ Immutable.Map {
     "unit": "per 100g",
     "value": 100,
   },
-  "nutrientSelected": false,
+  "nutrientSelected": "",
   "error": false,
   "nutrients": Immutable.Map {
     "byId": Immutable.Map {},

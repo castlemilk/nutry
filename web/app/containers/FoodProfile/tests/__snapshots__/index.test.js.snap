@@ -252,7 +252,7 @@ ShallowWrapper {
             sm={20}
             xs={20}
           >
-            <withReducer(Connect(NutrientProfilePieChart)) />
+            <Connect(NutrientProfilePieChart) />
             <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
               id="02042"
             />
@@ -441,7 +441,7 @@ ShallowWrapper {
               sm={20}
               xs={20}
             >
-              <withReducer(Connect(NutrientProfilePieChart)) />
+              <Connect(NutrientProfilePieChart) />
               <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                 id="02042"
               />
@@ -885,7 +885,7 @@ ShallowWrapper {
                 sm={20}
                 xs={20}
               >
-                <withReducer(Connect(NutrientProfilePieChart)) />
+                <Connect(NutrientProfilePieChart) />
                 <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                   id="02042"
                 />
@@ -974,7 +974,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  <withReducer(Connect(NutrientProfilePieChart)) />,
+                  <Connect(NutrientProfilePieChart) />,
                   <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                     id="02042"
                   />,
@@ -1215,7 +1215,7 @@ ShallowWrapper {
               sm={20}
               xs={20}
             >
-              <withReducer(Connect(NutrientProfilePieChart)) />
+              <Connect(NutrientProfilePieChart) />
               <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                 id="02042"
               />
@@ -1404,7 +1404,7 @@ ShallowWrapper {
                 sm={20}
                 xs={20}
               >
-                <withReducer(Connect(NutrientProfilePieChart)) />
+                <Connect(NutrientProfilePieChart) />
                 <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                   id="02042"
                 />
@@ -1848,7 +1848,7 @@ ShallowWrapper {
                   sm={20}
                   xs={20}
                 >
-                  <withReducer(Connect(NutrientProfilePieChart)) />
+                  <Connect(NutrientProfilePieChart) />
                   <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                     id="02042"
                   />
@@ -1937,7 +1937,7 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": Array [
-                    <withReducer(Connect(NutrientProfilePieChart)) />,
+                    <Connect(NutrientProfilePieChart) />,
                     <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                       id="02042"
                     />,
@@ -2267,7 +2267,7 @@ ShallowWrapper {
             sm={20}
             xs={20}
           >
-            <withReducer(Connect(NutrientProfilePieChart)) />
+            <Connect(NutrientProfilePieChart) />
             <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
               id="02049"
             />
@@ -2456,7 +2456,7 @@ ShallowWrapper {
               sm={20}
               xs={20}
             >
-              <withReducer(Connect(NutrientProfilePieChart)) />
+              <Connect(NutrientProfilePieChart) />
               <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                 id="02049"
               />
@@ -2900,7 +2900,7 @@ ShallowWrapper {
                 sm={20}
                 xs={20}
               >
-                <withReducer(Connect(NutrientProfilePieChart)) />
+                <Connect(NutrientProfilePieChart) />
                 <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                   id="02049"
                 />
@@ -2989,7 +2989,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  <withReducer(Connect(NutrientProfilePieChart)) />,
+                  <Connect(NutrientProfilePieChart) />,
                   <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                     id="02049"
                   />,
@@ -3230,7 +3230,7 @@ ShallowWrapper {
               sm={20}
               xs={20}
             >
-              <withReducer(Connect(NutrientProfilePieChart)) />
+              <Connect(NutrientProfilePieChart) />
               <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                 id="02049"
               />
@@ -3419,7 +3419,7 @@ ShallowWrapper {
                 sm={20}
                 xs={20}
               >
-                <withReducer(Connect(NutrientProfilePieChart)) />
+                <Connect(NutrientProfilePieChart) />
                 <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                   id="02049"
                 />
@@ -3863,7 +3863,7 @@ ShallowWrapper {
                   sm={20}
                   xs={20}
                 >
-                  <withReducer(Connect(NutrientProfilePieChart)) />
+                  <Connect(NutrientProfilePieChart) />
                   <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                     id="02049"
                   />
@@ -3952,7 +3952,7 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": Array [
-                    <withReducer(Connect(NutrientProfilePieChart)) />,
+                    <Connect(NutrientProfilePieChart) />,
                     <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                       id="02049"
                     />,
@@ -4240,7 +4240,7 @@ ShallowWrapper {
             sm={20}
             xs={20}
           >
-            <withReducer(Connect(NutrientProfilePieChart)) />
+            <Connect(NutrientProfilePieChart) />
             <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
               id="02049"
             />
@@ -4405,7 +4405,7 @@ ShallowWrapper {
               sm={20}
               xs={20}
             >
-              <withReducer(Connect(NutrientProfilePieChart)) />
+              <Connect(NutrientProfilePieChart) />
               <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                 id="02049"
               />
@@ -4799,7 +4799,7 @@ ShallowWrapper {
                 sm={20}
                 xs={20}
               >
-                <withReducer(Connect(NutrientProfilePieChart)) />
+                <Connect(NutrientProfilePieChart) />
                 <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                   id="02049"
                 />
@@ -4872,7 +4872,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  <withReducer(Connect(NutrientProfilePieChart)) />,
+                  <Connect(NutrientProfilePieChart) />,
                   <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                     id="02049"
                   />,
@@ -5089,7 +5089,7 @@ ShallowWrapper {
               sm={20}
               xs={20}
             >
-              <withReducer(Connect(NutrientProfilePieChart)) />
+              <Connect(NutrientProfilePieChart) />
               <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                 id="02049"
               />
@@ -5254,7 +5254,7 @@ ShallowWrapper {
                 sm={20}
                 xs={20}
               >
-                <withReducer(Connect(NutrientProfilePieChart)) />
+                <Connect(NutrientProfilePieChart) />
                 <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                   id="02049"
                 />
@@ -5648,7 +5648,7 @@ ShallowWrapper {
                   sm={20}
                   xs={20}
                 >
-                  <withReducer(Connect(NutrientProfilePieChart)) />
+                  <Connect(NutrientProfilePieChart) />
                   <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                     id="02049"
                   />
@@ -5721,7 +5721,7 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": Array [
-                    <withReducer(Connect(NutrientProfilePieChart)) />,
+                    <Connect(NutrientProfilePieChart) />,
                     <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                       id="02049"
                     />,
@@ -6009,7 +6009,7 @@ ShallowWrapper {
             sm={20}
             xs={20}
           >
-            <withReducer(Connect(NutrientProfilePieChart)) />
+            <Connect(NutrientProfilePieChart) />
             <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
               id="02049"
             />
@@ -6174,7 +6174,7 @@ ShallowWrapper {
               sm={20}
               xs={20}
             >
-              <withReducer(Connect(NutrientProfilePieChart)) />
+              <Connect(NutrientProfilePieChart) />
               <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                 id="02049"
               />
@@ -6568,7 +6568,7 @@ ShallowWrapper {
                 sm={20}
                 xs={20}
               >
-                <withReducer(Connect(NutrientProfilePieChart)) />
+                <Connect(NutrientProfilePieChart) />
                 <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                   id="02049"
                 />
@@ -6641,7 +6641,7 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": Array [
-                  <withReducer(Connect(NutrientProfilePieChart)) />,
+                  <Connect(NutrientProfilePieChart) />,
                   <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                     id="02049"
                   />,
@@ -6858,7 +6858,7 @@ ShallowWrapper {
               sm={20}
               xs={20}
             >
-              <withReducer(Connect(NutrientProfilePieChart)) />
+              <Connect(NutrientProfilePieChart) />
               <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                 id="02049"
               />
@@ -7023,7 +7023,7 @@ ShallowWrapper {
                 sm={20}
                 xs={20}
               >
-                <withReducer(Connect(NutrientProfilePieChart)) />
+                <Connect(NutrientProfilePieChart) />
                 <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                   id="02049"
                 />
@@ -7417,7 +7417,7 @@ ShallowWrapper {
                   sm={20}
                   xs={20}
                 >
-                  <withReducer(Connect(NutrientProfilePieChart)) />
+                  <Connect(NutrientProfilePieChart) />
                   <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                     id="02049"
                   />
@@ -7490,7 +7490,7 @@ ShallowWrapper {
                 "nodeType": "class",
                 "props": Object {
                   "children": Array [
-                    <withReducer(Connect(NutrientProfilePieChart)) />,
+                    <Connect(NutrientProfilePieChart) />,
                     <withReducer(withSaga(Connect(NutrientProfileRankingChart)))
                       id="02049"
                     />,

@@ -13,7 +13,7 @@ Immutable.Map {
   "loading": false,
   "results": Immutable.List [],
   "elements": Immutable.Map {
-    "43acb485-7b1c-460b-bd31-c4529946ad3e": Immutable.Map {
+    "211ec9d9-df06-4988-874e-90576f668f3e": Immutable.Map {
       "nutrient": Object {
         "className": "elements-carbohydrates",
         "label": "Carbohydrates",
