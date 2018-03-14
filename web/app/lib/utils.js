@@ -37,37 +37,13 @@ export function nutrientToIndex(data, prefix) {
   if (index === -1) {
     return null;
   }
-  if (data[index].value === '~') {
+  if (data[index].value === '~' || !isNumeric(data[index].value)) {
     return null;
   }
+
   return index;
 }
-function interpolateColor(color1, color2, f) {
-  let factor = f;
-  if (arguments.length < 3) {
-    factor = 0.5;
-  }
-  const result = color1.slice();
-  for (let i = 0; i < 3; i += 1) {
-    result[i] = Math.round(result[i] + (factor * (color2[i] - color1[i])));
-  }
-  return convertToHex(result);
-}
-export function interpolateColors(c1, c2, steps) {
-  const stepFactor = 1 / (steps - 1);
-  const interpolatedColorArray = [];
-
-  const color1 = c1.match(/\d+/g).map(Number);
-  const color2 = c2.match(/\d+/g).map(Number);
-
-  for (let i = 0; i < steps; i += 1) {
-    interpolatedColorArray.push(interpolateColor(color1, color2, stepFactor * i));
-  }
-
-  return interpolatedColorArray;
-}
-
-function hex(c) {
+export function hex(c) {
   const s = '0123456789abcdef';
   let i = parseInt(c, 10);
   if (i === 0 || isNaN(c)) { return '00'; }
@@ -76,15 +52,15 @@ function hex(c) {
 }
 
 /* Convert an RGB triplet to a hex string */
-function convertToHex(rgb) {
+export function convertToHex(rgb) {
   return hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2]);
 }
 
 /* Remove '#' in color hex string */
-function trim(s) { return (s.charAt(0) === '#') ? s.substring(1, 7) : s; }
+export function trim(s) { return (s.charAt(0) === '#') ? s.substring(1, 7) : s; }
 
 /* Convert a hex string to an RGB triplet */
-function convertToRGB(hexString) {
+export function convertToRGB(hexString) {
   const color = [];
   color[0] = parseInt((trim(hexString)).substring(0, 2), 16);
   color[1] = parseInt((trim(hexString)).substring(2, 4), 16);
@@ -134,11 +110,10 @@ export function scaledValue(value, portion = false) {
   } else if (value) {
     return truncateTo(value * scale(portion), 2);
   }
-
   return 0;
 }
 
-const truncateTo = (unRouned, nrOfDecimals = 2) => {
+export const truncateTo = (unRouned, nrOfDecimals = 2) => {
   const parts = String(unRouned).split('.');
 
   if (parts.length !== 2) {
@@ -151,7 +126,7 @@ const truncateTo = (unRouned, nrOfDecimals = 2) => {
   return Number(newString);
 };
 
-function scale(portion) {
+export function scale(portion) {
     /**
      * Attempt to parse combinations of scales/portions and return an numerical
      * value for usage by higher order functions.
@@ -163,11 +138,7 @@ function scale(portion) {
     return _.parseInt(portion) / defaultUnit;
   } else if (isFloat(portion)) {
       // portion = 28.5 (g)
-    return parseFloat(portion) / defaultUnit;
-  } else if (!isNumeric(portion)) {
-      // portion = 1 tsp
-  } else {
-    return 1;
+    return parseFloat((parseFloat(portion) / defaultUnit).toFixed(3));
   }
   return 1;
 }

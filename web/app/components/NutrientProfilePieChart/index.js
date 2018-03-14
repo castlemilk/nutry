@@ -50,7 +50,6 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
       section.fill = COLORS[index % COLORS.length];
       return section;
     }) : [];
-    // console.log(pieDataColored);
     const loadingPie = <Spin style={{ marginTop: '100px' }} indicator={<Icon type="loading" style={{ fontSize: 40 }} spin />} />;
     return loading ? (
       <NutrientProfilePieChartWrapper>
@@ -80,7 +79,7 @@ class NutrientProfilePieChart extends React.Component { // eslint-disable-line r
               outerRadius={80}
               onMouseEnter={(d, i) => this.onPieEnter(d, i)}
             />
-          </PieChart>)
+          </PieChart>
         </div>
       </NutrientProfilePieChartWrapper>
     );

@@ -12,11 +12,11 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
+// import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectWikiView from './selectors';
 import reducer from './reducer';
-import saga from './saga';
+// import saga from './saga';
 import messages from './messages';
 
 export class WikiView extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -41,7 +41,7 @@ const mapStateToProps = createStructuredSelector({
   wikiView: makeSelectWikiView(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     dispatch,
   };
@@ -50,10 +50,10 @@ function mapDispatchToProps(dispatch) {
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'wikiView', reducer });
-const withSaga = injectSaga({ key: 'wikiView', saga });
+// const withSaga = injectSaga({ key: 'wikiView', saga });
 
 export default compose(
   withReducer,
-  withSaga,
+  // withSaga,
   withConnect,
 )(WikiView);

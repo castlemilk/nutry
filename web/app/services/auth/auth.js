@@ -4,7 +4,7 @@ function sleep(ms) {
 
 export async function authentication(credentials) {
   if (!credentials.username || !credentials.password) {
-    throw Error('credentials missing');
+    throw new Error('credentials missing');
   }
   await sleep(500);
   const token = 'yummy-chocolate';

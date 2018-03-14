@@ -13,10 +13,7 @@ export function defaultNutrient(prefix) {
   });
 }
 export function getNutrient(prefix, nutrients, ageGroup, portion = false) {
-  // console.log(prefix, nutrients);
   const nutrient = nutrients.get(prefix);
-  // console.log('nutrient:');
-  // console.log(nutrient);
   if (nutrient) {
     const newNutrient = Nutrient(
       prefix,
@@ -43,19 +40,6 @@ function Nutrient(prefix, name, units, value, rdi = null) {
     value,
     rdi,
   });
-  // nutrient.set('prefix', prefix);
-  // nutrient.set('name', name);
-  // nutrient.set('units', units);
-  // nutrient.set('value', value);
-  // nutrient.set('rdi', rdi);
-  // this.prefix = prefix;
-  // this.name = name;
-  // this.units = units;
-  // this.value = value;
-  // this.rdi = rdi;
-  // console.log('NUTRIENT_FUNCTION:');
-  // console.log(nutrient);
-  // return nutrient;
 }
 function Portion(name, amount, value) {
   this.unit = name;
@@ -91,9 +75,6 @@ export function updateRDI(nutrients, ageGroup) {
 export function getRDI(prefix, ageGroup) {
   return RDImapping[ageGroup.get('value')][prefix];
 }
-// const RDIEnergyMapping = {
-//   I1: {},
-// };
 const pc = 0.45;
 const ps = 0.1;
 const gctoe = 17;

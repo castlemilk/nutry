@@ -36,7 +36,7 @@
     "clean:all": "npm run analyze:clean && npm run test:clean && npm run build:clean",
     "generate": "plop --plopfile internals/generators/index.js",
     "lint": "npm run lint:js && npm run lint:css",
-    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
+    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts --ignore-pattern test/",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:css": "stylelint \"./app/**/*.js\"",
     "lint:staged": "lint-staged",
@@ -218,10 +218,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 50,
-        "branches": 50,
-        "functions": 50,
-        "lines": 80
+        "statements": 98,
+        "branches": 91,
+        "functions": 98,
+        "lines": 98
       }
     },
     "moduleDirectories": [

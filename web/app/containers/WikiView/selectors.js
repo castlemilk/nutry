@@ -21,5 +21,6 @@ const makeSelectWikiView = () => createSelector(
 
 export default makeSelectWikiView;
 export {
+  makeSelectWikiView,
   selectWikiViewDomain,
 };
