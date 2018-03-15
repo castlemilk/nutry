@@ -35,10 +35,11 @@ export function getRankingResults(searchResults) { /* eslint no-underscore-dangl
   // console.log(DETAILED_IDS);
   // console.log(prefixToName);
   // console.log(prefixToUnit);
-  console.log(ids);
+  // console.log(ids);
   const rankings = Map(DETAILED_IDS.reduce((accumulator, prefix) => ({ ...accumulator, [prefix]: [] }), {}));
   return getMultiFoodProfile(ids).then((resultsDict) => {
     Object.keys(resultsDict).map((id) => {
+      // console.log(resultsDict);
       const { nutrients, name } = resultsDict[id];
       DETAILED_IDS.map((prefix) => {
         if (nutrients[prefix]) {
@@ -53,7 +54,5 @@ export function getRankingResults(searchResults) { /* eslint no-underscore-dangl
       return rankings;
     });
     return rankings;
-  }).then((result) =>
-    // console.log(result);
-     result);
+  });
 }

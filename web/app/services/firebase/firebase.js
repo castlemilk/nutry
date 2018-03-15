@@ -3,7 +3,6 @@ import { firebaseConfig } from 'config';
 // import { Map } from 'immutable';
 
 export function parseResults(response) {
-  // console.log(response);
   if (response.status !== 200) {
     return null;
   }
@@ -28,8 +27,9 @@ export function getFoodProfile(serialNumber) {
       Accept: 'application/json',
     },
   });
-  // console.log('FirebaseServiceRest:ID:', serialNumber);
+  console.log('FirebaseServiceRest:ID:', serialNumber);
   const path = `profiles/${serialNumber}.json`;
+  console.log('FirebaseServiceRest:path:', path);
   return session.get(path)
     .then(checkStatus)
     .then(parseResults);
