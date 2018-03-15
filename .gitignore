@@ -12,5 +12,4 @@ node_modules/
 *.inventory.ini
 coverage/*
 coverage/
-tests/
 test/
