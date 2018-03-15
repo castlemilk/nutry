@@ -27,10 +27,10 @@ export const getFoodProfileMockSuccessFull = {
         name: 'Carbohydrate, by difference',
         units: 'g',
         value: 1 },
-      ALC: {
-        name: 'Alcohol, ethyl',
+      WATER: {
+        name: 'Water',
         units: 'g',
-        value: 2 },
+        value: '~' },
       ARGN: {
         name: 'Arginine',
         units: 'g',

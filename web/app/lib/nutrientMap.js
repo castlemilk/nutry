@@ -1,5 +1,11 @@
-import _ from 'lodash';
 import { Map, List } from 'immutable';
+import { scale, scaledValue } from './utils';
+/*
+TODO: refactor this entire approach into more of a serialiser/deserialiser
+to manage the processing and presentation of the necessary data via
+defined Model classes. i.e Nutrient, Portion, AgeGroup, Nutrients,
+RelativeNutrients etc.
+ */
 /**
  *
  * @param  {[type]} prefix [description]
@@ -12,14 +18,39 @@ export function defaultNutrient(prefix) {
     value: '~',
   });
 }
+export function defaultPortions(profilePortions = null) {
+  let portions = [];
+
+  if (profilePortions) {
+    portions = profilePortions.map((portion) => portion.unit.includes('tsp') ?
+      new Portion(`${String(portion.amt)} ${portion.unit}`,
+        portion.unit,
+        portion.g
+      ) :
+      new Portion(portion.name,
+      portion.unit,
+      portion.g));
+  }
+  portions.unshift(new Portion('per 100g', 1, 100));
+  return portions;
+}
 export function getNutrient(prefix, nutrients, ageGroup, portion = false) {
+  if (!nutrients) {
+    return Nutrient(
+      prefix,
+      prefixToName(prefix),
+      prefixToUnit(prefix),
+      '~',
+      getRDI(prefix, ageGroup)
+    );
+  }
   const nutrient = nutrients.get(prefix);
   if (nutrient) {
     const newNutrient = Nutrient(
       prefix,
       nutrient.get('name') || prefixToName(prefix),
       nutrient.get('units') || prefixToUnit(prefix),
-      getScaledValue(nutrient.get('value'), portion) || '~',
+      scaledValue(nutrient.get('value'), portion) || '~',
       getRDI(prefix, ageGroup)
     );
     return newNutrient;
@@ -32,7 +63,7 @@ export function getNutrient(prefix, nutrients, ageGroup, portion = false) {
     getRDI(prefix, ageGroup)
   );
 }
-function Nutrient(prefix, name, units, value, rdi = null) {
+export function Nutrient(prefix, name, units, value, rdi = null) {
   return Map({
     prefix,
     name,
@@ -41,7 +72,7 @@ function Nutrient(prefix, name, units, value, rdi = null) {
     rdi,
   });
 }
-function Portion(name, amount, value) {
+export function Portion(name, amount, value) {
   this.unit = name;
   this.value = value;
   this.className = name ? `${name.replace(/ |_|,|-|/g, '')}` : 'portion-class';
@@ -73,7 +104,10 @@ export function updateRDI(nutrients, ageGroup) {
   return newNutrients;
 }
 export function getRDI(prefix, ageGroup) {
-  return RDImapping[ageGroup.get('value')][prefix];
+  if (ageGroup) {
+    return RDImapping[ageGroup.get('value')][prefix];
+  }
+  return RDImapping.AM19[prefix];
 }
 const pc = 0.45;
 const ps = 0.1;
@@ -322,91 +356,6 @@ const RDImapping = {
     FAT: 50,
   },
 };
-
-
-export function defaultPortions(profilePortions = null) {
-  let portions = [];
-
-  if (profilePortions) {
-    portions = profilePortions.map((portion) => portion.unit.includes('tsp') ?
-      new Portion(`${String(portion.amt)} ${portion.unit}`,
-        portion.unit,
-        portion.g
-      ) :
-      new Portion(portion.name,
-      portion.unit,
-      portion.g));
-  }
-  portions.unshift(new Portion('per 100g', 1, 100));
-  return portions;
-}
-
-function getScaledValue(value, portion = false) {
-  if (!portion) {
-    return truncateTo(value, 2);
-  } else if (value) {
-    return truncateTo(value * scale(portion), 2);
-  }
-
-  return '~';
-}
-// function getScaledNutrient(prefix, nutrient, portion = false) {
-//   /**
-//    * Will attempt to discover the formatting of the scaling factor and
-//    * convert the current value accordingly
-//    */
-//   // TODO: fix this, returning nutrient isnt compaitible with the getNutrient method
-//   if (!portion) {
-//     return new Nutrient(prefix, nutrient.name, nutrient.units, nutrient.value);
-//   }
-//   return new Nutrient(
-//     prefix,
-//     nutrient.name,
-//     nutrient.units,
-//     truncateTo(nutrient.value * scale(portion), 1)
-//   );
-// }
-
-const truncateTo = (unRouned, nrOfDecimals = 2) => {
-  const parts = String(unRouned).split('.');
-
-  if (parts.length !== 2) {
-    // without any decimal part
-    return unRouned;
-  }
-
-  const newDecimals = parts[1].slice(0, nrOfDecimals);
-  const newString = `${parts[0]}.${newDecimals}`;
-
-  return Number(newString);
-};
-
-function scale(portion) {
-  /**
-   * Attempt to parse combinations of scales/portions and return an numerical
-   * value for usage by higher order functions.
-   */
-  const defaultUnit = 100; // per 100g is the default measurement
-
-  if (_.isInteger(portion)) {
-    // portion = 200 (g)
-    return _.parseInt(portion) / defaultUnit;
-  } else if (isFloat(portion)) {
-    // portion = 28.5 (g)
-    return parseFloat(portion) / defaultUnit;
-  } else if (!isNumeric(portion)) {
-    // portion = 1 tsp
-  } else {
-    return 1;
-  }
-  return 1;
-}
-function isFloat(n) {
-  return isNumeric(n) && !_.isInteger(n);
-}
-function isNumeric(n) {
-  return !_.isNaN(n) && _.isFinite(n);
-}
 
 export function prefixToName(prefix) {
   /**
@@ -659,20 +608,6 @@ export function prefixToName(prefix) {
   return mapping[prefix] || null;
 }
 
-// function portionToValue(portion) {
-//   /**
-//    * Attempt to convert a string-based portion to a numerical value from
-//    * a given look-up table.
-//    */
-//   const portions = {};
-//   portions.tsp = 0.4;
-//   portions.cup = 0.00;
-//   portions.dsp = 1;
-//   portions.handful = 40;
-//   // ....
-//   // ....
-//   return portions[portion];
-// }
 export function prefixToUnit(prefix) {
   /**
    * Return standardized units for particular nutrient. This issue can be solved

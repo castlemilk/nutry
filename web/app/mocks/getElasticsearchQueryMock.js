@@ -52,6 +52,44 @@ export const getSearchParsedSuccess = {
   max_score: 10,
   hits: 1,
 };
+export const getSearchParsedSuccessMulti = {
+  items: [
+    {
+      _id: 'AWF8pHZ9bw9zRJtz161q',
+      _index: 'nutry-names',
+      _score: 10,
+      _source: {
+        name: 'Fresh thyme',
+        group: 'Spices and Herbs',
+        SN: '02049',
+        alias: [],
+        allergen: [],
+        nutrients: {},
+        portions: [],
+        tags: [],
+        usage: [],
+      },
+    },
+    {
+      _id: 'AWF8pHZ3bw9zRJtz161q',
+      _index: 'nutry-names',
+      _score: 5,
+      _source: {
+        name: 'Dog food',
+        group: 'Animal products',
+        SN: '11111',
+        alias: [],
+        allergen: [],
+        nutrients: {},
+        portions: [],
+        tags: [],
+        usage: [],
+      },
+    },
+  ],
+  max_score: 10,
+  hits: 1,
+};
 export const getProfilerQueryRequest = {
   searchString: 'chocolate',
   elements: [
