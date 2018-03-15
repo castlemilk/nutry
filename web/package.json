@@ -326,7 +326,7 @@
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "circular-dependency-plugin": "3.0.0",
-    "coveralls": "2.13.1",
+    "coveralls": "^2.13.1",
     "css-loader": "0.28.4",
     "enzyme": "3.2.0",
     "enzyme-adapter-react-16": "1.1.0",
