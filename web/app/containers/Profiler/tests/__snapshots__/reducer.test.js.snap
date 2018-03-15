@@ -10,18 +10,12 @@ Immutable.Map {
 
 exports[`Container [Profiler] - reducers should handle the addProfilerElement action correctly 1`] = `
 Immutable.Map {
-  "loading": false,
-  "results": Immutable.List [],
-  "elements": Immutable.Map {
-    "fcf1d884-ed6e-4378-bafc-8a9948cf69c5": Immutable.Map {
-      "nutrient": Object {
-        "className": "elements-carbohydrates",
-        "label": "Carbohydrates",
-        "value": "CHOCDF",
-      },
-      "scale": 50,
-    },
+  "nutrient": Object {
+    "className": "elements-carbohydrates",
+    "label": "Carbohydrates",
+    "value": "CHOCDF",
   },
+  "scale": 50,
 }
 `;
 

@@ -9,6 +9,7 @@ describe('<SearchResultCard />', () => {
   it('should render', () => {
     const props = {
       profileInfo,
+      onClick: () => {},
     };
     const renderedComponent = shallow(
       <SearchResultCard {...props} />
@@ -19,6 +20,7 @@ describe('<SearchResultCard />', () => {
   it('should render when usage undefined', () => {
     const props = {
       profileInfo,
+      onClick: () => {},
     };
     props.profileInfo.usage = null;
     const renderedComponent = shallow(

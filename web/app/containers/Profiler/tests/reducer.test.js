@@ -24,7 +24,9 @@ describe('Container [Profiler] - reducers', () => {
     expect(profilerReducer(state, searchComplete(getProfilerParsedSuccess))).toMatchSnapshot();
   });
   it('should handle the addProfilerElement action correctly', () => {
-    expect(profilerReducer(state, addProfilerElement()).get('nutrient')).toMatchSnapshot();
+    const newElement = profilerReducer(state, addProfilerElement());
+    const id = newElement.get('elements').keySeq().first();
+    expect(newElement.getIn(['elements', id])).toMatchSnapshot();
   });
   it('should handle the deleteProfilerElement action correctly', () => {
     expect(profilerReducer(state, deleteProfilerElement('uuid'))).toMatchSnapshot();

@@ -26,7 +26,7 @@ function ResultsList(props) { /* eslint no-underscore-dangle: ["error", { "allow
 }
 
 ResultsList.propTypes = {
-  results: PropTypes.array.isRequired,
+  results: PropTypes.array,
   onProfileSelected: PropTypes.func,
 
 };
