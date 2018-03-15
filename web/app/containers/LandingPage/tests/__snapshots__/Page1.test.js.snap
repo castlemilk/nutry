@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Page1 /> getTransformXY 1`] = `
+Object {
+  "x": "Y-20",
+  "y": undefined,
+}
+`;
+
+exports[`<Page1 /> svgToXY 1`] = `
+Array [
+  Array [
+    Object {
+      "x": 60,
+      "y": 157,
+    },
+    Object {
+      "x": 167.5,
+      "y": 65.5,
+    },
+    Object {
+      "x": 0.5,
+      "y": 54.5,
+    },
+    Object {
+      "x": 195.5,
+      "y": 117.5,
+    },
+    Object {
+      "x": 117,
+      "y": 2,
+    },
+    Object {
+      "x": 82,
+      "y": 36,
+    },
+    Object {
+      "x": 26.5,
+      "y": 102.5,
+    },
+    Object {
+      "x": 180.5,
+      "y": 8.5,
+    },
+    Object {
+      "x": 197,
+      "y": 157,
+    },
+    Object {
+      "x": 124,
+      "y": 284,
+    },
+  ],
+]
+`;

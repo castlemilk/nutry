@@ -1,0 +1,743 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nutrientMap  Nutrient returns expected Nutrient 1`] = `
+Immutable.Map {
+  "prefix": "CHOCDF",
+  "name": "Carbohydrate, by difference",
+  "units": "g",
+  "value": 10,
+  "rdi": "AM19",
+}
+`;
+
+exports[`nutrientMap  Portion produces the expected Portion 1`] = `
+Portion {
+  "amt": 1,
+  "className": "100g",
+  "g": 100,
+  "label": "100g",
+  "unit": "100g",
+  "value": 100,
+}
+`;
+
+exports[`nutrientMap  Portion produces the expected Portion on no name 1`] = `
+Portion {
+  "amt": undefined,
+  "className": "portion-class",
+  "g": undefined,
+  "label": undefined,
+  "unit": undefined,
+  "value": undefined,
+}
+`;
+
+exports[`nutrientMap  defaultPortions produces the expected default portion on empty 1`] = `
+Array [
+  Portion {
+    "amt": 1,
+    "className": "per100g",
+    "g": 100,
+    "label": "per 100g",
+    "unit": "per 100g",
+    "value": 100,
+  },
+]
+`;
+
+exports[`nutrientMap  defaultPortions produces the expected default portion with pre-list non tsp 1`] = `
+Array [
+  Portion {
+    "amt": 1,
+    "className": "per100g",
+    "g": 100,
+    "label": "per 100g",
+    "unit": "per 100g",
+    "value": 100,
+  },
+  Portion {
+    "amt": "1 cup",
+    "className": "portion-class",
+    "g": 250,
+    "label": undefined,
+    "unit": undefined,
+    "value": 250,
+  },
+]
+`;
+
+exports[`nutrientMap  defaultPortions produces the expected default portion with pre-list with tsp 1`] = `
+Array [
+  Portion {
+    "amt": 1,
+    "className": "per100g",
+    "g": 100,
+    "label": "per 100g",
+    "unit": "per 100g",
+    "value": 100,
+  },
+  Portion {
+    "amt": "tsp",
+    "className": "tsptsp",
+    "g": 2,
+    "label": "tsp tsp",
+    "unit": "tsp tsp",
+    "value": 2,
+  },
+]
+`;
+
+exports[`nutrientMap  getNutrient a specifc nutrient with all inputs 1`] = `
+Immutable.Map {
+  "prefix": "CHOCDF",
+  "name": "Carbohydrate, by difference",
+  "units": "g",
+  "value": 24.45,
+  "rdi": 317.6470588235294,
+}
+`;
+
+exports[`nutrientMap  getNutrient a specifc nutrient with no ageGroup 1`] = `
+Immutable.Map {
+  "prefix": "CHOCDF",
+  "name": "Carbohydrate, by difference",
+  "units": "g",
+  "value": 24.45,
+  "rdi": 317.6470588235294,
+}
+`;
+
+exports[`nutrientMap  getNutrient a specifc nutrient with no portions 1`] = `
+Immutable.Map {
+  "prefix": "CHOCDF",
+  "name": "Carbohydrate, by difference",
+  "units": "g",
+  "value": 24.45,
+  "rdi": 317.6470588235294,
+}
+`;
+
+exports[`nutrientMap  getNutrient returns defaultNutrient when cannot find nutrient for given prefix 1`] = `
+Immutable.Map {
+  "prefix": "LOL",
+  "name": null,
+  "units": "NA",
+  "value": "~",
+  "rdi": null,
+}
+`;
+
+exports[`nutrientMap  getNutrient returns defaultNutrient when cannot find nutrient for given prefix 2`] = `
+Immutable.Map {
+  "prefix": "CHOCDF",
+  "name": "Carbohydrate, by difference",
+  "units": "g",
+  "value": "~",
+  "rdi": 317.6470588235294,
+}
+`;
+
+exports[`nutrientMap  getNutrient returns defaultNutrient with no nutrients specified 1`] = `
+Immutable.Map {
+  "prefix": "CHOCDF",
+  "name": "Carbohydrate, by difference",
+  "units": "g",
+  "value": "~",
+  "rdi": 317.6470588235294,
+}
+`;
+
+exports[`nutrientMap  getOmega3 produces the expected omega3 output combination 1`] = `
+Immutable.Map {
+  "prefix": "LCW3TOTAL",
+  "name": "Total Omega-3 Fatty Acid",
+  "units": "mg",
+  "value": 3,
+  "rdi": null,
+}
+`;
+
+exports[`nutrientMap  getOmega3 produces the expected omega3 output no nutrients 1`] = `
+Immutable.Map {
+  "prefix": "LCW3TOTAL",
+  "name": "Total Omega-3 Fatty Acid",
+  "units": "mg",
+  "value": 0,
+  "rdi": null,
+}
+`;
+
+exports[`nutrientMap  updateRDI updates nutrient maps RDI values 1`] = `
+Immutable.List [
+  Array [
+    "FAPU",
+    Immutable.Map {
+      "name": "Fatty acids, total polyunsaturated",
+      "units": "g",
+      "value": 0.532,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "VITA",
+    Immutable.Map {
+      "name": "Retinol Equivalents (VIT A)",
+      "units": "ug",
+      "value": 238,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FOLDFE",
+    Immutable.Map {
+      "name": "Dietary folate equivalents",
+      "units": "ug",
+      "value": 45,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FOLFD",
+    Immutable.Map {
+      "name": "Folate, natural",
+      "units": "ug",
+      "value": 45,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "MN",
+    Immutable.Map {
+      "name": "Manganese (Mn)",
+      "units": "mg",
+      "value": 1.719,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FAMS",
+    Immutable.Map {
+      "name": "Fatty acids, total monounsaturated",
+      "units": "g",
+      "value": 0.081,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "VITC",
+    Immutable.Map {
+      "name": "Vitamin C",
+      "units": "mg",
+      "value": 160.1,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "CARTB",
+    Immutable.Map {
+      "name": "Beta carotene",
+      "units": "ug",
+      "value": 2851,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "VITB12",
+    Immutable.Map {
+      "name": "Cobalamin (B12)",
+      "units": "ug",
+      "value": 0,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "ILE",
+    Immutable.Map {
+      "name": "Isoleucine",
+      "units": "mg",
+      "value": 0.285,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "VITD",
+    Immutable.Map {
+      "name": "Vitamin D",
+      "units": "ug",
+      "value": 0,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FOL",
+    Immutable.Map {
+      "name": "Total folates",
+      "units": "ug",
+      "value": 45,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "CHOLE",
+    Immutable.Map {
+      "name": "Cholesterol",
+      "units": "mg",
+      "value": 0,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FOLAC",
+    Immutable.Map {
+      "name": "Folic acid",
+      "units": "ug",
+      "value": 0,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "NIA",
+    Immutable.Map {
+      "name": "Niacin (B3)",
+      "units": "mg",
+      "value": 1.824,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "LYSN",
+    Immutable.Map {
+      "name": "Lysine",
+      "units": "g",
+      "value": 0.126,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "K",
+    Immutable.Map {
+      "name": "Potassium (K)",
+      "units": "mg",
+      "value": 609,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FASAT",
+    Immutable.Map {
+      "name": "Fatty acids, total saturated",
+      "units": "g",
+      "value": 0.467,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "VITA_IU",
+    Immutable.Map {
+      "name": "Retinol Equivalents (VIT A)",
+      "units": "IU",
+      "value": 4751,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F18D3CN3",
+    Immutable.Map {
+      "name": "18:3c3",
+      "units": "mg",
+      "value": 1,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "THIA",
+    Immutable.Map {
+      "name": "Thiamin (B1)",
+      "units": "mg",
+      "value": 0.048,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "VITB6A",
+    Immutable.Map {
+      "name": "Pyridoxine (B6)",
+      "units": "mg",
+      "value": 0.348,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "VALN",
+    Immutable.Map {
+      "name": "Valine",
+      "units": "g",
+      "value": 0.307,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "ENERC",
+    Immutable.Map {
+      "name": "Energy",
+      "units": "kJ",
+      "value": 423,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "P",
+    Immutable.Map {
+      "name": "Phosphorus (P)",
+      "units": "mg",
+      "value": 106,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "THRN",
+    Immutable.Map {
+      "name": "Threonine",
+      "units": "g",
+      "value": 0.154,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F10D0",
+    Immutable.Map {
+      "name": "10:0",
+      "units": "mg",
+      "value": 0.021,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "LCW3TOTAL",
+    Immutable.Map {
+      "name": "Total Omega-3 Fatty Acid",
+      "units": "mg",
+      "value": 0,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "CU",
+    Immutable.Map {
+      "name": "Copper (Cu)",
+      "units": "mg",
+      "value": 0.555,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "TRP",
+    Immutable.Map {
+      "name": "Tryptophan",
+      "units": "mg",
+      "value": 0.114,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "LEUN",
+    Immutable.Map {
+      "name": "Leucine",
+      "units": "g",
+      "value": 0.262,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FIBTG",
+    Immutable.Map {
+      "name": "Dietary Fibre",
+      "units": "g",
+      "value": 14,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "NA",
+    Immutable.Map {
+      "name": "Sodium (Na)",
+      "units": "mg",
+      "value": 9,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F12D0",
+    Immutable.Map {
+      "name": "12:0",
+      "units": "mg",
+      "value": 0.039,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "ZN",
+    Immutable.Map {
+      "name": "Zinc (Zn)",
+      "units": "mg",
+      "value": 1.81,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F20D5",
+    Immutable.Map {
+      "name": "20:5",
+      "units": "mg",
+      "value": 1,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "ENERC_KCAL",
+    Immutable.Map {
+      "name": "Energy",
+      "units": "kCal",
+      "value": 101,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FATRN",
+    Immutable.Map {
+      "name": "Total trans fatty acids",
+      "units": "g",
+      "value": 0,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F14D0",
+    Immutable.Map {
+      "name": "14:0",
+      "units": "mg",
+      "value": 0.026,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "ASH",
+    Immutable.Map {
+      "name": "Ash",
+      "units": "g",
+      "value": 3.2,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "WATER",
+    Immutable.Map {
+      "name": "Water",
+      "units": "g",
+      "value": 65.11,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F16D0",
+    Immutable.Map {
+      "name": "16:0",
+      "units": "mg",
+      "value": 0.293,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F22D6",
+    Immutable.Map {
+      "name": "22:6",
+      "units": "mg",
+      "value": 1,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "PANTAC",
+    Immutable.Map {
+      "name": "Pantothenic acid (B5)",
+      "units": "mg",
+      "value": 0.409,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F18D0",
+    Immutable.Map {
+      "name": "18:0",
+      "units": "mg",
+      "value": 0.047,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FAT",
+    Immutable.Map {
+      "name": "Total lipid (fat)",
+      "units": "g",
+      "value": 1.68,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "MG",
+    Immutable.Map {
+      "name": "Magnesium (Mg)",
+      "units": "mg",
+      "value": 160,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F18D1",
+    Immutable.Map {
+      "name": "18:1 undifferentiated",
+      "units": "mg",
+      "value": 0.081,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "RIBF",
+    Immutable.Map {
+      "name": "Riboflavin",
+      "units": "mg",
+      "value": 0.471,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F18D2",
+    Immutable.Map {
+      "name": "18:2 undifferentiated",
+      "units": "mg",
+      "value": 0.085,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "CHOCDF",
+    Immutable.Map {
+      "name": "Carbohydrate, by difference",
+      "units": "g",
+      "value": 24.45,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F18D3",
+    Immutable.Map {
+      "name": "18:3 undifferentiated",
+      "units": "mg",
+      "value": 0.447,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "PROCNT",
+    Immutable.Map {
+      "name": "Protein",
+      "units": "g",
+      "value": 5.56,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "CA",
+    Immutable.Map {
+      "name": "Calcium (Ca)",
+      "units": "mg",
+      "value": 405,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "F8D0",
+    Immutable.Map {
+      "name": "8:0",
+      "units": "mg",
+      "value": 0.041,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "RETOL",
+    Immutable.Map {
+      "name": "Retinol",
+      "units": "ug",
+      "value": 0,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+  Array [
+    "FE",
+    Immutable.Map {
+      "name": "Iron (Fe)",
+      "units": "mg",
+      "value": 17.45,
+      "selected": false,
+      "rdi": undefined,
+    },
+  ],
+]
+`;
