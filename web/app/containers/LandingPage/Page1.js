@@ -100,14 +100,14 @@ const page1Data = [
     ),
   },
 ];
-const getTransformXY = (t) => {
+export const getTransformXY = (t) => {
   const s = t.replace(/[a-z|(|)]/g, '').split(',');
   return {
     x: s[0],
     y: s[1],
   };
 };
-const svgToXY = page1Data.map((item) => {
+export const svgToXY = (data) => data.map((item) => {
   const c = item.svgBg.props.children;
   return c.map((child) => {
     const p = child.props;
@@ -119,6 +119,10 @@ const svgToXY = page1Data.map((item) => {
   });
 });
 class Page1 extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.svgToXY = svgToXY(page1Data);
+  }
   state = {
     hoverKey: null,
   }
@@ -137,7 +141,7 @@ class Page1 extends React.PureComponent { // eslint-disable-line react/prefer-st
     const r = (Math.random() * 2) - 1;
     const y = (Math.random() * 10) + 10;
     const delay = Math.round(Math.random() * (ii * 30));
-    const pos = svgToXY[i][ii];
+    const pos = this.svgToXY[i][ii];
     return [
       { x: 100, y: 150, duration: 0 },
       {
@@ -151,7 +155,7 @@ class Page1 extends React.PureComponent { // eslint-disable-line react/prefer-st
       },
     ];
   };
-  getSvgChild = (child) => child.map((item) => {
+  getSvgChild = (child) => child.map((item, i) => {
     const props = { ...item.props };
     if (item.type === 'g') {
       props.transform = null;
@@ -162,7 +166,7 @@ class Page1 extends React.PureComponent { // eslint-disable-line react/prefer-st
         }
       });
     }
-    return (<g>
+    return (<g key={i.toString()}>
       {React.cloneElement(item, props)}
     </g>);
   });
