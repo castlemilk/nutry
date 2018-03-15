@@ -1,5 +1,5 @@
 # Nutry
-[![Build Status](https://ci.benebsworth.com/me/my-views/view/all/job/nutry-web/badge/icon)](https://ci.benebsworth.com/me/my-views/view/all/job/nutry-web/)
+[![Build Status](https://ci.benebsworth.com/buildStatus/icon?job=nutry-web)](https://ci.benebsworth.com/me/my-views/view/all/job/nutry-web/)
 ## About
 Nutry provides a flexible and easier interaction with nutritional data for a  
 large range of food items totalling over 11000 unique items. All of these
