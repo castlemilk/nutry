@@ -1,5 +1,5 @@
 # Nutry
-[![Build Status](https://ci.benebsworth.com/buildStatus/icon?job=nutry-web)](https://ci.benebsworth.com/me/my-views/view/all/job/nutry-web/)
+[![Build Status](https://ci.benebsworth.com/buildStatus/buildIcon?job=nutry-web)](https://ci.benebsworth.com/job/nutry-web/)
 [![Coverage Status](https://coveralls.io/repos/github/castlemilk/nutry/badge.svg?branch=origin%2Fmaster)](https://coveralls.io/github/castlemilk/nutry?branch=origin%2Fmaster)
 ## About
 Nutry provides a flexible and easier interaction with nutritional data for a  
