@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 // import { IntlProvider } from 'react-intl';
-import { TweenOneGroup } from 'rc-tween-one';
+// import { TweenOneGroup } from 'rc-tween-one';
 
 import Page1, {
   getTransformXY,

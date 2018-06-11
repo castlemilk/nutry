@@ -1,0 +1,21 @@
+version: '3'
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: ./internals/docker/Dockerfile
+    env_file: .env
+    ports:
+      - "3001:3001"
+  proxy:
+    build:
+      context: ./internals/proxy/
+      args:
+        SERVER_NAME: localhost
+        WEBAPP_PORT: 3001
+    env_file: .env
+    depends_on:
+      - webapp
+    ports:
+      - "8080:80"
+      - "8443:443"

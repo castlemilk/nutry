@@ -90,7 +90,7 @@ module.exports = (options) => ({
         test: /\.(jpg|png|gif)$/,
         use: [
           {
-            loader: "url-loader",
+            loader: "file-loader",
             options: {
               limit: 10000,
             },

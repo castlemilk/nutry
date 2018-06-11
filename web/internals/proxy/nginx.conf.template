@@ -1,0 +1,74 @@
+worker_processes auto;
+
+events {
+  worker_connections 1024;
+  use epoll;
+  multi_accept on;
+}
+
+
+http {
+  tcp_nodelay on;
+
+  # this is necessary for us to be able to disable request buffering in all cases
+  proxy_http_version 1.1;
+
+  upstream webapp {
+    server webapp:${WEBAPP_PORT};
+  }
+  upstream elasticsearch {
+    server ${ELASTICSEARCH_PROXY_HOST}:${ELASTICSEARCH_PROXY_PORT};
+  }
+
+  server {
+    listen 443 ssl;
+    server_name ${SERVER_NAME};
+
+    # SSL
+    ssl_certificate /etc/nginx/cert/cert.pem;
+    ssl_certificate_key /etc/nginx/cert/privkey.pem;
+
+    # Recommendations from https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html
+    ssl_protocols TLSv1.1 TLSv1.2;
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+
+    # disable any limits to avoid HTTP 413 for large image uploads
+    client_max_body_size 0;
+
+    # required to avoid HTTP 411: see Issue #1486 (https://github.com/docker/docker/issues/1486)
+    chunked_transfer_encoding on;
+
+    location / {
+      proxy_pass http://webapp/;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+      proxy_set_header X-Forwarded-Proto $scheme;
+
+      proxy_buffering off;
+      proxy_request_buffering off;
+    }
+    location ${ELASTICSEARCH_PROXY_PREFIX} {
+      proxy_pass http://elasticsearch/;
+      proxy_redirect off;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Origin "";
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-NginX-Proxy true;
+    }
+
+  }
+
+    server {
+      listen 80;
+      server_name ${SERVER_NAME};
+      return 301 https://$server_name$request_uri;
+    }
+
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
-import NutryLogo from 'images/icon-120x120.png';
-import NutryTitle from 'images/title-120x120.png';
+import NutryLogo from 'images/icon-128x128.png';
+import NutryTitle from 'images/title-128x128.png';
 
 import HeaderWrapper from './HeaderWrapper';
 

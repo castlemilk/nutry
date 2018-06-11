@@ -20,7 +20,8 @@
   register: instance_info
 
 
-- debug: var=instance_info
+- name: instance_info
+  debug: var=instance_info
   tags:
     - debug
 - set_fact: os_ansible_user="centos"
