@@ -6,7 +6,7 @@ services:
       dockerfile: ./internals/docker/Dockerfile
     env_file: .env
     ports:
-      - "3001:3001"
+      - "3000:3000"
   proxy:
     build:
       context: ./internals/proxy/
