@@ -11,11 +11,81 @@
         from_port: 22
         to_port: 22
         cidr_ip: 0.0.0.0/0
-  register: security_group
+      - proto: tcp
+        from_port: 9200
+        to_port: 9200
+  register: ssh_security_group
 
-- debug: var=security_group
+- debug: var=ssh_security_group
   tags:
     - debug
 
 - set_fact:
-    sg_id: "{{ security_group.group_id }}"
+    ssh_sg_id: "{{ ssh_security_group.group_id }}"
+
+- name: Security Group which allows inbound SSH
+  ec2_group:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    name: SSH-Only
+    description: Inbound SSH Only
+    vpc_id: "{{ vpc.vpc_id }}"
+    region: "{{ deployment.aws.region }}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 9200
+        to_port: 9200
+        group_id: "{{ ssh_sg_id }}"
+  register: ssh_security_group
+
+- debug: var=ssh_security_group
+  tags:
+    - debug
+
+- set_fact:
+    ssh_sg_id: "{{ ssh_security_group.group_id }}"
+
+
+- name: Security Group which allows inbound SSH
+  ec2_group:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    name: ES-access
+    description: Access-to-ES
+    vpc_id: "{{ vpc.vpc_id }}"
+    region: "{{ deployment.aws.region }}"
+    rules:
+      - proto: tcp
+        from_port: 9200
+        to_port: 9200
+        group_id: "{{ ssh_sg_id }}"
+  register: es_security_group
+
+- set_fact:
+    es_sg_id: "{{ es_security_group.group_id }}"
+
+- name: Security Group which allows inbound web access
+  ec2_group:
+    ec2_access_key: "{{ deployment.aws.access_key }}"
+    ec2_secret_key: "{{ deployment.aws.secret_key }}"
+    name: frontend-access
+    description: Access-to-webapp
+    vpc_id: "{{ vpc.vpc_id }}"
+    region: "{{ deployment.aws.region }}"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 0.0.0.0/0
+  register: web_security_group
+
+- set_fact:
+    web_sg_id: "{{ web_security_group.group_id }}"

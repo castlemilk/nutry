@@ -13,5 +13,8 @@ all:
                     ansible_ssh_private_key_file: {{ hostvars[host].ansible_ssh_private_key_file }}
                     ansible_ssh_common_args: {{ hostvars[host].ansible_ssh_common_args }}
                     ansible_python_interpreter: {{ hostvars[host].ansible_python_interpreter }}
+                    aws:
+                        vpc_id: {{ vpc_id }}
+                        subnet_id: {{ public_subnet_id }}
 {% endfor %}
 {% endfor %}

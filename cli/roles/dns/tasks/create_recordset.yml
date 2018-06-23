@@ -1,0 +1,25 @@
+---
+- name: add record for backend
+  route53:
+    state: present
+    zone: "{{ deployment.aws.route53.private_zone }}"
+    type: A
+    record: "es.{{ deployment.aws.route53.private_zone }}"
+    ttl: 600
+    value: "{{ hostvars['nutry-backend'].private_ip }}"
+    private_zone: true
+    wait: yes
+    overwrite: true
+
+
+- name: add record for frontend
+  route53:
+    state: present
+    zone: "{{ deployment.aws.route53.public_zone }}"
+    type: A
+    record: "{{ deployment.aws.route53.private_zone }}"
+    ttl: 600
+    value: "{{ hostvars['nutry-frontend'].public_ip }}"
+    private_zone: false
+    wait: yes
+    overwrite: true

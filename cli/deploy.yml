@@ -6,6 +6,7 @@
     - config/config.yml
   roles:
     - ec2
+    - dns
 
 - name: baseline instances
   hosts: backend:frontend
@@ -21,6 +22,16 @@
   roles:
     - common
     - geerlingguy.docker
+
+- name: deploy containers
+  hosts: backend
+  become: yes
+  vars:
+    compose_project: elasticsearch-compose.yml
+  tags:
+    - elasticsearch
+  roles:
+    - elasticsearch-docker
 
 - name: deploy containers
   hosts: backend

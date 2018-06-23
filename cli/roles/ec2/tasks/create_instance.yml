@@ -6,15 +6,18 @@
      spot_wait_timeout: "{{ instance.spot_wait_timeout }}"
      key_name: "{{ deployment.aws.key_name }}"
      region: "{{ instance.region }}"
-     group_id: "{{ sg_id }}"
+     group_id:
+       - "{{ ssh_sg_id }}"
+       - "{{ es_sg_id }}"
+       - "{{ web_sg_id }}"
      instance_type: "{{ instance.flavor }}"
      image: "{{ instance.image }}"
      wait: true
      exact_count: 1
      count_tag: "{{ instance.count_tag }}"
      instance_tags: "{{ instance.instance_tags }}"
-     vpc_subnet_id: "{{ subnet_id }}"
-     assign_public_ip: "{{ instance.public_facing }}"
+     vpc_subnet_id: "{{ (instance.public == True) | ternary(public_subnet_id, private_subnet_id) }}"
+     assign_public_ip: "{{ instance.public }}"
      zone: "{{ instance.availability_zone }}"
      user_data: "{{ lookup('template', 'user_data_hostname.txt.j2') }}"
   register: instance_info
@@ -31,11 +34,16 @@
 - set_fact: os_ansible_user="cloud-user"
   when: "'rhel' in instance.platform | regex_escape()"
 
+- set_fact: os_ansible_user="ec2-user"
+  when: "'aws' in instance.platform | regex_escape()"
+
 - name: Add all instance public IPs to host group for SSH
   add_host:
     name: "{{ instance.name | default(instance.hostname) }}"
     hostname: "{{ item.public_ip }}"
     groups: "{{ instance.group }}"
+    private_ip: "{{ instance_info.tagged_instances[0].private_ip }}"
+    public_ip: "{{ instance_info.tagged_instances[0].public_ip }}"
     ansible_hostname: "{{ item.public_ip }}"
     ansible_ssh_host: "{{ item.public_ip }}"
     ansible_ssh_private_key_file: "{{ private_ssh_key_file }}"
