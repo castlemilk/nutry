@@ -31,6 +31,9 @@
   when: "'centos' in instance.platform | regex_escape()"
 - set_fact: os_ansible_user="ubuntu"
   when: "'ubuntu' in instance.platform | regex_escape()"
+
+- set_fact: os_ansible_user="admin"
+  when: "'debian' in instance.platform | regex_escape()"
 - set_fact: os_ansible_user="cloud-user"
   when: "'rhel' in instance.platform | regex_escape()"
 

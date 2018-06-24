@@ -12,14 +12,15 @@
     overwrite: true
 
 
-- name: add record for frontend
+- name: add records for frontend
   route53:
     state: present
     zone: "{{ deployment.aws.route53.public_zone }}"
     type: A
-    record: "{{ deployment.aws.route53.private_zone }}"
+    record: "{{ item }}"
     ttl: 600
     value: "{{ hostvars['nutry-frontend'].public_ip }}"
     private_zone: false
     wait: yes
     overwrite: true
+  with_items: "{{ deployment.aws.route53.public_records }}"

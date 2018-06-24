@@ -1,4 +1,4 @@
-- name: Discover EC2_COMPUTE information
+- name: Discover EC2_COMPUTE information for {{ instance.instance_tags.Name }}
   ec2_instance_facts:
     ec2_access_key: "{{ deployment.aws.access_key }}"
     ec2_secret_key: "{{ deployment.aws.secret_key }}"
@@ -15,8 +15,8 @@
     ec2_access_key: "{{ deployment.aws.access_key }}"
     ec2_secret_key: "{{ deployment.aws.secret_key }}"
     region: "{{ deployment.aws.region }}"
-    # filters:
-    #   "tag:Name": "{{ instance.instance_tags.Name }}"
+    filters:
+       "tag:Name": "{{ instance.instance_tags.Name }}"
   register: volume_facts
 
 - debug: var=volume_facts

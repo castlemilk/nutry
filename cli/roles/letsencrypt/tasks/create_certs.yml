@@ -1,0 +1,15 @@
+- name: stop nginx
+  service:
+    name: nginx
+    state: stopped
+
+- name: deliver nginx configuration to server
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+
+- name: Generate new certificate if one doesn't exist
+  command: "{{ certbot_create_command }}"
+
+- name: stop nginx
+  service:
+    name: nginx
+    state: started

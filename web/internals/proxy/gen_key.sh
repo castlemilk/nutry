@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 domain=$1
 commonname=$domain
 
@@ -21,13 +22,17 @@ fi
 #
 # #Remove passphrase from the key. Comment the line out to keep the passphrase
 # openssl rsa -in privkey.pem -passin pass:$password -out privkey.pem
-
-#Create the request
-openssl req -x509 -days 365 -nodes -newkey rsa:2048 -keyout privkey.pem -out cert.pem \
+if [ -f /etc/nginx/cert.pem ] || [ -f /etc/nginx/privkey.pem ]; then
+    cat /etc/nginx/cert/cert.pem
+    cat /etc/nginx/cert/privkey.pem
+    exit 0
+else
+    #Create the request
+    openssl req -x509 -days 365 -nodes -newkey rsa:2048 -keyout privkey.pem -out cert.pem \
     -subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
+    cat ./$domain.csr > /etc/nginx/cert/cert.pem
+    cat ./$domain.key > /etc/nginx/cert/privkey.pem
+fi
 
-cat /etc/nginx/cert/cert.pem
-cat /etc/nginx/cert/privkey.pem
 
-# cat ./$domain.csr > /etc/nginx/cert/cert.pem
-# cat ./$domain.key > /etc/nginx/cert/privkey.pem
+

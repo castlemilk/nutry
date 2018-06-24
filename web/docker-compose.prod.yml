@@ -31,13 +31,10 @@ services:
         ELASTICSEARCH_PROXY_PREFIX: /v1/search/
         ELASTICSEARCH_PROXY_HOST: es.nutry.net
         ELASTICSEARCH_PROXY_PORT: 9200
+    volumes:
+      - /etc/letsencrypt/live/www.nutry.net:/etc/nginx
     depends_on:
       - webapp
     ports:
       - "80:80"
       - "443:443"
-
-networks:
-  default:
-    external:
-      name: docker_esnet

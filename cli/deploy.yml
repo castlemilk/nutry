@@ -42,3 +42,20 @@
     - elasticsearch
   roles:
     - elasticsearch-docker
+
+
+- name: initialise certs for frontend
+  hosts: frontend
+  become: yes
+  vars:
+    cert_item:
+      email: ben.ebsworth@gmail.com
+      domains:
+        - www.nutry.net
+        - nutry.net
+  tags:
+    - certs
+    - letsencrypt
+  roles:
+    - letsencrypt
+

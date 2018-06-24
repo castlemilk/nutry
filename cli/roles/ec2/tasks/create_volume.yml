@@ -6,6 +6,7 @@
     volume_type: "{{ instance.volume_type }}"
     region: "{{ instance.region }}"
     zone: "{{ instance.availability_zone }}"
+    tags: "{{ instance.instance_tags }}"
   register: volume
 
 - debug: var=volume
