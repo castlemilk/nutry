@@ -28,7 +28,8 @@ class ElasticsearchIndex(object):
         self.type = 'names'
         self.mappings = dict()
         self.secure = config['secure'] if config.get('secure') else False
-        self.prefix = 'https' if self.secure else 'http'
+        self.scheme = 'https' if self.secure else 'http'
+        self.prefix = config['prefix'] if config.get('prefix') else ''
         self.mapping_dir = config['mapping_dir'] \
             if config.get('mapping_dir') else \
             os.path.dirname(os.path.dirname(__file__))
@@ -36,7 +37,8 @@ class ElasticsearchIndex(object):
             if config.get('properties_dir') else \
             os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config', 'elasticsearch.properties.json')
 
-        self.url = '{prefix}://{host}:{port}'.format(prefix=self.prefix, host=self.host, port=self.port)
+        self.url = '{scheme}://{host}:{port}{prefix}'.format(scheme=self.scheme, host=self.host, port=self.port,
+                                                             prefix='/' + self.prefix if self.prefix else '')
         try:
             self.load_mapping_config()
         except Exception:

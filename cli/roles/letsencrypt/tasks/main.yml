@@ -30,7 +30,7 @@
     apt_repository:
       repo: "{{ item }}"
       update_cache: yes
-      validate_certs: no
+      validate_certs: yes
       state: present
     with_items:
       - ppa:nginx/stable

@@ -4,6 +4,7 @@ packages:
     - lsof
     - python3-pip
     - git
+    - software-properties-common
   container:
     - docker
 

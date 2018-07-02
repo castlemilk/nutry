@@ -1,0 +1,22 @@
+version: '2'
+services:
+  webapp:
+    image: castlemilk/nutry-webapp:latest
+    environment:
+      ELASTICSEARCH_PROXY_HOST: nutry.net
+      ELASTICSEARCH_PROXY_PORT: 443
+      ELASTICSEARCH_PROXY_MODE: https
+      ELASTICSEARCH_PROXY_PREFIX: /v1/search
+      FIREBASE_ENDPOINT: https://nutry-v1.firebaseio.com
+      FIREBASE_DB_VERSION: v1
+    ports:
+      - "3000:3000"
+  proxy:
+    image: castlemilk/nutry-proxy:latest
+    volumes:
+      - /etc/letsencrypt/live/www.nutry.net:/etc/nginx/certs
+    depends_on:
+      - webapp
+    ports:
+      - "80:80"
+      - "443:443"

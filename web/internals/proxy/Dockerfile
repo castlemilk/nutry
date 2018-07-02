@@ -22,6 +22,7 @@ RUN envsubst '$WEBAPP_PORT $SERVER_NAME $ELASTICSEARCH_PROXY_HOST $ELASTICSEARCH
 
 WORKDIR $NGINX_CERT_DIR
 
+RUN mkdir -p $NGINX_CERT_DIR/certs/ && chown root:root $NGINX_CERT_DIR/certs/
 ADD gen_key.sh $NGINX_CERT_DIR/gen_key.sh
 RUN chmod a+x $NGINX_CERT_DIR/gen_key.sh
 RUN bash -c "$NGINX_CERT_DIR/gen_key.sh $SERVER_NAME"
