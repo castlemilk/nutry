@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Page1Wrapper = styled.div`
   background: #7f3fbf;
+  width: 100%;
 
   .home-page-wrapper .page h2 {
     font-size: 60px;

@@ -1,0 +1,10 @@
+---
+- name: deploy webapp stack
+  docker_service:
+    project_name: webapp
+    definition: "{{ lookup('template', compose_project) | from_yaml }}"
+    state: present
+  register: webapp_stack
+
+- debug:
+    var: webapp_stack

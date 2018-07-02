@@ -6,6 +6,7 @@
     - config/config.yml
   roles:
     - ec2
+    - dns
 
 - name: baseline instances
   hosts: backend:frontend
@@ -31,3 +32,30 @@
     - elasticsearch
   roles:
     - elasticsearch-docker
+
+
+- name: initialise certs for frontend
+  hosts: frontend
+  become: yes
+  vars:
+    cert_item:
+      email: ben.ebsworth@gmail.com
+      domains:
+        - www.nutry.net
+        - nutry.net
+  tags:
+    - certs
+    - letsencrypt
+  roles:
+    - letsencrypt
+
+- name: deploy frontend containers
+  hosts: frontend
+  become: yes
+  vars:
+    compose_project: webapp-compose.yml
+  tags:
+    - webapp
+  roles:
+    - webapp-docker
+

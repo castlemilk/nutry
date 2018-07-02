@@ -1,0 +1,165 @@
+
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text",
+        "analyzer": "english",
+        "copy_to": "full_description",
+        "fields": {
+          "std": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "ngram": {
+            "type": "text",
+            "analyzer": "NGramAnalyzer",
+            "search_analyzer": "standard"
+          },
+          "shingles": {
+            "type": "text",
+            "analyzer": "ShingleAnalyzer"
+          }
+        }
+      },
+      "alias": {
+        "type": "text",
+        "analyzer": "english",
+        "copy_to": "full_description",
+        "fields": {
+          "std": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "ngram": {
+            "type": "text",
+            "analyzer": "NGramAnalyzer",
+            "search_analyzer": "standard"
+          },
+          "shingles": {
+            "type": "text",
+            "analyzer": "ShingleAnalyzer"
+          }
+        }
+      },
+      "tags": {
+        "type": "text",
+        "analyzer": "english",
+        "copy_to": "full_description",
+        "fields": {
+          "std": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "ngram": {
+            "type": "text",
+            "analyzer": "NGramAnalyzer",
+            "search_analyzer": "standard"
+          },
+          "shingles": {
+            "type": "text",
+            "analyzer": "ShingleAnalyzer"
+          }
+        }
+      },
+      "usage": {
+        "type": "text",
+        "analyzer": "english",
+        "copy_to": "full_description",
+        "fields": {
+          "std": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "ngram": {
+            "type": "text",
+            "analyzer": "NGramAnalyzer",
+            "search_analyzer": "standard"
+          },
+          "shingles": {
+            "type": "text",
+            "analyzer": "ShingleAnalyzer"
+          }
+        }
+      },
+      "clinical_pos": {
+        "type": "text",
+        "analyzer": "english",
+        "copy_to": "full_description",
+        "fields": {
+          "std": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "ngram": {
+            "type": "text",
+            "analyzer": "NGramAnalyzer",
+            "search_analyzer": "standard"
+          },
+          "shingles": {
+            "type": "text",
+            "analyzer": "ShingleAnalyzer"
+          }
+        }
+      },
+      "clinical_neg": {
+        "type": "text",
+        "analyzer": "english",
+        "copy_to": "full_description",
+        "fields": {
+          "std": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "ngram": {
+            "type": "text",
+            "analyzer": "NGramAnalyzer",
+            "search_analyzer": "standard"
+          },
+          "shingles": {
+            "type": "text",
+            "analyzer": "ShingleAnalyzer"
+          }
+        }
+      },
+      "allergen": {
+        "type": "text",
+        "analyzer": "english",
+        "copy_to": "full_description",
+        "fields": {
+          "std": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "ngram": {
+            "type": "text",
+            "analyzer": "NGramAnalyzer",
+            "search_analyzer": "standard"
+          },
+          "shingles": {
+            "type": "text",
+            "analyzer": "ShingleAnalyzer"
+          }
+        }
+      },
+      "group": {
+        "type": "text",
+        "analyzer": "english",
+        "fields": {
+          "std": {
+            "type": "text",
+            "analyzer": "standard"
+          },
+          "ngram": {
+            "type": "text",
+            "analyzer": "NGramAnalyzer",
+            "search_analyzer": "standard"
+          }
+        }
+      },
+      "serialNumber": {
+        "type": "keyword"
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+
+{
+  "index": {
+    "number_of_shards": 5,
+    "number_of_replicas": 2
+  },
+  "analysis": {
+    "filter": {
+      "NGramFilter": {
+        "type": "edgeNGram",
+        "min_gram": 1,
+        "max_gram": 20
+      },
+      "ShingleFilter": {
+        "type": "shingle",
+        "min_shingle_size": 2,
+        "max_shingle_size": 2,
+        "output_unigrams": false
+      }
+    },
+    "analyzer": {
+      "item_search": {
+        "type": "standard"
+      },
+      "NGramAnalyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": [
+          "lowercase",
+          "NGramFilter"
+        ]
+      },
+      "ShingleAnalyzer": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "filter": [
+          "lowercase",
+          "ShingleFilter"
+        ]
+      }
+    }
+  }
+}

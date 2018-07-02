@@ -37,7 +37,7 @@ class DBManager(object):
             self.proxy = False
         self.mongoClient = mongo.MongoDB(self.config['mongodb'])
         self.elasticsearchClient = elasticsearch.ElasticsearchIndex(self.config['elasticsearch'])
-        self.index_prefix = self.config['elasticsearch']['index']
+        self.indexes = self.config['elasticsearch']['indexes']
         self.firebase = None
 
     def upload_foodprofiles(self):
@@ -59,7 +59,7 @@ class DBManager(object):
         Index the available data from a given data source (JSON dump, mongodb etc)
         :return:
         """
-        index_name = "{index_prefix}-names".format(index_prefix=self.index_prefix)
+        index_name = self.indexes['names']['name']
         if not self.elasticsearchClient.get_index(index_name):
             self.elasticsearchClient.create_index(index_name)
         if loading_bar:
@@ -94,14 +94,14 @@ class DBManager(object):
         Index nutrient values from the available data
         :return:
         """
-        index_name = "{index_prefix}-nutrients".format(index_prefix=self.index_prefix)
+        index_name = self.indexes['nutrients']['name']
         if not self.elasticsearchClient.get_index(index_name):
             self.elasticsearchClient.create_index(index_name)
         if loading_bar:
             for record in tqdm.tqdm(self.mongoClient.parseCollections('nutrients'),
                                     total=self.mongoClient.total_items,
                                     unit='Nutrients'):
-                self.elasticsearchClient.add_record(record, index_name=index_name, type='nutrients')
+                self.elasticsearchClient.add_record(record, index_name=index_name)
 
         else:
             for record in self.mongoClient.parseCollections():
@@ -121,7 +121,7 @@ class DBManager(object):
         Reset a given index, will be done in a re-index event
         :return:
         """
-        index_name = "{index_prefix}-names".format(index_prefix=self.index_prefix)
+        index_name = self.indexes['names']['name']
         self.elasticsearchClient.recreate_index(index_name)
 
     def reconfigure_nutrients_index(self):
@@ -129,7 +129,7 @@ class DBManager(object):
         Reset a given index, will be done in a re-index event
         :return:
         """
-        index_name = "{index_prefix}-nutrients".format(index_prefix=self.index_prefix)
+        index_name = self.indexes['nutrients']['name']
         self.elasticsearchClient.recreate_index(index_name)
 
 

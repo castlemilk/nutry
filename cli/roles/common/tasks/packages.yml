@@ -24,6 +24,43 @@
     state: latest
   when: ansible_os_family == "CentOS"
 
+- block:
+  - name: Install EPEL repo.
+    yum:
+      name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      state: present
+  - name: Import EPEL GPG key.
+    rpm_key:
+      key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+      state: present
+  - name: update packages
+    yum:
+      name: "*"
+      state: latest
+  - name: install certbot
+    yum:
+      name: "{{ item }}"
+    with_items:
+      - nginx
+      - certbot-nginx
+  - name: Add multiple repositories into the same file (2/2)
+    yum_repository:
+      name: extras
+      description: Extras YUM repo
+      file: extras_repos
+      mirrorlist: http://mirrorlist.centos.org/?release=7&arch=$basearch&repo=extras&infra=$infra
+      baseurl: http://mirror.centos.org/centos/7/extras/$basearch/
+      enabled: yes
+  - name: Enable RHEL extras repository
+    shell: yum-config-manager --enable rhel-7-server-extras-rpms
+  - name: Enable AWS RHEL extras repository
+    shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
+  - name: clean
+    shell: yum clean all
+  - name: cache update
+    shell: yum makecache fast
+  when: ansible_os_family == "RedHat"
+
 - name: install base packages
   package:
     name: "{{ item }}"

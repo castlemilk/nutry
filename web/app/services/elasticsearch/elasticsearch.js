@@ -33,7 +33,7 @@ export function checkStatus(response) {
  * @return {[type]}              response from elasticsearch
  */
 export function search(searchString) {
-  const path = `${elasticsearchConfig.indexNames}/names/_search`;
+  const path = `${elasticsearchConfig.indexNames}/_search`;
   const session = axios.create({
     baseURL: elasticsearchConfig.hostname,
     auth: elasticsearchConfig.authentication,
@@ -57,7 +57,7 @@ export function search(searchString) {
  * @return {[type]}              response from elasticsearch
  */
 export function profiler(searchString, elements) {
-  const path = `${elasticsearchConfig.indexNutrients}/nutrients/_search`;
+  const path = `${elasticsearchConfig.indexNutrients}/_search`;
   const session = axios.create({
     baseURL: elasticsearchConfig.hostname,
     auth: elasticsearchConfig.authentication,
@@ -89,7 +89,7 @@ export function profiler(searchString, elements) {
 }
 
 export function getDocument(SN) {
-  const path = `${elasticsearchConfig.indexNutrients}/nutrients/_search`;
+  const path = `${elasticsearchConfig.indexNutrients}/_search`;
   const session = axios.create({
     baseURL: elasticsearchConfig.hostname,
     auth: elasticsearchConfig.authentication,

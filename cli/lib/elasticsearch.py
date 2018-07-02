@@ -1,10 +1,14 @@
+import json
+import os
+from requests import Request, Session
+
+
 from .utils import load_mapping, load_index_properties
 from .exceptions import UnableToLoadMapping, UnableToLoadProperties, FailedToCreateIndex, FailedToDeleteIndex, \
     FailedToIndexRecord
-import json
-from requests import Request, Session
+
+
 from .models import Name, Nutrients, Profile
-import os
 
 
 class ElasticsearchIndex(object):
@@ -13,6 +17,7 @@ class ElasticsearchIndex(object):
     """
 
     def __init__(self, config):
+        self.config = config
         self.host = config['host'] if config.get('port') else 'localhost'
         self.port = config['port'] if config.get('port') else '9200'
         self.xpack = config['xpack'] if config.get('xpack') else False
@@ -21,24 +26,37 @@ class ElasticsearchIndex(object):
             self.password = config['password'] if config.get('password') else 'changeme'
         self.index_name = config['index'] if config.get('index') else 'nutry'
         self.type = 'names'
+        self.mappings = dict()
         self.secure = config['secure'] if config.get('secure') else False
-        self.prefix = 'https' if self.secure else 'http'
-        self.mapping_file_path = config['mapping_file_path'] \
-            if config.get('mapping_file_path') else \
-            os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config', 'elasticsearch_mapping.json')
-        self.properties_file_path = config['properties_file_path'] \
-            if config.get('properties_file_path') else \
-            os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config', 'elasticsearch_properties.json')
+        self.scheme = 'https' if self.secure else 'http'
+        self.prefix = config['prefix'] if config.get('prefix') else ''
+        self.mapping_dir = config['mapping_dir'] \
+            if config.get('mapping_dir') else \
+            os.path.dirname(os.path.dirname(__file__))
+        self.properties_path = config['properties_dir'] \
+            if config.get('properties_dir') else \
+            os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config', 'elasticsearch.properties.json')
 
-        self.url = '{prefix}://{host}:{port}'.format(prefix=self.prefix, host=self.host, port=self.port)
+        self.url = '{scheme}://{host}:{port}{prefix}'.format(scheme=self.scheme, host=self.host, port=self.port,
+                                                             prefix='/' + self.prefix if self.prefix else '')
         try:
-            self.mapping = load_mapping(self.mapping_file_path)
+            self.load_mapping_config()
         except Exception:
-            raise UnableToLoadMapping(self.mapping_file_path)
+            raise UnableToLoadMapping('cannot load mapping')
         try:
-            self.properties = load_index_properties(self.properties_file_path)
+            self.properties = load_index_properties(self.properties_path)
         except Exception:
-            raise UnableToLoadProperties(self.properties_file_path)
+            raise UnableToLoadProperties(self.properties_path)
+
+    def load_mapping_config(self, config_dir=None):
+        for index, config in self.config['indexes'].items():
+            config_path = os.path.join(config_dir if config_dir else self.mapping_dir,
+                                       'config', config['mapping'])
+            try:
+                self.mappings[index] = load_mapping(config_path)
+            except Exception:
+                UnableToLoadMapping(config_path)
+        return self.mappings
 
     def add_record(self, record, index_name=None, type=None):
         """
@@ -48,15 +66,17 @@ class ElasticsearchIndex(object):
         """
         if not isinstance(record, Name) and not isinstance(record, Nutrients) and not isinstance(record, Profile):
             raise Exception('invalid input during add_record')
-        path = "{url}/{index}/{type}".format(url=self.url,
+        path = "{url}/{index}/doc/{id}".format(url=self.url,
                                              index=index_name if index_name else self.index_name,
-                                             type=type if type else self.type)
+                                             id=record.get_id())
         session = Session()
         if self.xpack:
             session.auth = (self.username, self.password)
-        request = Request('POST',
+        headers = {'content-type': 'application/json', 'Accept': 'application/json'}
+        request = Request('PUT',
                           path,
-                          data=record.get_indexable_document())
+                          data=record.get_indexable_document(),
+                          headers=headers)
         prepped = session.prepare_request(request)
         response = session.send(prepped)
         if response.status_code != 200 and response.status_code != 201:
@@ -101,7 +121,7 @@ class ElasticsearchIndex(object):
         elif response.status_code == 404:
             return False
 
-    def recreate_index(self, index_name = None):
+    def recreate_index(self, index_name=None):
         if self.get_index(index_name):
             self.delete_index(index_name)
         return self.create_index(index_name)
@@ -120,6 +140,7 @@ class ElasticsearchIndex(object):
         if self.xpack:
             session.auth = (self.username, self.password)
         request = self._create_index_request(index_name)
+        print(request.data)
         prepped = session.prepare_request(request)
         response = session.send(prepped)
         if response.status_code != 200 and response.status_code != 201:
@@ -142,8 +163,8 @@ class ElasticsearchIndex(object):
                 body["settings"]["analysis"] = props("analysis")
             if props("similarity"):
                 body["settings"]["similarity"] = props("similarity")
-        if self.mapping:
-            body["mappings"] = self.mapping["mappings"]
+        if self.mappings[index_name if index_name else 'names']:
+            body["mappings"] = {'doc': self.mappings[index_name]['mappings'] }
         body = json.dumps(body)
         request = Request('PUT', path, data=body, headers=headers)
         return request

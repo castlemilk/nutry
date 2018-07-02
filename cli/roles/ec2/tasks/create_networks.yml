@@ -4,11 +4,12 @@
     ec2_secret_key: "{{ deployment.aws.secret_key }}"
     state: present
     cidr_block: 172.22.0.0/16
-    resource_tags: { "Environment":"Nutry" }
+    resource_tags: {
+      "Name": "nutry",
+      "Environment":"nutry"
+       }
     internet_gateway: True
     region: "{{ deployment.aws.region }}"
-    resource_tags:
-      Name: Nutry VPC
   register: vpc
 - debug: var=vpc
   tags:
@@ -16,7 +17,7 @@
 
 - set_fact:
     vpc_id: "{{ vpc.vpc_id }}"
-- name: Create subnet for Nutry
+- name: Create public subnet for Nutry
   ec2_vpc_subnet:
     ec2_access_key: "{{ deployment.aws.access_key }}"
     ec2_secret_key: "{{ deployment.aws.secret_key }}"
@@ -26,14 +27,14 @@
     az: "{{ deployment.aws.availability_zone }}"
     cidr: 172.22.1.0/24
     resource_tags:
-      Name: Nutry Subnet
-  register: subnet
+      Name: nutry_public
+  register: public_subnet
 
-- debug: var=subnet
+- debug: var=public_subnet
   tags:
     - debug
 - set_fact:
-    subnet_id: "{{ subnet.subnet.id }}"
+    public_subnet_id: "{{ public_subnet.subnet.id }}"
 
 - name: Set up public subnet route table
   ec2_vpc_route_table:
@@ -44,7 +45,7 @@
     tags:
       Name: Public
     subnets:
-      - "{{ subnet.subnet.id }}"
+      - "{{ public_subnet.subnet.id }}"
     routes:
       - dest: 0.0.0.0/0
         gateway_id: igw

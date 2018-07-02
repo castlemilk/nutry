@@ -90,7 +90,7 @@ module.exports = (options) => ({
         test: /\.(jpg|png|gif)$/,
         use: [
           {
-            loader: "url-loader",
+            loader: "file-loader",
             options: {
               limit: 10000,
             },
@@ -110,6 +110,7 @@ module.exports = (options) => ({
               pngquant: {
                 quality: "65-90",
                 speed: 4,
+                enabled: false,
               },
             },
           },
@@ -146,12 +147,12 @@ module.exports = (options) => ({
     new webpack.DefinePlugin({/* eslint quotes: ["error", "double"]*/
       "process.env": {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        ELASTICSEARCH_PROXY_MODE: JSON.stringify(process.env.ELASTICSEARCH_PROXY_MODE) || "http",
-        ELASTICSEARCH_PROXY_HOST: JSON.stringify(process.env.ELASTICSEARCH_PROXY_HOST || "localhost"),
-        ELASTICSEARCH_PROXY_PORT: JSON.stringify(process.env.ELASTICSEARCH_PROXY_PORT || "9200"),
-        ELASTICSEARCH_PROXY_PREFIX: JSON.stringify(process.env.ELASTICSEARCH_PROXY_PREFIX || ""),
-        FIREBASE_ENDPOINT: JSON.stringify(process.env.FIREBASE_ENDPOINT || "https://nutry-v1.firebaseio.com"),
-        FIREBASE_DB_VERSION: JSON.stringify(process.env.FIREBASE_DB_VERSION || "v1"),
+        ELASTICSEARCH_PROXY_MODE: JSON.stringify(process.env.ELASTICSEARCH_PROXY_MODE),
+        ELASTICSEARCH_PROXY_HOST: JSON.stringify(process.env.ELASTICSEARCH_PROXY_HOST),
+        ELASTICSEARCH_PROXY_PORT: JSON.stringify(process.env.ELASTICSEARCH_PROXY_PORT),
+        ELASTICSEARCH_PROXY_PREFIX: JSON.stringify(process.env.ELASTICSEARCH_PROXY_PREFIX),
+        FIREBASE_ENDPOINT: JSON.stringify(process.env.FIREBASE_ENDPOINT),
+        FIREBASE_DB_VERSION: JSON.stringify(process.env.FIREBASE_DB_VERSION),
       },
     }),
     new webpack.NamedModulesPlugin(),

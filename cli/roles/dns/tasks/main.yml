@@ -1,0 +1,6 @@
+- block:
+  - import_tasks: create_domain.yml
+  - import_tasks: create_recordset.yml
+  tags:
+    - deploy
+    - domain

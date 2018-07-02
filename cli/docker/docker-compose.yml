@@ -1,7 +1,7 @@
 version: '2'
 services:
   kibana:
-    image: docker.elastic.co/kibana/kibana:5.1.1
+    image: docker.elastic.co/kibana/kibana:6.1.3
     environment:
       SERVER_NAME: kibana.dev.nutry
       ELASTICSEARCH_URL: http://elasticsearch1:9200
@@ -16,7 +16,7 @@ services:
 
 
   elasticsearch1:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.1.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.3
     container_name: elasticsearch1
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -39,7 +39,7 @@ services:
     networks:
       - esnet
   elasticsearch2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.1.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.3
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "discovery.zen.ping.unicast.hosts=elasticsearch1"

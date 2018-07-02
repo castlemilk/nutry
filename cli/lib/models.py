@@ -200,6 +200,13 @@ class Nutrients(object):
         self.id = item['ID']
         self.nutrients = dict(map(lambda x: (normalise_nutrient_name(x[0]), x[1]['value']), item['nutrients'].items()))
 
+    def get_id(self):
+        try:
+            return self.id
+        except Exception:
+            raise NoRecordIDAvailable(self)
+
+
     def __repr__(self):
         return self.item
 

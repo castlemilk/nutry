@@ -1,0 +1,45 @@
+version: '2'
+services:
+  webapp:
+    image: castlemilk/nutry-webapp:latest
+    build:
+      context: .
+      dockerfile: ./internals/docker/Dockerfile
+      args:
+        ELASTICSEARCH_PROXY_HOST: nutry.net
+        ELASTICSEARCH_PROXY_PORT: 443
+        ELASTICSEARCH_PROXY_MODE: https
+        ELASTICSEARCH_PROXY_PREFIX: /v1/search
+        FIREBASE_ENDPOINT: https://nutry-v1.firebaseio.com
+        FIREBASE_DB_VERSION: v1
+    environment:
+      ELASTICSEARCH_PROXY_HOST: nutry.net
+      ELASTICSEARCH_PROXY_PORT: 443
+      ELASTICSEARCH_PROXY_MODE: https
+      ELASTICSEARCH_PROXY_PREFIX: /v1/search
+      FIREBASE_ENDPOINT: https://nutry-v1.firebaseio.com
+      FIREBASE_DB_VERSION: v1
+    ports:
+      - "3000:3000"
+  proxy:
+    image: castlemilk/nutry-proxy:latest
+    build:
+      context: ./internals/proxy/
+      args:
+        SERVER_NAME: nutry.net
+        WEBAPP_PORT: 3000
+        ELASTICSEARCH_PROXY_PREFIX: /v1/search/
+        ELASTICSEARCH_PROXY_HOST: es.nutry.net
+        ELASTICSEARCH_PROXY_PORT: 9200
+    volumes:
+      - /etc/letsencrypt/live/www.nutry.net:/etc/nginx
+    depends_on:
+      - webapp
+    ports:
+      - "80:80"
+      - "443:443"
+
+networks:
+  default:
+    external:
+      name: docker_esnet

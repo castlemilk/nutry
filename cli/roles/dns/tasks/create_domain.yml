@@ -1,0 +1,9 @@
+---
+- name: add private domain for internal resolution of services
+  route53_zone:
+    aws_access_key: "{{ deployment.aws.access_key }}"
+    aws_secret_key: "{{ deployment.aws.secret_key }}"
+    zone: "{{ deployment.aws.route53.private_zone }}"
+    vpc_id: "{{ vpc_id }}"
+    vpc_region: "{{ deployment.aws.region }}"
+    comment: "{{ deployment.aws.route53.comment }}"
