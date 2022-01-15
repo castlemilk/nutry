@@ -371,7 +371,7 @@
     "rewire": "^3.0.2",
     "rewire-webpack": "^1.0.1",
     "rimraf": "2.6.1",
-    "shelljs": "^0.7.7",
+    "shelljs": "^0.8.5",
     "sinon": "^4.3.0",
     "style-loader": "0.18.1",
     "stylefmt": "^6.0.0",
