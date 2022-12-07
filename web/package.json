@@ -258,7 +258,7 @@
     "compression": "1.7.1",
     "cross-env": "^5.1.1",
     "enquire-js": "^0.1.1",
-    "express": "4.16.2",
+    "express": "4.17.3",
     "fontfaceobserver": "2.0.13",
     "history": "4.7.2",
     "hoist-non-react-statics": "2.3.1",
